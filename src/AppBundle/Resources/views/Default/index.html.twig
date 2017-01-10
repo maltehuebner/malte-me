@@ -1,7 +1,26 @@
-<ul>
-    {% for photo in photoList %}
-    <li>
-        <img src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('standard') }}" />
-    </li>
-    {% endfor %}
-</ul>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Fahrradstadt Hamburg</title>
+
+        <link rel="stylesheet" href="{{ asset('bundles/app/css/fahrradstadt.css') }}"/>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="col-xs-12 col-sm-12 col-md-10 offset-md-1">
+                <ul>
+                    {% for photo in photoList %}
+                        <li>
+                            <img src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('standard') }}" />
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <script src="{{ asset('bundles/app/js/jquery/jquery-3.1.1.min.js') }}"></script>
+        <script src="{{ asset('bundles/app/js/bootstrap/bootstrap.min.js') }}"></script>
+
+    </body>
+</html>

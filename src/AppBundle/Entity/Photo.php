@@ -22,6 +22,12 @@ class Photo
     protected $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="photos")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user;
+
+    /**
      * @ORM\Column(type="float", nullable=true)
      */
     protected $latitude;
@@ -76,6 +82,18 @@ class Photo
         $this->creationDateTime = new \DateTime();
         $this->updatedAt = new \DateTime();
         $this->description = '';
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): Photo
+    {
+        $this->user = $user;
+
+        return $this;
     }
 
     public function getId(): ?int

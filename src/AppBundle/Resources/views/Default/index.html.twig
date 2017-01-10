@@ -1,7 +1,7 @@
 <ul>
     {% for photo in photoList %}
     <li>
-        <img src="/photos/{{ photo.imageName }}" />
+        <img src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('standard') }}" />
     </li>
     {% endfor %}
 </ul>

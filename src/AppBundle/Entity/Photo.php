@@ -43,19 +43,16 @@ class Photo
 
     /**
      * @ORM\Column(type="datetime")
-     * @JMS\Expose
      */
     protected $dateTime;
 
     /**
      * @ORM\Column(type="datetime")
-     * @JMS\Expose
      */
     protected $updatedAt;
 
     /**
      * @ORM\Column(type="datetime")
-     * @JMS\Expose
      */
     protected $creationDateTime;
 

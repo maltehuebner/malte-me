@@ -4,7 +4,6 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
@@ -156,7 +155,7 @@ class Photo
         return $this;
     }
 
-    public function setImageFile(UploadedFile $image = null): Photo
+    public function setImageFile(File $image = null): Photo
     {
         $this->imageFile = $image;
 

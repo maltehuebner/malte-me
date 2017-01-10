@@ -19,4 +19,20 @@ class DefaultController extends Controller
             'photoList' => $photoList
         ]);
     }
+
+    /**
+     * @Route("/photo/{photoId}", name="show_photo")
+     */
+    public function showAction(Request $request, int $photoId)
+    {
+        $photo = $this->getDoctrine()->getRepository('AppBundle:Photo')->find($photoId);
+
+        if (!$photo) {
+            throw $this->createNotFoundException();
+        }
+
+        return $this->render('AppBundle:Default:index.html.twig', [
+            'photoList' => [$photo]
+        ]);
+    }
 }

@@ -8,13 +8,16 @@ _liip_imagine:
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
+facebook_login:
+    path: /login/check-facebook
+
 hwi_oauth_redirect:
     resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
-    prefix:   /connect
+    prefix:   /login
 
 hwi_oauth_connect:
     resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
-    prefix:   /connect
+    prefix:   /login
 
 hwi_oauth_login:
     resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"

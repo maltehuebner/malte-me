@@ -99,7 +99,7 @@ hwi_oauth:
     firewall_names: [main]
 
     resource_owners:
-        any_name:
+        facebook:
             type:                facebook
             client_id:           %facebook.client_id%
             client_secret:       %facebook.client_secret%

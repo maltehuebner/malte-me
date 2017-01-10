@@ -13,7 +13,7 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $photoList = $this->getDoctrine()->getRepository('AppBundle:Photo')->findAll();
+        $photoList = $this->getDoctrine()->getRepository('AppBundle:Photo')->findForFrontpage();
 
         return $this->render('AppBundle:Default:index.html.twig', [
             'photoList' => $photoList

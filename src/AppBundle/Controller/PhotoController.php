@@ -19,6 +19,16 @@ class PhotoController extends Controller
 
         $uploadForm = $this->createForm(PhotoType::class, $photo);
 
+        $uploadForm->handleRequest($request);
+
+        if ($uploadForm->isSubmitted() && $uploadForm->isValid()) {
+            $photo = $uploadForm->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($photo);
+            $em->flush();
+        }
+
         return $this->render(
             'AppBundle:Photo:upload.html.twig',
             [

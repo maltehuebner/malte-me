@@ -8,31 +8,33 @@
 
     <body>
         <div class="container">
-            <div class="col-xs-12 col-sm-12 col-md-10 offset-md-1">
-                {% for photo in photoList %}
-                <div class="row mt-3">
-                    <div class="col-xs-12">
-                        <div class="card mb-3">
-                            <img class="card-img-top img-fluid" src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('standard') }}" alt="Card image cap">
-                            <div class="card-block">
-                                <h4 class="card-title">
-                                    {{ photo.title }}
-                                </h4>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-10 offset-md-1">
+                    {% for photo in photoList %}
+                    <div class="row mt-3">
+                        <div class="col-xs-12">
+                            <div class="card mb-3">
+                                <img class="card-img-top img-fluid" src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('standard') }}" alt="Card image cap">
+                                <div class="card-block">
+                                    <h4 class="card-title">
+                                        {{ photo.title }}
+                                    </h4>
 
-                                <p class="card-text">
-                                    {{ photo.description }}
-                                </p>
+                                    <p class="card-text">
+                                        {{ photo.description }}
+                                    </p>
 
-                                <p class="card-text">
-                                    <small class="text-muted">
-                                        hinzugefügt am {{ photo.dateTime|date('d.m.Y') }} um {{ photo.dateTime|date('H:i') }} Uhr von {{ photo.user.username }}
-                                    </small>
-                                </p>
+                                    <p class="card-text">
+                                        <small class="text-muted">
+                                            hinzugefügt am {{ photo.dateTime|date('d.m.Y') }} um {{ photo.dateTime|date('H:i') }} Uhr von {{ photo.user.username }}
+                                        </small>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
         </div>
 

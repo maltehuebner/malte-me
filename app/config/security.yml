@@ -12,6 +12,17 @@ security:
 
     firewalls:
         main:
+            anonymous: ~
+            oauth:
+                resource_owners:
+                    facebook:           "/login/check-facebook"
+                login_path:        /login
+                use_forward:       false
+                failure_path:      /login
+
+                oauth_user_provider:
+                    service: user_provider
+        main:
             pattern: ^/
             form_login:
                 provider: fos_userbundle

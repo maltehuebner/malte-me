@@ -103,6 +103,8 @@ hwi_oauth:
             type:                facebook
             client_id:           %facebook.client_id%
             client_secret:       %facebook.client_secret%
+            scope:               email
+            infos_url:           https://graph.facebook.com/me?fields=id,name,email,first_name,last_name,gender
     # an optional setting to configure a query string parameter which can be used to redirect
     # the user after authentication, e.g. /connect/facebook?_destination=/my/destination will
     # redirect the user to /my/destination after facebook authenticates them.  If this is not

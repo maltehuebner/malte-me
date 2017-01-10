@@ -76,3 +76,15 @@ vich_uploader:
             uri_prefix:         /photos
             upload_destination: %kernel.root_dir%/../web/photos
             namer:              vich_uploader.namer_uniqid
+
+liip_imagine:
+    resolvers:
+       default:
+          web_path: ~
+
+    filter_sets:
+        cache: ~
+        standard:
+            quality: 75
+            filters:
+                thumbnail: { size: [1600, 1600], mode: inset }

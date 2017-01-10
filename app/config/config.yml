@@ -88,3 +88,8 @@ liip_imagine:
             quality: 75
             filters:
                 thumbnail: { size: [1600, 1600], mode: inset }
+
+fos_user:
+    db_driver: orm # other valid values are 'mongodb' and 'couchdb'
+    firewall_name: main
+    user_class: AppBundle\Entity\User

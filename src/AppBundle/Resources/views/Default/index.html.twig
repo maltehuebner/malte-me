@@ -49,7 +49,7 @@
                     <div class="row mt-3">
                         <div class="col-xs-12">
                             <div class="card mb-3">
-                                <img class="card-img-top img-fluid" src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('standard') }}" alt="Card image cap">
+                                <img class="card-img-top img-fluid" src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('standard') }}" alt="{{ photo.title }}" />
                                 <div class="card-block">
                                     <a href="{{ path('show_photo', { photoId: photo.id }) }}">
                                         <h4 class="card-title">

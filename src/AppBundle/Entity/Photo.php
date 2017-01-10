@@ -40,6 +40,11 @@ class Photo
     /**
      * @ORM\Column(type="text", nullable=true)
      */
+    protected $title;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
     protected $description;
 
     /**
@@ -84,6 +89,11 @@ class Photo
         $this->description = '';
     }
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
     public function getUser(): ?User
     {
         return $this->user;
@@ -94,11 +104,6 @@ class Photo
         $this->user = $user;
 
         return $this;
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getEnabled(): bool
@@ -133,6 +138,18 @@ class Photo
     public function setLongitude(float $longitude): Photo
     {
         $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): Photo
+    {
+        $this->title = $title;
 
         return $this;
     }

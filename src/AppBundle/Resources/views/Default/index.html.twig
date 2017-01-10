@@ -9,13 +9,20 @@
     <body>
         <div class="container">
             <div class="col-xs-12 col-sm-12 col-md-10 offset-md-1">
-                <ul>
-                    {% for photo in photoList %}
-                        <li>
-                            <img src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('standard') }}" />
-                        </li>
-                    {% endfor %}
-                </ul>
+                {% for photo in photoList %}
+                <div class="row mt-3">
+                    <div class="col-xs-12">
+                        <div class="card mb-3">
+                            <img class="card-img-top img-fluid" src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('standard') }}" alt="Card image cap">
+                            <div class="card-block">
+                                <h4 class="card-title">Card title</h4>
+                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
         </div>
 

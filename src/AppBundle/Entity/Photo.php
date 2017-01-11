@@ -38,6 +38,11 @@ class Photo
     protected $longitude;
 
     /**
+     * @ORM\Column(type="text", length=255, nullable=true)
+     */
+    protected $slug;
+
+    /**
      * @ORM\Column(type="text", nullable=true)
      */
     protected $title;
@@ -102,6 +107,18 @@ class Photo
     public function setUser(User $user): Photo
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): Photo
+    {
+        $this->slug = $slug;
 
         return $this;
     }

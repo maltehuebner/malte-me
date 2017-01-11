@@ -9,9 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
-    /**
-     * @Route("/", name="frontpage")
-     */
     public function indexAction(Request $request): Response
     {
         $photoList = $this->getDoctrine()->getRepository('AppBundle:Photo')->findForFrontpage();
@@ -21,9 +18,6 @@ class DefaultController extends Controller
         ]);
     }
 
-    /**
-     * @Route("/{slug}", name="show_photo")
-     */
     public function showAction(Request $request, string $slug): Response
     {
         $photo = $this->getDoctrine()->getRepository('AppBundle:Photo')->findOneBySlug($slug);

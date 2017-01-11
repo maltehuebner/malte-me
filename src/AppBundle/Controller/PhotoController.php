@@ -12,9 +12,6 @@ use \Malenki\Slug;
 
 class PhotoController extends Controller
 {
-    /**
-     * @Route("/upload", name="photo_upload")
-     */
     public function uploadAction(Request $request, UserInterface $user)
     {
         $photo = new Photo();

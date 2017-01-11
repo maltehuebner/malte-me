@@ -1,6 +1,5 @@
 app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
+    resource: "@AppBundle/Resources/config/routing.xml"
 
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"

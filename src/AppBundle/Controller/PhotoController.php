@@ -4,7 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Photo;
 use AppBundle\Form\Type\PhotoType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use PHPExif\Reader\Reader;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -30,8 +30,10 @@ class PhotoController extends Controller
             $em->persist($photo); // first persist to generate id
             $em->flush();
 
-            $slug = new Slug($photo->getTitle().' '.$photo->getId());
-            $photo->setSlug($slug);
+            $photo
+                ->setDateTime($this->getPhotoDateTime($photo))
+                ->setSlug($this->createSlug($photo))
+            ;
 
             $em->persist($photo); // second persist to save slug
             $em->flush();
@@ -43,5 +45,28 @@ class PhotoController extends Controller
                 'uploadForm' => $uploadForm->createView()
             ]
         );
+    }
+
+    protected function getPhotoDateTime(Photo $photo): ?\DateTime
+    {
+        $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
+        $path = $this->getParameter('kernel.root_dir').'/../web/'.$helper->asset($photo, 'imageFile');
+
+        $reader = Reader::factory(Reader::TYPE_NATIVE);
+
+        $exif = $reader->getExifFromFile($path);
+
+        $dateTime = $exif->getCreationDate();
+
+        if ($dateTime) {
+            return $dateTime;
+        }
+
+        return null;
+    }
+
+    protected function createSlug(Photo $photo): string
+    {
+        return new Slug($photo->getTitle().' '.$photo->getId());
     }
 }

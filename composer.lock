@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9cb439825ab0a6789ae24093cdcf8ae3",
+    "content-hash": "546acc629d50acb6a8b944628e41b6ba",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1473,6 +1473,53 @@
                 "imagine"
             ],
             "time": "2017-01-08T18:53:27+00:00"
+        },
+        {
+            "name": "malenki/slug",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/malenkiki/slug.git",
+                "reference": "e7e2ffa47c086fd3eff326a2aac932e96611ed35"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/malenkiki/slug/zipball/e7e2ffa47c086fd3eff326a2aac932e96611ed35",
+                "reference": "e7e2ffa47c086fd3eff326a2aac932e96611ed35",
+                "shasum": ""
+            },
+            "require": {
+                "ext-intl": "*",
+                "php": ">=5.3.0"
+            },
+            "suggest": {
+                "ext-mbstring": "To convert to lowercase non ASCII characters."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Malenki": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michel Petit",
+                    "email": "petit.michel@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Simple class to create slug.",
+            "homepage": "https://github.com/malenkiki/slug",
+            "keywords": [
+                "slug",
+                "string",
+                "url"
+            ],
+            "time": "2014-04-26T15:40:10+00:00"
         },
         {
             "name": "monolog/monolog",

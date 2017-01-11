@@ -32,7 +32,8 @@
         "liip/imagine-bundle": "^1.7",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "hwi/oauth-bundle": "^0.5.3",
-        "doctrine/doctrine-migrations-bundle": "^1.0"
+        "doctrine/doctrine-migrations-bundle": "^1.0",
+        "malenki/slug": "^1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

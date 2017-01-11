@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "546acc629d50acb6a8b944628e41b6ba",
+    "content-hash": "22db5a8ff9de3b3747eb06701803b8ba",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1520,6 +1520,61 @@
                 "url"
             ],
             "time": "2014-04-26T15:40:10+00:00"
+        },
+        {
+            "name": "miljar/php-exif",
+            "version": "v0.6.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHPExif/php-exif.git",
+                "reference": "51add6bc262903927e80b81cf137db4163474840"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHPExif/php-exif/zipball/51add6bc262903927e80b81cf137db4163474840",
+                "reference": "51add6bc262903927e80b81cf137db4163474840",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpmd/phpmd": "~2.2",
+                "phpunit/phpunit": "3.7.*",
+                "satooshi/php-coveralls": "~0.6",
+                "sebastian/phpcpd": "1.4.*@stable",
+                "squizlabs/php_codesniffer": "1.4.*@stable"
+            },
+            "suggest": {
+                "ext-exif": "Use exif PHP extension as adapter",
+                "lib-exiftool": "Use perl lib exiftool as adapter"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PHPExif": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tom Van Herreweghe",
+                    "homepage": "http://theanalogguy.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Object-Oriented EXIF parsing",
+            "keywords": [
+                "IPTC",
+                "exif",
+                "exiftool",
+                "jpeg",
+                "tiff"
+            ],
+            "time": "2016-12-27T16:53:40+00:00"
         },
         {
             "name": "monolog/monolog",

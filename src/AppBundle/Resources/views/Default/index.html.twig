@@ -51,7 +51,7 @@
                             <div class="card mb-3">
                                 <img class="card-img-top img-fluid" src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('standard') }}" alt="{{ photo.title }}" />
                                 <div class="card-block">
-                                    <a href="{{ path('show_photo', { photoId: photo.id }) }}">
+                                    <a href="{{ path('show_photo', { slug: photo.slug }) }}">
                                         <h4 class="card-title">
                                             {{ photo.title }}
                                         </h4>

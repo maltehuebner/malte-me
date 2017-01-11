@@ -22,11 +22,11 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/photo/{photoId}", name="show_photo")
+     * @Route("/{slug}", name="show_photo")
      */
-    public function showAction(Request $request, int $photoId): Response
+    public function showAction(Request $request, string $slug): Response
     {
-        $photo = $this->getDoctrine()->getRepository('AppBundle:Photo')->find($photoId);
+        $photo = $this->getDoctrine()->getRepository('AppBundle:Photo')->findOneBySlug($slug);
 
         if (!$photo) {
             throw $this->createNotFoundException();

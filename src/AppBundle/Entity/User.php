@@ -159,4 +159,9 @@ class User extends BaseUser
     {
         return $this->twitterAccessToken;
     }
+
+    public function getDisplayname(): string
+    {
+        return $this->firstname ?? $this->username;
+    }
 }

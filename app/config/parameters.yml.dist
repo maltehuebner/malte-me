@@ -20,3 +20,6 @@ parameters:
 
     facebook.client_id: ThisTokenIsNotSoSecretChangeIt
     facebook.client_secret: ThisTokenIsNotSoSecretChangeIt
+
+    strava.client_id: ThisTokenIsNotSoSecretChangeIt
+    strava.client_secret: ThisTokenIsNotSoSecretChangeIt

@@ -19,9 +19,20 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @ORM\Column(name="firstname", type="string", length=255, nullable=true)
+     */
+    protected $firstname;
+
+    /**
+     * @ORM\Column(name="lastname", type="string", length=255, nullable=true)
+     */
+    protected $lastname;
+
+    /**
      * @ORM\Column(name="facebook_id", type="string", length=255, nullable=true)
      */
     protected $facebookId;
+
     /**
      * @ORM\Column(name="facebook_access_token", type="string", length=255, nullable=true)
      */
@@ -31,6 +42,7 @@ class User extends BaseUser
      * @ORM\Column(name="strava_id", type="string", length=255, nullable=true)
      */
     protected $stravaId;
+
     /**
      * @ORM\Column(name="strava_access_token", type="string", length=255, nullable=true)
      */
@@ -40,6 +52,30 @@ class User extends BaseUser
     {
         parent::__construct();
         // your own logic
+    }
+
+    public function setFirstname(string $firstname): User
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setLastname(string $lastname): User
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
     }
 
     public function setFacebookId(string $facebookId): User

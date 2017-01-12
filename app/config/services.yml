@@ -9,4 +9,4 @@ services:
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
     user_provider:
         class: AppBundle\UserProvider\FOSUBUserProvider
-        arguments: ["@fos_user.user_manager", {facebook: facebookId, strava: stravaId, runkeeper: runkeeperId}]
+        arguments: ["@fos_user.user_manager", {facebook: facebookId, strava: stravaId, twitter: twitterId}]

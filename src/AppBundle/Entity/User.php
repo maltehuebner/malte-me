@@ -48,6 +48,16 @@ class User extends BaseUser
      */
     protected $stravaAccessToken;
 
+    /**
+     * @ORM\Column(name="twitter_id", type="string", length=255, nullable=true)
+     */
+    protected $twitterId;
+
+    /**
+     * @ORM\Column(name="twitter_access_token", type="string", length=255, nullable=true)
+     */
+    protected $twitterAccessToken;
+
     public function __construct()
     {
         parent::__construct();
@@ -124,5 +134,29 @@ class User extends BaseUser
     public function getStravaAccessToken(): ?string
     {
         return $this->stravaAccessToken;
+    }
+
+    public function setTwitterId(string $twitterId): User
+    {
+        $this->twitterId = $twitterId;
+
+        return $this;
+    }
+
+    public function getTwitterId(): ?string
+    {
+        return $this->twitterId;
+    }
+
+    public function setTwitterAccessToken(string $twitterAccessToken): User
+    {
+        $this->twitterAccessToken = $twitterAccessToken;
+
+        return $this;
+    }
+
+    public function getTwitterAccessToken(): ?string
+    {
+        return $this->twitterAccessToken;
     }
 }

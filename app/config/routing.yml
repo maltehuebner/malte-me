@@ -4,6 +4,9 @@ facebook_login:
 strava_login:
     path: /login/check-strava
 
+twitter_login:
+    path: /login/check-twitter
+
 hwi_oauth_redirect:
     resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
     prefix:   /login

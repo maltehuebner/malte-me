@@ -112,6 +112,12 @@ hwi_oauth:
             type:                strava
             client_id:           %strava.client_id%
             client_secret:       %strava.client_secret%
+        twitter:
+            type:                twitter
+            client_id:           %twitter.client_id%
+            client_secret:       %twitter.client_secret%
+            options:
+                include_email: true
     # an optional setting to configure a query string parameter which can be used to redirect
     # the user after authentication, e.g. /connect/facebook?_destination=/my/destination will
     # redirect the user to /my/destination after facebook authenticates them.  If this is not

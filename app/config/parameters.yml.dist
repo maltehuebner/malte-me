@@ -23,3 +23,6 @@ parameters:
 
     strava.client_id: ThisTokenIsNotSoSecretChangeIt
     strava.client_secret: ThisTokenIsNotSoSecretChangeIt
+
+    twitter.client_id: ThisTokenIsNotSoSecretChangeIt
+    twitter.client_secret: ThisTokenIsNotSoSecretChangeIt

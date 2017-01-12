@@ -54,7 +54,7 @@ class User extends BaseUser
         // your own logic
     }
 
-    public function setFirstname(string $firstname): User
+    public function setFirstname(string $firstname = null): User
     {
         $this->firstname = $firstname;
 
@@ -66,7 +66,7 @@ class User extends BaseUser
         return $this->firstname;
     }
 
-    public function setLastname(string $lastname): User
+    public function setLastname(string $lastname = null): User
     {
         $this->lastname = $lastname;
 

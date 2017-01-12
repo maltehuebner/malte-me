@@ -27,6 +27,15 @@ class User extends BaseUser
      */
     protected $facebookAccessToken;
 
+    /**
+     * @ORM\Column(name="strava_id", type="string", length=255, nullable=true)
+     */
+    protected $stravaId;
+    /**
+     * @ORM\Column(name="strava_access_token", type="string", length=255, nullable=true)
+     */
+    protected $stravaAccessToken;
+
     public function __construct()
     {
         parent::__construct();
@@ -55,5 +64,29 @@ class User extends BaseUser
     public function getFacebookAccessToken(): ?string
     {
         return $this->facebookAccessToken;
+    }
+
+    public function setStravaId(string $stravaId): User
+    {
+        $this->stravaId = $stravaId;
+
+        return $this;
+    }
+
+    public function getStravaId(): ?string
+    {
+        return $this->stravaId;
+    }
+
+    public function setStravaAccessToken(string $stravaAccessToken): User
+    {
+        $this->stravaAccessToken = $stravaAccessToken;
+
+        return $this;
+    }
+
+    public function getStravaAccessToken(): ?string
+    {
+        return $this->stravaAccessToken;
     }
 }

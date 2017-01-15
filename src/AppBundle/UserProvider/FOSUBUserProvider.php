@@ -28,8 +28,11 @@ class FOSUBUserProvider extends BaseClass
             $this->userManager->updateUser($previousUser);
         }
 
-        $user->$setter_id($username);
-        $user->$setter_token($response->getAccessToken());
+        $user
+            ->$setter_id($username)
+            ->$setter_token($response->getAccessToken())
+        ;
+
         $this->userManager->updateUser($user);
     }
 
@@ -70,8 +73,20 @@ class FOSUBUserProvider extends BaseClass
     {
         $username = $response->getNickname() ? $response->getNickname() : $response->getUsername();
         $email = $response->getEmail() ? $response->getEmail() : $response->getUsername();
+        $firstname = $response->getFirstName();
+        $lastname = $response->getLastName();
+        $realname = $response->getRealName();
+
+        if (!$firstname && !$lastname && $realname) {
+            $nameParts = explode(' ', $realname);
+
+            $firstname = array_shift($nameParts);
+            $lastname = array_pop($nameParts);
+        }
 
         $user
+            ->setFirstname($firstname)
+            ->setLastname($lastname)
             ->setUsername($username)
             ->setEmail($email)
             ->setPassword('')

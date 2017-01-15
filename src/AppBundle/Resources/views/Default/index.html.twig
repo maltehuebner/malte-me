@@ -36,18 +36,18 @@
     <body>
         <div class="container">
             <div class="row mt-3">
-                <div class="col-xs-12 text-xs-center">
+                <div class="col-12">
                     <a href="{{ path('frontpage') }}">
-                        <img src="{{ asset('bundles/app/images/logo/logo-300.png') }}" alt="Logo Fahrradstadt Hamburg" />
+                        <img class=" mx-auto d-block" src="{{ asset('bundles/app/images/logo/logo-300.png') }}" alt="Logo Fahrradstadt Hamburg" />
                     </a>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-10 offset-md-1">
+                <div class="col-12 col-sm-12 col-md-10 offset-md-1">
                     {% for photo in photoList %}
                     <div class="row mt-3">
-                        <div class="col-xs-12">
+                        <div class="col-12">
                             <div class="card mb-3">
                                 <img class="card-img-top img-fluid" src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('standard') }}" alt="{{ photo.title }}" />
                                 <div class="card-block">

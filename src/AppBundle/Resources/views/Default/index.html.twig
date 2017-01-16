@@ -51,6 +51,16 @@
                             <div class="card mb-3">
                                 <img class="card-img-top img-fluid" src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('standard') }}" alt="{{ photo.title }}" />
                                 <div class="card-block">
+                                    {% if photo.highlighted %}
+                                        <span class="badge badge-info float-right">hervorgehoben</span>
+                                    {% endif %}
+                                    {% if photo.sponsored %}
+                                        <span class="badge badge-warning float-right">gesponsert</span>
+                                    {% endif %}
+                                    {% if photo.affiliated %}
+                                        <span class="badge badge-danger float-right">Anzeige</span>
+                                    {% endif %}
+
                                     <a href="{{ path('show_photo', { slug: photo.slug }) }}">
                                         <h4 class="card-title">
                                             {{ photo.title }}

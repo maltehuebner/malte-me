@@ -58,6 +58,21 @@ class Photo
     protected $enabled = true;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $highlighted = false;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $sponsored = false;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $affiliated = false;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     protected $dateTime;
@@ -245,5 +260,41 @@ class Photo
     public function getUpdatedAt(): ?\DateTime
     {
         return $this->updatedAt;
+    }
+
+    public function setSponsored(bool $sponsored): Photo
+    {
+        $this->sponsored = $sponsored;
+
+        return $this;
+    }
+
+    public function getSponsored(): bool
+    {
+        return $this->sponsored;
+    }
+
+    public function setHighlighted(bool $highlighted): Photo
+    {
+        $this->highlighted = $highlighted;
+
+        return $this;
+    }
+
+    public function getHighlighted(): bool
+    {
+        return $this->highlighted;
+    }
+
+    public function setAffiliated(bool $affiliated): Photo
+    {
+        $this->affiliated = $affiliated;
+
+        return $this;
+    }
+
+    public function getAffiliated(): bool
+    {
+        return $this->affiliated;
     }
 }

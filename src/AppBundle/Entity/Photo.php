@@ -70,7 +70,7 @@ class Photo
     /**
      * @ORM\Column(type="datetime")
      */
-    protected $creationDateTime;
+    protected $createdAt;
 
     /**
      * @Vich\UploadableField(mapping="photo", fileNameProperty="imageName")
@@ -89,7 +89,7 @@ class Photo
     public function __construct()
     {
         $this->dateTime = new \DateTime();
-        $this->creationDateTime = new \DateTime();
+        $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
         $this->description = '';
     }
@@ -195,14 +195,14 @@ class Photo
         return $this;
     }
 
-    public function getCreationDateTime(): \DateTime
+    public function getCreatedAt(): \DateTime
     {
-        return $this->creationDateTime;
+        return $this->createdAt;
     }
 
-    public function setCreationDateTime(\DateTime $creationDateTime): Photo
+    public function setCreatedAt(\DateTime $createdAt): Photo
     {
-        $this->creationDateTime = $creationDateTime;
+        $this->createdAt = $createdAt;
 
         return $this;
     }

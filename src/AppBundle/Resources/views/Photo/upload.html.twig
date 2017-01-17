@@ -10,67 +10,82 @@
     <title>Fahrradstadt Hamburg</title>
 
     <link rel="stylesheet" href="{{ asset('bundles/app/css/fahrradstadt.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/jasny-bootstrap/jasny-bootstrap.css') }}" />
 </head>
 
 <body>
-<div class="container">
-    <div class="row mt-3">
-        <div class="col-12 text-center">
-            <a href="{{ path('frontpage') }}">
-                <img src="{{ asset('bundles/app/images/logo/logo-300.png') }}" alt="Logo Fahrradstadt Hamburg" />
-            </a>
-        </div>
-    </div>
-
-    <div class="row mt-3">
-        <div class="col-12 text-center">
-            <h2>
-                Foto hochladen
-            </h2>
-        </div>
-    </div>
-
-    {{ form_start(uploadForm) }}
-    <div class="row">
-        <div class="col-12 col-md-8 offset-md-2">
-            <div class="form-group">
-                <label for="">Titel:</label>
-                {{ form_widget(uploadForm.title, { attr: { class: 'form-control form-control-lg' } }) }}
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-12 text-center">
+                <a href="{{ path('frontpage') }}">
+                    <img src="{{ asset('bundles/app/images/logo/logo-300.png') }}" alt="Logo Fahrradstadt Hamburg" />
+                </a>
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-12 col-md-8 offset-md-2">
-            <div class="form-group">
-                <label for="">Beschreibung:</label>
-                {{ form_widget(uploadForm.description, { attr: { class: 'form-control form-control-lg' } }) }}
+        <div class="row mt-3">
+            <div class="col-12 text-center">
+                <h2>
+                    Foto hochladen
+                </h2>
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-12 col-md-8 offset-md-2">
-            <div class="form-group">
-                <label for="">Dein Photo:</label>
-                {{ form_widget(uploadForm.imageFile, { attr: { class: 'form-control form-control-lg' } }) }}
+        {{ form_start(uploadForm) }}
+        <div class="row">
+            <div class="col-12 col-md-8 offset-md-2">
+                <div class="form-group">
+                    <label for="">Titel:</label>
+                    {{ form_widget(uploadForm.title, { attr: { class: 'form-control form-control-lg' } }) }}
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-12 col-md-8 offset-md-2 text-center">
-            {{ form_widget(uploadForm.submit, { attr: { class: 'btn btn-primary btn-lg' } }) }}
+        <div class="row">
+            <div class="col-12 col-md-8 offset-md-2">
+                <div class="form-group">
+                    <label for="">Beschreibung:</label>
+                    {{ form_widget(uploadForm.description, { attr: { class: 'form-control form-control-lg' } }) }}
+                </div>
+            </div>
         </div>
-    </div>
 
-    {{ form_end(uploadForm) }}
+        <div class="row">
+            <div class="col-12 col-md-8 offset-md-2 text-center">
+                <div class="fileinput fileinput-new" data-provides="fileinput">
+                    <div class="fileinput-preview img-thumbnail thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;">
+
+                    </div>
+
+                    <div>
+                        <span class="btn btn-secondary btn-file">
+                            <span class="fileinput-new">Bild auswählen</span>
+                            <span class="fileinput-exists">Bild ändern</span>
+                            <input type="file" id="photo_imageFile_file" name="photo[imageFile][file]" required="required">
+                        </span>
+                        <a href="#" class="btn btn-secondary fileinput-exists" data-dismiss="fileinput">Bild entfernen</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-12 col-md-8 offset-md-2 text-center">
+                {{ form_widget(uploadForm.submit, { attr: { class: 'btn btn-primary btn-lg' } }) }}
+            </div>
+        </div>
+
+        {{ form_widget(uploadForm._token) }}
+        </form>
 
     {{ include('AppBundle:Includes:footer.html.twig') }}
 </div>
 
 <script src="{{ asset('bundles/app/js/jquery/jquery-3.1.1.min.js') }}"></script>
 <script src="{{ asset('bundles/app/js/bootstrap/bootstrap.min.js') }}"></script>
+<script src="{{ asset('bundles/app/js/jasny-bootstrap/jasny-bootstrap.min.js') }}"></script>
 
 <!-- Piwik -->
 <script type="text/javascript">

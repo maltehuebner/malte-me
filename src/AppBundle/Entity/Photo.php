@@ -80,6 +80,11 @@ class Photo
     /**
      * @ORM\Column(type="datetime")
      */
+    protected $displayDateTime;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
     protected $updatedAt;
 
     /**
@@ -206,6 +211,18 @@ class Photo
     public function setDateTime(\Datetime $dateTime): Photo
     {
         $this->dateTime = $dateTime;
+
+        return $this;
+    }
+
+    public function getDisplayDateTime(): ?\DateTime
+    {
+        return $this->displayDateTime;
+    }
+
+    public function setDisplayDateTime(\DateTime $displayDateTime): Photo
+    {
+        $this->displayDateTime = $displayDateTime;
 
         return $this;
     }

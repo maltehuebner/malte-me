@@ -12,7 +12,7 @@ class PhotoRepository extends EntityRepository
 
         $qb->where($qb->expr()->eq('p.enabled', true));
 
-        $qb->addOrderBy('p.dateTime', 'DESC');
+        $qb->addOrderBy('p.displayDateTime', 'DESC');
 
         $query = $qb->getQuery();
 

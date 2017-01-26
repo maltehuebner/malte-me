@@ -41,6 +41,13 @@ class PhotoController extends Controller
 
             $em->persist($photo); // second persist to save slug
             $em->flush();
+
+            return $this->redirectToRoute(
+                'show_photo',
+                [
+                    'slug' => $photo->getSlug()
+                ]
+            );
         }
 
         return $this->render(

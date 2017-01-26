@@ -34,7 +34,8 @@
         "hwi/oauth-bundle": "^0.5.3",
         "doctrine/doctrine-migrations-bundle": "^1.0",
         "malenki/slug": "^1.0",
-        "miljar/php-exif": "~0.6.0"
+        "miljar/php-exif": "~0.6.0",
+        "cebe/markdown": "^1.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

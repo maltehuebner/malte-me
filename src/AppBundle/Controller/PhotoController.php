@@ -26,7 +26,11 @@ class PhotoController extends Controller
             /** @var Photo $photo */
             $photo = $uploadForm->getData();
 
-            $photo->setUser($user);
+            $photo
+                ->setUser($user)
+                ->setDisplayDateTime(new \DateTime())
+            ;
+
             $em->persist($photo); // first persist to generate id
             $em->flush();
 

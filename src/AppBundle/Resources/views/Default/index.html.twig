@@ -54,6 +54,7 @@
                                     {% if photo.highlighted %}
                                         <span class="badge badge-info float-right" data-toggle="tooltip" data-placement="bottom" title="Dieses Foto wird eine Zeit lang hervorgehoben.">hervorgehoben</span>
                                     {% endif %}
+
                                     {% if photo.sponsored %}
                                         <span class="badge badge-warning float-right" data-toggle="tooltip" data-placement="bottom" title="Dieser Beitrag enthält einen oder mehrere gesponserte Links.">gesponsert</span>
                                     {% endif %}
@@ -68,7 +69,7 @@
                                     </a>
 
                                     <p class="card-text">
-                                        {{ photo.description }}
+                                        {{ photo.description|markdown }}
                                     </p>
 
                                     <p class="card-text">

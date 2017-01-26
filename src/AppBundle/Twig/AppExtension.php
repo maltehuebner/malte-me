@@ -7,13 +7,14 @@ class AppExtension extends \Twig_Extension
     public function getFilters()
     {
         return array(
-            new \Twig_SimpleFilter('markdown', array($this, 'markdownFilter')),
+            new \Twig_SimpleFilter('markdown', array($this, 'markdownFilter'), array('is_safe' => array('html'))),
         );
     }
 
     public function markdownFilter(string $string): string
     {
-        return 'foo';
+        $parser = new \cebe\markdown\Markdown();
+        return $parser->parse($string);
     }
 
     public function getName()

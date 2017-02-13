@@ -58,22 +58,22 @@ class PhotoController extends Controller
         );
     }
 
-    protected function getPhotoDateTime(Photo $photo): ?\DateTime
+    protected function getPhotoDateTime(Photo $photo): \DateTime
     {
         $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
         $path = $this->getParameter('kernel.root_dir').'/../web/'.$helper->asset($photo, 'imageFile');
 
-        $reader = Reader::factory(Reader::TYPE_NATIVE);
+        try {
+            $reader = Reader::factory(Reader::TYPE_NATIVE);
 
-        $exif = $reader->getExifFromFile($path);
+            $exif = $reader->getExifFromFile($path);
 
-        $dateTime = $exif->getCreationDate();
-
-        if ($dateTime) {
-            return $dateTime;
+            $dateTime = $exif->getCreationDate();
+        } catch (\Exception $e) {
+            $dateTime = new \DateTime();
         }
 
-        return null;
+        return $dateTime;
     }
 
     protected function createSlug(Photo $photo): string

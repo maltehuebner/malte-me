@@ -17,18 +17,29 @@ class PhotoAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('slug', TextType::class)
+            ->with('Fotoinformationen', ['class' => 'col-xs-6'])
             ->add('title', TextType::class)
             ->add('description', TextareaType::class)
+            ->end()
+
+            ->with('Metainformationen', ['class' => 'col-xs-6'])
+            ->add('slug', TextType::class)
             ->add('enabled', CheckboxType::class)
             ->add('highlighted', CheckboxType::class)
             ->add('sponsored', CheckboxType::class)
             ->add('affiliated', CheckboxType::class)
+            ->end()
+
+            ->with('Daten', ['class' => 'col-xs-6'])
             ->add('dateTime', DateTimeType::class)
             ->add('displayDateTime', DateTimeType::class)
             ->add('updatedAt', DateTimeType::class)
             ->add('createdAt', DateTimeType::class)
+            ->end()
+
+            ->with('Datei', ['class' => 'col-xs-6'])
             ->add('imageFile', VichFileType::class)
+            ->end()
         ;
     }
 

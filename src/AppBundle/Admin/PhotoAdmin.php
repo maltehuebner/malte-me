@@ -31,10 +31,38 @@ class PhotoAdmin extends AbstractAdmin
             ->end()
 
             ->with('Daten', ['class' => 'col-xs-6'])
-            ->add('dateTime', DateTimeType::class)
-            ->add('displayDateTime', DateTimeType::class)
-            ->add('updatedAt', DateTimeType::class)
-            ->add('createdAt', DateTimeType::class)
+            ->add(
+                'dateTime',
+                DateTimeType::class,
+                [
+                    'widget' => 'single_text',
+                    'format' => 'yyyy-MM-dd hh:mm:ss'
+                ]
+            )
+            ->add(
+                'displayDateTime',
+                DateTimeType::class,
+                [
+                    'widget' => 'single_text',
+                    'format' => 'yyyy-MM-dd hh:mm:ss'
+                ]
+            )
+            ->add(
+                'updatedAt',
+                DateTimeType::class,
+                [
+                    'widget' => 'single_text',
+                    'format' => 'yyyy-MM-dd hh:mm:ss'
+                ]
+            )
+            ->add(
+                'createdAt',
+                DateTimeType::class,
+                [
+                    'widget' => 'single_text',
+                    'format' => 'yyyy-MM-dd hh:mm:ss'
+                ]
+            )
             ->end()
 
             ->with('Datei', ['class' => 'col-xs-6'])

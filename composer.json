@@ -36,7 +36,8 @@
         "malenki/slug": "^1.0",
         "miljar/php-exif": "~0.6.0",
         "cebe/markdown": "^1.1",
-        "sonata-project/admin-bundle": "^3.13"
+        "sonata-project/admin-bundle": "^3.13",
+        "sonata-project/doctrine-orm-admin-bundle": "^3.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

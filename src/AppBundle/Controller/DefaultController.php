@@ -11,10 +11,18 @@ class DefaultController extends Controller
 {
     public function indexAction(Request $request): Response
     {
-        $photoList = $this->getDoctrine()->getRepository('AppBundle:Photo')->findForFrontpage();
+        $paginator  = $this->get('knp_paginator');
+
+        $query = $this->getDoctrine()->getRepository('AppBundle:Photo')->getFrontpageQuery();
+
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            3
+        );
 
         return $this->render('AppBundle:Default:index.html.twig', [
-            'photoList' => $photoList
+            'pagination' => $pagination
         ]);
     }
 

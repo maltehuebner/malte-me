@@ -7,8 +7,8 @@
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
 
-        {% if photoList|length == 1 %}
-        {% set photo = photoList|first %}
+        {% if pagination|length == 1 %}
+        {% set photo = pagination|first %}
         <meta name="description" content="{{ photo.description[:155] }}" />
 
         <meta property="fb:app_id" content="216780188685195" />
@@ -45,7 +45,7 @@
 
             <div class="row">
                 <div class="col-12 col-sm-12 col-md-10 offset-md-1">
-                    {% for photo in photoList %}
+                    {% for photo in pagination %}
                     <div class="row mt-3">
                         <div class="col-12">
                             <div class="card mb-3">

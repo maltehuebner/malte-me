@@ -13,6 +13,6 @@
     </route>
 
     <route id="show_photo" path="/{slug}">
-        <default key="_controller">AppBundle:Default:show</default>
+        <default key="_controller">AppBundle:Photo:view</default>
     </route>
 </routes>

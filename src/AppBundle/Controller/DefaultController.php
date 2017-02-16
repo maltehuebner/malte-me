@@ -25,17 +25,4 @@ class DefaultController extends Controller
             'pagination' => $pagination
         ]);
     }
-
-    public function showAction(Request $request, string $slug): Response
-    {
-        $photo = $this->getDoctrine()->getRepository('AppBundle:Photo')->findOneBySlug($slug);
-
-        if (!$photo) {
-            throw $this->createNotFoundException();
-        }
-
-        return $this->render('AppBundle:Default:index.html.twig', [
-            'photoList' => [$photo]
-        ]);
-    }
 }

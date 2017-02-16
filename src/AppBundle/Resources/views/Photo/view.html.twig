@@ -1,0 +1,59 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block additionalHeaderElements %}
+    <meta name="description" content="{{ photo.description[:155] }}" />
+
+    <meta property="fb:app_id" content="216780188685195" />
+    <meta property="og:title" content="{{ photo.title }} &mdash; Fahrradstadt Hamburg" />
+    <meta property="og:type" content="Website" />
+    <meta property="og:description" content="{{ photo.description[:155] }}" />
+    <meta property="og:url" content="https://fahrradstadt.hamburg" />
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:site_name" content="fahrradstadt.hamburg" />
+    <meta property="og:image" content="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('preview') }}" />
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@calderacc">
+    <meta name="twitter:creator" content="@calderacc">
+    <meta name="twitter:title" content="{{ photo.title }} &mdash; Fahrradstadt Hamburg" />
+    <meta name="twitter:description" content="{{ photo.description[:155] }}" />
+    <meta name="twitter:image" content="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('preview') }}" />
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-3">
+            <img class="card-img-top img-fluid" src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('standard') }}" alt="{{ photo.title }}" />
+            <div class="card-block">
+                {% if photo.highlighted %}
+                    <span class="badge badge-info float-right" data-toggle="tooltip" data-placement="bottom" title="Dieses Foto wird eine Zeit lang hervorgehoben.">hervorgehoben</span>
+                {% endif %}
+
+                {% if photo.sponsored %}
+                    <span class="badge badge-warning float-right" data-toggle="tooltip" data-placement="bottom" title="Dieser Beitrag enthält einen oder mehrere gesponserte Links.">gesponsert</span>
+                {% endif %}
+                {% if photo.affiliated %}
+                    <span class="badge badge-danger float-right" data-toggle="tooltip" data-placement="bottom" title="Bei diesem Beitrag handelt es sich um eine Werbeanzeige.">Anzeige</span>
+                {% endif %}
+
+                <a href="{{ path('show_photo', { slug: photo.slug }) }}">
+                    <h4 class="card-title">
+                        {{ photo.title }}
+                    </h4>
+                </a>
+
+                <p class="card-text">
+                    {{ photo.description|markdown }}
+                </p>
+
+                <p class="card-text">
+                    <small class="text-muted">
+                        hinzugefügt am {{ photo.dateTime|date('d.m.Y') }} um {{ photo.dateTime|date('H:i') }} Uhr von {{ photo.user.displayname }}
+                    </small>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

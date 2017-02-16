@@ -7,26 +7,8 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
 
-    {% if pagination|length == 1 %}
-        {% set photo = pagination|first %}
-        <meta name="description" content="{{ photo.description[:155] }}" />
-
-        <meta property="fb:app_id" content="216780188685195" />
-        <meta property="og:title" content="{{ photo.title }} &mdash; Fahrradstadt Hamburg" />
-        <meta property="og:type" content="Website" />
-        <meta property="og:description" content="{{ photo.description[:155] }}" />
-        <meta property="og:url" content="https://fahrradstadt.hamburg" />
-        <meta property="og:locale" content="de_DE" />
-        <meta property="og:site_name" content="fahrradstadt.hamburg" />
-        <meta property="og:image" content="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('preview') }}" />
-
-        <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:site" content="@calderacc">
-        <meta name="twitter:creator" content="@calderacc">
-        <meta name="twitter:title" content="{{ photo.title }} &mdash; Fahrradstadt Hamburg" />
-        <meta name="twitter:description" content="{{ photo.description[:155] }}" />
-        <meta name="twitter:image" content="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('preview') }}" />
-    {% endif %}
+    {% block additionalHeaderElements %}
+    {% endblock %}
 
     <title>Fahrradstadt Hamburg</title>
 

@@ -18,7 +18,7 @@ class DefaultController extends Controller
         $pagination = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1),
-            3
+            10
         );
 
         return $this->render('AppBundle:Default:index.html.twig', [

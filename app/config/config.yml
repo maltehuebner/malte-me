@@ -97,6 +97,9 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb' and 'couchdb'
     firewall_name: main
     user_class: AppBundle\Entity\User
+    from_email:
+        address:        noreply@fahrradstadt.hamburg
+        sender_name:    Fahrradstadt Hamburg
 
 hwi_oauth:
     # list of names of the firewalls in which this bundle is active, this setting MUST be set

@@ -1,6 +1,8 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
 {% block additionalHeaderElements %}
+    <title>{{ photo.title }} &mdash; Fahrradstadt Hamburg</title>
+
     <meta name="description" content="{{ photo.description[:155] }}" />
 
     <meta property="fb:app_id" content="216780188685195" />

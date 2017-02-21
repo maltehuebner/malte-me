@@ -84,6 +84,11 @@ class PhotoAdmin extends AbstractAdmin
 
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper->addIdentifier('title');
+        $listMapper
+            ->addIdentifier('title')
+            ->add('user')
+            ->add('dateTime')
+            ->add('displayDateTime')
+        ;
     }
 }

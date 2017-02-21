@@ -1,5 +1,7 @@
 <div class="card">
-    <img class="card-img-top img-fluid" src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('standard') }}" alt="{{ photo.title }}" />
+    <a href="{{ path('show_photo', { slug: photo.slug }) }}">
+        <img class="card-img-top img-fluid" src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('standard') }}" alt="{{ photo.title }}" />
+    </a>
     <div class="card-block">
         {% if photo.highlighted %}
             <span class="badge badge-info float-right" data-toggle="tooltip" data-placement="bottom" title="Dieses Foto wird eine Zeit lang hervorgehoben.">hervorgehoben</span>

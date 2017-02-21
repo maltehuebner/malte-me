@@ -21,11 +21,8 @@
         <p class="card-text">
             {{ photo.description|markdown }}
         </p>
-
-        <p class="card-text">
-            <small class="text-muted">
-                hinzugefügt am {{ photo.dateTime|date('d.m.Y') }} um {{ photo.dateTime|date('H:i') }} Uhr von {{ photo.user.displayname }}
-            </small>
-        </p>
+    </div>
+    <div class="card-footer text-muted">
+        hinzugefügt am {{ photo.dateTime|date('d.m.Y') }} um {{ photo.dateTime|date('H:i') }} Uhr von {{ photo.user.displayname }}
     </div>
 </div>

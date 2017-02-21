@@ -18,9 +18,12 @@ class PhotoRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('p');
 
-        $qb->where($qb->expr()->eq('p.enabled', true));
-
-        $qb->addOrderBy('p.displayDateTime', 'DESC');
+        $qb
+            ->where($qb->expr()->eq('p.enabled', true))
+            ->andWhere($qb->expr()->lte('p.displayDateTime', ':displayDateTime'))
+            ->addOrderBy('p.displayDateTime', 'DESC')
+            ->setParameter('displayDateTime', new \DateTime())
+        ;
 
         return $qb->getQuery();
     }

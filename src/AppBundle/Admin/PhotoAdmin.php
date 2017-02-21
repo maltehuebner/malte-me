@@ -14,6 +14,12 @@ use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class PhotoAdmin extends AbstractAdmin
 {
+    protected $datagridValues = [
+        '_page' => 1,
+        '_sort_order' => 'DESC',
+        '_sort_by' => 'displayDateTime',
+    ];
+
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper

@@ -36,7 +36,7 @@ class PhotoAdmin extends AbstractAdmin
                 DateTimeType::class,
                 [
                     'widget' => 'single_text',
-                    'format' => 'yyyy-MM-dd hh:mm:ss'
+                    'format' => 'yyyy-MM-dd HH:mm:ss'
                 ]
             )
             ->add(
@@ -44,7 +44,7 @@ class PhotoAdmin extends AbstractAdmin
                 DateTimeType::class,
                 [
                     'widget' => 'single_text',
-                    'format' => 'yyyy-MM-dd hh:mm:ss'
+                    'format' => 'yyyy-MM-dd HH:mm:ss'
                 ]
             )
             ->add(
@@ -52,7 +52,7 @@ class PhotoAdmin extends AbstractAdmin
                 DateTimeType::class,
                 [
                     'widget' => 'single_text',
-                    'format' => 'yyyy-MM-dd hh:mm:ss'
+                    'format' => 'yyyy-MM-dd HH:mm:ss'
                 ]
             )
             ->add(
@@ -60,7 +60,7 @@ class PhotoAdmin extends AbstractAdmin
                 DateTimeType::class,
                 [
                     'widget' => 'single_text',
-                    'format' => 'yyyy-MM-dd hh:mm:ss'
+                    'format' => 'yyyy-MM-dd HH:mm:ss'
                 ]
             )
             ->end()

@@ -9,7 +9,7 @@
     <meta property="og:title" content="{{ photo.title }} &mdash; Fahrradstadt Hamburg" />
     <meta property="og:type" content="Website" />
     <meta property="og:description" content="{{ photo.description[:155] }}" />
-    <meta property="og:url" content="{{ absolute_url('show_photo', { slug: photo.slug }) }}" />
+    <meta property="og:url" content="{{ url('show_photo', { slug: photo.slug }) }}" />
     <meta property="og:locale" content="de_DE" />
     <meta property="og:site_name" content="fahrradstadt.hamburg" />
     <meta property="og:image" content="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('preview') }}" />

@@ -1,21 +1,23 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
 {% block content %}
-<div class="row">
-    <div class="col-12 col-sm-12 col-md-10 offset-md-1">
-        {% for photo in pagination %}
-        <div class="row mb-3">
-            <div class="col-12">
-                {% include 'AppBundle:Includes:photo.html.twig' with { 'photo': photo } %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-10 offset-md-1">
+            {% for photo in pagination %}
+            <div class="row mb-3">
+                <div class="col-12">
+                    {% include 'AppBundle:Includes:photo.html.twig' with { 'photo': photo } %}
+                </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
-</div>
 
-<div class="row">
-    <div class="col-12 text-center">
-        {{ knp_pagination_render(pagination) }}
+    <div class="row">
+        <div class="col-12 text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
     </div>
 </div>
 {% endblock %}

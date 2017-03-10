@@ -23,9 +23,11 @@
 {% endblock %}
 
 {% block content %}
-<div class="row mb-3">
-    <div class="col-12">
-        {% include 'AppBundle:Includes:photo.html.twig' with { 'photo': photo } %}
+<div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col-12">
+            {% include 'AppBundle:Includes:photo.html.twig' with { 'photo': photo } %}
+        </div>
     </div>
 </div>
 {% endblock %}

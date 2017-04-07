@@ -7,6 +7,11 @@ use Doctrine\ORM\Query;
 
 class PhotoRepository extends EntityRepository
 {
+    public function findForArchive(): array
+    {
+        return $this->findForFrontpage();
+    }
+
     public function findForFrontpage(): array
     {
         $query = $this->getFrontpageQuery();

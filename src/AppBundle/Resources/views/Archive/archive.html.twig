@@ -6,11 +6,21 @@
         <div class="col-12 col-sm-12 col-md-10 offset-md-1">
             <div class="card-columns">
                 {% for photo in photoList %}
-                <div class="card">
-                    <img class="card-img-top img-fluid" src="..." alt="Card image cap">
+                <div class="card"><a href="{{ path('show_photo', { slug: photo.slug }) }}">
+                        <img class="card-img-top img-fluid" src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('preview') }}" alt="{{ photo.title }}" />
+                    </a>
                     <div class="card-block">
-                        <h4 class="card-title">Card title that wraps to a new line</h4>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <a href="{{ path('show_photo', { slug: photo.slug }) }}">
+                            <h4 class="card-title">
+                                {{ photo.title }}
+                            </h4>
+                        </a>
+                        <p class="card-text">
+                            {{ photo.description|length > 150 ? photo.description|slice(0, 150) ~ '…' : photo.description  }}
+                        </p>
+                    </div>
+                    <div class="card-footer text-muted">
+                        {{ photo.dateTime|date('d.m.Y H:i') }} Uhr von {{ photo.user.displayname }}
                     </div>
                 </div>
                 {% endfor %}

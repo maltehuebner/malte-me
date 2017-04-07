@@ -1,0 +1,21 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-10 offset-md-1">
+            <div class="card-columns">
+                {% for photo in photoList %}
+                <div class="card">
+                    <img class="card-img-top img-fluid" src="..." alt="Card image cap">
+                    <div class="card-block">
+                        <h4 class="card-title">Card title that wraps to a new line</h4>
+                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

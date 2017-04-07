@@ -16,6 +16,10 @@
         <default key="_controller">AppBundle:Static:mission</default>
     </route>
 
+    <route id="archive" path="/archive">
+        <default key="_controller">AppBundle:Archive:archive</default>
+    </route>
+
     <route id="show_photo" path="/{slug}">
         <default key="_controller">AppBundle:Photo:view</default>
     </route>

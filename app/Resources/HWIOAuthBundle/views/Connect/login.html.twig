@@ -1,0 +1,23 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6 offset-3">
+                <div class="btn-group">
+                    <a href="{{ hwi_oauth_login_url('strava') }}" class="btn btn-secondary" style="background-color: rgb(249, 77, 31); color: white;">
+                        Strava
+                    </a>
+
+                    <a href="{{ hwi_oauth_login_url('facebook') }}" class="btn btn-secondary" style="background-color: rgb(60, 90, 150); color: white;">
+                        facebook
+                    </a>
+
+                    <a href="{{ hwi_oauth_login_url('twitter') }}" class="btn btn-secondary" style="background-color: rgb(57, 201, 214); color: white;">
+                        twitter
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -10,9 +10,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
 use \Malenki\Slug;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class UploadController extends Controller
 {
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
     public function uploadAction(Request $request, UserInterface $user): Response
     {
         $photo = new Photo();

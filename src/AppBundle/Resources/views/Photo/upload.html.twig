@@ -12,6 +12,25 @@
 
         {{ form_start(uploadForm) }}
         <div class="row">
+            <div class="col-12 col-md-8 offset-md-2 text-center">
+                <div class="fileinput fileinput-new" data-provides="fileinput">
+                    <div class="fileinput-preview img-thumbnail thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;">
+
+                    </div>
+
+                    <div>
+                        <span class="btn btn-secondary btn-file">
+                            <span class="fileinput-new">Bild auswählen</span>
+                            <span class="fileinput-exists">Bild ändern</span>
+                            <input type="file" id="photo_imageFile_file" name="photo[imageFile][file]" required="required">
+                        </span>
+                        <a href="#" class="btn btn-secondary fileinput-exists" data-dismiss="fileinput">Bild entfernen</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
             <div class="col-12 col-md-8 offset-md-2">
                 <div class="form-group">
                     <label for="">Titel:</label>
@@ -28,25 +47,6 @@
                     <small class="form-text text-muted">
                         Du kannst deinen Beitrag mit der <a href="http://markdown.de/">Markdown-Syntax</a> formatieren.
                     </small>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-12 col-md-8 offset-md-2 text-center">
-                <div class="fileinput fileinput-new" data-provides="fileinput">
-                    <div class="fileinput-preview img-thumbnail thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;">
-
-                    </div>
-
-                    <div>
-                        <span class="btn btn-secondary btn-file">
-                            <span class="fileinput-new">Bild auswählen</span>
-                            <span class="fileinput-exists">Bild ändern</span>
-                            <input type="file" id="photo_imageFile_file" name="photo[imageFile][file]" required="required">
-                        </span>
-                        <a href="#" class="btn btn-secondary fileinput-exists" data-dismiss="fileinput">Bild entfernen</a>
-                    </div>
                 </div>
             </div>
         </div>

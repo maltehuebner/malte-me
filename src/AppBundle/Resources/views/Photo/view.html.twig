@@ -24,7 +24,17 @@
 
 {% block content %}
 <div class="container-fluid">
-    <div class="row mb-3">
+    {% if not photo.enabled %}
+    <div class="row">
+        <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+            <div class="alert alert-info" role="alert">
+                <strong>Einen Moment noch!</strong> Es sieht so aus, als hättest du zum ersten Mal ein Foto hochgeladen. Bitte warte ein Moment, bis dein Beitrag moderiert wurde.
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="row">
         <div class="col-12">
             {% include 'AppBundle:Includes:photo.html.twig' with { 'photo': photo } %}
         </div>

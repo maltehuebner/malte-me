@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Admin\UserAdmin;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -62,6 +63,11 @@ class User extends BaseUser
      * @ORM\Column(name="twitter_access_token", type="string", length=255, nullable=true)
      */
     protected $twitterAccessToken;
+
+    /**
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    protected $createdAt;
 
     public function __construct()
     {
@@ -179,5 +185,17 @@ class User extends BaseUser
     public function getDisplayname(): string
     {
         return $this->firstname ?? $this->username;
+    }
+
+    public function setCreatedAt(\DateTime $createdAt): User
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): \DateTime
+    {
+        return $this->createdAt;
     }
 }

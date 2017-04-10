@@ -36,6 +36,10 @@ class UploadController extends Controller
                 ->setDisplayDateTime(new \DateTime())
             ;
 
+            if ($user->isModerated()) {
+                $photo->setEnabled(false);
+            }
+
             $em->persist($photo); // first persist to generate id
             $em->flush();
 

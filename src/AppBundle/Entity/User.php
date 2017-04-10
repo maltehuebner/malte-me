@@ -75,7 +75,7 @@ class User extends BaseUser
         return $this;
     }
 
-    public function getModerated(): bool
+    public function isModerated(): bool
     {
         return $this->moderated;
     }

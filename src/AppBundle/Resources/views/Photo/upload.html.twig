@@ -1,28 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
+{% extends 'AppBundle::layout.html.twig' %}
 
-    <title>Fahrradstadt Hamburg</title>
-
-    <link rel="stylesheet" href="{{ asset('bundles/app/css/fahrradstadt.css') }}" />
-    <link rel="stylesheet" href="{{ asset('bundles/app/css/jasny-bootstrap/jasny-bootstrap.css') }}" />
-</head>
-
-<body>
+{% block content %}
     <div class="container">
-        <div class="row mt-3">
-            <div class="col-12 text-center">
-                <a href="{{ path('frontpage') }}">
-                    <img src="{{ asset('bundles/app/images/logo/logo-300.png') }}" alt="Logo Fahrradstadt Hamburg" />
-                </a>
-            </div>
-        </div>
-
         <div class="row mt-3">
             <div class="col-12 text-center">
                 <h2>
@@ -79,30 +58,5 @@
 
         {{ form_widget(uploadForm._token) }}
         </form>
-
-    {{ include('AppBundle:Includes:footer.html.twig') }}
-</div>
-
-<script src="{{ asset('bundles/app/js/jquery/jquery-3.1.1.min.js') }}"></script>
-<script src="{{ asset('bundles/app/js/bootstrap/bootstrap.min.js') }}"></script>
-<script src="{{ asset('bundles/app/js/jasny-bootstrap/jasny-bootstrap.min.js') }}"></script>
-
-<!-- Piwik -->
-<script type="text/javascript">
-    var _paq = _paq || [];
-    // tracker methods like "setCustomDimension" should be called before "trackPageView"
-    _paq.push(["setCookieDomain", "*.fahrradstadt.hamburg"]);
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function() {
-        var u="//piwik.caldera.cc/";
-        _paq.push(['setTrackerUrl', u+'piwik.php']);
-        _paq.push(['setSiteId', '12']);
-        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-    })();
-</script>
-<noscript><p><img src="//piwik.caldera.cc/piwik.php?idsite=12&rec=1" style="border:0;" alt="" /></p></noscript>
-<!-- End Piwik Code -->
-</body>
-</html>
+    </div>
+{% endblock %}

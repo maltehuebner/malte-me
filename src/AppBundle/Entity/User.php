@@ -19,6 +19,11 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @ORM\Column(name="moderated", type="string")
+     */
+    protected $moderated = true;
+
+    /**
      * @ORM\Column(name="firstname", type="string", length=255, nullable=true)
      */
     protected $firstname;
@@ -61,7 +66,18 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
-        // your own logic
+    }
+
+    public function setModerated(bool $moderated): User
+    {
+        $this->moderated = $moderated;
+
+        return $this;
+    }
+
+    public function getModerated(): bool
+    {
+        return $this->moderated;
     }
 
     public function setFirstname(string $firstname = null): User

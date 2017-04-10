@@ -25,6 +25,9 @@
                 <div class="form-group">
                     <label for="">Beschreibung:</label>
                     {{ form_widget(uploadForm.description, { attr: { class: 'form-control form-control-lg' } }) }}
+                    <small class="form-text text-muted">
+                        Du kannst deinen Beitrag mit der <a href="http://markdown.de/">Markdown-Syntax</a> formatieren.
+                    </small>
                 </div>
             </div>
         </div>
@@ -47,8 +50,6 @@
                 </div>
             </div>
         </div>
-
-
 
         <div class="row">
             <div class="col-12 col-md-8 offset-md-2 text-center">

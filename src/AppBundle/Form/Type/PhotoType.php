@@ -17,7 +17,7 @@ class PhotoType extends AbstractType
             ->add('title', TextType::class, ['required' => true])
             ->add('description', TextareaType::class, ['required' => false, 'attr' => ['rows' => 5]])
             ->add('imageFile', VichFileType::class, ['required' => true])
-            ->add('submit', SubmitType::class)
+            ->add('submit', SubmitType::class, ['label' => 'Hochladen'])
         ;
     }
 }

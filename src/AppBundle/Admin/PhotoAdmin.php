@@ -79,7 +79,10 @@ class PhotoAdmin extends AbstractAdmin
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        $datagridMapper->add('title');
+        $datagridMapper
+            ->add('title')
+            ->add('enabled')
+        ;
     }
 
     protected function configureListFields(ListMapper $listMapper)
@@ -89,6 +92,7 @@ class PhotoAdmin extends AbstractAdmin
             ->add('user')
             ->add('dateTime')
             ->add('displayDateTime')
+            ->add('enabled')
         ;
     }
 }

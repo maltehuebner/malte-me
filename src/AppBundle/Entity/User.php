@@ -20,7 +20,7 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\Column(name="moderated", type="string")
+     * @ORM\Column(name="moderated", type="boolean")
      */
     protected $moderated = true;
 

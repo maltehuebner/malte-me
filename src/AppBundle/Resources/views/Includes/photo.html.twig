@@ -25,6 +25,6 @@
         </p>
     </div>
     <div class="card-footer text-muted">
-        hinzugefügt am {{ photo.dateTime|date('d.m.Y') }} um {{ photo.dateTime|date('H:i') }} Uhr von {{ photo.user.displayname }}
+        hinzugefügt am {{ photo.dateTime|date('d.m.Y', 'Europe/Berlin') }} um {{ photo.dateTime|date('H:i', 'Europe/Berlin') }} Uhr von {{ photo.user.displayname }}
     </div>
 </div>

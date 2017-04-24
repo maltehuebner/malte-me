@@ -77,7 +77,11 @@ class UploadController extends Controller
 
             $exif = $reader->getExifFromFile($path);
 
-            $dateTime = $exif->getCreationDate();
+            if ($exif) {
+                $dateTime = $exif->getCreationDate();
+            } else {
+                $dateTime = new \DateTime();
+            }
         } catch (\Exception $e) {
             $dateTime = new \DateTime();
         }

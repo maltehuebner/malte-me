@@ -24,7 +24,7 @@
             {{ photo.description|markdown }}
         </p>
     </div>
-    <div class="card-footer text-muted">
+    <div class="card-footer text-muted" title="hinzugefügt am {{ photo.dateTime|date('d.m.Y', 'Europe/Berlin') }} um {{ photo.dateTime|date('H:i', 'Europe/Berlin') }} Uhr von {{ photo.user.displayname }}">
         aufgenommen am {{ photo.dateTime|date('d.m.Y', 'Europe/Berlin') }} um {{ photo.dateTime|date('H:i', 'Europe/Berlin') }} Uhr von {{ photo.user.displayname }}
     </div>
 </div>

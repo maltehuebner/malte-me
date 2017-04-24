@@ -17,9 +17,15 @@
                 Hochladen
             </a>
 
+            {% if app.user %}
+            <a class="nav-item nav-link" href="{{ path('fos_user_security_logout') }}">
+                Logout
+            </a>
+            {% else %}
             <a class="nav-item nav-link" href="{{ path('hwi_oauth_connect') }}">
                 Login
             </a>
+            {% endif %}
         </div>
     </div>
 </nav>

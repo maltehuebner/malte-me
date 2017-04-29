@@ -20,6 +20,10 @@
         <default key="_controller">AppBundle:Archive:archive</default>
     </route>
 
+    <route id="favorite_photo" path="/{photoId}/favorite">
+        <default key="_controller">AppBundle:Favorite:favorite</default>
+    </route>
+
     <route id="show_photo" path="/{slug}">
         <default key="_controller">AppBundle:Photo:view</default>
     </route>

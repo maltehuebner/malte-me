@@ -4,7 +4,17 @@
             {{ photo.user.displayname }}
         </strong>
 
-        <i class="fa fa-star" aria-hidden="true"></i>
+        <span class="float-right">
+            <a href="{{ path('favorite_photo', { photoId: photo.id }) }}">
+                <i class="fa fa-star" aria-hidden="true"></i>
+            </a>
+
+            <a href="#">
+                <i class="fa fa-comment" aria-hidden="true"></i>
+            </a>
+        </span>
+
+
     </div>
 
     <a href="{{ path('show_photo', { slug: photo.slug }) }}">

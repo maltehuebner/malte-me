@@ -26,3 +26,5 @@ parameters:
 
     twitter.client_id: ThisTokenIsNotSoSecretChangeIt
     twitter.client_secret: ThisTokenIsNotSoSecretChangeIt
+
+    cyclingcities.api.event_list: http://cyclingcities.cm/app_dev.php/api/event/list

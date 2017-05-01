@@ -6,11 +6,31 @@
         <div class="col-12 col-sm-12 col-md-10 offset-md-1">
             <div class="card-columns">
                 {% for event in eventList %}
+                    {% if event.twitter is defined and event.twitter %}
+                        {% set url = event.twitter %}
+                    {% endif %}
+
+                    {% if event.facebook is defined and event.facebook %}
+                        {% set url = event.facebook %}
+                    {% endif %}
+
+                    {% if event.url is defined and event.url %}
+                        {% set url = event.url %}
+                    {% endif %}
+
                     <div class="card">
                         <div class="card-block">
+                            {% if url is defined and url %}
+                            <a href="{{ url }}">
+                                <h4 class="card-title">
+                                    {{ event.title }}
+                                </h4>
+                            </a>
+                            {% else %}
                             <h4 class="card-title">
                                 {{ event.title }}
                             </h4>
+                            {% endif %}
 
                             {% if event.short_description is defined and event.short_description %}
                             <p class="card-text">

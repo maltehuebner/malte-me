@@ -16,6 +16,10 @@
         <default key="_controller">AppBundle:Static:mission</default>
     </route>
 
+    <route id="event_list" path="/events">
+        <default key="_controller">AppBundle:Event:list</default>
+    </route>
+
     <route id="archive" path="/archive">
         <default key="_controller">AppBundle:Archive:archive</default>
     </route>

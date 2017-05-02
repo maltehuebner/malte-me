@@ -255,7 +255,7 @@ class Photo
         return $this->imageFile;
     }
 
-    public function setImageName(string $imageName): Photo
+    public function setImageName(string $imageName = null): Photo
     {
         $this->imageName = $imageName;
 

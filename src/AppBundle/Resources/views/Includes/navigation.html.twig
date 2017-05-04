@@ -17,6 +17,12 @@
                 Hochladen
             </a>
 
+            {% if is_granted('ROLE_ADMIN') %}
+            <a class="nav-item nav-link" href="{{ path('sonata_admin_dashboard') }}">
+                Admin
+            </a>
+            {% endif %}
+
             {% if app.user %}
             <a class="nav-item nav-link" href="{{ path('fos_user_security_logout') }}">
                 Logout

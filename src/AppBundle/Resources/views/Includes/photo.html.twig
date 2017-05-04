@@ -43,11 +43,14 @@
         <p class="card-text">
             {{ photo.description|markdown }}
         </p>
+
+        <p class="card-text">
+            <small class="text-muted" title="hinzugefügt am {{ photo.dateTime|date('d.m.Y', 'Europe/Berlin') }} um {{ photo.dateTime|date('H:i', 'Europe/Berlin') }} Uhr von {{ photo.user.displayname }}">
+                aufgenommen am {{ photo.dateTime|date('d.m.Y', 'Europe/Berlin') }} um {{ photo.dateTime|date('H:i', 'Europe/Berlin') }} Uhr
+            </small>
+        </p>
     </div>
 
-    <div class="card-footer text-muted"  title="hinzugefügt am {{ photo.dateTime|date('d.m.Y', 'Europe/Berlin') }} um {{ photo.dateTime|date('H:i', 'Europe/Berlin') }} Uhr von {{ photo.user.displayname }}">
-        <span class="float-right">
-            aufgenommen am {{ photo.dateTime|date('d.m.Y', 'Europe/Berlin') }} um {{ photo.dateTime|date('H:i', 'Europe/Berlin') }} Uhr
-        </span>
+    <div class="card-footer text-muted">
     </div>
 </div>

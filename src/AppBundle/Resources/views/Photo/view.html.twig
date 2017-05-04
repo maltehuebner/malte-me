@@ -42,4 +42,11 @@
 </div>
 
 {{ include('AppBundle:Includes:commentModal.html.twig') }}
+
+{% endblock %}
+
+{% block additionalFooterElements %}
+    <script type="text/javascript">
+        Fahrradstadt.loadModule('CommentBox');
+    </script>
 {% endblock %}

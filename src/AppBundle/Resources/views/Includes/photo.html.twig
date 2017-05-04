@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card photo" data-photo-id="{{ photo.id }}">
     <div class="card-header">
         <strong>
             {{ photo.user.displayname }}
@@ -9,7 +9,7 @@
                 <i class="fa fa-star" aria-hidden="true"></i>
             </a>
 
-            <a href="#">
+            <a href="#" data-toggle="modal" data-target="#comment-modal">
                 <i class="fa fa-comment" aria-hidden="true"></i>
             </a>
         </span>

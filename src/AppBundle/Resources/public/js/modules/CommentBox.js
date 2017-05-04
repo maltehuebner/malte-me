@@ -1,6 +1,8 @@
-define([''], function () {
+define([], function () {
     CommentBox = function (context, options) {
-        alert('hello world');
+        $('.photo').each(function() {
+            console.log($(this).data('photo-id'));
+        });
     };
 
     return CommentBox;

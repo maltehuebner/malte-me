@@ -7,6 +7,7 @@
         <span class="float-right">
             <a href="{{ path('favorite_photo', { photoId: photo.id }) }}" class="favorite-star btn btn-outline-secondary btn-sm">
                 <i class="fa fa-star-o" aria-hidden="true"></i>
+                {{ photo.favorites|length }}
             </a>
 
             <a href="#" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#comment-modal">
@@ -14,8 +15,6 @@
                 {{ photo.comments|length }}
             </a>
         </span>
-
-
     </div>
 
     <a href="{{ path('show_photo', { slug: photo.slug }) }}">

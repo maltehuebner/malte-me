@@ -24,7 +24,6 @@ security:
 
                 oauth_user_provider:
                     service: user_provider
-        main:
             pattern: ^/
             form_login:
                 provider: fos_userbundle

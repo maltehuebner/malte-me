@@ -22,14 +22,21 @@ class FavoriteController extends Controller
             throw $this->createNotFoundException();
         }
 
-        $favorite = new Favorite();
-        $favorite
-            ->setPhoto($photo)
-            ->setUser($user)
-        ;
-
         $em = $this->getDoctrine()->getManager();
-        $em->persist($favorite);
+
+        $favorite = $this->getDoctrine()->getRepository('AppBundle:Favorite')->findForUserAndPhoto($user, $photo);
+
+        if (!$favorite) {
+            $favorite = new Favorite();
+            $favorite
+                ->setPhoto($photo)
+                ->setUser($user);
+
+            $em->persist($favorite);
+        } else {
+            $em->remove($favorite);
+        }
+
         $em->flush();
 
         return $this->redirectToRoute(

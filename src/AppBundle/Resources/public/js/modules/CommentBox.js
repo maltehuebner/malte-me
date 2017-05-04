@@ -1,9 +1,5 @@
 define([], function () {
     CommentBox = function (context, options) {
-        $('.photo').each(function() {
-            console.log();
-        });
-
         $('#comment-modal').on('show.bs.modal', function (event) {
             var $button = $(event.relatedTarget);
             var $photo = $button.closest('.photo');

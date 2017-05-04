@@ -30,12 +30,21 @@ define([], function () {
         var $element = $star.find('i.fa');
 
         if ($element.hasClass('fa-star')) {
-            console.log('FOO');
             $element.removeClass('fa-star').addClass('fa-star-o');
+            this._updateCounter($star, -1);
         } else {
-            console.log('BAR');
             $element.removeClass('fa-star-o').addClass('fa-star');
+            this._updateCounter($star, 1);
         }
+    };
+
+    FavoriteStar.prototype._updateCounter = function($star, value) {
+        var $counter = $star.find('.favorite-counter');
+        var oldValue = parseInt($counter.html());
+
+        var newValue = oldValue + value;
+
+        $counter.html(newValue);
     };
 
     return FavoriteStar;

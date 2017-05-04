@@ -1,10 +1,6 @@
 <div class="card photo" data-photo-id="{{ photo.id }}">
-    <div class="card-header">
-
-    </div>
-
     <a href="{{ path('show_photo', { slug: photo.slug }) }}">
-        <img class="img-fluid" src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('standard') }}" alt="{{ photo.title }}" />
+        <img class="img-fluid card-img-top" src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('standard') }}" alt="{{ photo.title }}" />
     </a>
 
     <div class="card-block">

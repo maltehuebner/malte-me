@@ -9,8 +9,9 @@
                 <i class="fa fa-star" aria-hidden="true"></i>
             </a>
 
-            <a href="#" data-toggle="modal" data-target="#comment-modal">
+            <a href="#" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#comment-modal">
                 <i class="fa fa-comment" aria-hidden="true"></i>
+                {{ photo.comments|length }}
             </a>
         </span>
 

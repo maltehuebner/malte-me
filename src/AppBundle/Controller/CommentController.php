@@ -1,0 +1,47 @@
+<?php
+
+namespace AppBundle\Controller;
+
+use AppBundle\Entity\Comment;
+use AppBundle\Form\Type\CommentType;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\User\UserInterface;
+
+class CommentController extends Controller
+{
+    public function addAction(Request $request, UserInterface $user, int $photoId): Response
+    {
+        $photo = $this->getDoctrine()->getRepository('AppBundle:Photo')->find($photoId);
+
+        if (!$photo) {
+            throw $this->createNotFoundException();
+        }
+
+        $message = $request->request->get('message');
+
+        if (!$message) {
+            throw $this->createAccessDeniedException();
+        }
+
+
+        $comment = new Comment();
+
+        $comment
+            ->setUser($user)
+            ->setPhoto($photo)
+            ->setMessage($message)
+        ;
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($comment);
+        $em->flush();
+
+        return $this->redirectToRoute(
+            'show_photo', [
+                'slug' => $photo->getSlug()
+            ]
+        );
+    }
+}

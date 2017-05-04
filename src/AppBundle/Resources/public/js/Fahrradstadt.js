@@ -11,7 +11,7 @@ Fahrradstadt.loadModule = function(name, context, options, callback) {
 };
 
 require.config({
-    baseUrl: '/bundles/app/',
+    baseUrl: '/bundles/app/js/modules/',
     paths:
     {
 

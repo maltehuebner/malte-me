@@ -35,6 +35,11 @@ class Photo
     protected $comments;
 
     /**
+     * @ORM\OneToMany(targetEntity="Favorite", mappedBy="photo")
+     */
+    protected $favorites;
+
+    /**
      * @ORM\Column(type="float", nullable=true)
      */
     protected $latitude;
@@ -118,8 +123,11 @@ class Photo
         $this->dateTime = new \DateTime();
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
+
         $this->description = '';
+
         $this->comments = new ArrayCollection();
+        $this->favorites = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -154,6 +162,25 @@ class Photo
     public function removeComment(Comment $comment): Photo
     {
         $this->comments->removeElement($comment);
+
+        return $this;
+    }
+
+    public function addFavorite(Favorite $favorites): Photo
+    {
+        $this->favorites->add($favorites);
+
+        return $this;
+    }
+
+    public function getFavorites(): Collection
+    {
+        return $this->favorites;
+    }
+
+    public function removeFavorite(Favorite $favorites): Photo
+    {
+        $this->favorites->removeElement($favorites);
 
         return $this;
     }

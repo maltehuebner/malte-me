@@ -34,5 +34,8 @@ _liip_imagine:
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
 app:
     resource: "@AppBundle/Resources/config/routing.xml"

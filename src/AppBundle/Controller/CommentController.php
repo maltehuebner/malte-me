@@ -3,14 +3,17 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Comment;
-use AppBundle\Form\Type\CommentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class CommentController extends Controller
 {
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
     public function addAction(Request $request, UserInterface $user, int $photoId): Response
     {
         $photo = $this->getDoctrine()->getRepository('AppBundle:Photo')->find($photoId);
@@ -24,8 +27,7 @@ class CommentController extends Controller
         if (!$message) {
             throw $this->createAccessDeniedException();
         }
-
-
+        
         $comment = new Comment();
 
         $comment

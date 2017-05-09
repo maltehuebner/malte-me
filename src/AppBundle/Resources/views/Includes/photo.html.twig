@@ -17,8 +17,15 @@
         {% if photo.sponsored %}
             <span class="badge badge-warning float-right" data-toggle="tooltip" data-placement="bottom" title="Dieser Beitrag enthält einen oder mehrere gesponserte Links.">gesponsert</span>
         {% endif %}
+
         {% if photo.affiliated %}
             <span class="badge badge-danger float-right" data-toggle="tooltip" data-placement="bottom" title="Bei diesem Beitrag handelt es sich um eine Werbeanzeige.">Anzeige</span>
+        {% endif %}
+
+        {% if photo.source %}
+            <small class="text-muted float-right">
+                {{ photo.source }}
+            </small>
         {% endif %}
 
         <a href="{{ path('show_photo', { slug: photo.slug }) }}">

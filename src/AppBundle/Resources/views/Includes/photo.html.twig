@@ -1,3 +1,11 @@
+{% if userFavorites is defined and userFavorites[photo.id] is defined %}
+    {% set starred = true %}
+{% else %}
+    {% set starred = false %}
+{% endif %}
+
+{{ dump(userFavorites) }}
+
 <div class="card photo" data-photo-id="{{ photo.id }}">
     <a href="{{ path('show_photo', { slug: photo.slug }) }}">
         <img class="img-fluid card-img-top" src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('standard') }}" alt="{{ photo.title }}" />
@@ -39,7 +47,11 @@
 
         <span class="float-right">
             <a href="{{ path('favorite_photo', { photoId: photo.id }) }}" class="favorite-star btn btn-outline-secondary btn-sm">
+                {% if starred %}
+                <i class="fa fa-star" aria-hidden="true"></i>
+                {% else %}
                 <i class="fa fa-star-o" aria-hidden="true"></i>
+                {% endif %}
                 <span class="favorite-counter">
                     {{ photo.favorites|length }}
                 </span>

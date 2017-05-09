@@ -6,10 +6,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class DefaultController extends Controller
 {
-    public function indexAction(Request $request): Response
+    public function indexAction(Request $request, UserInterface $user = null): Response
     {
         $paginator  = $this->get('knp_paginator');
 
@@ -21,8 +22,28 @@ class DefaultController extends Controller
             10
         );
 
+        $userFavorites = $this->getFavoritesForUser($user);
+
         return $this->render('AppBundle:Default:index.html.twig', [
-            'pagination' => $pagination
+            'pagination' => $pagination,
+            'userFavorites' => $userFavorites,
         ]);
+    }
+
+    protected function getFavoritesForUser(UserInterface $user = null): array
+    {
+        $result = [];
+
+        if (!$user) {
+            return $result;
+        }
+
+        $userFavorites = $this->getDoctrine()->getRepository('AppBundle:Favorite')->findForUser($user);
+
+        foreach ($userFavorites as $favorite) {
+            $result[$favorite->getPhoto()->getId()] = $favorite;
+        }
+
+        return $result;
     }
 }

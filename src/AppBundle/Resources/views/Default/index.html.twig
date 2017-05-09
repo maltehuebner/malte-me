@@ -7,7 +7,7 @@
             {% for photo in pagination %}
             <div class="row mb-3">
                 <div class="col-12">
-                    {% include 'AppBundle:Includes:photo.html.twig' with { 'photo': photo } %}
+                    {% include 'AppBundle:Includes:photo.html.twig' with { 'photo': photo, 'userFavorites': userFavorites } %}
                 </div>
             </div>
             {% endfor %}

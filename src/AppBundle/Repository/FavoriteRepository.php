@@ -25,4 +25,19 @@ class FavoriteRepository extends EntityRepository
 
         return $query->getOneOrNullResult();
     }
+
+    public function findForUser(User $user): array
+    {
+        $qb = $this->createQueryBuilder('f');
+
+        $qb
+            ->join('f.photo', 'p')
+            ->where($qb->expr()->eq('f.user', ':user'))
+            ->setParameter('user', $user)
+        ;
+
+        $query = $qb->getQuery();
+
+        return $query->getResult();
+    }
 }

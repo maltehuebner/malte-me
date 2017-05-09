@@ -4,8 +4,6 @@
     {% set starred = false %}
 {% endif %}
 
-{{ dump(userFavorites) }}
-
 <div class="card photo" data-photo-id="{{ photo.id }}">
     <a href="{{ path('show_photo', { slug: photo.slug }) }}">
         <img class="img-fluid card-img-top" src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('standard') }}" alt="{{ photo.title }}" />

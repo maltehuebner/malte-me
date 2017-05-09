@@ -65,6 +65,11 @@ class Photo
     protected $description;
 
     /**
+     * @ORM\Column(type="text", length=255, nullable=true)
+     */
+    protected $source;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     protected $enabled = true;
@@ -253,6 +258,18 @@ class Photo
     public function setDescription(string $description): Photo
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getSource(): ?string
+    {
+        return $this->source;
+    }
+
+    public function setSource(string $source = null): Photo
+    {
+        $this->source = $source;
 
         return $this;
     }

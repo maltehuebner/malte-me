@@ -26,6 +26,7 @@ class PhotoAdmin extends AbstractAdmin
             ->with('Fotoinformationen', ['class' => 'col-xs-6'])
             ->add('title', TextType::class)
             ->add('description', TextareaType::class)
+            ->add('source', TextType::class)
             ->end()
 
             ->with('Metainformationen', ['class' => 'col-xs-6'])

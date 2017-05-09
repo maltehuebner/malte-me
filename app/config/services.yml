@@ -22,3 +22,9 @@ services:
         arguments: [~, AppBundle\Entity\User, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: User }
+
+    admin.comment:
+        class: AppBundle\Admin\CommentAdmin
+        arguments: [~, AppBundle\Entity\Comment, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Comment }

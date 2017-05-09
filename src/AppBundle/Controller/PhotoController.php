@@ -21,8 +21,11 @@ class PhotoController extends Controller
             throw $this->createNotFoundException();
         }
 
+        $comments = $this->getDoctrine()->getRepository('AppBundle:Comment')->findForPhoto($photo);
+
         return $this->render('AppBundle:Photo:view.html.twig', [
-            'photo' => $photo
+            'photo' => $photo,
+            'comments' => $comments,
         ]);
     }
 }

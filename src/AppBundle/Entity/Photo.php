@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -26,6 +28,16 @@ class Photo
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="photo")
+     */
+    protected $comments;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Favorite", mappedBy="photo")
+     */
+    protected $favorites;
 
     /**
      * @ORM\Column(type="float", nullable=true)
@@ -111,7 +123,11 @@ class Photo
         $this->dateTime = new \DateTime();
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
+
         $this->description = '';
+
+        $this->comments = new ArrayCollection();
+        $this->favorites = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -127,6 +143,44 @@ class Photo
     public function setUser(User $user): Photo
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function addComment(Comment $comment): Photo
+    {
+        $this->comments->add($comment);
+
+        return $this;
+    }
+
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function removeComment(Comment $comment): Photo
+    {
+        $this->comments->removeElement($comment);
+
+        return $this;
+    }
+
+    public function addFavorite(Favorite $favorites): Photo
+    {
+        $this->favorites->add($favorites);
+
+        return $this;
+    }
+
+    public function getFavorites(): Collection
+    {
+        return $this->favorites;
+    }
+
+    public function removeFavorite(Favorite $favorites): Photo
+    {
+        $this->favorites->removeElement($favorites);
 
         return $this;
     }

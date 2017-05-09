@@ -40,4 +40,41 @@
         </div>
     </div>
 </div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <a name="comments"></a>
+            <h4 class="text-center">
+                Kommentare zu diesem Eintrag
+            </h4>
+        </div>
+    </div>
+
+    {% for comment in comments %}
+    <div class="row mt-2">
+        <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-block">
+                    {{ comment.message }}
+                </div>
+                <div class="card-footer text-muted">
+                    {{ comment.dateTime|date('d.m.Y H:i') }} Uhr von {{ comment.user.displayName }}
+                </div>
+            </div>
+
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{{ include('AppBundle:Includes:commentModal.html.twig') }}
+
+{% endblock %}
+
+{% block additionalFooterElements %}
+    <script type="text/javascript">
+        Fahrradstadt.loadModule('CommentBox');
+        Fahrradstadt.loadModule('FavoriteStar');
+    </script>
 {% endblock %}

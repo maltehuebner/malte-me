@@ -3,11 +3,11 @@
 {% block content %}
 <div class="container-fluid">
     <div class="row">
-        <div class="col-12 col-sm-12 col-md-10 offset-md-1">
+        <div class="col-12 col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3">
             {% for photo in pagination %}
             <div class="row mb-3">
                 <div class="col-12">
-                    {% include 'AppBundle:Includes:photo.html.twig' with { 'photo': photo } %}
+                    {% include 'AppBundle:Includes:photo.html.twig' with { 'photo': photo, 'userFavorites': userFavorites } %}
                 </div>
             </div>
             {% endfor %}
@@ -20,4 +20,14 @@
         </div>
     </div>
 </div>
+
+{{ include('AppBundle:Includes:commentModal.html.twig') }}
+
+{% endblock %}
+
+{% block additionalFooterElements %}
+    <script type="text/javascript">
+        Fahrradstadt.loadModule('CommentBox');
+        Fahrradstadt.loadModule('FavoriteStar');
+    </script>
 {% endblock %}

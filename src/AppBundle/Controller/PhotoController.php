@@ -13,7 +13,7 @@ use \Malenki\Slug;
 
 class PhotoController extends Controller
 {
-    public function viewAction(Request $request, string $slug): Response
+    public function viewAction(Request $request, UserInterface $user = null, string $slug): Response
     {
         $photo = $this->getDoctrine()->getRepository('AppBundle:Photo')->findOneBySlug($slug);
 
@@ -23,9 +23,20 @@ class PhotoController extends Controller
 
         $comments = $this->getDoctrine()->getRepository('AppBundle:Comment')->findForPhoto($photo);
 
+        $userFavorites = [];
+
+        if ($user) {
+            $star = $this->getDoctrine()->getRepository('AppBundle:Favorite')->findForUserAndPhoto($user, $photo);
+
+            if ($star) {
+                $userFavorites[$star->getPhoto()->getId()] = $star;
+            }
+        }
+
         return $this->render('AppBundle:Photo:view.html.twig', [
             'photo' => $photo,
             'comments' => $comments,
+            'userFavorites' => $userFavorites,
         ]);
     }
 }

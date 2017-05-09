@@ -60,7 +60,17 @@
                     {{ comment.message }}
                 </div>
                 <div class="card-footer text-muted">
-                    {{ comment.dateTime|date('d.m.Y H:i') }} Uhr von {{ comment.user.displayName }}
+                    {% if comment.user.profilePictureUrl %}
+                        <img src="{{ comment.user.profilePictureUrl }}" class="img-profile" />
+                    {% endif %}
+
+                    <small>
+                        <strong>
+                            {{ comment.user.displayname }}
+                        </strong>
+
+                        {{ comment.dateTime|date('d.m.Y', 'Europe/Berlin') }} um {{ comment.dateTime|date('H:i', 'Europe/Berlin') }} Uhr
+                    </small>
                 </div>
             </div>
 

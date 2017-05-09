@@ -11,7 +11,7 @@ class FOSUBUserProvider extends BaseClass
     /**
      * {@inheritDoc}
      */
-    public function connect(UserInterface $user, UserResponseInterface $response)
+    public function connect(UserInterface $user, UserResponseInterface $response): void
     {
         $property = $this->getProperty($response);
         $username = $response->getUsername();
@@ -39,7 +39,7 @@ class FOSUBUserProvider extends BaseClass
     /**
      * {@inheritdoc}
      */
-    public function loadUserByOAuthUserResponse(UserResponseInterface $response)
+    public function loadUserByOAuthUserResponse(UserResponseInterface $response): UserInterface
     {
         $username = $response->getUsername();
         $user = $this->userManager->findUserBy(array($this->getProperty($response) => $username));
@@ -56,20 +56,22 @@ class FOSUBUserProvider extends BaseClass
             $user->$setter_token($response->getAccessToken());
 
             $this->setUserData($user, $response);
+        } else {
+            $user = parent::loadUserByOAuthUserResponse($response);
+            $serviceName = $response->getResourceOwner()->getName();
+            $setter = 'set' . ucfirst($serviceName) . 'AccessToken';
 
-            $this->userManager->updateUser($user);
-            return $user;
+            $user->$setter($response->getAccessToken());
         }
 
-        $user = parent::loadUserByOAuthUserResponse($response);
-        $serviceName = $response->getResourceOwner()->getName();
-        $setter = 'set' . ucfirst($serviceName) . 'AccessToken';
+        $this->updateProfilePicture($user, $response);
 
-        $user->$setter($response->getAccessToken());
+        $this->userManager->updateUser($user);
+
         return $user;
     }
 
-    protected function setUserData(UserInterface $user, UserResponseInterface $response)
+    protected function setUserData(UserInterface $user, UserResponseInterface $response): UserInterface
     {
         $username = $response->getNickname() ? $response->getNickname() : $response->getUsername();
         $email = $response->getEmail() ? $response->getEmail() : $response->getUsername();
@@ -90,6 +92,16 @@ class FOSUBUserProvider extends BaseClass
             ->setUsername($username)
             ->setEmail($email)
             ->setPassword('')
-            ->setEnabled(true);
+            ->setEnabled(true)
+        ;
+
+        return $user;
+    }
+
+    protected function updateProfilePicture(UserInterface $user, UserResponseInterface $response): UserInterface
+    {
+        $user->setProfilePictureUrl($response->getProfilePicture());
+
+        return $user;
     }
 }

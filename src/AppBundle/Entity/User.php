@@ -35,6 +35,11 @@ class User extends BaseUser
     protected $lastname;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $profilePictureUrl;
+
+    /**
      * @ORM\Column(name="facebook_id", type="string", length=255, nullable=true)
      */
     protected $facebookId;
@@ -110,6 +115,18 @@ class User extends BaseUser
     public function getLastname(): ?string
     {
         return $this->lastname;
+    }
+
+    public function setProfilePictureUrl(string $profilePictureUrl = null): User
+    {
+        $this->profilePictureUrl = $profilePictureUrl;
+
+        return $this;
+    }
+
+    public function getProfilePictureUrl(): ?string
+    {
+        return $this->profilePictureUrl;
     }
 
     public function setFacebookId(string $facebookId): User

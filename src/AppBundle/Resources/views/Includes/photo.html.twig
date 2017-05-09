@@ -30,18 +30,20 @@
         <p class="card-text">
             {{ photo.description|markdown }}
         </p>
-
-        <p class="card-text">
-            <small class="text-muted" title="hinzugefügt am {{ photo.displayDateTime|date('d.m.Y', 'Europe/Berlin') }} um {{ photo.displayDateTime|date('H:i', 'Europe/Berlin') }} Uhr von {{ photo.user.displayname }}">
-                aufgenommen am {{ photo.dateTime|date('d.m.Y', 'Europe/Berlin') }} um {{ photo.dateTime|date('H:i', 'Europe/Berlin') }} Uhr
-            </small>
-        </p>
     </div>
 
     <div class="card-footer text-muted">
-        <span>
-            veröffentlicht von {{ photo.user.displayname }}
-        </span>
+        {% if photo.user.profilePictureUrl %}
+        <img src="{{ photo.user.profilePictureUrl }}" class="img-profile" />
+        {% endif %}
+
+        <small>
+            <strong>
+                {{ photo.user.displayname }}
+            </strong>
+
+            {{ photo.dateTime|date('d.m.Y', 'Europe/Berlin') }} um {{ photo.dateTime|date('H:i', 'Europe/Berlin') }} Uhr
+        </small>
 
         <div class="float-right">
             {% if is_granted('ROLE_USER') %}

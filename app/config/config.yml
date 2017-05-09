@@ -112,7 +112,10 @@ hwi_oauth:
             client_id:           %facebook.client_id%
             client_secret:       %facebook.client_secret%
             scope:               email
-            infos_url:           https://graph.facebook.com/me?fields=id,name,email,first_name,last_name,gender
+            infos_url:           https://graph.facebook.com/me?fields=id,name,email,first_name,last_name,picture.type(large)
+            paths:
+                email:          email
+                profilepicture: picture.data.url
         strava:
             type:                strava
             client_id:           %strava.client_id%

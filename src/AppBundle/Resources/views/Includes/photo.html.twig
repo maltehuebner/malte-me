@@ -44,7 +44,11 @@
         </span>
 
         <span class="float-right">
+            {% if app.user %}
             <a href="{{ path('favorite_photo', { photoId: photo.id }) }}" class="favorite-star btn btn-outline-secondary btn-sm">
+            {% else %}
+            <a href="{{ path('hwi_oauth_connect') }}" class="btn btn-outline-secondary btn-sm">
+            {% endif %}
                 {% if starred %}
                 <i class="fa fa-star" aria-hidden="true"></i>
                 {% else %}
@@ -55,7 +59,11 @@
                 </span>
             </a>
 
+            {% if app.user %}
             <a href="#" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#comment-modal">
+            {% else %}
+            <a href="{{ path('hwi_oauth_connect') }}" class="btn btn-outline-secondary btn-sm">
+            {% endif %}
                 <i class="fa fa-comment" aria-hidden="true"></i>
                 {{ photo.comments|length }}
             </a>

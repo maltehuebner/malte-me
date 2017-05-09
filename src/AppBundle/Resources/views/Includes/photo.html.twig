@@ -43,30 +43,38 @@
             veröffentlicht von {{ photo.user.displayname }}
         </span>
 
-        <span class="float-right">
-            {% if app.user %}
+        <div class="float-right">
+            {% if is_granted('ROLE_USER') %}
             <a href="{{ path('favorite_photo', { photoId: photo.id }) }}" class="favorite-star btn btn-outline-secondary btn-sm">
             {% else %}
             <a href="{{ path('hwi_oauth_connect') }}" class="btn btn-outline-secondary btn-sm">
             {% endif %}
+
                 {% if starred %}
                 <i class="fa fa-star" aria-hidden="true"></i>
                 {% else %}
                 <i class="fa fa-star-o" aria-hidden="true"></i>
                 {% endif %}
+
                 <span class="favorite-counter">
                     {{ photo.favorites|length }}
                 </span>
             </a>
 
-            {% if app.user %}
-            <a href="#" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#comment-modal">
-            {% else %}
-            <a href="{{ path('hwi_oauth_connect') }}" class="btn btn-outline-secondary btn-sm">
-            {% endif %}
-                <i class="fa fa-comment" aria-hidden="true"></i>
-                {{ photo.comments|length }}
-            </a>
-        </span>
+            <div class="btn-group btn-group-sm">
+                <a href="{{ path('show_photo', { slug: photo.slug }) }}#comments" class="btn btn-outline-secondary">
+                    <i class="fa fa-comment" aria-hidden="true"></i>
+                    {{ photo.comments|length }}
+                </a>
+
+                {% if is_granted('ROLE_USER') %}
+                <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#comment-modal">
+                {% else %}
+                <a href="{{ path('hwi_oauth_connect') }}" class="btn btn-outline-secondary">
+                {% endif %}
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
     </div>
 </div>

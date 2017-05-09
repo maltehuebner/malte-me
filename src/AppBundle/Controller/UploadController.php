@@ -38,6 +38,8 @@ class UploadController extends Controller
 
             if ($user->isModerated()) {
                 $photo->setEnabled(false);
+
+                $this->notifyModerator();
             }
 
             $em->persist($photo); // first persist to generate id
@@ -92,5 +94,17 @@ class UploadController extends Controller
     protected function createSlug(Photo $photo): string
     {
         return new Slug($photo->getTitle().' '.$photo->getId());
+    }
+
+    protected function notifyModerator(): void
+    {
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Fahrradstadt Hamburg: Moderiere Foto')
+            ->setFrom('mail@fahrradstadt.hamburg')
+            ->setTo('maltehuebner@gmx.org')
+            ->setBody('Bitte moderiere ein neues Foto', 'text/plain')
+        ;
+
+        $this->get('mailer')->send($message);
     }
 }

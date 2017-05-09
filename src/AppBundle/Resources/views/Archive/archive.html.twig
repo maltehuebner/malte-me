@@ -31,8 +31,19 @@
                             {{ photo.description|length > 150 ? photo.description|slice(0, 150) ~ '…' : photo.description  }}
                         </p>
                     </div>
+
                     <div class="card-footer text-muted">
-                        {{ photo.dateTime|date('d.m.Y H:i') }} Uhr von {{ photo.user.displayname }}
+                        {% if photo.user.profilePictureUrl %}
+                            <img src="{{ photo.user.profilePictureUrl }}" class="img-profile" />
+                        {% endif %}
+
+                        <small>
+                            <strong>
+                                {{ photo.user.displayname }}
+                            </strong>
+
+                            {{ photo.dateTime|date('d.m.Y', 'Europe/Berlin') }} um {{ photo.dateTime|date('H:i', 'Europe/Berlin') }} Uhr
+                        </small>
                     </div>
                 </div>
                 {% endfor %}

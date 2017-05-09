@@ -61,9 +61,9 @@ class Favorite
         return $this;
     }
 
-    public function getPhoto(): ?User
+    public function getPhoto(): ?Photo
     {
-        return $this->user;
+        return $this->photo;
     }
 
     public function setPhoto(Photo $photo): Favorite

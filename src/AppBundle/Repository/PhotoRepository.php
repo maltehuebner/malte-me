@@ -7,6 +7,15 @@ use Doctrine\ORM\Query;
 
 class PhotoRepository extends EntityRepository
 {
+    public function findForFeed(int $limit = 25): array
+    {
+        $query = $this->getFrontpageQuery();
+
+        $query->setMaxResults($limit);
+
+        return $query->getResult();
+    }
+
     public function findForArchive(): array
     {
         return $this->findForFrontpage();

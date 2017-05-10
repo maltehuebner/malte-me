@@ -8,6 +8,10 @@
         <default key="_controller">AppBundle:Default:index</default>
     </route>
 
+    <route id="feed" path="/feed">
+        <default key="_controller">AppBundle:Feed:index</default>
+    </route>
+
     <route id="photo_upload" path="/upload">
         <default key="_controller">AppBundle:Upload:upload</default>
     </route>

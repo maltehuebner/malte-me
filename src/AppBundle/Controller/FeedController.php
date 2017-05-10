@@ -17,14 +17,33 @@ class FeedController extends Controller
 {
     public function indexAction(Request $request, UserInterface $user = null): Response
     {
+        $feed = $this->buildFeed();
+
+        return new Response($feed);
+    }
+
+    protected function buildFeed(bool $includeImages = true): Feed
+    {
         $photos = $this->getDoctrine()->getRepository('AppBundle:Photo')->findForFeed();
-
-        $cacheManager = $this->get('liip_imagine.cache.manager');
-
-        $parser = new Markdown();
 
         $feed = new Feed();
 
+        $channel = $this->createChannel();
+
+        $channel->appendTo($feed);
+
+        /** @var Photo $photo */
+        foreach ($photos as $photo) {
+            $item = $this->buildItem($photo, $includeImages);
+
+            $item->appendTo($channel);
+        }
+
+        return $feed;
+    }
+
+    protected function createChannel(): Channel
+    {
         $channel = new Channel();
 
         $channel
@@ -34,32 +53,54 @@ class FeedController extends Controller
             ->language('de_DE')
             ->lastBuildDate((new \DateTime())->format('U'))
             ->ttl(60)
-            ->appendTo($feed);
+        ;
 
-        /** @var Photo $photo */
-        foreach ($photos as $photo) {
-            $item = new Item();
-
-            /** @var string */
-            $imageUrl = $cacheManager->getBrowserPath($photo->getImageName(), 'preview');
-
-            $imageMarkdown = '!['.$photo->getTitle().']('.$imageUrl.')';
-
-            $parsedDescription = $parser->parse($imageMarkdown."\n\n".$photo->getDescription());
-
-            $item
-                ->title($photo->getTitle())
-                ->description($parsedDescription)
-                ->contentEncoded($parsedDescription)
-                ->url($this->get('router')->generate('show_photo', ['slug' => $photo->getSlug()]))
-                ->author($photo->getUser()->getDisplayname())
-                ->pubDate($photo->getDisplayDateTime()->format('U'))
-                ->preferCdata(true)
-                ->appendTo($channel)
-            ;
-        }
-
-        return new Response($feed);
+        return $channel;
     }
 
+    protected function parseDescription(string $description): string
+    {
+        $parser = new Markdown();
+
+        return $parser->parse($description);
+    }
+
+    protected function createImageMarkdown(Photo $photo): string
+    {
+        $cacheManager = $this->get('liip_imagine.cache.manager');
+
+        /** @var string */
+        $imageUrl = $cacheManager->getBrowserPath($photo->getImageName(), 'preview');
+
+        $imageMarkdown = sprintf('![%s](%s)', $photo->getTitle(), $imageUrl);
+
+        return $imageMarkdown;
+    }
+
+    protected function buildItem(Photo $photo, bool $includeImages = true): Item
+    {
+        $item = new Item();
+
+        $description = $photo->getDescription();
+
+        if ($includeImages) {
+            $imageMarkdown = $this->createImageMarkdown($photo);
+
+            $description = sprintf("%s\n\n%s", $imageMarkdown, $description);
+        }
+
+        $parsedDescription = $this->parseDescription($description);
+
+        $item
+            ->title($photo->getTitle())
+            ->description($parsedDescription)
+            ->contentEncoded($parsedDescription)
+            ->url($this->get('router')->generate('show_photo', ['slug' => $photo->getSlug()]))
+            ->author($photo->getUser()->getDisplayname())
+            ->pubDate($photo->getDisplayDateTime()->format('U'))
+            ->preferCdata(true)
+        ;
+
+        return $item;
+    }
 }

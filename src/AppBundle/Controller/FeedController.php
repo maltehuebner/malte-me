@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Photo;
+use cebe\markdown\Markdown;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Suin\RSSWriter\Channel;
 use Suin\RSSWriter\Feed;
@@ -17,6 +18,10 @@ class FeedController extends Controller
     public function indexAction(Request $request, UserInterface $user = null): Response
     {
         $photos = $this->getDoctrine()->getRepository('AppBundle:Photo')->findForFeed();
+
+        $cacheManager = $this->get('liip_imagine.cache.manager');
+
+        $parser = new Markdown();
 
         $feed = new Feed();
 
@@ -35,10 +40,17 @@ class FeedController extends Controller
         foreach ($photos as $photo) {
             $item = new Item();
 
+            /** @var string */
+            $imageUrl = $cacheManager->getBrowserPath($photo->getImageName(), 'preview');
+
+            $imageMarkdown = '!['.$photo->getTitle().']('.$imageUrl.')';
+
+            $parsedDescription = $parser->parse($imageMarkdown."\n\n".$photo->getDescription());
+
             $item
                 ->title($photo->getTitle())
-                ->description($photo->getDescription())
-                ->contentEncoded($photo->getDescription())
+                ->description($parsedDescription)
+                ->contentEncoded($parsedDescription)
                 ->url($this->get('router')->generate('show_photo', ['slug' => $photo->getSlug()]))
                 ->author($photo->getUser()->getDisplayname())
                 ->pubDate($photo->getDisplayDateTime()->format('U'))
@@ -49,4 +61,5 @@ class FeedController extends Controller
 
         return new Response($feed);
     }
+
 }

@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
 use \Malenki\Slug;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class UploadController extends Controller
 {
@@ -82,7 +83,13 @@ class UploadController extends Controller
             $dateTime = null;
 
             if ($exif) {
-                $dateTime = $exif->getCreationDate();
+                $europeBerlin = new \DateTimeZone('Europe/Berlin');
+                $utc = new \DateTimeZone('UTC');
+
+                $dateTimeString = $exif->getCreationDate()->format('Y-m-d H:i:s');
+
+                $dateTime = new \DateTime($dateTimeString, $europeBerlin);
+                $dateTime->setTimezone($utc);
             }
 
             if (!$dateTime || !$exif) {

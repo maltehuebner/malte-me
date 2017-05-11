@@ -54,7 +54,7 @@ class FeedController extends Controller
         $channel
             ->title('Fahrradstadt.Hamburg')
             ->description('Fotos und Erlebnisse aus der Fahrradstadt.Hamburg')
-            ->url('http://blog.example.com')
+            ->url('https://fahrradstadt.hamburg/')
             ->language('de_DE')
             ->lastBuildDate((new \DateTime())->format('U'))
             ->ttl(60)

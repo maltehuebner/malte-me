@@ -56,7 +56,7 @@
             {% if is_granted('ROLE_USER') %}
             <a href="{{ path('favorite_photo', { photoId: photo.id }) }}" class="favorite-star btn btn-outline-secondary btn-sm">
             {% else %}
-            <a href="{{ path('hwi_oauth_connect') }}" class="btn btn-outline-secondary btn-sm">
+            <a href="{{ path('fos_user_security_login') }}" class="btn btn-outline-secondary btn-sm">
             {% endif %}
 
                 {% if starred %}
@@ -79,7 +79,7 @@
                 {% if is_granted('ROLE_USER') %}
                 <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#comment-modal">
                 {% else %}
-                <a href="{{ path('hwi_oauth_connect') }}" class="btn btn-outline-secondary">
+                <a href="{{ path('fos_user_security_login') }}" class="btn btn-outline-secondary">
                 {% endif %}
                     <i class="fa fa-plus" aria-hidden="true"></i>
                 </a>

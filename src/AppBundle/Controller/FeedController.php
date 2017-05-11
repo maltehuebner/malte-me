@@ -10,6 +10,7 @@ use Suin\RSSWriter\Item;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class FeedController extends Controller
 {
@@ -100,7 +101,7 @@ class FeedController extends Controller
             ->title($photo->getTitle())
             ->description($parsedDescription)
             ->contentEncoded($parsedDescription)
-            ->url($this->get('router')->generate('show_photo', ['slug' => $photo->getSlug()]))
+            ->url($this->generateUrl('show_photo', ['slug' => $photo->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL))
             ->author($photo->getUser()->getDisplayname())
             ->pubDate($photo->getDisplayDateTime()->format('U'))
             ->preferCdata(true)

@@ -101,6 +101,9 @@ fos_user:
     from_email:
         address:        noreply@fahrradstadt.hamburg
         sender_name:    Fahrradstadt Hamburg
+    registration:
+        confirmation:
+            enabled:    true # change to true for required email confirmation
 
 hwi_oauth:
     # list of names of the firewalls in which this bundle is active, this setting MUST be set

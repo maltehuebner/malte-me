@@ -1,0 +1,23 @@
+{% extends "AppBundle::layout.html.twig" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2>
+                    Herzlich willkommen!
+                </h2>
+
+                <p class="lead">
+                    Dein Benutzerkonto wurde erstellt — du kannst jetzt dein erstes Foto hochladen:
+                </p>
+
+                <p class="text-center">
+                    <a href="{{ path('photo_upload') }}" class="btn btn-primary btn-lg">
+                        Hochladen
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% block subject %}
+Willkommen bei Fahrradstadt.Hamburg, {{ user.username }}!
+{% endblock %}
+
+{% block body_text %}
+Hej {{ user.username }}!
+
+Danke für deine Anmeldung bei Fahrradstadt.Hamburg! Bitte bestätige noch schnell, dass dies tatsächlich deine E-Mail-Adresse ist, indem du auf den folgenden Link klickst: {{ confirmationUrl }}
+
+Viele Grüße
+Fahrradstadt Hamburg
+{% endblock %}

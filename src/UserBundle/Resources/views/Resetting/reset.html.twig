@@ -1,0 +1,60 @@
+{% extends "AppBundle::layout.html.twig" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2>
+                    Neues Kennwort festlegen
+                </h2>
+            </div>
+        </div>
+
+        {{ form_start(form, { 'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'class': 'fos_user_resetting_reset' } }) }}
+        {% if form_errors(form.plainPassword.first) %}
+            <div class="row">
+                <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2">
+                    <div class="alert alert-danger">
+                        {{ form_errors(form.plainPassword.first) }}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="row">
+            <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 form-group">
+                <label>
+                    Dein neues Kennwort:
+                </label>
+                {{ form_widget(form.plainPassword.first, { attr: { class: 'form-control form-control-lg' } }) }}
+            </div>
+        </div>
+
+        {% if form_errors(form.plainPassword.second) %}
+            <div class="row">
+                <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2">
+                    <div class="alert alert-danger">
+                        {{ form_errors(form.plainPassword.second) }}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="row">
+            <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 form-group">
+                <label>
+                    Wiederhole dein neues Kennwort noch einmal:
+                </label>
+                {{ form_widget(form.plainPassword.second, { attr: { class: 'form-control form-control-lg' } }) }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 text-center">
+                <input class="btn btn-primary btn-lg" type="submit" value="Speichern" />
+            </div>
+        </div>
+    {{ form_end(form) }}
+</div>
+
+{% endblock content %}

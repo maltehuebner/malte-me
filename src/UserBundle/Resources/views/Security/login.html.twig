@@ -1,0 +1,96 @@
+{% extends "AppBundle::layout.html.twig" %}
+
+{% block content %}
+    <div class="container">
+        {% if error %}
+        <div class="row mt-3">
+            <div class="col-12">
+                <div class="alert alert-danger">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="row mt-3">
+            <div class="col-12 col-sm-6">
+                <div class="card">
+                    <div class="card-header">
+                        Social Media
+                    </div>
+                    <div class="card-block text-center">
+                        <p>
+                            Du kannst dich über eines dieser sozialen Netzwerke einloggen. Es geht ganz schnell und dauert keine fünf Sekunden.
+                        </p>
+
+                        <div class="btn-group">
+                            <a href="{{ hwi_oauth_login_url('strava') }}" class="btn btn-secondary" style="background-color: rgb(249, 77, 31); color: white;">
+                                Strava
+                            </a>
+
+                            <a href="{{ hwi_oauth_login_url('facebook') }}" class="btn btn-secondary" style="background-color: rgb(60, 90, 150); color: white;">
+                                facebook
+                            </a>
+
+                            <a href="{{ hwi_oauth_login_url('twitter') }}" class="btn btn-secondary" style="background-color: rgb(57, 201, 214); color: white;">
+                                twitter
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+                <div class="card">
+                    <div class="card-header">
+                        E-Mail-Adresse
+                    </div>
+                    <div class="card-block">
+                        <form action="{{ path("fos_user_security_check") }}" method="post">
+                            {% if csrf_token %}
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                            {% endif %}
+
+                            <div class="form-group row">
+                                <label for="username" class="col-12 col-form-label">
+                                    Dein Benutzername
+                                </label>
+
+                                <div class="col-12">
+                                    <input class="form-control" type="text" value="{{ last_username }}" id="username" name="_username" required="required" />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="password" class="col-12 col-form-label">
+                                    Dein Kennwort
+                                </label>
+
+                                <div class="col-12">
+                                    <input class="form-control" type="password" id="password" name="_password" required="required" />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-12 text-center">
+                                    <button id="_submit" class="btn btn-primary" type="submit" name="_submit">
+                                        Login
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <a href="{{ path('fos_user_resetting_request') }}">
+                                        Kennwort vergessen?
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

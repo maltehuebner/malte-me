@@ -1,0 +1,60 @@
+{% extends "CalderaMembersBundle:Template:layout.html.twig" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-5 offset-xs-1">
+                <h2>
+                    Neues Kennwort speichern
+                </h2>
+            </div>
+
+            <div class="col-xs-5">
+                {{ form_start(form, { 'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'class': 'fos_user_resetting_reset' } }) }}
+                {% if form_errors(form.plainPassword.first) %}
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="alert alert-danger">
+                            {{ form_errors(form.plainPassword.first) }}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            {{ form_widget(form.plainPassword.first, { attr: { class: 'form-control' } }) }}
+                        </div>
+                    </div>
+                </div>
+
+                {% if form_errors(form.plainPassword.second) %}
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="alert alert-danger">
+                                {{ form_errors(form.plainPassword.second) }}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            {{ form_widget(form.plainPassword.second, { attr: { class: 'form-control' } }) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <input class="btn btn-primary" type="submit" value="Speichern" />
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

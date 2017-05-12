@@ -53,6 +53,25 @@
         </small>
 
         <div class="float-right">
+            {% if app.user and (app.user == photo.user or is_granted('ROLE_ADMIN')) %}
+            <div class="dropdown dropup" style="display: inline;">
+                <button class="btn btn-outline-secondary btn-sm dropup" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-wrench" aria-hidden="true"></i>
+                </button>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="{{ path('rotate_photo', { photoId: photo.id }) }}">
+                        <i class="fa fa-undo" aria-hidden="true"></i>
+                        Foto drehen
+                    </a>
+                    <a class="dropdown-item" href="{{ path('edit_photo', { photoId: photo.id }) }}">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                        Text bearbeiten
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+
             {% if is_granted('ROLE_USER') %}
             <a href="{{ path('favorite_photo', { photoId: photo.id }) }}" class="favorite-star btn btn-outline-secondary btn-sm">
             {% else %}

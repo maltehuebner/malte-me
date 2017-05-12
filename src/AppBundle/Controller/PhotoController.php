@@ -39,13 +39,17 @@ class PhotoController extends Controller
         ]);
     }
 
-    public function editAction(Request $request, UserInterface $user = null, int $photoId): Response
+    public function editAction(Request $request, UserInterface $user, int $photoId): Response
     {
         /** @var Photo $photo */
         $photo = $this->getDoctrine()->getRepository('AppBundle:Photo')->find($photoId);
 
         if (!$photo) {
             throw $this->createNotFoundException();
+        }
+
+        if ($photo->getUser() !== $user || !$user->hasRole('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException();
         }
 
         $editForm = $this->createForm(PhotoEditType::class, $photo);

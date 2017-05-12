@@ -40,7 +40,8 @@
         "sonata-project/doctrine-orm-admin-bundle": "^3.1",
         "knplabs/knp-paginator-bundle": "^2.5",
         "friendsofsymfony/jsrouting-bundle": "^1.6",
-        "suin/php-rss-writer": "^1.5"
+        "suin/php-rss-writer": "^1.5",
+        "gregwar/image": "^2.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

@@ -24,19 +24,41 @@ class PhotoManagementController extends Controller
             throw $this->createAccessDeniedException();
         }
 
-        $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
-        $path = $helper->asset($photo, 'imageFile');
+        $filename = $this->getImageFilename($photo);
 
-        $photoDirectory = $this->getParameter('upload.photo_path');
+        var_dump($filename);
 
-        $filename = $photoDirectory.$path;
+        $image = Image::open($filename);
+        $image->rotate(90);
 
-        Image::open($filename)
-            ->rotate(90)
-            ->save($filename);
+        $success = $image->save($filename, 'jpeg', 100);
+
+        $this->clearImageCache($photo);
 
         return $this->redirectToRoute('show_photo', [
             'slug' => $photo->getSlug()
         ]);
+    }
+
+    protected function clearImageCache(Photo $photo): void
+    {
+        $cacheManager = $this->get('liip_imagine.cache.manager');
+
+        $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
+        $path = $helper->asset($photo, 'imageFile');
+
+        $cacheManager->remove($path);
+    }
+
+    protected function getImageFilename(Photo $photo): string
+    {
+        $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
+        $path = $helper->asset($photo, 'imageFile');
+
+        $webDirectory = $this->getParameter('web_dir');
+
+        $filename = $webDirectory.$path;
+
+        return $filename;
     }
 }

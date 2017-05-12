@@ -75,7 +75,7 @@ vich_uploader:
     mappings:
         photo:
             uri_prefix:         /photos
-            upload_destination: %upload.photo_path%
+            upload_destination: %upload_destination.photo%
             namer:              vich_uploader.namer_uniqid
 
 liip_imagine:

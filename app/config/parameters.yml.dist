@@ -26,3 +26,5 @@ parameters:
 
     twitter.client_id: ThisTokenIsNotSoSecretChangeIt
     twitter.client_secret: ThisTokenIsNotSoSecretChangeIt
+
+    upload.photo_path: %kernel.root_dir%/../web/photos

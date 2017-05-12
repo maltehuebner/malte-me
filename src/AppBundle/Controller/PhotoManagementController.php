@@ -20,7 +20,7 @@ class PhotoManagementController extends Controller
             throw $this->createNotFoundException();
         }
 
-        if ($photo->getUser() !== $user) {
+        if ($photo->getUser() !== $user || !$user->hasRole('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException();
         }
 

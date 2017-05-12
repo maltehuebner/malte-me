@@ -1,0 +1,51 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-12 text-center">
+                <h2>
+                    Foto bearbeiten
+                </h2>
+            </div>
+        </div>
+
+        {{ form_start(editForm) }}
+        <div class="row">
+            <div class="col-12 col-md-8 offset-md-2 text-center">
+                <div class="img-thumbnail thumbnail mx-auto" style="width: 300px; height: auto;">
+                    <img class="img-fluid" src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('preview') }}" alt="{{ photo.title }}" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-12 col-md-8 offset-md-2 text-center">
+                <h3>
+                    {{ photo.title }}
+                </h3>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-12 col-md-8 offset-md-2">
+                <div class="form-group">
+                    <label for="">Beschreibung:</label>
+                    {{ form_widget(editForm.description, { attr: { class: 'form-control form-control-lg' } }) }}
+                    <small class="form-text text-muted">
+                        Du kannst deinen Beitrag mit der <a href="http://markdown.de/">Markdown-Syntax</a> formatieren.
+                    </small>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-8 offset-md-2 text-center">
+                {{ form_widget(editForm.submit, { attr: { class: 'btn btn-primary btn-lg' } }) }}
+            </div>
+        </div>
+
+        {{ form_widget(editForm._token) }}
+        </form>
+    </div>
+{% endblock %}

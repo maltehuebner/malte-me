@@ -32,6 +32,10 @@
         <default key="_controller">AppBundle:Favorite:favorite</default>
     </route>
 
+    <route id="edit_photo" path="/{photoId}/edit">
+        <default key="_controller">AppBundle:Photo:edit</default>
+    </route>
+
     <route id="rotate_photo" path="/{photoId}/rotate">
         <default key="_controller">AppBundle:PhotoManagement:rotate</default>
     </route>

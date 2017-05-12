@@ -24,16 +24,11 @@ class PhotoManagementController extends Controller
             throw $this->createAccessDeniedException();
         }
 
-        $filename = $this->getImageFilename($photo);
+        $image = $this->createPhotoImage($photo);
 
-        var_dump($filename);
-
-        $image = Image::open($filename);
         $image->rotate(90);
 
-        $success = $image->save($filename, 'jpeg', 100);
-
-        $this->clearImageCache($photo);
+        $this->savePhotoImage($photo, $image);
 
         return $this->redirectToRoute('show_photo', [
             'slug' => $photo->getSlug()
@@ -60,5 +55,23 @@ class PhotoManagementController extends Controller
         $filename = $webDirectory.$path;
 
         return $filename;
+    }
+
+    public function createPhotoImage(Photo $photo): Image
+    {
+        $filename = $this->getImageFilename($photo);
+
+        return Image::open($filename);
+    }
+
+    public function savePhotoImage(Photo $photo, Image $image): bool
+    {
+        $filename = $this->getImageFilename($photo);
+
+        $result = $image->save($filename, 'jpeg', 100);
+
+        $this->clearImageCache($photo);
+
+        return $result;
     }
 }

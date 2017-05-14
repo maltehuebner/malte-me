@@ -164,3 +164,24 @@ knp_paginator:
     template:
         pagination: AppBundle:Pagination:twitter_bootstrap_v4_pagination.html.twig     # sliding pagination controls template
         sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
+
+fos_elastica:
+    clients:
+        default: { host: localhost, port: 9200, logger: false }
+    indexes:
+        fahrradstadt:
+            client: default
+            finder:
+            types:
+                photo:
+                    mappings:
+                        id: ~
+                        title: ~
+                        description: ~
+                        user: ~
+                    persistence:
+                        driver: orm
+                        model: AppBundle\Entity\Photo
+                        provider: ~
+                        listener: ~
+                        finder: ~

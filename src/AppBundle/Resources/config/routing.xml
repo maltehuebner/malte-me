@@ -24,6 +24,10 @@
         <default key="_controller">AppBundle:Static:mission</default>
     </route>
 
+    <route id="search" path="/search">
+        <default key="_controller">AppBundle:Search:search</default>
+    </route>
+
     <route id="archive" path="/archive">
         <default key="_controller">AppBundle:Archive:archive</default>
     </route>

@@ -11,12 +11,13 @@ class ArchiveController extends Controller
     public function archiveAction(Request $request): Response
     {
         $paginator  = $this->get('knp_paginator');
+        $page = $request->query->getInt('page', 1);
 
         $query = $this->getDoctrine()->getRepository('AppBundle:Photo')->getFrontpageQuery();
 
         $pagination = $paginator->paginate(
             $query,
-            $request->query->getInt('page', 1),
+            $page,
             50
         );
 

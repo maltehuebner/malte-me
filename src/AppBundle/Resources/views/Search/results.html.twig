@@ -1,0 +1,59 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mb-5">
+        <div class="col-12 col-md-6 offset-md-3 text-center">
+            <h2>
+                Suchergebnisse
+            </h2>
+
+            <p>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-10 offset-md-1">
+            <div class="card-columns">
+                {% for photo in pagination %}
+                <div class="card"><a href="{{ path('show_photo', { slug: photo.slug }) }}">
+                        <img class="card-img-top img-fluid" src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('preview') }}" alt="{{ photo.title }}" />
+                    </a>
+                    <div class="card-block">
+                        <a href="{{ path('show_photo', { slug: photo.slug }) }}">
+                            <h4 class="card-title">
+                                {{ photo.title }}
+                            </h4>
+                        </a>
+                        <p class="card-text">
+                            {{ photo.description|length > 150 ? photo.description|slice(0, 150) ~ '…' : photo.description  }}
+                        </p>
+                    </div>
+
+                    <div class="card-footer text-muted">
+                        {% if photo.user.profilePictureUrl %}
+                            <img src="{{ photo.user.profilePictureUrl }}" class="img-profile" />
+                        {% endif %}
+
+                        <small>
+                            <strong>
+                                {{ photo.user.displayname }}
+                            </strong>
+
+                            {{ photo.dateTime|date('d.m.Y', 'Europe/Berlin') }} um {{ photo.dateTime|date('H:i', 'Europe/Berlin') }} Uhr
+                        </small>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

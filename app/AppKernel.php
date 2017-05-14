@@ -27,6 +27,7 @@ class AppKernel extends Kernel
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new FOS\ElasticaBundle\FOSElasticaBundle(),
             new AppBundle\AppBundle(),
             new UserBundle\UserBundle()
         ];

@@ -169,7 +169,7 @@ fos_elastica:
     clients:
         default: { host: localhost, port: 9200, logger: false }
     indexes:
-        cycleways:
+        fahrradstadt:
             client: default
             finder:
             types:

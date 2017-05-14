@@ -24,7 +24,8 @@ class SearchController extends Controller
         );
 
         return $this->render('AppBundle:Search:results.html.twig', [
-            'pagination' => $pagination
+            'pagination' => $pagination,
+            'query' => $query,
         ]);
     }
 }

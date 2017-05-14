@@ -5,16 +5,14 @@
     <div class="row mb-5">
         <div class="col-12 col-md-6 offset-md-3 text-center">
             <h2>
-                Suchergebnisse
+                {{ pagination|length }} Suchergebnisse zu „{{ query }}“
             </h2>
-
-            <p>
-            </p>
         </div>
     </div>
 
     <div class="row">
         <div class="col-12 col-sm-12 col-md-10 offset-md-1">
+            {% if pagination|length > 0 %}
             <div class="card-columns">
                 {% for photo in pagination %}
                 <div class="card"><a href="{{ path('show_photo', { slug: photo.slug }) }}">
@@ -47,6 +45,11 @@
                 </div>
                 {% endfor %}
             </div>
+            {% else %}
+            <div class="alert alert-info">
+                <strong>Schade:</strong> Zu dem Suchbegriff „{{ query }}“ gibt es keine Ergebnisse.
+            </div>
+            {% endif %}
         </div>
     </div>
 

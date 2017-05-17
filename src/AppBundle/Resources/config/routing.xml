@@ -12,7 +12,7 @@
         <default key="_controller">AppBundle:Feed:index</default>
     </route>
 
-    <route id="feed" path="/plain-feed">
+    <route id="plain-feed" path="/plain-feed">
         <default key="_controller">AppBundle:Feed:plain</default>
     </route>
 

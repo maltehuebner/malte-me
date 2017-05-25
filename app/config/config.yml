@@ -179,6 +179,7 @@ fos_elastica:
                         title: ~
                         description: ~
                         user: ~
+                        location: ~
                     persistence:
                         driver: orm
                         model: AppBundle\Entity\Photo

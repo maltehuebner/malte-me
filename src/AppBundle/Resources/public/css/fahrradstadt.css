@@ -8460,6 +8460,9 @@ nav.navbar {
   opacity: 0.95; }
 
 img.img-profile {
-  width: 25px;
-  height: 25px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%; }
+
+.photo-meta {
+  height: 36px; }

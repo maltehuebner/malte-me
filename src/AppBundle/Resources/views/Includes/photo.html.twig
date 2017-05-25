@@ -41,16 +41,20 @@
 
     <div class="card-footer text-muted">
         {% if photo.user.profilePictureUrl %}
-        <img src="{{ photo.user.profilePictureUrl }}" class="img-profile" />
+        <img src="{{ photo.user.profilePictureUrl }}" class="img-profile d-block float-left mr-1" />
         {% endif %}
 
-        <small>
-            <strong>
-                {{ photo.user.displayname }}
-            </strong>
+        <div class="photo-meta float-left">
+            <small class="align-middle">
+                <strong>
+                    {{ photo.user.displayname }}
+                </strong>
 
-            {{ photo.dateTime|date('d.m.Y', 'Europe/Berlin') }} um {{ photo.dateTime|date('H:i', 'Europe/Berlin') }} Uhr
-        </small>
+                {{ photo.dateTime|date('d.m.Y', 'Europe/Berlin') }} um {{ photo.dateTime|date('H:i', 'Europe/Berlin') }} Uhr{% if photo.location %}
+            <br />
+                {{ photo.location }}{% endif %}
+            </small>
+        </div>
 
         <div class="float-right">
             {% if app.user and (app.user == photo.user or is_granted('ROLE_ADMIN')) %}

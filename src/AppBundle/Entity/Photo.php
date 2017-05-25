@@ -402,4 +402,13 @@ class Photo
     {
         return $this->affiliated;
     }
+
+    public function getPin(): ?string
+    {
+        if ($this->latitude && $this->longitude) {
+            return $this->latitude . ',' . $this->longitude;
+        }
+
+        return null;
+    }
 }

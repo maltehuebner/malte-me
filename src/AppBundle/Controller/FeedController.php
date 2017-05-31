@@ -23,12 +23,12 @@ class FeedController extends Controller
 
     public function plainAction(Request $request): Response
     {
-        $feed = $this->buildFeed(false);
+        $feed = $this->buildFeed();
 
         return new Response($feed);
     }
 
-    protected function buildFeed(bool $includeImages = true): Feed
+    protected function buildFeed(): Feed
     {
         $photos = $this->getDoctrine()->getRepository('AppBundle:Photo')->findForFeed();
 
@@ -40,7 +40,7 @@ class FeedController extends Controller
 
         /** @var Photo $photo */
         foreach ($photos as $photo) {
-            $item = $this->buildItem($photo, $includeImages);
+            $item = $this->buildItem($photo);
 
             $item->appendTo($channel);
         }
@@ -71,31 +71,21 @@ class FeedController extends Controller
         return $parser->parse($description);
     }
 
-    protected function createImageMarkdown(Photo $photo): string
+    protected function getImageUrl(Photo $photo): string
     {
         $cacheManager = $this->get('liip_imagine.cache.manager');
 
         /** @var string */
         $imageUrl = $cacheManager->getBrowserPath($photo->getImageName(), 'preview');
 
-        $imageMarkdown = sprintf('![%s](%s)', $photo->getTitle(), $imageUrl);
-
-        return $imageMarkdown;
+        return $imageUrl;
     }
 
-    protected function buildItem(Photo $photo, bool $includeImages = true): Item
+    protected function buildItem(Photo $photo): Item
     {
         $item = new Item();
 
-        $description = $photo->getDescription();
-
-        if ($includeImages) {
-            $imageMarkdown = $this->createImageMarkdown($photo);
-
-            $description = sprintf("%s\n\n%s", $imageMarkdown, $description);
-        }
-
-        $parsedDescription = $this->parseDescription($description);
+        $parsedDescription = $this->parseDescription($photo->getDescription());
 
         $item
             ->title($photo->getTitle())
@@ -105,6 +95,7 @@ class FeedController extends Controller
             ->author($photo->getUser()->getDisplayname())
             ->pubDate($photo->getDisplayDateTime()->format('U'))
             ->preferCdata(true)
+            ->enclosure($this->getImageUrl($photo), 0, 'image/jpeg')
         ;
 
         return $item;

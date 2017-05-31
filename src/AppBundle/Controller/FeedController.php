@@ -21,13 +21,6 @@ class FeedController extends Controller
         return new Response($feed);
     }
 
-    public function plainAction(Request $request): Response
-    {
-        $feed = $this->buildFeed();
-
-        return new Response($feed);
-    }
-
     protected function buildFeed(): Feed
     {
         $photos = $this->getDoctrine()->getRepository('AppBundle:Photo')->findForFeed();

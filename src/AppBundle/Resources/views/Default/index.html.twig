@@ -10,6 +10,14 @@
                     {% include 'AppBundle:Includes:photo.html.twig' with { 'photo': photo, 'userFavorites': userFavorites } %}
                 </div>
             </div>
+
+            {% if loop.index0 == 3 %}
+            <div class="row mb-3">
+                <div class="col-12">
+                    {% include 'AppBundle:Includes:interaction.html.twig' %}
+                </div>
+            </div>
+            {% endif %}
             {% endfor %}
         </div>
     </div>
@@ -27,6 +35,7 @@
 
 {% block additionalFooterElements %}
     <script type="text/javascript">
+        Fahrradstadt.loadModule('Interaction', '#interaction');
         Fahrradstadt.loadModule('CommentBox');
         Fahrradstadt.loadModule('FavoriteStar');
     </script>

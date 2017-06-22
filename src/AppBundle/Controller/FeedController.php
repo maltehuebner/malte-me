@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Photo;
 use cebe\markdown\Markdown;
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Suin\RSSWriter\Channel;
 use Suin\RSSWriter\Feed;
 use Suin\RSSWriter\Item;
@@ -66,7 +67,10 @@ class FeedController extends Controller
 
     protected function getImageUrl(Photo $photo): string
     {
+        /** @var CacheManager $cacheManager */
         $cacheManager = $this->get('liip_imagine.cache.manager');
+
+        $cacheManager->resolve($photo->getImageName(), 'preview');
 
         /** @var string */
         $imageUrl = $cacheManager->getBrowserPath($photo->getImageName(), 'preview');

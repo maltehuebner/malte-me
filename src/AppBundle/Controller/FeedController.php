@@ -4,11 +4,13 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Photo;
 use cebe\markdown\Markdown;
+use Liip\ImagineBundle\Controller\ImagineController;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Suin\RSSWriter\Channel;
 use Suin\RSSWriter\Feed;
 use Suin\RSSWriter\Item;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -67,15 +69,22 @@ class FeedController extends Controller
 
     protected function getImageUrl(Photo $photo): string
     {
-        /** @var CacheManager $cacheManager */
-        $cacheManager = $this->get('liip_imagine.cache.manager');
+        $imageName = 'photos/'.$photo->getImageName();
 
-        $cacheManager->resolve($photo->getImageName(), 'preview');
+        /** @var ImagineController */
+        $imagine = $this
+            ->container
+            ->get('liip_imagine.controller');
 
-        /** @var string */
-        $imageUrl = $cacheManager->getBrowserPath($photo->getImageName(), 'preview');
+        /** @var RedirectResponse */
+        $imagemanagerResponse = $imagine
+            ->filterAction(
+                new Request(),         // http request
+                $imageName,      // original image you want to apply a filter to
+                'preview'              // filter defined in config.yml
+            );
 
-        return $imageUrl;
+        return $imagemanagerResponse->getTargetUrl();
     }
 
     protected function buildItem(Photo $photo): Item

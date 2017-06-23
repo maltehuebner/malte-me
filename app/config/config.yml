@@ -79,11 +79,6 @@ vich_uploader:
             namer:              vich_uploader.namer_uniqid
 
 liip_imagine:
-    loaders:
-        default:
-            filesystem:
-                data_root: '%kernel.root_dir%/../web/photos'
-
     resolvers:
        default:
           web_path: ~

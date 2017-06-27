@@ -39,3 +39,15 @@ nav.navbar {
   }
 }
 
+.interaction {
+  background-color: $brand-primary;
+  border: 3px black solid;
+}
+
+$btn-white-color: black !default;
+$btn-white-bg: white !default;
+$btn-white-border: white !default;
+
+.btn-white {
+  @include button-variant($btn-white-color, $btn-white-bg, $btn-white-border);
+}

@@ -8343,3 +8343,27 @@ nav.navbar {
 .photo.has-location address a:hover {
   text-decoration: none;
   color: inherit; }
+
+.interaction {
+  background-color: #efc828;
+  border: 3px black solid; }
+
+.btn-white {
+  color: black;
+  background-color: white;
+  border-color: white; }
+  .btn-white:hover {
+    color: black;
+    background-color: #e6e6e6;
+    border-color: #e0e0e0; }
+  .btn-white:focus, .btn-white.focus {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5); }
+  .btn-white.disabled, .btn-white:disabled {
+    background-color: white;
+    border-color: white; }
+  .btn-white:active, .btn-white.active,
+  .show > .btn-white.dropdown-toggle {
+    color: black;
+    background-color: #e6e6e6;
+    background-image: none;
+    border-color: #e0e0e0; }

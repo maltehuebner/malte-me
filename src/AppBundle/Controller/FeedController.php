@@ -4,13 +4,17 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Photo;
 use cebe\markdown\Markdown;
+use Liip\ImagineBundle\Controller\ImagineController;
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Suin\RSSWriter\Channel;
 use Suin\RSSWriter\Feed;
 use Suin\RSSWriter\Item;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class FeedController extends Controller
 {
@@ -21,14 +25,7 @@ class FeedController extends Controller
         return new Response($feed);
     }
 
-    public function plainAction(Request $request): Response
-    {
-        $feed = $this->buildFeed(false);
-
-        return new Response($feed);
-    }
-
-    protected function buildFeed(bool $includeImages = true): Feed
+    protected function buildFeed(): Feed
     {
         $photos = $this->getDoctrine()->getRepository('AppBundle:Photo')->findForFeed();
 
@@ -40,7 +37,7 @@ class FeedController extends Controller
 
         /** @var Photo $photo */
         foreach ($photos as $photo) {
-            $item = $this->buildItem($photo, $includeImages);
+            $item = $this->buildItem($photo);
 
             $item->appendTo($channel);
         }
@@ -71,31 +68,33 @@ class FeedController extends Controller
         return $parser->parse($description);
     }
 
-    protected function createImageMarkdown(Photo $photo): string
+    protected function getImageUrl(Photo $photo): string
     {
-        $cacheManager = $this->get('liip_imagine.cache.manager');
+        /** @var UploaderHelper $helper */
+        $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
+        $filename = $helper->asset($photo, 'imageFile');
 
-        /** @var string */
-        $imageUrl = $cacheManager->getBrowserPath($photo->getImageName(), 'preview');
+        /** @var ImagineController */
+        $imagine = $this
+            ->container
+            ->get('liip_imagine.controller');
 
-        $imageMarkdown = sprintf('![%s](%s)', $photo->getTitle(), $imageUrl);
+        /** @var RedirectResponse */
+        $imagemanagerResponse = $imagine
+            ->filterAction(
+                new Request(),
+                $filename,
+                'preview'
+            );
 
-        return $imageMarkdown;
+        return $imagemanagerResponse->getTargetUrl();
     }
 
-    protected function buildItem(Photo $photo, bool $includeImages = true): Item
+    protected function buildItem(Photo $photo): Item
     {
         $item = new Item();
 
-        $description = $photo->getDescription();
-
-        if ($includeImages) {
-            $imageMarkdown = $this->createImageMarkdown($photo);
-
-            $description = sprintf("%s\n\n%s", $imageMarkdown, $description);
-        }
-
-        $parsedDescription = $this->parseDescription($description);
+        $parsedDescription = $this->parseDescription($photo->getDescription());
 
         $item
             ->title($photo->getTitle())
@@ -105,6 +104,7 @@ class FeedController extends Controller
             ->author($photo->getUser()->getDisplayname())
             ->pubDate($photo->getDisplayDateTime()->format('U'))
             ->preferCdata(true)
+            ->enclosure($this->getImageUrl($photo), 0, 'image/jpeg')
         ;
 
         return $item;

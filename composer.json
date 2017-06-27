@@ -29,7 +29,7 @@
         "sensio/framework-extra-bundle": "~3.0",
         "incenteev/composer-parameter-handler": "^2.0",
         "vich/uploader-bundle": "^1.4",
-        "liip/imagine-bundle": "^1.7",
+        "liip/imagine-bundle": "^1.8",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "hwi/oauth-bundle": "^0.5.3",
         "doctrine/doctrine-migrations-bundle": "^1.0",

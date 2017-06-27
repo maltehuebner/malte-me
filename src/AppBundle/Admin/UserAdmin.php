@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class UserAdmin extends AbstractAdmin
 {
@@ -20,26 +21,26 @@ class UserAdmin extends AbstractAdmin
     {
         $formMapper
             ->with('User data', ['class' => 'col-md-6'])
-            ->add('username')
-            ->add('email')
-            ->add('firstname')
-            ->add('lastname')
+            ->add('username', TextType::class)
+            ->add('email', TextType::class)
+            ->add('firstname', TextType::class, ['required' => false])
+            ->add('lastname', TextType::class, ['required' => false])
             ->end()
             ->with('Access rights', ['class' => 'col-md-6'])
-            ->add('moderated', CheckboxType::class)
-            ->add('enabled', CheckboxType::class)
+            ->add('moderated', CheckboxType::class, ['required' => false])
+            ->add('enabled', CheckboxType::class, ['required' => false])
             ->end()
             ->with('Strava data', ['class' => 'col-md-6'])
-            ->add('stravaId')
-            ->add('stravaAccessToken')
+            ->add('stravaId', TextType::class, ['required' => false])
+            ->add('stravaAccessToken', TextType::class, ['required' => false])
             ->end()
             ->with('twitter data', ['class' => 'col-md-6'])
-            ->add('twitterId')
-            ->add('twitterAccessToken')
+            ->add('twitterId', TextType::class, ['required' => false])
+            ->add('twitterAccessToken', TextType::class, ['required' => false])
             ->end()
             ->with('facebook data', ['class' => 'col-md-6'])
-            ->add('facebookId')
-            ->add('facebookAccessToken')
+            ->add('facebookId', TextType::class, ['required' => false])
+            ->add('facebookAccessToken', TextType::class, ['required' => false])
             ->end()
         ;
     }

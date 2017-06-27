@@ -4,7 +4,7 @@
     {% set starred = false %}
 {% endif %}
 
-<div class="card photo" data-photo-id="{{ photo.id }}">
+<div class="card photo{% if photo.location %} has-location{% endif %}" data-photo-id="{{ photo.id }}">
     <a href="{{ path('show_photo', { slug: photo.slug }) }}">
         <img class="img-fluid card-img-top" src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('standard') }}" alt="{{ photo.title }}" />
     </a>
@@ -50,9 +50,12 @@
                     {{ photo.user.displayname }}
                 </strong>
 
-                {{ photo.dateTime|date('d.m.Y', 'Europe/Berlin') }} um {{ photo.dateTime|date('H:i', 'Europe/Berlin') }} Uhr{% if photo.location %}
-            <br />
-                {{ photo.location }}{% endif %}
+                {{ photo.dateTime|date('d.m.Y', 'Europe/Berlin') }} um {{ photo.dateTime|date('H:i', 'Europe/Berlin') }} Uhr
+                {% if photo.location %}
+                <address>
+                    {{ photo.location }}
+                </address>
+                {% endif %}
             </small>
         </div>
 

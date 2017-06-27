@@ -10,12 +10,23 @@ nav.navbar {
   opacity: 0.95;
 }
 
-img.img-profile {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
+.photo {
+  img.img-profile {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+  }
+
+  &.has-location {
+    img.img-profile {
+      width: 36px;
+      height: 36px;
+    }
+
+    .photo-meta {
+      height: 36px;
+      line-height: 18px;
+    }
+  }
 }
 
-.photo-meta {
-  height: 36px;
-}

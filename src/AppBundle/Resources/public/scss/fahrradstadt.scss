@@ -27,6 +27,13 @@ nav.navbar {
       height: 36px;
       line-height: 18px;
     }
+
+    address a,
+    address a:hover
+    {
+      text-decoration: none;
+      color: inherit;
+    }
   }
 }
 

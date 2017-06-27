@@ -18,7 +18,8 @@
         <div class="col-12 col-sm-12 col-md-10 offset-md-1">
             <div class="card-columns">
                 {% for photo in pagination %}
-                <div class="card"><a href="{{ path('show_photo', { slug: photo.slug }) }}">
+                <div class="card photo">
+                    <a href="{{ path('show_photo', { slug: photo.slug }) }}">
                         <img class="card-img-top img-fluid" src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('preview') }}" alt="{{ photo.title }}" />
                     </a>
                     <div class="card-block">

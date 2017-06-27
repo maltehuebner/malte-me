@@ -8336,3 +8336,8 @@ nav.navbar {
 .photo.has-location .photo-meta {
   height: 36px;
   line-height: 18px; }
+
+.photo.has-location address a,
+.photo.has-location address a:hover {
+  text-decoration: none;
+  color: inherit; }

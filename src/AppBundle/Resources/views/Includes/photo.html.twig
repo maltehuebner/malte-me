@@ -53,7 +53,7 @@
                 {{ photo.dateTime|date('d.m.Y', 'Europe/Berlin') }} um {{ photo.dateTime|date('H:i', 'Europe/Berlin') }} Uhr
                 {% if photo.location %}
                 <address>
-                    {{ photo.location }}
+                    <a href="{{ path('search') }}?query={{ photo.location }}">{{ photo.location }}</a>
                 </address>
                 {% endif %}
             </small>

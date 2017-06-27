@@ -31,7 +31,7 @@
         "vich/uploader-bundle": "^1.4",
         "liip/imagine-bundle": "^1.8",
         "friendsofsymfony/user-bundle": "^2.0",
-        "hwi/oauth-bundle": "^0.5.3",
+        "hwi/oauth-bundle": "dev-master",
         "doctrine/doctrine-migrations-bundle": "^1.0",
         "malenki/slug": "^1.0",
         "miljar/php-exif": "~0.6.0",

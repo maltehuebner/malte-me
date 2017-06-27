@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0b02384d8b16e73932769e3c5213d450",
+    "content-hash": "55a6b2c40d185f3fe22e0ca0f7f72d22",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1510,27 +1510,27 @@
         },
         {
             "name": "hwi/oauth-bundle",
-            "version": "0.5.3",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hwi/HWIOAuthBundle.git",
-                "reference": "50f4bcbe5c217cfdf0f7f40a174b87199b76d1e1"
+                "reference": "48a6d98e73c9c47b63a19786ac0859e8d6ac9d82"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hwi/HWIOAuthBundle/zipball/50f4bcbe5c217cfdf0f7f40a174b87199b76d1e1",
-                "reference": "50f4bcbe5c217cfdf0f7f40a174b87199b76d1e1",
+                "url": "https://api.github.com/repos/hwi/HWIOAuthBundle/zipball/48a6d98e73c9c47b63a19786ac0859e8d6ac9d82",
+                "reference": "48a6d98e73c9c47b63a19786ac0859e8d6ac9d82",
                 "shasum": ""
             },
             "require": {
                 "kriswallsmith/buzz": "~0.13",
-                "php": "^5.3.3|^7.0",
-                "symfony/form": "^2.3|^3.0",
-                "symfony/framework-bundle": "^2.3|^3.0",
-                "symfony/options-resolver": "^2.3|^3.0",
-                "symfony/security-bundle": "^2.3|^3.0",
-                "symfony/templating": "^2.7|^3.0",
-                "symfony/yaml": "^2.3|^3.0"
+                "php": "^5.6|^7.0",
+                "symfony/form": "^2.7|^3.0|^4.0",
+                "symfony/framework-bundle": "^2.7|^3.0|^4.0",
+                "symfony/options-resolver": "^2.7|^3.0|^4.0",
+                "symfony/security-bundle": "^2.7|^3.0|^4.0",
+                "symfony/templating": "^2.7|^3.0|^4.0",
+                "symfony/yaml": "^2.7|^3.0|^4.0"
             },
             "conflict": {
                 "twig/twig": "<1.12"
@@ -1540,11 +1540,11 @@
                 "friendsofphp/php-cs-fixer": "^2.0",
                 "friendsofsymfony/user-bundle": "^1.3|^2.0",
                 "phpunit/phpunit": "^4.8|^5.0",
-                "symfony/phpunit-bridge": "^2.7|^3.0",
-                "symfony/property-access": "^2.3|^3.0",
-                "symfony/stopwatch": "^2.5|^3.0",
-                "symfony/twig-bundle": "^2.3|^3.0",
-                "symfony/validator": "^2.3|^3.0"
+                "symfony/phpunit-bridge": "^2.7|^3.0|^4.0",
+                "symfony/property-access": "^2.7|^3.0|^4.0",
+                "symfony/stopwatch": "^2.7|^3.0|^4.0",
+                "symfony/twig-bundle": "^2.7|^3.0|^4.0",
+                "symfony/validator": "^2.7|^3.0|^4.0"
             },
             "suggest": {
                 "doctrine/doctrine-bundle": "to use Doctrine user provider",
@@ -1555,7 +1555,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.5-dev"
+                    "dev-master": "0.6-dev"
                 }
             },
             "autoload": {
@@ -1616,6 +1616,7 @@
                 "flickr",
                 "foursquare",
                 "github",
+                "gitlab",
                 "google",
                 "hubic",
                 "instagram",
@@ -1656,7 +1657,7 @@
                 "yandex",
                 "youtube"
             ],
-            "time": "2017-01-08T14:13:58+00:00"
+            "time": "2017-06-27 09:53:08"
         },
         {
             "name": "imagine/imagine",
@@ -4853,7 +4854,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "hwi/oauth-bundle": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

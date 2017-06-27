@@ -22,9 +22,31 @@ define(['leaflet'], function () {
                 center = [latitude, longitude];
             }
 
+            that._initValues($photo);
+            that._initForm($photo);
             that._initMap(center);
             that._initMarker(center);
         });
+    };
+
+    LocationBox.prototype._initForm = function($photo) {
+        var photoId = $photo.data('photo-id');
+
+        var route = Routing.generate('locate_photo', { photoId: photoId });
+
+        var $form = $('form#location-form');
+
+        $form.attr('action', route);
+    };
+
+    LocationBox.prototype._initValues = function($photo) {
+        var latitude = $photo.data('latitude');
+        var longitude = $photo.data('longitude');
+        var location = $photo.data('location');
+
+        $('#photo-latitude-input').val(latitude);
+        $('#photo-longitude-input').val(longitude);
+        $('#photo-location-input').val(location);
     };
 
     LocationBox.prototype._initMap = function(center) {
@@ -38,9 +60,21 @@ define(['leaflet'], function () {
     LocationBox.prototype._initMarker = function(center) {
         this._marker = L.marker(center, {
             draggable: true
-        }).addTo(this._map)
+        }).addTo(this._map);
+
+        this._marker
             .bindPopup('Wo hast du das Foto geschossen?')
-            .openPopup();
+            .openPopup()
+        ;
+
+        this._marker.on('moveend', this._onMarkerMove.bind(this));
+    };
+
+    LocationBox.prototype._onMarkerMove = function() {
+        var latLng = this._marker.getLatLng();
+
+        $('#photo-latitude-input').val(latLng.lat);
+        $('#photo-longitude-input').val(latLng.lng);
     };
 
     return LocationBox;

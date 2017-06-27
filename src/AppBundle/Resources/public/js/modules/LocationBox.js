@@ -27,6 +27,10 @@ define(['leaflet', 'leaflet-extramarkers'], function () {
             that._initMap(center);
             that._initMarker(center);
         });
+
+        $(context).on('hidden.bs.modal', function (event) {
+            that._map.remove();
+        });
     };
 
     LocationBox.prototype._initForm = function($photo) {

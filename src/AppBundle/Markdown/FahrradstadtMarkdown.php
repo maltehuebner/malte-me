@@ -2,12 +2,11 @@
 
 namespace AppBundle\Markdown;
 
-
 use cebe\markdown\block as block;
 use cebe\markdown\inline as inline;
 use cebe\markdown\Parser;
 
-class MyMarkdown extends Parser
+class FahrradstadtMarkdown extends Parser
 {
     use block\CodeTrait;
     use block\HeadlineTrait;
@@ -29,12 +28,13 @@ class MyMarkdown extends Parser
     use inline\CodeTrait;
     use inline\EmphStrongTrait;
     use inline\LinkTrait;
+    use BlankUrlTrait;
 
     /**
      * @var boolean whether to format markup according to HTML5 spec.
      * Defaults to `false` which means that markup is formatted as HTML4.
      */
-    public $html5 = false;
+    public $html5 = true;
 
     protected function prepare()
     {

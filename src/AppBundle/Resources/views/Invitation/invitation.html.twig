@@ -1,0 +1,70 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-12 text-center">
+                <h2>
+                    Foto hochladen
+                </h2>
+
+                <p class="lead">
+                    Hier kannst du deine Eindrücke aus der Fahrradstadt Hamburg mit anderen Menschen teilen.
+                </p>
+            </div>
+        </div>
+
+        {{ form_start(uploadForm) }}
+        <div class="row">
+            <div class="col-12 col-md-8 offset-md-2 text-center">
+                <div class="fileinput fileinput-new" data-provides="fileinput">
+                    <div class="fileinput-preview img-thumbnail thumbnail" data-trigger="fileinput" style="width: 300px; height: 225px;">
+
+                    </div>
+
+                    <div>
+                        <span class="btn btn-secondary btn-file">
+                            <span class="fileinput-new">Bild auswählen</span>
+                            <span class="fileinput-exists">Bild ändern</span>
+                            <input type="file" id="photo_imageFile_file" name="photo[imageFile][file]" required="required">
+                        </span>
+                        <a href="#" class="btn btn-secondary fileinput-exists" data-dismiss="fileinput">Bild entfernen</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-8 offset-md-2">
+                <div class="form-group">
+                    <label for="">Titel:</label>
+                    {{ form_widget(uploadForm.title, { attr: { class: 'form-control form-control-lg' } }) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-8 offset-md-2">
+                <div class="form-group">
+                    <label for="">Beschreibung:</label>
+                    {{ form_widget(uploadForm.description, { attr: { class: 'form-control form-control-lg' } }) }}
+                    <small class="form-text text-muted">
+                        Du kannst deinen Beitrag mit der <a href="http://markdown.de/">Markdown-Syntax</a> formatieren.
+                    </small>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-8 offset-md-2 text-center">
+                {{ form_widget(uploadForm.submit, { attr: { class: 'btn btn-primary btn-lg' } }) }}
+                <small class="form-text text-muted">
+                    Mit Klick auf den Hochladen-Button bestätigst du, Urheber des Fotos zu sein.
+                </small>
+            </div>
+        </div>
+
+        {{ form_widget(uploadForm._token) }}
+        </form>
+    </div>
+{% endblock %}

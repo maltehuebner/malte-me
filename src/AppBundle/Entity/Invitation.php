@@ -24,13 +24,13 @@ class Invitation
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="createdInvitations")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="created_by_id", referencedColumnName="id")
      */
     protected $createdBy;
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="acceptedInvitations")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="accepted_by_id", referencedColumnName="id")
      */
     protected $acceptedBy;
 

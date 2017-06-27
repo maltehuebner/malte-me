@@ -1,0 +1,34 @@
+{% if is_granted('ROLE_USER') %}
+<div class="modal fade" id="location-modal" tabindex="-1" role="dialog" aria-labelledby="location-modal-label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form id="comment-form" action="#" method="POST">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="location-modal-label">Foto kommentieren</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label>
+                        Dein Kommentar:
+                    </label>
+
+                    <textarea name="message" class="form-control" style="height: 250px;"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            Abbrechen
+                        </button>
+
+                        <button type="submit" class="btn btn-primary">
+                            Speichern
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endif %}

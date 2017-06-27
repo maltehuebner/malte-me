@@ -7,5 +7,12 @@
         <service id="app.twig_extension" class="AppBundle\Twig\AppExtension" public="false">
             <tag name="twig.extension" />
         </service>
+
+        <service id="app.photo_uploader" class="AppBundle\PhotoUploader\PhotoUploader" public="true">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="vich_uploader.templating.helper.uploader_helper" />
+            <argument type="string">%kernel.root_dir%</argument>
+            <argument type="service" id="mailer" />
+        </service>
     </services>
 </container>

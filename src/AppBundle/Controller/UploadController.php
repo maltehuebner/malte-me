@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Photo;
 use AppBundle\Form\Type\PhotoType;
+use AppBundle\PhotoUploader\PhotoUploader;
 use PHPExif\Reader\Reader;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,39 +28,21 @@ class UploadController extends Controller
         $uploadForm->handleRequest($request);
 
         if ($uploadForm->isSubmitted() && $uploadForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-
-            /** @var Photo $photo */
             $photo = $uploadForm->getData();
 
-            $photo
-                ->setUser($user)
-                ->setDisplayDateTime(new \DateTime())
-            ;
+            /** @var PhotoUploader $photoUploader */
+            $photoUploader = $this->get('app.photo_uploader');
 
-            if ($user->isModerated()) {
-                $photo->setEnabled(false);
+            $photo = $photoUploader->handleUpload($photo, $user);
 
-                $this->notifyModerator();
+            if ($photo) {
+                return $this->redirectToRoute(
+                    'show_photo',
+                    [
+                        'slug' => $photo->getSlug()
+                    ]
+                );
             }
-
-            $em->persist($photo); // first persist to generate id
-            $em->flush();
-
-            $photo
-                ->setDateTime($this->getPhotoDateTime($photo))
-                ->setSlug($this->createSlug($photo))
-            ;
-
-            $em->persist($photo); // second persist to save slug
-            $em->flush();
-
-            return $this->redirectToRoute(
-                'show_photo',
-                [
-                    'slug' => $photo->getSlug()
-                ]
-            );
         }
 
         return $this->render(
@@ -68,54 +51,5 @@ class UploadController extends Controller
                 'uploadForm' => $uploadForm->createView()
             ]
         );
-    }
-
-    protected function getPhotoDateTime(Photo $photo): \DateTime
-    {
-        $helper = $this->container->get('vich_uploader.templating.helper.uploader_helper');
-        $path = $this->getParameter('kernel.root_dir').'/../web/'.$helper->asset($photo, 'imageFile');
-
-        try {
-            $reader = Reader::factory(Reader::TYPE_NATIVE);
-
-            $exif = $reader->getExifFromFile($path);
-
-            $dateTime = null;
-
-            if ($exif) {
-                $europeBerlin = new \DateTimeZone('Europe/Berlin');
-                $utc = new \DateTimeZone('UTC');
-
-                $dateTimeString = $exif->getCreationDate()->format('Y-m-d H:i:s');
-
-                $dateTime = new \DateTime($dateTimeString, $europeBerlin);
-                $dateTime->setTimezone($utc);
-            }
-
-            if (!$dateTime || !$exif) {
-                $dateTime = new \DateTime();
-            }
-        } catch (\Exception $e) {
-            $dateTime = new \DateTime();
-        }
-
-        return $dateTime;
-    }
-
-    protected function createSlug(Photo $photo): string
-    {
-        return new Slug($photo->getTitle().' '.$photo->getId());
-    }
-
-    protected function notifyModerator(): void
-    {
-        $message = \Swift_Message::newInstance()
-            ->setSubject('Fahrradstadt Hamburg: Moderiere Foto')
-            ->setFrom('mail@fahrradstadt.hamburg')
-            ->setTo('maltehuebner@gmx.org')
-            ->setBody('Bitte moderiere ein neues Foto', 'text/plain')
-        ;
-
-        $this->get('mailer')->send($message);
     }
 }

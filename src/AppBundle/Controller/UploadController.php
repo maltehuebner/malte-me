@@ -86,10 +86,14 @@ class UploadController extends Controller
                 $europeBerlin = new \DateTimeZone('Europe/Berlin');
                 $utc = new \DateTimeZone('UTC');
 
-                $dateTimeString = $exif->getCreationDate()->format('Y-m-d H:i:s');
+                $creationDate = $exif->getCreationDate();
 
-                $dateTime = new \DateTime($dateTimeString, $europeBerlin);
-                $dateTime->setTimezone($utc);
+                if ($creationDate) {
+                    $dateTimeString = $creationDate->format('Y-m-d H:i:s');
+
+                    $dateTime = new \DateTime($dateTimeString, $europeBerlin);
+                    $dateTime->setTimezone($utc);
+                }
             }
 
             if (!$dateTime || !$exif) {

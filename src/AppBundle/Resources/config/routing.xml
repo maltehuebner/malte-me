@@ -12,10 +12,6 @@
         <default key="_controller">AppBundle:Feed:index</default>
     </route>
 
-    <route id="plain-feed" path="/plain-feed">
-        <default key="_controller">AppBundle:Feed:plain</default>
-    </route>
-
     <route id="photo_upload" path="/upload">
         <default key="_controller">AppBundle:Upload:upload</default>
     </route>
@@ -38,6 +34,11 @@
 
     <route id="edit_photo" path="/{photoId}/edit">
         <default key="_controller">AppBundle:Photo:edit</default>
+    </route>
+
+    <route id="locate_photo" path="/{photoId}/locate">
+        <default key="_controller">AppBundle:Photo:locate</default>
+        <option key="expose">true</option>
     </route>
 
     <route id="rotate_photo" path="/{photoId}/rotate">

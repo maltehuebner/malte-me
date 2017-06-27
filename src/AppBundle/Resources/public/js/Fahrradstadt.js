@@ -14,6 +14,13 @@ require.config({
     baseUrl: '/bundles/app/js/modules/',
     paths:
     {
-
+        'leaflet': '/bundles/app/js/leaflet/leaflet',
+        'leaflet-extramarkers': '/bundles/app/js/extramarkers/extramarkers.min'
+    },
+    shim: {
+        'leaflet-extramarkers': {
+            deps: ['leaflet'],
+            exports: 'L.ExtraMarkers'
+        }
     }
 });

@@ -52,6 +52,11 @@ class Photo
     /**
      * @ORM\Column(type="text", length=255, nullable=true)
      */
+    protected $location;
+
+    /**
+     * @ORM\Column(type="text", length=255, nullable=true)
+     */
     protected $slug;
 
     /**
@@ -238,6 +243,18 @@ class Photo
         return $this;
     }
 
+    public function getLocation(): ?string
+    {
+        return $this->location;
+    }
+
+    public function setLocation(string $location): Photo
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
     public function getTitle(): ?string
     {
         return $this->title;
@@ -384,5 +401,14 @@ class Photo
     public function getAffiliated(): bool
     {
         return $this->affiliated;
+    }
+
+    public function getPin(): ?string
+    {
+        if ($this->latitude && $this->longitude) {
+            return $this->latitude . ',' . $this->longitude;
+        }
+
+        return null;
     }
 }

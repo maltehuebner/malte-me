@@ -4,7 +4,7 @@
     {% set starred = false %}
 {% endif %}
 
-<div class="card photo" data-photo-id="{{ photo.id }}">
+<div class="card photo{% if photo.location %} has-location{% endif %}" data-photo-id="{{ photo.id }}" data-latitude="{{ photo.latitude }}" data-longitude="{{ photo.longitude }}" data-location="{{ photo.location }}">
     <a href="{{ path('show_photo', { slug: photo.slug }) }}">
         <img class="img-fluid card-img-top" src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('standard') }}" alt="{{ photo.title }}" />
     </a>
@@ -41,16 +41,23 @@
 
     <div class="card-footer text-muted">
         {% if photo.user.profilePictureUrl %}
-        <img src="{{ photo.user.profilePictureUrl }}" class="img-profile" />
+        <img src="{{ photo.user.profilePictureUrl }}" class="img-profile d-block float-left mr-1" />
         {% endif %}
 
-        <small>
-            <strong>
-                {{ photo.user.displayname }}
-            </strong>
+        <div class="photo-meta float-left">
+            <small class="align-middle">
+                <strong>
+                    {{ photo.user.displayname }}
+                </strong>
 
-            {{ photo.dateTime|date('d.m.Y', 'Europe/Berlin') }} um {{ photo.dateTime|date('H:i', 'Europe/Berlin') }} Uhr
-        </small>
+                {{ photo.dateTime|date('d.m.Y', 'Europe/Berlin') }} um {{ photo.dateTime|date('H:i', 'Europe/Berlin') }} Uhr
+                {% if photo.location %}
+                <address>
+                    <a href="{{ path('search') }}?query={{ photo.location }}">{{ photo.location }}</a>
+                </address>
+                {% endif %}
+            </small>
+        </div>
 
         <div class="float-right">
             {% if app.user and (app.user == photo.user or is_granted('ROLE_ADMIN')) %}
@@ -68,6 +75,10 @@
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                         Text bearbeiten
                     </a>
+                    <span class="dropdown-item" data-toggle="modal" data-target="#location-modal">
+                        <i class="fa fa-map-pin" aria-hidden="true"></i>
+                        Ort festlegen
+                    </span>
                 </div>
             </div>
             {% endif %}

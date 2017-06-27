@@ -25,16 +25,22 @@ class PhotoAdmin extends AbstractAdmin
         $formMapper
             ->with('Fotoinformationen', ['class' => 'col-xs-6'])
             ->add('title', TextType::class)
-            ->add('description', TextareaType::class)
-            ->add('source', TextType::class)
+            ->add('description', TextareaType::class, ['required' => false])
+            ->add('source', TextType::class, ['required' => false])
             ->end()
 
             ->with('Metainformationen', ['class' => 'col-xs-6'])
             ->add('slug', TextType::class)
-            ->add('enabled', CheckboxType::class)
-            ->add('highlighted', CheckboxType::class)
-            ->add('sponsored', CheckboxType::class)
-            ->add('affiliated', CheckboxType::class)
+            ->add('enabled', CheckboxType::class, ['required' => false])
+            ->add('highlighted', CheckboxType::class, ['required' => false])
+            ->add('sponsored', CheckboxType::class, ['required' => false])
+            ->add('affiliated', CheckboxType::class, ['required' => false])
+            ->end()
+
+            ->with('Ortsdaten', ['class' => 'col-xs-6'])
+            ->add('location', TextType::class)
+            ->add('latitude', TextType::class)
+            ->add('longitude', TextType::class)
             ->end()
 
             ->with('Daten', ['class' => 'col-xs-6'])
@@ -73,7 +79,7 @@ class PhotoAdmin extends AbstractAdmin
             ->end()
 
             ->with('Datei', ['class' => 'col-xs-6'])
-            ->add('imageFile', VichFileType::class)
+            ->add('imageFile', VichFileType::class, ['required' => false])
             ->end()
         ;
     }
@@ -91,6 +97,7 @@ class PhotoAdmin extends AbstractAdmin
         $listMapper
             ->addIdentifier('title')
             ->add('user')
+            ->add('location')
             ->add('dateTime')
             ->add('displayDateTime')
             ->add('enabled')

@@ -5,6 +5,14 @@
     <div class="row">
         <div class="col-12 col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3">
             {% for photo in pagination %}
+            {% if loop.index0 == 2 and not app.user %}
+                <div class="row mb-3">
+                    <div class="col-12">
+                        {% include 'AppBundle:Includes:interaction.html.twig' %}
+                    </div>
+                </div>
+            {% endif %}
+
             <div class="row mb-3">
                 <div class="col-12">
                     {% include 'AppBundle:Includes:photo.html.twig' with { 'photo': photo, 'userFavorites': userFavorites } %}
@@ -21,12 +29,14 @@
     </div>
 </div>
 
+{{ include('AppBundle:Includes:locationModal.html.twig') }}
 {{ include('AppBundle:Includes:commentModal.html.twig') }}
 
 {% endblock %}
 
 {% block additionalFooterElements %}
     <script type="text/javascript">
+        Fahrradstadt.loadModule('LocationBox', '#location-modal');
         Fahrradstadt.loadModule('CommentBox');
         Fahrradstadt.loadModule('FavoriteStar');
     </script>

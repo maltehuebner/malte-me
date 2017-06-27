@@ -47,7 +47,7 @@ class CommentAdmin extends AbstractAdmin
                     'format' => 'yyyy-MM-dd HH:mm:ss'
                 ]
             )
-            ->add('enabled')
+            ->add('enabled', CheckboxType::class, ['required' => false])
         ;
     }
 

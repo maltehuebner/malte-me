@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Invitation;
 use AppBundle\Entity\Photo;
 use AppBundle\Form\Type\PhotoType;
 use AppBundle\PhotoUploader\PhotoUploader;
@@ -14,6 +15,7 @@ class InvitationController extends Controller
 {
     public function invitationAction(Request $request, UserInterface $user, string $code): Response
     {
+        /** @var Invitation $invitation */
         $invitation = $this->getDoctrine()->getRepository('AppBundle:Invitation')->findOneByCode($code);
 
         if (!$invitation) {
@@ -21,6 +23,11 @@ class InvitationController extends Controller
         }
 
         $photo = new Photo();
+
+        $photo
+            ->setTitle($invitation->getProposedTitle())
+            ->setDescription($invitation->getProposedDescription())
+        ;
 
         $uploadForm = $this->createForm(PhotoType::class, $photo);
 
@@ -44,13 +51,9 @@ class InvitationController extends Controller
             }
         }
 
-        return $this->render(
-            'AppBundle:Photo:upload.html.twig',
-            [
-                'uploadForm' => $uploadForm->createView()
-            ]
-        );
         return $this->render('AppBundle:Invitation:invitation.html.twig', [
+            'uploadForm' => $uploadForm->createView(),
+            'invitation' => $invitation,
         ]);
     }
 }

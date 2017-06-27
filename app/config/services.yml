@@ -28,3 +28,9 @@ services:
         arguments: [~, AppBundle\Entity\Comment, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Comment }
+
+    admin.invitation:
+        class: AppBundle\Admin\InvitationAdmin
+        arguments: [~, AppBundle\Entity\Invitation, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Invitation }

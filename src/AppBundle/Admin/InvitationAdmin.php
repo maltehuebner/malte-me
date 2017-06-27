@@ -24,6 +24,7 @@ class InvitationAdmin extends AbstractAdmin
         $formMapper
             ->with('Einladungsdaten', ['class' => 'col-xs-6'])
             ->add('code', TextType::class)
+            ->add('inviteeName', TextType::class)
             ->add('topic', TextareaType::class)
             ->add('intro', TextareaType::class)
             ->end()
@@ -45,6 +46,7 @@ class InvitationAdmin extends AbstractAdmin
         $datagridMapper
             ->add('code')
             ->add('topic')
+            ->add('inviteeName')
             ->add('createdBy')
             ->add('acceptedBy')
         ;
@@ -55,6 +57,7 @@ class InvitationAdmin extends AbstractAdmin
         $listMapper
             ->addIdentifier('code')
             ->add('topic')
+            ->add('inviteeName')
             ->add('createdBy')
             ->add('acceptedBy')
         ;

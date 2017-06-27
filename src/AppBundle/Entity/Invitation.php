@@ -42,6 +42,11 @@ class Invitation
     /**
      * @ORM\Column(type="text", nullable=true)
      */
+    protected $inviteeName;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
     protected $topic;
 
     /**
@@ -118,6 +123,18 @@ class Invitation
     public function setCode(string $code = null): Invitation
     {
         $this->code = $code;
+
+        return $this;
+    }
+
+    public function getInviteeName(): ?string
+    {
+        return $this->inviteeName;
+    }
+
+    public function setInviteeName(string $inviteeName = null): Invitation
+    {
+        $this->inviteeName = $inviteeName;
 
         return $this;
     }

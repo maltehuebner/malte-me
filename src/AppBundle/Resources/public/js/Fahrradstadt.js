@@ -14,6 +14,6 @@ require.config({
     baseUrl: '/bundles/app/js/modules/',
     paths:
     {
-
+        'leaflet': '/bundles/app/js/leaflet/leaflet'
     }
 });

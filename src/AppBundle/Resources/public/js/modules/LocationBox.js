@@ -1,4 +1,4 @@
-define(['leaflet'], function () {
+define(['leaflet', 'leaflet-extramarkers'], function () {
     LocationBox = function (context, options) {
         this._initModalEventListener(context);
     };
@@ -58,8 +58,16 @@ define(['leaflet'], function () {
     };
 
     LocationBox.prototype._initMarker = function(center) {
+        var icon = L.ExtraMarkers.icon({
+            icon: 'fa-camera',
+            markerColor: 'yellow',
+            shape: 'square',
+            prefix: 'fa'
+        });
+
         this._marker = L.marker(center, {
-            draggable: true
+            draggable: true,
+            icon: icon
         }).addTo(this._map);
 
         this._marker

@@ -29,12 +29,14 @@
     </div>
 </div>
 
+{{ include('AppBundle:Includes:locationModal.html.twig') }}
 {{ include('AppBundle:Includes:commentModal.html.twig') }}
 
 {% endblock %}
 
 {% block additionalFooterElements %}
     <script type="text/javascript">
+        Fahrradstadt.loadModule('LocationBox', '#location-modal');
         Fahrradstadt.loadModule('CommentBox');
         Fahrradstadt.loadModule('FavoriteStar');
     </script>

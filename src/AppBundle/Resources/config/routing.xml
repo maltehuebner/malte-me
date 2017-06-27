@@ -36,6 +36,11 @@
         <default key="_controller">AppBundle:Photo:edit</default>
     </route>
 
+    <route id="locate_photo" path="/{photoId}/locate">
+        <default key="_controller">AppBundle:Photo:locate</default>
+        <option key="expose">true</option>
+    </route>
+
     <route id="rotate_photo" path="/{photoId}/rotate">
         <default key="_controller">AppBundle:PhotoManagement:rotate</default>
     </route>

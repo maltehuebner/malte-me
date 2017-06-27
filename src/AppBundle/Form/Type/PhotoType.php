@@ -14,8 +14,8 @@ class PhotoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', TextType::class, ['required' => true])
-            ->add('description', TextareaType::class, ['required' => false, 'attr' => ['rows' => 5]])
+            ->add('title', TextType::class, ['required' => true, 'attr' => ['placeholder' => 'Gib deinem Foto einen Titel']])
+            ->add('description', TextareaType::class, ['required' => false, 'attr' => ['placeholder' => 'Hier kannst du eine kurze Beschreibung zu deiner Aufnahme ergänzen', 'rows' => 5]])
             ->add('imageFile', VichFileType::class, ['required' => true])
             ->add('submit', SubmitType::class, ['label' => 'Hochladen'])
         ;

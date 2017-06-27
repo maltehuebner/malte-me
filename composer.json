@@ -41,7 +41,6 @@
         "knplabs/knp-paginator-bundle": "^2.5",
         "friendsofsymfony/jsrouting-bundle": "^1.6",
         "suin/php-rss-writer": "^1.5",
-        "gregwar/image": "^2.0",
         "friendsofsymfony/elastica-bundle": "3.2.*"
     },
     "require-dev": {

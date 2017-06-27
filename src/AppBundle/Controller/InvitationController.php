@@ -9,16 +9,17 @@ use AppBundle\PhotoUploader\PhotoUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class InvitationController extends Controller
 {
-    public function invitationAction(Request $request, UserInterface $user, string $code): Response
+    public function invitationAction(Request $request, UserInterface $user = null, string $code): Response
     {
         /** @var Invitation $invitation */
         $invitation = $this->getDoctrine()->getRepository('AppBundle:Invitation')->findOneByCode($code);
 
-        if (!$invitation) {
+        if (!$invitation || $invitation->getAcceptedBy()) {
             throw $this->createNotFoundException();
         }
 
@@ -41,13 +42,15 @@ class InvitationController extends Controller
 
             $photo = $photoUploader->handleUpload($photo, $user);
 
-            if ($photo) {
+            if ($photo && $user) {
                 return $this->redirectToRoute(
                     'show_photo',
                     [
                         'slug' => $photo->getSlug()
                     ]
                 );
+            } elseif ($photo) {
+                return $this->anonymousLogin($photo);
             }
         }
 
@@ -55,5 +58,24 @@ class InvitationController extends Controller
             'uploadForm' => $uploadForm->createView(),
             'invitation' => $invitation,
         ]);
+    }
+
+    protected function anonymousLogin(Photo $photo): Response
+    {
+        $session = new Session();
+        $session->set('uploaded_photo_id', $photo->getId());
+
+        $csrfToken = $this
+            ->get('security.csrf.token_manager')
+            ->getToken('authenticate')
+            ->getValue()
+        ;
+
+        return $this->render('AppBundle:Invitation:login.html.twig',
+            [
+                'csrf_token' => $csrfToken,
+                'last_username' => null,
+                'error' => null,
+            ]);
     }
 }

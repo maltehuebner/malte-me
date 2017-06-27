@@ -26,13 +26,13 @@ class PhotoUploader
         $this->mailer = $mailer;
     }
 
-    public function handleUpload(Photo $photo, User $user): Photo
+    public function handleUpload(Photo $photo, User $user = null): Photo
     {
         $photo
             ->setUser($user)
             ->setDisplayDateTime(new \DateTime());
 
-        if ($user->isModerated()) {
+        if (!$user || $user->isModerated()) {
             $photo->setEnabled(false);
 
             $this->notifyModerator();

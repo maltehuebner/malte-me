@@ -145,7 +145,7 @@ class Photo
         return $this->user;
     }
 
-    public function setUser(User $user): Photo
+    public function setUser(User $user = null): Photo
     {
         $this->user = $user;
 

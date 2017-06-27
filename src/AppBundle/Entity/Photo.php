@@ -30,6 +30,12 @@ class Photo
     protected $user;
 
     /**
+     * @ORM\OneToOne(targetEntity="Invitation", mappedBy="photo")
+     * @ORM\JoinColumn(name="invitation_id", referencedColumnName="id")
+     */
+    protected $invitation;
+
+    /**
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="photo")
      */
     protected $comments;
@@ -148,6 +154,20 @@ class Photo
     public function setUser(User $user = null): Photo
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getInvitation(): ?Invitation
+    {
+        return $this->invitation;
+    }
+
+    public function setInvitation(Invitation $invitation = null): Photo
+    {
+        $invitation->setPhoto($this);
+
+        $this->invitation = $invitation;
 
         return $this;
     }
@@ -384,5 +404,10 @@ class Photo
     public function getAffiliated(): bool
     {
         return $this->affiliated;
+    }
+
+    public function __toString()
+    {
+        return sprintf('%s (%s)', $this->title, $this->user ? $this->user->getUsername() : '');
     }
 }

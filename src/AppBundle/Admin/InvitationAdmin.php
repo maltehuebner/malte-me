@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\Photo;
 use AppBundle\Entity\User;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -36,7 +37,7 @@ class InvitationAdmin extends AbstractAdmin
 
             ->with('Benutzerdaten', ['class' => 'col-xs-6'])
             ->add('createdBy', EntityType::class, ['class' => User::class, 'required' => false])
-            ->add('acceptedBy', EntityType::class, ['class' => User::class, 'required' => false])
+            ->add('photo', EntityType::class, ['class' => Photo::class, 'required' => false])
             ->end()
         ;
     }
@@ -48,7 +49,7 @@ class InvitationAdmin extends AbstractAdmin
             ->add('topic')
             ->add('inviteeName')
             ->add('createdBy')
-            ->add('acceptedBy')
+            ->add('photo.user.username')
         ;
     }
 
@@ -59,7 +60,7 @@ class InvitationAdmin extends AbstractAdmin
             ->add('topic')
             ->add('inviteeName')
             ->add('createdBy')
-            ->add('acceptedBy')
+            ->add('photo.user.username')
         ;
     }
 }

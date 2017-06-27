@@ -29,10 +29,9 @@ class Invitation
     protected $createdBy;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="acceptedInvitations")
-     * @ORM\JoinColumn(name="accepted_by_id", referencedColumnName="id")
+     * @ORM\OneToOne(targetEntity="Photo", mappedBy="invitation")
      */
-    protected $acceptedBy;
+    protected $photo;
 
     /**
      * @ORM\Column(type="string")
@@ -103,14 +102,14 @@ class Invitation
         return $this;
     }
 
-    public function getAcceptedBy(): ?User
+    public function getPhoto(): ?Photo
     {
-        return $this->acceptedBy;
+        return $this->photo;
     }
 
-    public function setAcceptedBy(User $acceptedBy = null): Invitation
+    public function setPhoto(Photo $photo = null): Invitation
     {
-        $this->acceptedBy = $acceptedBy;
+        $this->photo = $photo;
 
         return $this;
     }

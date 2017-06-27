@@ -19,7 +19,7 @@ class InvitationController extends Controller
         /** @var Invitation $invitation */
         $invitation = $this->getDoctrine()->getRepository('AppBundle:Invitation')->findOneByCode($code);
 
-        if (!$invitation || $invitation->getAcceptedBy()) {
+        if (!$invitation || $invitation->getPhoto()) {
             throw $this->createNotFoundException();
         }
 
@@ -28,6 +28,7 @@ class InvitationController extends Controller
         $photo
             ->setTitle($invitation->getProposedTitle())
             ->setDescription($invitation->getProposedDescription())
+            ->setInvitation($invitation)
         ;
 
         $uploadForm = $this->createForm(PhotoType::class, $photo);

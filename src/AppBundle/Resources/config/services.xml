@@ -14,5 +14,10 @@
             <argument type="string">%kernel.root_dir%</argument>
             <argument type="service" id="mailer" />
         </service>
+
+        <service id="app.login_listener" class="AppBundle\EventListener\LoginListener" public="true">
+            <argument type="service" id="doctrine" />
+            <tag name="kernel.event_subscriber"/>
+        </service>
     </services>
 </container>

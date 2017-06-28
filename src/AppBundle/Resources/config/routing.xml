@@ -28,6 +28,10 @@
         <default key="_controller">AppBundle:Archive:archive</default>
     </route>
 
+    <route id="invitation" path="/invitation/{code}">
+        <default key="_controller">AppBundle:Invitation:invitation</default>
+    </route>
+
     <route id="favorite_photo" path="/{photoId}/favorite">
         <default key="_controller">AppBundle:Favorite:favorite</default>
     </route>

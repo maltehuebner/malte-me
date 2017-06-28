@@ -5,11 +5,15 @@
         <div class="row mt-3">
             <div class="col-12 text-center">
                 <h2>
-                    Foto hochladen
+                    Hej {{ invitation.inviteeName }}!
                 </h2>
 
                 <p class="lead">
-                    Hier kannst du deine Eindrücke aus der Fahrradstadt Hamburg mit anderen Menschen teilen.
+                    {{ invitation.createdBy.username }} hat dich eingeladen, ein Foto auf Fahrradstadt.Hamburg zu teilen.
+                </p>
+
+                <p>
+                    {{ invitation.intro|markdown }}
                 </p>
             </div>
         </div>
@@ -31,12 +35,6 @@
                         <a href="#" class="btn btn-secondary fileinput-exists" data-dismiss="fileinput">Bild entfernen</a>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-12 col-md-8 offset-md-2">
-                {{ form_errors(uploadForm) }}
             </div>
         </div>
 

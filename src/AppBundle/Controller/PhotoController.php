@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Photo;
 use AppBundle\Form\Type\PhotoEditType;
+use AppBundle\Form\Type\PhotoLocateType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -71,5 +72,35 @@ class PhotoController extends Controller
             'photo' => $photo,
             'editForm' => $editForm->createView(),
         ]);
+    }
+
+    public function locateAction(Request $request, UserInterface $user, int $photoId): Response
+    {
+        /** @var Photo $photo */
+        $photo = $this->getDoctrine()->getRepository('AppBundle:Photo')->find($photoId);
+
+        if (!$photo) {
+            throw $this->createNotFoundException();
+        }
+
+        if ($photo->getUser() !== $user && !$user->hasRole('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $editForm = $this->createForm(PhotoLocateType::class, $photo);
+
+        $editForm->handleRequest($request);
+
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+            /** @var Photo $photo */
+            $photo = $editForm->getData();
+
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('show_photo', ['slug' => $photo->getSlug()]);
     }
 }

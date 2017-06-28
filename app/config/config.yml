@@ -179,6 +179,8 @@ fos_elastica:
                         title: ~
                         description: ~
                         user: ~
+                        location: ~
+                        pin: { type: geo_point }
                     persistence:
                         driver: orm
                         model: AppBundle\Entity\Photo

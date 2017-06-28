@@ -37,6 +37,12 @@ class PhotoAdmin extends AbstractAdmin
             ->add('affiliated', CheckboxType::class, ['required' => false])
             ->end()
 
+            ->with('Ortsdaten', ['class' => 'col-xs-6'])
+            ->add('location', TextType::class)
+            ->add('latitude', TextType::class)
+            ->add('longitude', TextType::class)
+            ->end()
+
             ->with('Daten', ['class' => 'col-xs-6'])
             ->add(
                 'dateTime',
@@ -91,6 +97,7 @@ class PhotoAdmin extends AbstractAdmin
         $listMapper
             ->addIdentifier('title')
             ->add('user')
+            ->add('location')
             ->add('dateTime')
             ->add('displayDateTime')
             ->add('enabled')

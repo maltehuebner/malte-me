@@ -3,7 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Photo;
-use Gregwar\Image\Image;
+use Imagine\Imagick\Image;
+use Imagine\Imagick\Imagine;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,7 +27,7 @@ class PhotoManagementController extends Controller
 
         $image = $this->createPhotoImage($photo);
 
-        $image->rotate(90);
+        $image->rotate(-90);
 
         $this->savePhotoImage($photo, $image);
 
@@ -59,19 +60,21 @@ class PhotoManagementController extends Controller
 
     public function createPhotoImage(Photo $photo): Image
     {
-        $filename = $this->getImageFilename($photo);
+        $imagine = new Imagine();
 
-        return Image::open($filename);
+        $image = $imagine->open($this->getImageFilename($photo));
+
+        return $image;
     }
 
-    public function savePhotoImage(Photo $photo, Image $image): bool
+    public function savePhotoImage(Photo $photo, Image $image): Image
     {
         $filename = $this->getImageFilename($photo);
 
-        $result = $image->save($filename, 'jpeg', 100);
+        $image->save($filename);
 
         $this->clearImageCache($photo);
 
-        return $result;
+        return $image;
     }
 }

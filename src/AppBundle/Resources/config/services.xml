@@ -15,9 +15,10 @@
             <argument type="service" id="mailer" />
         </service>
 
-        <service id="app.login_listener" class="AppBundle\EventListener\LoginListener" public="true">
+        <service id="app.login_listener" class="AppBundle\EventListener\RequestListener" public="true">
             <argument type="service" id="doctrine" />
-            <tag name="kernel.event_subscriber"/>
+            <argument type="service" id="security.token_storage" />
+            <tag name="kernel.event_listener" event="kernel.request" />
         </service>
     </services>
 </container>

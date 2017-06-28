@@ -2,6 +2,7 @@
 
 namespace AppBundle\EventListener;
 
+use AppBundle\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use FOS\UserBundle\Event\UserEvent;
 use FOS\UserBundle\FOSUserEvents;
@@ -9,41 +10,43 @@ use HWI\Bundle\OAuthBundle\HWIOAuthEvents;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
 
-class LoginListener implements EventSubscriberInterface
+class RequestListener implements EventSubscriberInterface
 {
     protected $registry;
+    protected $tokenStorage;
 
-    public function __construct(Registry $registry)
+    public function __construct(Registry $registry, TokenStorage $tokenStorage)
     {
         $this->registry = $registry;
+        $this->tokenStorage = $tokenStorage;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public static function getSubscribedEvents(): array
     {
-        return array(
-            FOSUserEvents::SECURITY_IMPLICIT_LOGIN => 'onLogin',
-            SecurityEvents::INTERACTIVE_LOGIN => 'onLogin',
-            HWIOAuthEvents::CONNECT_COMPLETED => 'onLogin',
-        );
+        return [
+            KernelEvents::REQUEST => 'onKernelRequest'
+        ];
     }
 
-    public function onLogin(Event $event): void
+    public function onKernelRequest(Event $event): void
     {
-        $user = null;
+        if ($this->tokenStorage->getToken()->getUser()) {
+            $this->assignAnonymousPhotos();
+        }
+    }
 
-        if ($event instanceof UserEvent) {
-            $user = $event->getUser();
+    protected function assignAnonymousPhotos(): void
+    {
+        if (!$this->tokenStorage->getToken()->getUser() instanceof User) {
+            return;
         }
 
-        if ($event instanceof InteractiveLoginEvent) {
-            $user = $event->getAuthenticationToken()->getUser();
-        }
+        $user = $this->tokenStorage->getToken()->getUser();
 
         $session = new Session();
         $photoId = null;

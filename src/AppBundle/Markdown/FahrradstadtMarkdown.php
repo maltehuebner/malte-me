@@ -4,43 +4,26 @@ namespace AppBundle\Markdown;
 
 use cebe\markdown\block as block;
 use cebe\markdown\inline as inline;
+use cebe\markdown\Markdown;
 use cebe\markdown\Parser;
 
-class FahrradstadtMarkdown extends Parser
+class FahrradstadtMarkdown extends Markdown
 {
-    use block\CodeTrait;
-    use block\HeadlineTrait;
-    use block\HtmlTrait {
-        parseInlineHtml as private;
-    }
-    use block\ListTrait {
-        // Check Ul List before headline
-        identifyUl as protected identifyBUl;
-        consumeUl as protected consumeBUl;
-    }
-    use block\QuoteTrait;
-    use block\RuleTrait {
-        // Check Hr before checking lists
-        identifyHr as protected identifyAHr;
-        consumeHr as protected consumeAHr;
-    }
-    // include inline element parsing using traits
-    use inline\CodeTrait;
-    use inline\EmphStrongTrait;
-    use inline\LinkTrait;
-    use BlankUrlTrait;
+    use block\TableTrait;
+    use block\FencedCodeTrait;
+    use inline\StrikeoutTrait;
+    use inline\UrlLinkTrait;
 
-    /**
-     * @var boolean whether to format markup according to HTML5 spec.
-     * Defaults to `false` which means that markup is formatted as HTML4.
-     */
+    public $enableNewlines = true;
     public $html5 = true;
 
-    protected function prepare()
+    protected function renderText($text)
     {
-        // reset references
-        $this->references = [];
+        if ($this->enableNewlines) {
+            $br = $this->html5 ? "<br>\n" : "<br />\n";
+            return strtr($text[1], ["  \n" => $br, "\n" => $br]);
+        } else {
+            return parent::renderText($text);
+        }
     }
-
-    // ...
 }

@@ -2,6 +2,8 @@
 
 namespace AppBundle\Twig;
 
+use AppBundle\Markdown\FahrradstadtMarkdown;
+
 class AppExtension extends \Twig_Extension
 {
     public function getFilters()
@@ -13,7 +15,7 @@ class AppExtension extends \Twig_Extension
 
     public function markdownFilter(string $string): string
     {
-        $parser = new \cebe\markdown\Markdown();
+        $parser = new FahrradstadtMarkdown();
         return $parser->parse($string);
     }
 

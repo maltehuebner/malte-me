@@ -4,16 +4,14 @@
         xsi:schemaLocation="http://symfony.com/schema/routing
         http://symfony.com/schema/routing/routing-1.0.xsd">
 
+    <import resource="routing/dropbox.xml" />
+
     <route id="frontpage" path="/">
         <default key="_controller">AppBundle:Default:index</default>
     </route>
 
     <route id="feed" path="/feed">
         <default key="_controller">AppBundle:Feed:index</default>
-    </route>
-
-    <route id="dropbox" path="/dropbox">
-        <default key="_controller">AppBundle:Dropbox:index</default>
     </route>
 
     <route id="photo_upload" path="/upload">

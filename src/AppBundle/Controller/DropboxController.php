@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class DropboxController extends Controller
 {
-    public function indexAction(Request $request, UserInterface $user): Response
+    public function importAction(Request $request, UserInterface $user): Response
     {
         $clientId = $this->getParameter('dropbox.client_id');
         $clientSecret = $this->getParameter('dropbox.client_secret');
@@ -30,9 +30,11 @@ class DropboxController extends Controller
         /** @var ModelCollection $items */
         $items = $listFolderContents->getItems();
 
-        /** @var FileMetadata $item */
-        foreach ($items as $item) {
-            $photo = $this->importFile($dropbox, $item, $user);
+        /** @var FileMetadata $fileMetadata */
+        foreach ($items as $fileMetadata) {
+            $photo = $this->importFile($dropbox, $fileMetadata, $user);
+
+            //$dropbox->delete($fileMetadata->getPathLower());
         }
 
         return new Response();

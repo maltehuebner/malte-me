@@ -12,6 +12,10 @@
         <default key="_controller">AppBundle:Feed:index</default>
     </route>
 
+    <route id="dropbox" path="/dropbox">
+        <default key="_controller">AppBundle:Dropbox:index</default>
+    </route>
+
     <route id="photo_upload" path="/upload">
         <default key="_controller">AppBundle:Upload:upload</default>
     </route>

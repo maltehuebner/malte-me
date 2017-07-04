@@ -11,17 +11,39 @@ use Kunnu\Dropbox\Models\ModelCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class DropboxController extends Controller
 {
+    public function authorizeAction(Request $request, UserInterface $user): Response
+    {
+        $app = $this->getDropboxApp();
+
+        $dropbox = new Dropbox($app);
+
+        $authHelper = $dropbox->getAuthHelper();
+        $callbackUrl = $this->generateUrl('dropbox_authorize', [], UrlGeneratorInterface::ABSOLUTE_URL);
+
+        if ($request->query->get('code') && $request->query->get('state')) {
+            $accessToken = $authHelper->getAccessToken($request->query->get('code'));
+
+            var_dump($accessToken);
+        }
+
+        $authUrl = $authHelper->getAuthUrl($callbackUrl);
+
+        return $this->render(
+            'AppBundle:Dropbox:authorize.html.twig',
+            [
+                'authUrl' => $authUrl,
+            ]
+        );
+    }
+
     public function importAction(Request $request, UserInterface $user): Response
     {
-        $clientId = $this->getParameter('dropbox.client_id');
-        $clientSecret = $this->getParameter('dropbox.client_secret');
-        $accessToken = $this->getParameter('dropbox.access_token');
-
-        $app = new DropboxApp($clientId, $clientSecret, $accessToken);
+        $app = $this->getDropboxApp();
 
         $dropbox = new Dropbox($app);
 
@@ -47,6 +69,15 @@ class DropboxController extends Controller
                 'importedPhotoList' => $importedPhotoList,
             ]
         );
+    }
+
+    protected function getDropboxApp(): DropboxApp
+    {
+        $clientId = $this->getParameter('dropbox.client_id');
+        $clientSecret = $this->getParameter('dropbox.client_secret');
+        $accessToken = $this->getParameter('dropbox.access_token');
+
+        return new DropboxApp($clientId, $clientSecret, $accessToken);
     }
 
     protected function getFileSuffix(FileMetadata $fileMetadata): string

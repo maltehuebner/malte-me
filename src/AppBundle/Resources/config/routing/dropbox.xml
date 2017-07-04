@@ -4,7 +4,11 @@
         xsi:schemaLocation="http://symfony.com/schema/routing
         http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="dropbox" path="/dropbox/import">
+    <route id="dropbox_authorize" path="/dropbox/authorize">
+        <default key="_controller">AppBundle:Dropbox:authorize</default>
+    </route>
+
+    <route id="dropbox_import" path="/dropbox/import">
         <default key="_controller">AppBundle:Dropbox:import</default>
     </route>
 </routes>

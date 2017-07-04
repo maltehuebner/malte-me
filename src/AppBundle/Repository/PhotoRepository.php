@@ -4,6 +4,7 @@ namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
+use FOS\UserBundle\Model\UserInterface;
 
 class PhotoRepository extends EntityRepository
 {
@@ -28,16 +29,27 @@ class PhotoRepository extends EntityRepository
         return $query->getResult();
     }
 
-    public function getFrontpageQuery(): Query
+    public function getFrontpageQuery(UserInterface $user = null): Query
     {
         $qb = $this->createQueryBuilder('p');
 
         $qb
-            ->where($qb->expr()->eq('p.enabled', true))
-            ->andWhere($qb->expr()->lte('p.displayDateTime', ':displayDateTime'))
+            ->where($qb->expr()->lte('p.displayDateTime', ':displayDateTime'))
             ->addOrderBy('p.displayDateTime', 'DESC')
             ->setParameter('displayDateTime', new \DateTime())
         ;
+
+        if ($user) {
+            $qb
+                ->andWhere($qb->expr()->eq('p.user', ':user'))
+                ->setParameter('user', $user)
+            ;
+        } else {
+            $qb
+                ->where($qb->expr()->eq('p.enabled', ':enabled'))
+                ->setParameter('enabled', true)
+            ;
+        }
 
         return $qb->getQuery();
     }

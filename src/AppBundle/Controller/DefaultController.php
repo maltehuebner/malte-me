@@ -14,7 +14,7 @@ class DefaultController extends Controller
     {
         $paginator  = $this->get('knp_paginator');
 
-        $query = $this->getDoctrine()->getRepository('AppBundle:Photo')->getFrontpageQuery();
+        $query = $this->getDoctrine()->getRepository('AppBundle:Photo')->getFrontpageQuery($user);
 
         $pagination = $paginator->paginate(
             $query,

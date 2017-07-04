@@ -65,6 +65,7 @@ class DropboxController extends Controller
             ->setUser($user)
             ->setImageName($filename)
             ->setImported(true)
+            ->setEnabled(false)
         ;
 
         $photo = $photoUploader->handleUpload($photo, $user);

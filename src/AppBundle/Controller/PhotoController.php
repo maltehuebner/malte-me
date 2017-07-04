@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Photo;
 use AppBundle\Form\Type\PhotoEditType;
 use AppBundle\Form\Type\PhotoLocateType;
+use Malenki\Slug;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -62,6 +63,13 @@ class PhotoController extends Controller
 
             /** @var Photo $photo */
             $photo = $editForm->getData();
+
+            if ($photo->getImported()) {
+                $photo
+                    ->setSlug(new Slug($photo->getTitle().' '.$photo->getId()))
+                    ->setEnabled(true)
+                ;
+            }
 
             $em->flush();
 

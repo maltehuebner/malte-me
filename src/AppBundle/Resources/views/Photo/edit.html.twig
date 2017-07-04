@@ -20,6 +20,15 @@
         </div>
 
         <div class="row mt-3">
+            <div class="col-12 col-md-8 offset-md-2">
+                <div class="form-group">
+                    <label for="">Titel:</label>
+                    {{ form_widget(editForm.title, { attr: { class: 'form-control form-control-lg' } }) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-3">
             <div class="col-12 col-md-8 offset-md-2 text-center">
                 <h3>
                     {{ photo.title }}

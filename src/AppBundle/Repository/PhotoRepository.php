@@ -46,7 +46,7 @@ class PhotoRepository extends EntityRepository
             ;
         } else {
             $qb
-                ->where($qb->expr()->eq('p.enabled', ':enabled'))
+                ->andWhere($qb->expr()->eq('p.enabled', ':enabled'))
                 ->setParameter('enabled', true)
             ;
         }

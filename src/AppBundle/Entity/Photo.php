@@ -101,6 +101,11 @@ class Photo
     protected $affiliated = false;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $imported = false;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     protected $dateTime;
@@ -421,6 +426,18 @@ class Photo
     public function getAffiliated(): bool
     {
         return $this->affiliated;
+    }
+
+    public function setImported(bool $imported): Photo
+    {
+        $this->imported = $imported;
+
+        return $this;
+    }
+
+    public function getImported(): bool
+    {
+        return $this->imported;
     }
 
     public function __toString()

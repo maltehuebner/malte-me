@@ -30,14 +30,23 @@ class DropboxController extends Controller
         /** @var ModelCollection $items */
         $items = $listFolderContents->getItems();
 
+        $importedPhotoList = [];
+
         /** @var FileMetadata $fileMetadata */
         foreach ($items as $fileMetadata) {
             $photo = $this->importFile($dropbox, $fileMetadata, $user);
 
             //$dropbox->delete($fileMetadata->getPathLower());
+
+            array_push($importedPhotoList, $photo);
         }
 
-        return new Response();
+        return $this->render(
+            'AppBundle:Dropbox:import.html.twig',
+            [
+                'importedPhotoList' => $importedPhotoList,
+            ]
+        );
     }
 
     protected function getFileSuffix(FileMetadata $fileMetadata): string

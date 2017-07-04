@@ -43,6 +43,16 @@ class PhotoRepository extends EntityRepository
             $qb
                 ->andWhere($qb->expr()->eq('p.user', ':user'))
                 ->setParameter('user', $user)
+                ->andWhere($qb->expr()->orX(
+                    $qb->expr()->andX(
+                        $qb->expr()->eq('p.enabled', ':notEnabled'),
+                        $qb->expr()->eq('p.imported', ':imported')
+                    ),
+                    $qb->expr()->eq('p.enabled', ':enabled')
+                ))
+                ->setParameter('enabled', true)
+                ->setParameter('notEnabled', false)
+                ->setParameter('imported', true)
             ;
         } else {
             $qb

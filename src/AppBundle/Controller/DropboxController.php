@@ -68,7 +68,7 @@ class DropboxController extends Controller
         foreach ($items as $fileMetadata) {
             $photo = $this->importFile($dropbox, $fileMetadata, $user);
 
-            //$dropbox->delete($fileMetadata->getPathLower());
+            $dropbox->delete($fileMetadata->getPathLower());
 
             array_push($importedPhotoList, $photo);
         }

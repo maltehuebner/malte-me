@@ -32,4 +32,3 @@ parameters:
 
     dropbox.client_id: ThisTokenIsNotSoSecretChangeIt
     dropbox.client_secret: ThisTokenIsNotSoSecretChangeIt
-    dropbox.access_token: ThisTokenIsNotSoSecretChangeIt

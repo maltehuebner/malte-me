@@ -38,9 +38,9 @@ class PhotoAdmin extends AbstractAdmin
             ->end()
 
             ->with('Ortsdaten', ['class' => 'col-xs-6'])
-            ->add('location', TextType::class)
-            ->add('latitude', TextType::class)
-            ->add('longitude', TextType::class)
+            ->add('location', TextType::class, ['required' => false])
+            ->add('latitude', TextType::class, ['required' => false])
+            ->add('longitude', TextType::class, ['required' => false])
             ->end()
 
             ->with('Daten', ['class' => 'col-xs-6'])

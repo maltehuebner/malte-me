@@ -29,3 +29,6 @@ parameters:
 
     upload_destination.photo: %kernel.root_dir%/../web/photos
     web_dir: %kernel.root_dir%/../web
+
+    dropbox.client_id: ThisTokenIsNotSoSecretChangeIt
+    dropbox.client_secret: ThisTokenIsNotSoSecretChangeIt

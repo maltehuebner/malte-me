@@ -4,11 +4,12 @@
     {% set starred = false %}
 {% endif %}
 
-<div class="card photo{% if photo.location %} has-location{% endif %}" data-photo-id="{{ photo.id }}" data-latitude="{{ photo.latitude }}" data-longitude="{{ photo.longitude }}" data-location="{{ photo.location }}">
+<div class="card photo{% if photo.location %} has-location{% endif %}{% if not photo.enabled %} card-outline-danger{% endif %}" data-photo-id="{{ photo.id }}" data-latitude="{{ photo.latitude }}" data-longitude="{{ photo.longitude }}" data-location="{{ photo.location }}">
     <a href="{{ path('show_photo', { slug: photo.slug }) }}">
         <img class="img-fluid card-img-top" src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('standard') }}" alt="{{ photo.title }}" />
     </a>
 
+    {% if photo.highlighted or photo.sponsored or photo.affiliated or photo.source or photo.title or photo.description %}
     <div class="card-block">
         {% if photo.highlighted %}
             <span class="badge badge-info float-right" data-toggle="tooltip" data-placement="bottom" title="Dieses Foto wird eine Zeit lang hervorgehoben.">hervorgehoben</span>
@@ -28,16 +29,21 @@
             </small>
         {% endif %}
 
+        {% if photo.title %}
         <a href="{{ path('show_photo', { slug: photo.slug }) }}">
             <h4 class="card-title">
                 {{ photo.title }}
             </h4>
         </a>
+        {% endif %}
 
+        {% if photo.description %}
         <p class="card-text">
             {{ photo.description|markdown }}
         </p>
+        {% endif %}
     </div>
+    {% endif %}
 
     <div class="card-footer text-muted">
         {% if photo.user.profilePictureUrl %}

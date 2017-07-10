@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<routes xmlns="http://symfony.com/schema/routing"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://symfony.com/schema/routing
+        http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="dropbox_authorize" path="/dropbox/authorize">
+        <default key="_controller">AppBundle:Dropbox:authorize</default>
+    </route>
+
+    <route id="dropbox_import" path="/dropbox/import">
+        <default key="_controller">AppBundle:Dropbox:import</default>
+    </route>
+
+    <route id="dropbox_list" path="/dropbox/list">
+        <default key="_controller">AppBundle:Dropbox:list</default>
+    </route>
+</routes>

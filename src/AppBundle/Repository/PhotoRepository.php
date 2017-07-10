@@ -29,7 +29,7 @@ class PhotoRepository extends EntityRepository
         return $query->getResult();
     }
 
-    public function getFrontpageQuery(UserInterface $user = null): Query
+    public function getFrontpageQuery(): Query
     {
         $qb = $this->createQueryBuilder('p');
 
@@ -37,29 +37,9 @@ class PhotoRepository extends EntityRepository
             ->where($qb->expr()->lte('p.displayDateTime', ':displayDateTime'))
             ->addOrderBy('p.displayDateTime', 'DESC')
             ->setParameter('displayDateTime', new \DateTime())
+            ->andWhere($qb->expr()->eq('p.enabled', ':enabled'))
+            ->setParameter('enabled', true)
         ;
-
-        if ($user) {
-            $qb
-                ->andWhere($qb->expr()->eq('p.user', ':user'))
-                ->setParameter('user', $user)
-                ->andWhere($qb->expr()->orX(
-                    $qb->expr()->andX(
-                        $qb->expr()->eq('p.enabled', ':notEnabled'),
-                        $qb->expr()->eq('p.imported', ':imported')
-                    ),
-                    $qb->expr()->eq('p.enabled', ':enabled')
-                ))
-                ->setParameter('enabled', true)
-                ->setParameter('notEnabled', false)
-                ->setParameter('imported', true)
-            ;
-        } else {
-            $qb
-                ->andWhere($qb->expr()->eq('p.enabled', ':enabled'))
-                ->setParameter('enabled', true)
-            ;
-        }
 
         return $qb->getQuery();
     }

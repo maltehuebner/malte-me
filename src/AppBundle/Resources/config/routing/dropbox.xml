@@ -11,4 +11,8 @@
     <route id="dropbox_import" path="/dropbox/import">
         <default key="_controller">AppBundle:Dropbox:import</default>
     </route>
+
+    <route id="dropbox_list" path="/dropbox/list">
+        <default key="_controller">AppBundle:Dropbox:list</default>
+    </route>
 </routes>

@@ -126,4 +126,13 @@ class DropboxController extends Controller
 
         return $photo;
     }
+
+    public function listAction(Request $request, UserInterface $user): Response
+    {
+        $importedPhotoList = $this->getDoctrine()->getRepository('AppBundle:Photo')->findImportedPhotos($user);
+
+        return $this->render('AppBundle:Dropbox:list.html.twig', [
+            'importedPhotoList' => $importedPhotoList
+        ]);
+    }
 }

@@ -20,5 +20,11 @@
             <argument type="service" id="security.token_storage" />
             <tag name="kernel.event_listener" event="kernel.request" />
         </service>
+
+        <service id="app.seo_page" class="AppBundle\Seo\SeoPage">
+            <argument type="service" id="sonata.seo.page.default" />
+            <argument type="service" id="vich_uploader.templating.helper.uploader_helper" />
+            <argument type="service" id="liip_imagine.cache.manager" />
+        </service>
     </services>
 </container>

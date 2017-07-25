@@ -2,12 +2,9 @@
 
 namespace AppBundle\Seo;
 
-use AppBundle\EntityInterface\PhotoInterface;
-use AppBundle\EntityInterface\RouteableInterface;
-use AppBundle\Router\ObjectRouter;
+use AppBundle\Entity\Photo;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Sonata\SeoBundle\Seo\SeoPageInterface;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class SeoPage
@@ -21,15 +18,11 @@ class SeoPage
     /** @var CacheManager $cacheManager */
     protected $cacheManager;
 
-    /** @var ObjectRouter $objectRouter */
-    protected $objectRouter;
-
-    public function __construct(SeoPageInterface $sonataSeoPage, UploaderHelper $uploaderHelper, CacheManager $cacheManager, ObjectRouter $objectRouter)
+    public function __construct(SeoPageInterface $sonataSeoPage, UploaderHelper $uploaderHelper, CacheManager $cacheManager)
     {
         $this->sonataSeoPage = $sonataSeoPage;
         $this->uploaderHelper = $uploaderHelper;
         $this->cacheManager = $cacheManager;
-        $this->objectRouter = $objectRouter;
     }
 
     public function setTitle(string $title): SeoPage
@@ -52,9 +45,9 @@ class SeoPage
         return $this;
     }
 
-    public function setPreviewPhoto(PhotoInterface $object): SeoPage
+    public function setPreviewPhoto(Photo $photo): SeoPage
     {
-        $imageFilename = $this->uploaderHelper->asset($object, 'imageFile');
+        $imageFilename = $this->uploaderHelper->asset($photo, 'imageFile');
 
         $facebookPreviewPath = $this->cacheManager->getBrowserPath($imageFilename, 'facebook_preview_image');
         $twitterPreviewPath = $this->cacheManager->getBrowserPath($imageFilename, 'twitter_summary_large_image');
@@ -74,15 +67,6 @@ class SeoPage
             ->setLinkCanonical($link)
             ->addMeta('property', 'og:url', $link)
         ;
-
-        return $this;
-    }
-
-    public function setCanonicalForObject(RouteableInterface $object): SeoPage
-    {
-        $url = $this->objectRouter->generate($object, UrlGeneratorInterface::ABSOLUTE_URL);
-
-        $this->setCanonicalLink($url);
 
         return $this;
     }

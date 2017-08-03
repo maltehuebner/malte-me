@@ -5,18 +5,16 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Photo;
 use cebe\markdown\Markdown;
 use Liip\ImagineBundle\Controller\ImagineController;
-use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Suin\RSSWriter\Channel;
 use Suin\RSSWriter\Feed;
 use Suin\RSSWriter\Item;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
-class FeedController extends Controller
+class FeedController extends AbstractController
 {
     public function indexAction(Request $request): Response
     {

@@ -5,12 +5,11 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Photo;
 use Imagine\Imagick\Image;
 use Imagine\Imagick\Imagine;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class PhotoManagementController extends Controller
+class PhotoManagementController extends AbstractController
 {
     public function rotateAction(Request $request, UserInterface $user, int $photoId): Response
     {

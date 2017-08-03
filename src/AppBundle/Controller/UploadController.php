@@ -5,16 +5,13 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Photo;
 use AppBundle\Form\Type\PhotoType;
 use AppBundle\PhotoUploader\PhotoUploader;
-use PHPExif\Reader\Reader;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
 use \Malenki\Slug;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Component\Validator\Constraints\DateTime;
 
-class UploadController extends Controller
+class UploadController extends AbstractController
 {
     /**
      * @Security("has_role('ROLE_USER')")

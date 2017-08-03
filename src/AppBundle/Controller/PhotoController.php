@@ -6,12 +6,11 @@ use AppBundle\Entity\Photo;
 use AppBundle\Form\Type\PhotoEditType;
 use AppBundle\Form\Type\PhotoLocateType;
 use Malenki\Slug;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class PhotoController extends Controller
+class PhotoController extends AbstractController
 {
     public function viewAction(Request $request, UserInterface $user = null, string $slug): Response
     {

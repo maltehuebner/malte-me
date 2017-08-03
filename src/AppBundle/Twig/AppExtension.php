@@ -25,12 +25,19 @@ class AppExtension extends \Twig_Extension
         ];
     }
 
+    public function getFunctions(): array
+    {
+        return [
+            new \Twig_SimpleFunction('seoPage', [$this, 'seoPageFunction'], ['is_safe' => ['html']]),
+        ];
+    }
+
     public function markdownFilter(string $string): string
     {
         return $this->markdown->parse($string);
     }
 
-    public function getSeoPage(): SeoPage
+    public function seoPageFunction(): SeoPage
     {
         return $this->seoPage;
     }

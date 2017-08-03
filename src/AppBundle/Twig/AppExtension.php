@@ -3,23 +3,39 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Markdown\FahrradstadtMarkdown;
+use AppBundle\Seo\SeoPage;
+use cebe\markdown\Markdown;
 
 class AppExtension extends \Twig_Extension
 {
-    public function getFilters()
+    protected $markdown;
+
+    protected $seoPage;
+
+    public function __construct(Markdown $markdown, SeoPage $seoPage)
     {
-        return array(
-            new \Twig_SimpleFilter('markdown', array($this, 'markdownFilter'), array('is_safe' => array('html'))),
-        );
+        $this->markdown = $markdown;
+        $this->seoPage = $seoPage;
+    }
+
+    public function getFilters(): array
+    {
+        return [
+            new \Twig_SimpleFilter('markdown', [$this, 'markdownFilter'], ['is_safe' => ['html']]),
+        ];
     }
 
     public function markdownFilter(string $string): string
     {
-        $parser = new FahrradstadtMarkdown();
-        return $parser->parse($string);
+        return $this->markdown->parse($string);
     }
 
-    public function getName()
+    public function getSeoPage(): SeoPage
+    {
+        return $this->seoPage;
+    }
+
+    public function getName(): string
     {
         return 'app_extension';
     }

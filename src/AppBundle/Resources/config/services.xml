@@ -5,6 +5,8 @@
         http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <service id="app.twig_extension" class="AppBundle\Twig\AppExtension" public="false">
+            <argument type="service" id="app.markdown" />
+            <argument type="service" id="app.seo_page" />
             <tag name="twig.extension" />
         </service>
 
@@ -20,6 +22,8 @@
             <argument type="service" id="security.token_storage" />
             <tag name="kernel.event_listener" event="kernel.request" />
         </service>
+
+        <service id="app.markdown" class="AppBundle\Markdown\FahrradstadtMarkdown" />
 
         <service id="app.seo_page" class="AppBundle\Seo\SeoPage">
             <argument type="service" id="sonata.seo.page.default" />

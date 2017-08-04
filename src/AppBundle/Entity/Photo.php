@@ -139,6 +139,13 @@ class Photo
      */
     protected $imageName;
 
+    /**
+     * @var City[]
+     *
+     * @ORM\ManyToMany(targetEntity="City", mappedBy="photos")
+     */
+    protected $cities;
+
     public function __construct()
     {
         $this->dateTime = new \DateTime();
@@ -149,6 +156,7 @@ class Photo
 
         $this->comments = new ArrayCollection();
         $this->favorites = new ArrayCollection();
+        $this->cities = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -440,7 +448,7 @@ class Photo
         return $this->imported;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return sprintf('%s (%s)', $this->title, $this->user ? $this->user->getUsername() : '');
     }
@@ -452,5 +460,24 @@ class Photo
         }
 
         return null;
+    }
+
+    public function addCity(City $city): Photo
+    {
+        $this->cities->add($city);
+
+        return $this;
+    }
+
+    public function getCities(): Collection
+    {
+        return $this->cities;
+    }
+
+    public function removeCity(City $city): Photo
+    {
+        $this->cities->removeElement($city);
+
+        return $this;
     }
 }

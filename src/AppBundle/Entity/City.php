@@ -1,0 +1,139 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\CssSelector\Node\Specificity;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * @ORM\Table(name="city")
+ * @ORM\Entity()
+ */
+class City
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
+     * @Assert\NotBlank()
+     */
+    protected $name;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
+     * @Assert\NotBlank()
+     */
+    protected $title;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
+     * @Assert\NotBlank()
+     */
+    protected $slug;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $enabled = true;
+
+    /**
+     * @var Photo[]
+     *
+     * @ORM\ManyToMany(targetEntity="Photo", inversedBy="cities")
+     * @ORM\JoinTable(
+     *  name="photo_city",
+     *  joinColumns={
+     *      @ORM\JoinColumn(name="city_id", referencedColumnName="id")
+     *  },
+     *  inverseJoinColumns={
+     *      @ORM\JoinColumn(name="photo_id", referencedColumnName="id")
+     *  }
+     * )
+     */
+    protected $photos;
+
+    public function __construct()
+    {
+        $this->photos = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): City
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): City
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): City
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getEnabled(): bool
+    {
+        return $this->enabled;
+    }
+
+    public function setEnabled(bool $enabled): City
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    public function addPhoto(Photo $photo): City
+    {
+        $this->photos->add($photo);
+
+        return $this;
+    }
+
+    public function getPhotos(): Collection
+    {
+        return $this->photos;
+    }
+
+    public function removePhoto(Photo $photo): City
+    {
+        $this->photos->removeElement($photo);
+
+        return $this;
+    }
+}

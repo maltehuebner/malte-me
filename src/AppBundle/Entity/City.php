@@ -126,6 +126,13 @@ class City
         return $this;
     }
 
+    public function setPhotos(Collection $photos): City
+    {
+        $this->photos = $photos;
+
+        return $this;
+    }
+
     public function getPhotos(): Collection
     {
         return $this->photos;
@@ -137,5 +144,10 @@ class City
         $photo->removeCity($this);
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }

@@ -467,6 +467,12 @@ class Photo
         $this->cities->add($city);
         $city->addPhoto($this);
 
+    }
+
+    public function setCities(Collection $cities): Photo
+    {
+        $this->cities = $cities;
+
         return $this;
     }
 
@@ -479,7 +485,7 @@ class Photo
     {
         $this->cities->removeElement($city);
         $city->removePhoto($this);
-        
+
         return $this;
     }
 }

@@ -6,8 +6,10 @@
 
     <import resource="routing/dropbox.xml" />
 
-    <route id="frontpage" path="/">
+    <route id="frontpage" path="/{citySlug}">
         <default key="_controller">AppBundle:Default:index</default>
+        <default key="citySlug">null</default>
+        <requirement key="citySlug">(.*)</requirement>
     </route>
 
     <route id="feed" path="/feed">

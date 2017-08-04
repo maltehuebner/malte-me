@@ -13,7 +13,9 @@ class DefaultController extends AbstractController
     {
         $paginator  = $this->get('knp_paginator');
 
-        $query = $this->getDoctrine()->getRepository('AppBundle:Photo')->getFrontpageQuery($user);
+        $city = $this->getCityBySlug($citySlug);
+
+        $query = $this->getDoctrine()->getRepository('AppBundle:Photo')->getFrontpageQuery($city);
 
         $pagination = $paginator->paginate(
             $query,

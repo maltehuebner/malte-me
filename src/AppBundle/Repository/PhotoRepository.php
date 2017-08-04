@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\City;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use FOS\UserBundle\Model\UserInterface;
@@ -29,17 +30,25 @@ class PhotoRepository extends EntityRepository
         return $query->getResult();
     }
 
-    public function getFrontpageQuery(): Query
+    public function getFrontpageQuery(City $city = null): Query
     {
         $qb = $this->createQueryBuilder('p');
 
         $qb
             ->where($qb->expr()->lte('p.displayDateTime', ':displayDateTime'))
+            ->andWhere($qb->expr()->eq('p.enabled', ':enabled'))
             ->addOrderBy('p.displayDateTime', 'DESC')
             ->setParameter('displayDateTime', new \DateTime())
-            ->andWhere($qb->expr()->eq('p.enabled', ':enabled'))
             ->setParameter('enabled', true)
         ;
+
+        if ($city) {
+            $qb
+                ->innerJoin('p.cities', 'c')
+                ->andWhere($qb->expr()->eq('c', ':city'))
+                ->setParameter('city', $city)
+            ;
+        }
 
         return $qb->getQuery();
     }

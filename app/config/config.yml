@@ -187,3 +187,33 @@ fos_elastica:
                         provider: ~
                         listener: ~
                         finder: ~
+
+sonata_seo:
+    encoding:         UTF-8
+    page:
+        title:            Fahrradstadt.Hamburg
+        default:          sonata.seo.page.default
+        metas:
+            name:
+                keywords:             Radfahren, Hamburg, Radsport, Fahrrad, radeln
+                description:          'Fahrradstadt.Hamburg: Weil Radfahren in Hamburg Spaß machen kann'
+                robots:               index, follow
+                'twitter:site':       '@calderacc'
+                'twitter:creator':    '@maltehuebner'
+            property:
+                'fb:app_id':          '216780188685195'
+                'og:type':            Website
+                'og:site_name':       Fahrradstadt.Hamburg
+                'og:description':     'Fahrradstadt.Hamburg: Weil Radfahren in Hamburg Spaß machen kann'
+                'og:locale':          de_DE
+
+            http-equiv:
+                'Content-Type':         text/html; charset=utf-8
+
+            charset:
+                UTF-8:    ''
+
+        head:
+            'xmlns':              http://www.w3.org/1999/xhtml
+            'xmlns:og':           http://opengraphprotocol.org/schema/
+            'xmlns:fb':           "http://www.facebook.com/2008/fbml"

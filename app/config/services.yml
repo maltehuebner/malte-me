@@ -11,6 +11,12 @@ services:
         class: AppBundle\UserProvider\FOSUBUserProvider
         arguments: ["@fos_user.user_manager", {facebook: facebookId, strava: stravaId, twitter: twitterId}]
 
+    admin.city:
+        class: AppBundle\Admin\CityAdmin
+        arguments: [~, AppBundle\Entity\City, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: City }
+
     admin.photo:
         class: AppBundle\Admin\PhotoAdmin
         arguments: [~, AppBundle\Entity\Photo, ~]

@@ -3,14 +3,13 @@
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class DefaultController extends Controller
+class DefaultController extends AbstractController
 {
-    public function indexAction(Request $request, UserInterface $user = null): Response
+    public function indexAction(Request $request, UserInterface $user = null, string $citySlug): Response
     {
         $paginator  = $this->get('knp_paginator');
 

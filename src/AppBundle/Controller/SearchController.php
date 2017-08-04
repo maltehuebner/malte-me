@@ -2,11 +2,10 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class SearchController extends Controller
+class SearchController extends AbstractController
 {
     public function searchAction(Request $request): Response
     {

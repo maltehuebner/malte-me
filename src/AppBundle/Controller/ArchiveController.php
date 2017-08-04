@@ -2,11 +2,10 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ArchiveController extends Controller
+class ArchiveController extends AbstractController
 {
     public function archiveAction(Request $request): Response
     {

@@ -2,11 +2,10 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class StaticController extends Controller
+class StaticController extends AbstractController
 {
     public function missionAction(Request $request): Response
     {

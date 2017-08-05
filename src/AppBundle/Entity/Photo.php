@@ -467,6 +467,7 @@ class Photo
         $this->cities->add($city);
         $city->addPhoto($this);
 
+        return $this;
     }
 
     public function setCities(Collection $cities): Photo

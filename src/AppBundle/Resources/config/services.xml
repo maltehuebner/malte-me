@@ -13,6 +13,7 @@
             <argument type="service" id="vich_uploader.templating.helper.uploader_helper" />
             <argument type="string">%kernel.root_dir%</argument>
             <argument type="service" id="mailer" />
+            <argument type="service" id="session" />
         </service>
 
         <service id="app.login_listener" class="AppBundle\EventListener\RequestListener" public="true">

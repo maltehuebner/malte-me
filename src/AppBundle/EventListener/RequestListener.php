@@ -2,6 +2,7 @@
 
 namespace AppBundle\EventListener;
 
+use AppBundle\Entity\City;
 use AppBundle\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use FOS\UserBundle\Event\UserEvent;
@@ -9,7 +10,10 @@ use FOS\UserBundle\FOSUserEvents;
 use HWI\Bundle\OAuthBundle\HWIOAuthEvents;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
@@ -33,11 +37,13 @@ class RequestListener implements EventSubscriberInterface
         ];
     }
 
-    public function onKernelRequest(Event $event): void
+    public function onKernelRequest(GetResponseEvent $event): void
     {
         if ($this->tokenStorage->getToken()->getUser()) {
             $this->assignAnonymousPhotos();
         }
+
+        $this->detectCity($event);
     }
 
     protected function assignAnonymousPhotos(): void
@@ -70,5 +76,19 @@ class RequestListener implements EventSubscriberInterface
 
             $session->remove('uploaded_photo_id');
         }
+    }
+
+    protected function detectCity(GetResponseEvent $event): void
+    {
+        $hostname = $event->getRequest()->getHost();
+
+        $city = $this->registry->getRepository(City::class)->findOneByHostname($hostname);
+
+        if (!$city) {
+            $event->setResponse(new Response(sprintf('No city for hostname %s found', $hostname), 404));
+        }
+
+        $session = new Session();
+        $session->set('city', $city);
     }
 }

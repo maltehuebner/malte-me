@@ -9,13 +9,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class DefaultController extends AbstractController
 {
-    public function indexAction(Request $request, UserInterface $user = null, string $citySlug): Response
+    public function indexAction(Request $request, UserInterface $user = null): Response
     {
         $paginator  = $this->get('knp_paginator');
 
-        $city = $this->getCityBySlug($citySlug);
-
-        $query = $this->getDoctrine()->getRepository('AppBundle:Photo')->getFrontpageQuery($city);
+        $query = $this->getDoctrine()->getRepository('AppBundle:Photo')->getFrontpageQuery($this->getCity());
 
         $pagination = $paginator->paginate(
             $query,

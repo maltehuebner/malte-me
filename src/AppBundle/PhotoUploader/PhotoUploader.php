@@ -10,6 +10,7 @@ use Malenki\Slug;
 use PHPExif\Reader\Reader;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class PhotoUploader
@@ -18,25 +19,26 @@ class PhotoUploader
     protected $uploaderHelper;
     protected $kernelRootDir;
     protected $mailer;
+    protected $session;
 
-    public function __construct(EntityManager $entityManager, UploaderHelper $uploaderHelper, string $kernelRootDir, \Swift_Mailer $mailer)
+    public function __construct(EntityManager $entityManager, UploaderHelper $uploaderHelper, string $kernelRootDir, \Swift_Mailer $mailer, Session $session)
     {
         $this->entityManager = $entityManager;
         $this->uploaderHelper = $uploaderHelper;
         $this->kernelRootDir = $kernelRootDir;
         $this->mailer = $mailer;
+        $this->session = $session;
     }
 
-    public function handleUpload(Photo $photo, User $user = null, City $city = null): Photo
+    public function handleUpload(Photo $photo, User $user = null): Photo
     {
         $photo
             ->setUser($user)
-            ->setDisplayDateTime(new \DateTime());
+            ->setDisplayDateTime(new \DateTime())
+            ->addCity($this->session->get('city'))
+        ;
 
-        if ($city) {
-            $photo->addCity($city);
-        }
-        
+
         if (!$user || $user->isModerated()) {
             $photo->setEnabled(false);
 

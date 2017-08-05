@@ -10,10 +10,8 @@
         <default key="_controller">AppBundle:Feed:index</default>
     </route>
 
-    <route id="photo_upload" path="/{citySlug}/upload">
+    <route id="photo_upload" path="/upload">
         <default key="_controller">AppBundle:Upload:upload</default>
-        <default key="citySlug">null</default>
-        <requirement key="citySlug">([a-z\-]*)</requirement>
     </route>
 
     <route id="mission" path="/mission">
@@ -59,10 +57,8 @@
         <requirement key="slug">(.*)-([0-9]*)</requirement>
     </route>
 
-    <route id="frontpage" path="/{citySlug}">
+    <route id="frontpage" path="/">
         <default key="_controller">AppBundle:Default:index</default>
-        <default key="citySlug">null</default>
-        <requirement key="citySlug">([a-z\-]*)</requirement>
     </route>
 
 </routes>

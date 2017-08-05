@@ -14,6 +14,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class AbstractController extends Controller
 {
+    /**
+     * @deprecated
+     */
     protected function getCityBySlug(string $citySlug = null): ?City
     {
         if (!$citySlug) {
@@ -27,5 +30,10 @@ class AbstractController extends Controller
         }
 
         return $city;
+    }
+
+    public function getCity(): City
+    {
+        return $this->get('session')->get('city');
     }
 }

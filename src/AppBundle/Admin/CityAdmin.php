@@ -22,7 +22,7 @@ class CityAdmin extends AbstractAdmin
             ->with('Stadt', ['class' => 'col-xs-6'])
             ->add('name', TextType::class)
             ->add('title', TextType::class)
-            ->add('slug', TextType::class)
+            ->add('hostname', TextType::class)
             ->end()
         ;
     }
@@ -41,7 +41,7 @@ class CityAdmin extends AbstractAdmin
         $listMapper
             ->addIdentifier('title')
             ->add('name')
-            ->add('slug')
+            ->add('hostname')
         ;
     }
 }

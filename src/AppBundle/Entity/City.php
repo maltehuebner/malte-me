@@ -11,6 +11,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @ORM\Table(name="city")
  * @ORM\Entity()
+ * @Vich\Uploadable
  */
 class City
 {

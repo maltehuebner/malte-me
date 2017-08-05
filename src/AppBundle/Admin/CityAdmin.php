@@ -24,6 +24,10 @@ class CityAdmin extends AbstractAdmin
             ->add('title', TextType::class)
             ->add('hostname', TextType::class)
             ->end()
+
+            ->with('Logo', ['class' => 'col-xs-6'])
+            ->add('imageFile', VichFileType::class)
+            ->end()
         ;
     }
 

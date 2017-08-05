@@ -2,6 +2,7 @@
 
 namespace AppBundle\PhotoUploader;
 
+use AppBundle\Entity\City;
 use AppBundle\Entity\Photo;
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
@@ -26,12 +27,16 @@ class PhotoUploader
         $this->mailer = $mailer;
     }
 
-    public function handleUpload(Photo $photo, User $user = null): Photo
+    public function handleUpload(Photo $photo, User $user = null, City $city = null): Photo
     {
         $photo
             ->setUser($user)
             ->setDisplayDateTime(new \DateTime());
 
+        if ($city) {
+            $photo->addCity($city);
+        }
+        
         if (!$user || $user->isModerated()) {
             $photo->setEnabled(false);
 

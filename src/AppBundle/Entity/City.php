@@ -68,6 +68,21 @@ class City
     protected $enabled = true;
 
     /**
+     * @ORM\Column(type="string", nullable=false)
+     */
+    protected $missionText;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $showMenuMission = false;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $showMenuUpload = false;
+
+    /**
      * @var Photo[]
      *
      * @ORM\ManyToMany(targetEntity="Photo", inversedBy="cities")
@@ -220,6 +235,42 @@ class City
     {
         $this->photos->removeElement($photo);
         $photo->removeCity($this);
+
+        return $this;
+    }
+
+    public function getMissionText(): ?string
+    {
+        return $this->missionText;
+    }
+
+    public function setMissionText(string $missionText = null): City
+    {
+        $this->missionText = $missionText;
+
+        return $this;
+    }
+
+    public function getShowMenuMission(): bool
+    {
+        return $this->showMenuMission;
+    }
+
+    public function setShowMenuMission(bool $showMenuMission): City
+    {
+        $this->showMenuMission = $showMenuMission;
+
+        return $this;
+    }
+
+    public function getShowMenuUpload(): bool
+    {
+        return $this->showMenuUpload;
+    }
+
+    public function setShowMenuUpload(bool $showMenuUpload): City
+    {
+        $this->showMenuUpload = $showMenuUpload;
 
         return $this;
     }

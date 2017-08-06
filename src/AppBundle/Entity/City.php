@@ -13,7 +13,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Entity()
  * @Vich\Uploadable
  */
-class City implements \Serializable
+class City
 {
     /**
      * @ORM\Id
@@ -51,20 +51,6 @@ class City implements \Serializable
      * @Assert\NotBlank()
      */
     protected $seoDescription;
-
-    /**
-     * @Vich\UploadableField(mapping="photo", fileNameProperty="imageName")
-     *
-     * @var File
-     */
-    protected $imageFile;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     *
-     * @var string
-     */
-    protected $imageName;
 
     /**
      * @ORM\Column(type="datetime")
@@ -191,34 +177,6 @@ class City implements \Serializable
         return $this;
     }
 
-    public function setImageFile(File $image = null): City
-    {
-        $this->imageFile = $image;
-
-        if ($image) {
-            $this->updatedAt = new \DateTime('now');
-        }
-
-        return $this;
-    }
-
-    public function getImageFile(): ?File
-    {
-        return $this->imageFile;
-    }
-
-    public function setImageName(string $imageName = null): City
-    {
-        $this->imageName = $imageName;
-
-        return $this;
-    }
-
-    public function getImageName(): ?string
-    {
-        return $this->imageName;
-    }
-
     public function setUpdatedAt(\DateTime $updatedAt): City
     {
         $this->updatedAt = $updatedAt;
@@ -269,44 +227,5 @@ class City implements \Serializable
     public function __toString(): string
     {
         return $this->name;
-    }
-
-    /**
-     * String representation of object
-     * @link http://php.net/manual/en/serializable.serialize.php
-     * @return string the string representation of the object or null
-     * @since 5.1.0
-     */
-    public function serialize(): string
-    {
-        return serialize([
-            $this->id,
-            $this->name,
-            $this->title,
-            $this->slug,
-            $this->hostname,
-            $this->seoDescription,
-        ]);
-    }
-
-    /**
-     * Constructs the object
-     * @link http://php.net/manual/en/serializable.unserialize.php
-     * @param string $serialized <p>
-     * The string representation of the object.
-     * </p>
-     * @return void
-     * @since 5.1.0
-     */
-    public function unserialize($serialized): void
-    {
-        list(
-            $this->id,
-            $this->name,
-            $this->title,
-            $this->slug,
-            $this->hostname,
-            $this->seoDescription
-        ) = unserialize($serialized);
     }
 }

@@ -39,7 +39,7 @@ class RequestListener implements EventSubscriberInterface
 
     public function onKernelRequest(GetResponseEvent $event): void
     {
-        if ($this->tokenStorage->getToken()->getUser()) {
+        if ($this->tokenStorage->getToken() && $this->tokenStorage->getToken()->getUser()) {
             $this->assignAnonymousPhotos();
         }
 

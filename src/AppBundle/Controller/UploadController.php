@@ -17,14 +17,8 @@ class UploadController extends AbstractController
     /**
      * @Security("has_role('ROLE_USER')")
      */
-    public function uploadAction(Request $request, UserInterface $user, string $citySlug): Response
+    public function uploadAction(Request $request, UserInterface $user): Response
     {
-        $city = $this->getCityBySlug($citySlug);
-
-        if (!$citySlug) {
-            throw $this->createNotFoundException();
-        }
-
         $photo = new Photo();
 
         $uploadForm = $this->createForm(PhotoType::class, $photo);
@@ -37,7 +31,7 @@ class UploadController extends AbstractController
             /** @var PhotoUploader $photoUploader */
             $photoUploader = $this->get('app.photo_uploader');
 
-            $photo = $photoUploader->handleUpload($photo, $user, $city);
+            $photo = $photoUploader->handleUpload($photo, $user, $this->getCity());
 
             if ($photo) {
                 return $this->redirectToRoute(

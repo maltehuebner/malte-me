@@ -30,14 +30,15 @@ class PhotoUploader
         $this->session = $session;
     }
 
-    public function handleUpload(Photo $photo, User $user = null): Photo
+    public function handleUpload(Photo $photo, User $user = null, City $city): Photo
     {
         $photo
             ->setUser($user)
             ->setDisplayDateTime(new \DateTime())
-            ->addCity($this->session->get('city'))
+            ->addCity($city)
         ;
 
+        $city->addPhoto($photo);
 
         if (!$user || $user->isModerated()) {
             $photo->setEnabled(false);

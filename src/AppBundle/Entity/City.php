@@ -83,6 +83,11 @@ class City
     protected $showMenuUpload = false;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $publicVisible = false;
+
+    /**
      * @var Photo[]
      *
      * @ORM\ManyToMany(targetEntity="Photo", inversedBy="cities")
@@ -269,6 +274,18 @@ class City
     public function setShowMenuUpload(bool $showMenuUpload): City
     {
         $this->showMenuUpload = $showMenuUpload;
+
+        return $this;
+    }
+
+    public function getPublicVisible(): bool
+    {
+        return $this->publicVisible;
+    }
+
+    public function setPublicVisible(bool $publicVisible): City
+    {
+        $this->publicVisible = $publicVisible;
 
         return $this;
     }

@@ -214,7 +214,6 @@ class City
     public function addPhoto(Photo $photo): City
     {
         $this->photos->add($photo);
-        $photo->addCity($this);
 
         return $this;
     }
@@ -234,7 +233,6 @@ class City
     public function removePhoto(Photo $photo): City
     {
         $this->photos->removeElement($photo);
-        $photo->removeCity($this);
 
         return $this;
     }

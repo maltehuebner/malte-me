@@ -68,7 +68,7 @@ class City
     protected $enabled = true;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="text", nullable=true)
      */
     protected $missionText;
 

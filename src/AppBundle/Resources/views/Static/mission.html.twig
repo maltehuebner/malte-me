@@ -8,41 +8,7 @@
                 Mission
             </h2>
 
-            <p>
-                Immer nur meckern ist öde: Natürlich ist Hamburg noch lange keine Fahrradstadt, natürlich ist Radfahren in Hamburg mehr ein Abenteuer als eine schnelle und praktische Art der Fortbewegung. Und doch: Es ist nicht alles schlecht. Und man muss nicht alles schlecht reden.
-            </p>
-
-            <p>
-                Allein an der mangelhaften Fahrrad-Infrastruktur und den halsbrecherischen Radverkehrsbedingungen in der Hansestadt arbeiten sich bestimmt über ein Dutzend Webseiten und facebook-Gruppen ab — und das vollkommen zurecht: Es ist schwer verständlich, warum selbst an neu sanierten Straßen die Mindestanforderungen an eine Radverkehrsinfrastruktur nur gerade eben so erfüllt werden, es ist vollkommen lächerlich, dass an vielen Straßen dem Kraftverkehr drei bis vier Fahrstreifen angeboten werden, der Radverkehr aber über einen buckeligen Fuß- und Radweg zusammen mit Fußgängern und parkenden Kraftfahrzeugen abgewickelt wird.
-            </p>
-
-            <p>
-                Die Elbchaussee bekommt ihre Radfahrstreifen erst im Jahr 2024, die Reeperbahn gar niemals? Gegen Falschparker auf Radwegen könne man nichts tun, die müssten eben irgendwo parken? In Arbeitsstellen könne man den Radverkehr nicht berücksichtigen, weil der Platz nicht reicht? Und sowieso ginge das alles nicht, weil… geht halt nicht? Hamburg ist noch lange keine Fahrradstadt, nein, Hamburg ist noch nicht einmal auf dem Weg dorthin.
-            </p>
-
-            <h3 class="text-center mt-5">
-                Wir fahren schon mal vor
-            </h3>
-
-            <p>
-                Interessanterweise interessiert das die Hamburger so gut wie gar nicht. Der Radverkehrsanteil steigt immer weiter: Wo man vor zwei Jahren noch alleine auf dem Weg zur Arbeit an der Ampel stand, braucht man heute plötzlich einen ganzen Umlauf länger, weil man es vor lauter Fahrrädern nicht während der Grünphase über die Kreuzung schafft. Hamburgs Radverkehrsanteil steigt schneller als die bummelig geplante Infrastruktur mithalten könnte.
-            </p>
-
-            <p>
-                In Hamburg gilt wohl nicht, wie so oft behauptet, dass die Menschen aufgrund der tollen Infrastruktur aufs Rad steigen, sondern eher, dass sie <em>trotz</em> der Infrastruktur mit dem Rad unterwegs sind.
-            </p>
-
-            <h3 class="text-center mt-5">
-                Positiv denken
-            </h3>
-
-            <p>
-                Dennoch: Es bringt nichts, immer nur zu jammern. Die Infrastruktur wird nicht besser, indem man unablässig lamentiert. Doch es wird sich kaum jemand fürs Radfahren begeistern lassen, wenn er sich immer nur von anderen Menschen anhört, wie scheiße alles ist. Doch offenbar gibt’s hinreichend viele Gründe, trotz aller Unzulänglichkeiten mit dem Rad zu fahren: Sei es der Sonnenaufgang am Hafen, den man weder aus der Bahn noch aus dem Auto in Ruhe betrachten kann, oder die kurze Pause bei den Schwänen an der Alster, der Duft von einem lauwarmen Sommerregen, der die Stadt vom Feinstaub reinwäscht, oder die Möglichkeit, ohne lange Parkplatzsuche das Ziel zu erreichen.
-            </p>
-
-            <p>
-                Diese Webseite will in loser Reihenfolge einige Motive sammeln, bei denen das Rad im Mittelpunkt steht. Sei es der Sonnenuntergang an der Alster oder coole Fahrrad-Veranstaltungen oder einfach ein Foto von fünfzig Rädern, die auf der Veloroute in Innenstadt rollen. Man kann auf dem Rad viele schöne Momente erleben — sogar in Hamburg.
-            </p>
+            {{ app.session.get('city').missionText|markdown }}
 
             <p class="text-center">
                 Du kannst dich daran beteiligen:

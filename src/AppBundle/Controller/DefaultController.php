@@ -11,7 +11,7 @@ class DefaultController extends AbstractController
 {
     public function indexAction(Request $request, UserInterface $user = null): Response
     {
-        $paginator  = $this->get('knp_paginator');
+        $paginator = $this->get('knp_paginator');
 
         $query = $this->getDoctrine()->getRepository('AppBundle:Photo')->getFrontpageQuery($this->getCity());
 

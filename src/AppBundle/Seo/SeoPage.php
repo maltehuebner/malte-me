@@ -49,12 +49,11 @@ class SeoPage
     {
         $imageFilename = $this->uploaderHelper->asset($photo, 'imageFile');
 
-        $facebookPreviewPath = $this->cacheManager->getBrowserPath($imageFilename, 'facebook_preview_image');
-        $twitterPreviewPath = $this->cacheManager->getBrowserPath($imageFilename, 'twitter_summary_large_image');
+        $previewPath = $this->cacheManager->getBrowserPath($imageFilename, 'preview');
 
         $this->sonataSeoPage
-            ->addMeta('property', 'og:image', $facebookPreviewPath)
-            ->addMeta('name', 'twitter:image', $twitterPreviewPath)
+            ->addMeta('property', 'og:image', $previewPath)
+            ->addMeta('name', 'twitter:image', $previewPath)
             ->addMeta('name', 'twitter:card', 'summary_large_image')
         ;
 

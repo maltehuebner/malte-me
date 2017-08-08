@@ -34,6 +34,11 @@ class AbstractController extends Controller
 
     public function getCity(): City
     {
-        return $this->get('session')->get('city');
+        $cityId = $this->get('session')->get('cityId');
+
+        /** @var City $city */
+        $city = $this->getDoctrine()->getRepository(City::class)->find($cityId);
+
+        return $city;
     }
 }

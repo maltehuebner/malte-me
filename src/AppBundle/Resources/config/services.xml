@@ -5,6 +5,8 @@
         http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <service id="app.twig_extension" class="AppBundle\Twig\AppExtension" public="false">
+            <argument type="service" id="doctrine" />
+            <argument type="service" id="session" />
             <tag name="twig.extension" />
         </service>
 

@@ -75,6 +75,7 @@ class RequestListener implements EventSubscriberInterface
     {
         $hostname = $event->getRequest()->getHost();
 
+        /** @var City $city */
         $city = $this->registry->getRepository(City::class)->findOneByHostname($hostname);
 
         if (!$city) {
@@ -82,6 +83,6 @@ class RequestListener implements EventSubscriberInterface
         }
 
         $session = new Session();
-        $session->set('city', $city);
+        $session->set('cityId', $city->getId());
     }
 }

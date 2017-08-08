@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\City;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,5 +45,14 @@ class DefaultController extends AbstractController
         }
 
         return $result;
+    }
+
+    public function cityListAction(): Response
+    {
+        $publicCities = $this->getDoctrine()->getRepository(City::class)->findPublicCities();
+
+        return $this->render('AppBundle:Includes:footer_city_list.html.twig', [
+            'cityList' => $publicCities,
+        ]);
     }
 }

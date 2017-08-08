@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @ORM\Table(name="city")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\CityRepository")
  * @Vich\Uploadable
  */
 class City

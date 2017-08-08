@@ -31,6 +31,7 @@ class CityAdmin extends AbstractAdmin
 
             ->with('SEO', ['class' => 'col-xs-6'])
             ->add('seoDescription', TextType::class, ['required' => false])
+            ->add('seoKeywords', TextType::class, ['required' => false])
             ->add('missionText', TextType::class, ['required' => false])
             ->add('archiveIntroText', TextType::class, ['required' => false])
             ->end()

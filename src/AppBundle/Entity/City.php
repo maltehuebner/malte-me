@@ -52,6 +52,11 @@ class City
     protected $seoDescription;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $seoKeywords;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     protected $updatedAt;
@@ -193,6 +198,18 @@ class City
     public function setSeoDescription(string $seoDescription = null): City
     {
         $this->seoDescription = $seoDescription;
+
+        return $this;
+    }
+
+    public function getSeoKeywords(): ?string
+    {
+        return $this->seoKeywords;
+    }
+
+    public function setSeoKeywords(string $seoKeywords = null): City
+    {
+        $this->seoKeywords = $seoKeywords;
 
         return $this;
     }

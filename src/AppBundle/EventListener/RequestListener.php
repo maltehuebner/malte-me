@@ -106,7 +106,15 @@ class RequestListener implements EventSubscriberInterface
     {
         $this->seoPage
             ->setTitle($city->getTitle())
-            ->setDescription($city->getSeoDescription())
+            ->setSiteName($city->getTitle())
         ;
+
+        if ($city->getSeoDescription()) {
+            $this->seoPage->setDescription($city->getSeoDescription());
+        }
+
+        if ($city->getSeoKeywords()) {
+            $this->seoPage->setKeywords($city->getSeoKeywords());
+        }
     }
 }

@@ -1,15 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: maltehuebner
- * Date: 04.08.17
- * Time: 22:54
- */
 
 namespace AppBundle\Controller;
 
-
 use AppBundle\Entity\City;
+use AppBundle\Seo\SeoPage;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class AbstractController extends Controller
@@ -40,5 +34,10 @@ class AbstractController extends Controller
         $city = $this->getDoctrine()->getRepository(City::class)->find($cityId);
 
         return $city;
+    }
+
+    protected function getSeoPage(): SeoPage
+    {
+        return $this->get('app.seo_page');
     }
 }

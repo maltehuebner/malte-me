@@ -5,7 +5,6 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Photo;
 use cebe\markdown\Markdown;
 use Liip\ImagineBundle\Controller\ImagineController;
-use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Suin\RSSWriter\Channel;
 use Suin\RSSWriter\Feed;
 use Suin\RSSWriter\Item;

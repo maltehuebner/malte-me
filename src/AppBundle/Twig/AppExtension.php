@@ -4,6 +4,8 @@ namespace AppBundle\Twig;
 
 use AppBundle\Entity\City;
 use AppBundle\Markdown\FahrradstadtMarkdown;
+use AppBundle\Seo\SeoPage;
+use cebe\markdown\Markdown;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -18,30 +20,43 @@ class AppExtension extends \Twig_Extension
     /** @var Session $session */
     protected $session;
 
-    public function __construct(Registry $doctrine, Session $session)
+    /** @var Markdown $markdown */
+    protected $markdown;
+
+    /** @var SeoPage $seoPage */
+    protected $seoPage;
+
+    public function __construct(Registry $doctrine, Session $session, Markdown $markdown, SeoPage $seoPage)
     {
         $this->doctrine = $doctrine;
         $this->session = $session;
+        $this->markdown = $markdown;
+        $this->seoPage = $seoPage;
     }
 
     public function getFunctions(): array
     {
         return [
-            new \Twig_Function('getCity', [$this, 'getCity'])
+            new \Twig_Function('getCity', [$this, 'getCity']),
+            new \Twig_Function('seoPage', [$this, 'seoPageFunction'], ['is_safe' => ['html']]),
         ];
     }
 
     public function getFilters(): array
     {
-        return array(
+        return [
             new \Twig_SimpleFilter('markdown', [$this, 'markdownFilter'], ['is_safe' => ['html']]),
-        );
+        ];
     }
 
     public function markdownFilter(string $string = null): string
     {
-        $parser = new FahrradstadtMarkdown();
-        return $parser->parse($string);
+        return $this->markdown->parse($string);
+    }
+
+    public function seoPageFunction(): SeoPage
+    {
+        return $this->seoPage;
     }
 
     public function getCity(): ?City
@@ -60,7 +75,7 @@ class AppExtension extends \Twig_Extension
         return $this->currentCity;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return 'app_extension';
     }

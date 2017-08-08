@@ -3,9 +3,12 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\City;
+use AppBundle\Model\CityFrontpageModel;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\RequestContext;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class DefaultController extends AbstractController
@@ -51,8 +54,32 @@ class DefaultController extends AbstractController
     {
         $publicCities = $this->getDoctrine()->getRepository(City::class)->findPublicCities();
 
+        $cityList = [];
+
+        foreach ($publicCities as $publicCity) {
+            $frontpageUrl = $this->generateFrontendRouteForCity($publicCity);
+
+            $cityList[] = new CityFrontpageModel($publicCity, $frontpageUrl);
+        }
+
         return $this->render('AppBundle:Includes:footer_city_list.html.twig', [
-            'cityList' => $publicCities,
+            'cityList' => $cityList,
         ]);
+    }
+
+    protected function generateFrontendRouteForCity(City $city): string
+    {
+        /** @var RequestContext $context */
+        $context = $this->get('router')->getContext();
+
+        $context->setHost($city->getHostname());
+
+        if ($this->container->getParameter('kernel.environment') === 'dev') {
+            $context->setScheme('http');
+        } else {
+            $context->setScheme('https');
+        }
+
+        return $this->generateUrl('frontpage', [], RouterInterface::ABSOLUTE_URL);
     }
 }

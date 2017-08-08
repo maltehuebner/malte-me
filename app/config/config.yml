@@ -93,6 +93,11 @@ liip_imagine:
             quality: 50
             filters:
                 thumbnail: { size: [1024, 1024], mode: inset }
+        logo:
+            quality: 85
+            filters:
+                thumbnail: { size: [200, 200], mode: inset }
+
 
 fos_user:
     db_driver: orm # other valid values are 'mongodb' and 'couchdb'

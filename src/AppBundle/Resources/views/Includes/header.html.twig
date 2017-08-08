@@ -1,9 +1,11 @@
 <div id="logo-container" class="container mb-5">
+    {% if getCity().imageName %}
     <div class="row">
         <div class="col-12">
             <a href="{{ path('frontpage') }}">
-                <img class=" mx-auto d-block" src="{{ asset('bundles/app/images/logo/logo-200.png') }}" alt="Logo Fahrradstadt Hamburg" />
+                <img class="mx-auto d-block" src="{{ vich_uploader_asset(getCity(), 'imageFile')|imagine_filter('logo') }}" alt="{{ getCity().title }}" />
             </a>
         </div>
     </div>
+    {% endif %}
 </div>

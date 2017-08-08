@@ -47,8 +47,7 @@ class City
     protected $hostname;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
-     * @Assert\NotBlank()
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $seoDescription;
 
@@ -191,7 +190,7 @@ class City
         return $this->seoDescription;
     }
 
-    public function setSeoDescription(string $seoDescription): City
+    public function setSeoDescription(string $seoDescription = null): City
     {
         $this->seoDescription = $seoDescription;
 
@@ -308,7 +307,7 @@ class City
         return $this->archiveIntroText;
     }
 
-    public function setArchiveIntroText(string $archiveIntroText): City
+    public function setArchiveIntroText(string $archiveIntroText = null): City
     {
         $this->archiveIntroText = $archiveIntroText;
 

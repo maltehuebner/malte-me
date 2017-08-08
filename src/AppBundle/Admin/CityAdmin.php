@@ -24,6 +24,22 @@ class CityAdmin extends AbstractAdmin
             ->add('title', TextType::class)
             ->add('hostname', TextType::class)
             ->end()
+
+            ->with('Logo', ['class' => 'col-xs-6'])
+            ->add('imageFile', VichFileType::class, ['required' => false])
+            ->end()
+
+            ->with('SEO', ['class' => 'col-xs-6'])
+            ->add('seoDescription', TextType::class, ['required' => false])
+            ->add('missionText', TextType::class, ['required' => false])
+            ->add('archiveIntroText', TextType::class, ['required' => false])
+            ->end()
+
+            ->with('Menu', ['class' => 'col-xs-6'])
+            ->add('showMenuMission', CheckboxType::class, ['required' => false])
+            ->add('showMenuUpload', CheckboxType::class, ['required' => false])
+            ->add('publicVisible', CheckboxType::class, ['required' => false])
+            ->end()
         ;
     }
 

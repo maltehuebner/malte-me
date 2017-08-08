@@ -80,9 +80,9 @@ class RequestListener implements EventSubscriberInterface
 
         if (!$city) {
             $event->setResponse(new Response(sprintf('No city for hostname %s found', $hostname), 404));
+        } else {
+            $session = new Session();
+            $session->set('cityId', $city->getId());
         }
-
-        $session = new Session();
-        $session->set('cityId', $city->getId());
     }
 }

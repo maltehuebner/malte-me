@@ -127,21 +127,15 @@ class Photo
 
     /**
      * @Vich\UploadableField(mapping="photo", fileNameProperty="imageName")
-     *
-     * @var File
      */
     protected $imageFile;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *
-     * @var string
      */
     protected $imageName;
 
     /**
-     * @var City[]
-     *
      * @ORM\ManyToMany(targetEntity="City", mappedBy="photos")
      */
     protected $cities;

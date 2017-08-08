@@ -93,8 +93,16 @@ class City
     protected $archiveIntroText;
 
     /**
-     * @var Photo[]
-     *
+     * @Vich\UploadableField(mapping="photo", fileNameProperty="imageName")
+     */
+    protected $imageFile;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    protected $imageName;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Photo", inversedBy="cities")
      * @ORM\JoinTable(
      *  name="photo_city",
@@ -305,6 +313,34 @@ class City
         $this->archiveIntroText = $archiveIntroText;
 
         return $this;
+    }
+
+    public function setImageFile(File $image = null): City
+    {
+        $this->imageFile = $image;
+
+        if ($image) {
+            $this->updatedAt = new \DateTime('now');
+        }
+
+        return $this;
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageName(string $imageName = null): City
+    {
+        $this->imageName = $imageName;
+
+        return $this;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
     }
 
     public function __toString(): string

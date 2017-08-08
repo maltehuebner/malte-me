@@ -23,6 +23,7 @@
         <service id="app.login_listener" class="AppBundle\EventListener\RequestListener" public="true">
             <argument type="service" id="doctrine" />
             <argument type="service" id="security.token_storage" />
+            <argument type="service" id="app.seo_page" />
             <tag name="kernel.event_listener" event="kernel.request" />
         </service>
 

@@ -4,6 +4,7 @@ namespace AppBundle\EventListener;
 
 use AppBundle\Entity\City;
 use AppBundle\Entity\User;
+use AppBundle\Seo\SeoPage;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,13 +15,20 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class RequestListener implements EventSubscriberInterface
 {
+    /** @var Registry $registry */
     protected $registry;
+
+    /** @var TokenStorage $tokenStorage */
     protected $tokenStorage;
 
-    public function __construct(Registry $registry, TokenStorage $tokenStorage)
+    /** @var SeoPage $seoPage */
+    protected $seoPage;
+
+    public function __construct(Registry $registry, TokenStorage $tokenStorage, SeoPage $seoPage)
     {
         $this->registry = $registry;
         $this->tokenStorage = $tokenStorage;
+        $this->seoPage = $seoPage;
     }
 
     public static function getSubscribedEvents(): array
@@ -36,7 +44,11 @@ class RequestListener implements EventSubscriberInterface
             $this->assignAnonymousPhotos();
         }
 
-        $this->detectCity($event);
+        $city = $this->detectCity($event);
+
+        if ($city) {
+            $this->initSeoPage($city);
+        }
     }
 
     protected function assignAnonymousPhotos(): void
@@ -71,18 +83,30 @@ class RequestListener implements EventSubscriberInterface
         }
     }
 
-    protected function detectCity(GetResponseEvent $event): void
+    protected function detectCity(GetResponseEvent $event): ?City
     {
         $hostname = $event->getRequest()->getHost();
 
         /** @var City $city */
         $city = $this->registry->getRepository(City::class)->findOneByHostname($hostname);
 
-        if (!$city) {
-            $event->setResponse(new Response(sprintf('No city for hostname %s found', $hostname), 404));
-        } else {
+        if ($city) {
             $session = new Session();
             $session->set('cityId', $city->getId());
+
+            return $city;
         }
+
+        $event->setResponse(new Response(sprintf('No city for hostname %s found', $hostname), 404));
+
+        return null;
+    }
+
+    protected function initSeoPage(City $city): void
+    {
+        $this->seoPage
+            ->setTitle($city->getTitle())
+            ->setDescription($city->getSeoDescription())
+        ;
     }
 }

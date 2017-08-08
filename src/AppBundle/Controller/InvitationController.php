@@ -6,13 +6,12 @@ use AppBundle\Entity\Invitation;
 use AppBundle\Entity\Photo;
 use AppBundle\Form\Type\PhotoType;
 use AppBundle\PhotoUploader\PhotoUploader;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class InvitationController extends Controller
+class InvitationController extends AbstractController
 {
     public function invitationAction(Request $request, UserInterface $user = null, string $code): Response
     {

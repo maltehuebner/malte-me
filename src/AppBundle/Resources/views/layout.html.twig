@@ -1,16 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html {{ sonata_seo_html_attributes() }}>
+<head {{ sonata_seo_head_attributes() }}>
+
+    {% if block('title') %}
+        <title>{% block title %}{% endblock %} — Fahrradstadt.Hamburg</title>
+    {% else %}
+        {{ sonata_seo_title() }}
+    {% endif %}
+
+    {{ sonata_seo_metadatas() }}
+    {{ sonata_seo_link_canonical() }}
+    {{ sonata_seo_lang_alternates() }}
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-
-    {% block additionalHeaderElements %}
-        <title>Fahrradstadt Hamburg</title>
-    {% endblock %}
-
     <link rel="stylesheet" href="{{ asset('bundles/app/css/fahrradstadt.css') }}" />
     <link rel="stylesheet" href="{{ asset('bundles/app/css/jasny-bootstrap/jasny-bootstrap.css') }}" />
     <link rel="alternate" type="application/rss+xml" title="RSS-Feed" href="/feed" />

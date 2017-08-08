@@ -8,14 +8,13 @@ use Kunnu\Dropbox\Dropbox;
 use Kunnu\Dropbox\DropboxApp;
 use Kunnu\Dropbox\Models\FileMetadata;
 use Kunnu\Dropbox\Models\ModelCollection;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class DropboxController extends Controller
+class DropboxController extends AbstractController
 {
     public function authorizeAction(Request $request, UserInterface $user): Response
     {

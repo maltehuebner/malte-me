@@ -88,6 +88,11 @@ class City
     protected $publicVisible = false;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $archiveIntroText;
+
+    /**
      * @var Photo[]
      *
      * @ORM\ManyToMany(targetEntity="Photo", inversedBy="cities")
@@ -286,6 +291,18 @@ class City
     public function setPublicVisible(bool $publicVisible): City
     {
         $this->publicVisible = $publicVisible;
+
+        return $this;
+    }
+
+    public function getArchiveIntroText(): ?string
+    {
+        return $this->archiveIntroText;
+    }
+
+    public function setArchiveIntroText(string $archiveIntroText): City
+    {
+        $this->archiveIntroText = $archiveIntroText;
 
         return $this;
     }

@@ -38,7 +38,7 @@ class AppExtension extends \Twig_Extension
         );
     }
 
-    public function markdownFilter(string $string): string
+    public function markdownFilter(string $string = null): string
     {
         $parser = new FahrradstadtMarkdown();
         return $parser->parse($string);

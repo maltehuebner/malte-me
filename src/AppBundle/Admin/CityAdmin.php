@@ -34,6 +34,7 @@ class CityAdmin extends AbstractAdmin
             ->add('seoKeywords', TextType::class, ['required' => false])
             ->add('missionText', TextType::class, ['required' => false])
             ->add('archiveIntroText', TextType::class, ['required' => false])
+            ->add('callToActionText', TextType::class, ['required' => false])
             ->end()
 
             ->with('Menu', ['class' => 'col-xs-6'])

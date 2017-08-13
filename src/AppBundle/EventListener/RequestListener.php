@@ -97,8 +97,6 @@ class RequestListener implements EventSubscriberInterface
             return $city;
         }
 
-        $event->setResponse(new Response(sprintf('No city for hostname %s found', $hostname), 404));
-
         return null;
     }
 

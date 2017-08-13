@@ -34,13 +34,17 @@ class CityAdmin extends AbstractAdmin
             ->add('seoKeywords', TextType::class, ['required' => false])
             ->add('missionText', TextType::class, ['required' => false])
             ->add('archiveIntroText', TextType::class, ['required' => false])
-            ->add('callToActionText', TextType::class, ['required' => false])
             ->end()
 
             ->with('Menu', ['class' => 'col-xs-6'])
             ->add('showMenuMission', CheckboxType::class, ['required' => false])
             ->add('showMenuUpload', CheckboxType::class, ['required' => false])
             ->add('publicVisible', CheckboxType::class, ['required' => false])
+            ->end()
+
+            ->with('Call to action', ['class' => 'col-xs-6'])
+            ->add('callToActionTitle', TextType::class, ['required' => false])
+            ->add('callToActionText', TextType::class, ['required' => false])
             ->end()
         ;
     }

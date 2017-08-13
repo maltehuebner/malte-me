@@ -97,6 +97,11 @@ class City
     protected $archiveIntroText;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $callToActionText;
+
+    /**
      * @Vich\UploadableField(mapping="photo", fileNameProperty="imageName")
      */
     protected $imageFile;
@@ -357,6 +362,18 @@ class City
     public function getImageName(): ?string
     {
         return $this->imageName;
+    }
+
+    public function setCallToActionText(string $callToActionText = null): City
+    {
+        $this->callToActionText = $callToActionText;
+
+        return $this;
+    }
+
+    public function getCallToActionText(): ?string
+    {
+        return $this->callToActionText;
     }
 
     public function __toString(): string

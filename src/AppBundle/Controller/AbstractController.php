@@ -11,15 +11,19 @@ use Symfony\Component\Routing\RouterInterface;
 
 class AbstractController extends Controller
 {
-    /**
-     * @deprecated
-     */
-    protected function getCityBySlug(string $citySlug = null): ?City
+    protected function getCityByHostname(string $hostname): City
     {
-        if (!$citySlug) {
-            return null;
+        $city = $this->getDoctrine()->getRepository(City::class)->findOneByHostname($hostname);
+
+        if (!$city) {
+            throw $this->createNotFoundException(sprintf('Hostname %s not found', $hostname));
         }
 
+        return $city;
+    }
+
+    protected function getCityBySlug(string $citySlug): City
+    {
         $city = $this->getDoctrine()->getRepository(City::class)->findOneBySlug($citySlug);
 
         if (!$city) {
@@ -31,12 +35,17 @@ class AbstractController extends Controller
 
     protected function getCity(Request $request = null): ?City
     {
+        if (!$request || !$request->get('session')->has('cityId')) {
+            return null;
+        }
+
+        /** @var int $cityId */
         $cityId = $this->get('session')->get('cityId');
 
         /** @var City $city */
         $city = $this->getDoctrine()->getRepository(City::class)->find($cityId);
 
-        if ($request && $this->isDefaultHostname($request) && !$city) {
+        if ($this->isDefaultHostname($request) && !$city) {
             return null;
         } elseif (!$city) {
             throw $this->createNotFoundException('City not found');

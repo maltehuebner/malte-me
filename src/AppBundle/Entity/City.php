@@ -97,6 +97,11 @@ class City
     protected $archiveIntroText;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $callToActionTitle;
+
+    /**
      * @ORM\Column(type="text", nullable=true)
      */
     protected $callToActionText;
@@ -362,6 +367,18 @@ class City
     public function getImageName(): ?string
     {
         return $this->imageName;
+    }
+
+    public function setCallToActionTitle(string $callToActionTitle = null): City
+    {
+        $this->callToActionTitle = $callToActionTitle;
+
+        return $this;
+    }
+
+    public function getCallToActionTitle(): ?string
+    {
+        return $this->callToActionTitle;
     }
 
     public function setCallToActionText(string $callToActionText = null): City

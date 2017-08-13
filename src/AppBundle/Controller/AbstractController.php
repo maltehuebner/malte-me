@@ -26,12 +26,18 @@ class AbstractController extends Controller
         return $city;
     }
 
-    public function getCity(): City
+    protected function getCity(Request $request = null): ?City
     {
         $cityId = $this->get('session')->get('cityId');
 
         /** @var City $city */
         $city = $this->getDoctrine()->getRepository(City::class)->find($cityId);
+
+        if ($request && $this->isDefaultHostname($request) && !$city) {
+            return null;
+        } elseif (!$city) {
+            throw $this->createNotFoundException('City not found');
+        }
 
         return $city;
     }
@@ -39,5 +45,12 @@ class AbstractController extends Controller
     protected function getSeoPage(): SeoPage
     {
         return $this->get('app.seo_page');
+    }
+
+    protected function isDefaultHostname(Request $request): boolean
+    {
+        $defaultHostname = $this->getParameter('default_hostname');
+
+        return $defaultHostname === $request->getHost();
     }
 }

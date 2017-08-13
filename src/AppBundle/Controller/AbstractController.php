@@ -5,6 +5,9 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\City;
 use AppBundle\Seo\SeoPage;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\RequestContext;
+use Symfony\Component\Routing\RouterInterface;
 
 class AbstractController extends Controller
 {
@@ -52,5 +55,21 @@ class AbstractController extends Controller
         $defaultHostname = $this->getParameter('default_hostname');
 
         return $defaultHostname === $request->getHost();
+    }
+
+    protected function generateRouteForCity(City $city, string $route, array $routeParams = []): string
+    {
+        /** @var RequestContext $context */
+        $context = $this->get('router')->getContext();
+
+        $context->setHost($city->getHostname());
+
+        if ($this->container->getParameter('kernel.environment') === 'dev') {
+            $context->setScheme('http');
+        } else {
+            $context->setScheme('https');
+        }
+
+        return $this->generateUrl($route, $routeParams, RouterInterface::ABSOLUTE_URL);
     }
 }

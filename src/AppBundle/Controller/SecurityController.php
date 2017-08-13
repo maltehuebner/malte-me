@@ -12,9 +12,9 @@ class SecurityController extends AbstractController
     {
         $referer = $request->headers->get('referer');
 
-        $refererParts = parse_url($referer);
+        $hostname = parse_url($referer, PHP_URL_HOST);
 
-        $city = $this->getCityByHostname($refererParts['host']);
+        $city = $this->getCityByHostname($hostname);
 
         $url = $this->generateRouteForCity($city, 'frontpage');
 

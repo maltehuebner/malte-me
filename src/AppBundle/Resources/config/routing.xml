@@ -61,4 +61,7 @@
         <default key="_controller">AppBundle:Default:index</default>
     </route>
 
+    <route id="oauth_target" path="/oauth_target" host="%default_hostname%">
+        <default key="_controller">AppBundle:Security:target</default>
+    </route>
 </routes>

@@ -1,11 +1,12 @@
+{% if getCity().callToActionTitle and getCity().callToActionText %}
 <div id="interaction" class="card interaction">
     <div class="card-block text-center">
         <h3 class="card-title">
-            Du radelst gern in Hamburg?
+            {{ getCity().callToActionTitle }}
         </h3>
 
         <p class="card-text">
-            Lade ein Foto vom Radfahren in Hamburg hoch &mdash; es dauert keine 30 Sekunden!
+            {{ getCity().callToActionText }}
         </p>
 
         <p>
@@ -15,3 +16,4 @@
         </p>
     </div>
 </div>
+{% endif %}

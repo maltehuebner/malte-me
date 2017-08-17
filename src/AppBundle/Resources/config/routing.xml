@@ -64,4 +64,9 @@
     <route id="oauth_target" path="/oauth_target" host="%default_hostname%">
         <default key="_controller">AppBundle:Security:target</default>
     </route>
+
+    <route id="remove_trailing_slash" path="/{url}" methods="GET">
+        <default key="_controller">AppBundle:Redirecting:removeTrailingSlash</default>
+        <requirement key="url">.*/$</requirement>
+    </route>
 </routes>

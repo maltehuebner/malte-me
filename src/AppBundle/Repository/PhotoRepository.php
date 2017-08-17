@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Photo;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use FOS\UserBundle\Model\UserInterface;
@@ -68,4 +69,39 @@ class PhotoRepository extends EntityRepository
         return $query->getResult();
     }
 
+    public function findPreviousPhoto(Photo $photo): ?Photo
+    {
+        $qb = $this->createQueryBuilder('p');
+
+        $qb
+            ->addOrderBy('p.displayDateTime', 'DESC')
+            ->where($qb->expr()->lt('p.displayDateTime', ':displayDateTime'))
+            ->setParameter('displayDateTime', $photo->getDisplayDateTime())
+            ->andWhere($qb->expr()->eq('p.enabled', ':enabled'))
+            ->setParameter('enabled', true)
+            ->setMaxResults(1)
+        ;
+
+        $query = $qb->getQuery();
+
+        return $query->getOneOrNullResult();
+    }
+
+    public function findNextPhoto(Photo $photo): ?Photo
+    {
+        $qb = $this->createQueryBuilder('p');
+
+        $qb
+            ->addOrderBy('p.displayDateTime', 'ASC')
+            ->where($qb->expr()->gt('p.displayDateTime', ':displayDateTime'))
+            ->setParameter('displayDateTime', $photo->getDisplayDateTime())
+            ->andWhere($qb->expr()->eq('p.enabled', ':enabled'))
+            ->setParameter('enabled', true)
+            ->setMaxResults(1)
+        ;
+
+        $query = $qb->getQuery();
+
+        return $query->getOneOrNullResult();
+    }
 }

@@ -7,7 +7,6 @@ use AppBundle\Entity\User;
 use AppBundle\Seo\SeoPage;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -24,11 +23,15 @@ class RequestListener implements EventSubscriberInterface
     /** @var SeoPage $seoPage */
     protected $seoPage;
 
-    public function __construct(Registry $registry, TokenStorage $tokenStorage, SeoPage $seoPage)
+    /** @var Session $session */
+    protected $session;
+
+    public function __construct(Registry $registry, TokenStorage $tokenStorage, SeoPage $seoPage, Session $session)
     {
         $this->registry = $registry;
         $this->tokenStorage = $tokenStorage;
         $this->seoPage = $seoPage;
+        $this->session = $session;
     }
 
     public static function getSubscribedEvents(): array
@@ -59,12 +62,11 @@ class RequestListener implements EventSubscriberInterface
 
         $user = $this->tokenStorage->getToken()->getUser();
 
-        $session = new Session();
         $photoId = null;
         $photo = null;
 
-        if ($session->has('uploaded_photo_id')) {
-            $photoId = $session->get('uploaded_photo_id');
+        if ($this->session->has('uploaded_photo_id')) {
+            $photoId = $this->session->get('uploaded_photo_id');
         }
 
         if ($photoId) {
@@ -79,7 +81,7 @@ class RequestListener implements EventSubscriberInterface
 
             $this->registry->getManager()->flush();
 
-            $session->remove('uploaded_photo_id');
+            $this->session->remove('uploaded_photo_id');
         }
     }
 
@@ -91,8 +93,7 @@ class RequestListener implements EventSubscriberInterface
         $city = $this->registry->getRepository(City::class)->findOneByHostname($hostname);
 
         if ($city) {
-            $session = new Session();
-            $session->set('cityId', $city->getId());
+            $this->session->set('cityId', $city->getId());
 
             return $city;
         }

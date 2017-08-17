@@ -59,4 +59,9 @@
         <default key="_controller">AppBundle:Comment:add</default>
         <option key="expose">true</option>
     </route>
+
+    <route id="remove_trailing_slash" path="/{url}" methods="GET">
+        <default key="_controller">AppBundle:Redirecting:removeTrailingSlash</default>
+        <requirement key="url">.*/$</requirement>
+    </route>
 </routes>

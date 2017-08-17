@@ -6,7 +6,7 @@
 
 <div class="card photo{% if photo.location %} has-location{% endif %}{% if not photo.enabled %} card-outline-danger{% endif %}" data-photo-id="{{ photo.id }}" data-latitude="{{ photo.latitude }}" data-longitude="{{ photo.longitude }}" data-location="{{ photo.location }}">
     <a href="{{ path('show_photo', { slug: photo.slug }) }}">
-        <img class="img-fluid card-img-top" src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('standard') }}" alt="{{ photo.title }}" />
+        <img id="photo-{{ photo.id }}" class="img-fluid card-img-top" src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('standard') }}" alt="{{ photo.title }}" />
     </a>
 
     {% if photo.highlighted or photo.sponsored or photo.affiliated or photo.source or photo.title or photo.description %}

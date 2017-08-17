@@ -35,7 +35,7 @@ class AbstractController extends Controller
 
     protected function getCity(Request $request = null): ?City
     {
-        if (!$request || !$request->get('session')->has('cityId')) {
+        if (!$request || !$this->get('session')->has('cityId')) {
             return null;
         }
 
@@ -59,7 +59,7 @@ class AbstractController extends Controller
         return $this->get('app.seo_page');
     }
 
-    protected function isDefaultHostname(Request $request): boolean
+    protected function isDefaultHostname(Request $request): bool
     {
         $defaultHostname = $this->getParameter('default_hostname');
 

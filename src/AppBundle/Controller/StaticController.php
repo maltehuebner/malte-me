@@ -9,7 +9,9 @@ class StaticController extends AbstractController
 {
     public function missionAction(Request $request): Response
     {
-        if (!$this->getCity()->getShowMenuMission() || !$this->getCity()->getMissionText()) {
+        $city = $this->getCity($request);
+
+        if (!$city || !$city->getShowMenuMission() || !$city->getMissionText()) {
             throw $this->createNotFoundException();
         }
 

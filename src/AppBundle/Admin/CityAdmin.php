@@ -30,10 +30,10 @@ class CityAdmin extends AbstractAdmin
             ->end()
 
             ->with('SEO', ['class' => 'col-xs-6'])
-            ->add('seoDescription', TextType::class, ['required' => false])
+            ->add('seoDescription', TextAreaType::class, ['required' => false])
             ->add('seoKeywords', TextType::class, ['required' => false])
-            ->add('missionText', TextType::class, ['required' => false])
-            ->add('archiveIntroText', TextType::class, ['required' => false])
+            ->add('missionText', TextAreaType::class, ['required' => false])
+            ->add('archiveIntroText', TextAreaType::class, ['required' => false])
             ->end()
 
             ->with('Menu', ['class' => 'col-xs-6'])
@@ -44,7 +44,7 @@ class CityAdmin extends AbstractAdmin
 
             ->with('Call to action', ['class' => 'col-xs-6'])
             ->add('callToActionTitle', TextType::class, ['required' => false])
-            ->add('callToActionText', TextType::class, ['required' => false])
+            ->add('callToActionText', TextAreaType::class, ['required' => false])
             ->end()
         ;
     }

@@ -41,6 +41,8 @@ class PhotoController extends AbstractController
 
         return $this->render('AppBundle:Photo:view.html.twig', [
             'photo' => $photo,
+            'previousPhoto' => $this->getDoctrine()->getRepository(Photo::class )->findPreviousPhoto($photo),
+            'nextPhoto' => $this->getDoctrine()->getRepository(Photo::class )->findNextPhoto($photo),
             'comments' => $comments,
             'userFavorites' => $userFavorites,
         ]);

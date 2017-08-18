@@ -2,10 +2,12 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\City;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\ModelType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -30,6 +32,15 @@ class PhotoAdmin extends AbstractAdmin
             ->end()
 
             ->with('Metainformationen', ['class' => 'col-xs-6'])
+            ->add('cities', ModelType::class, [
+                'by_reference' => true,
+                'property' => 'name',
+                'multiple' => true,
+                'class' => City::class,
+                'attr' => [
+                    'data-sonata-select2' => 'false',
+                ]
+            ])
             ->add('slug', TextType::class)
             ->add('enabled', CheckboxType::class, ['required' => false])
             ->add('highlighted', CheckboxType::class, ['required' => false])
@@ -98,6 +109,7 @@ class PhotoAdmin extends AbstractAdmin
             ->addIdentifier('title')
             ->add('user')
             ->add('location')
+            ->add('cities')
             ->add('dateTime')
             ->add('displayDateTime')
             ->add('enabled')

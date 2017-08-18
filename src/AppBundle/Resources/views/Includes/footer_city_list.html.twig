@@ -1,0 +1,15 @@
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-12 text-center">
+            <ul class="list-inline">
+                {% for cityModel in cityList %}
+                <li class="list-inline-item">
+                    <a href="{{ cityModel.frontpageUrl }}">
+                        {{ cityModel.city.title }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>

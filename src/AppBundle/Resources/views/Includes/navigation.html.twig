@@ -5,17 +5,21 @@
 
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav container">
+            {% if getCity().showMenuMission %}
             <a class="nav-item nav-link" href="{{ path('mission') }}">
                 Mission
             </a>
+            {% endif %}
 
             <a class="nav-item nav-link" href="{{ path('archive') }}">
                 Archiv
             </a>
 
+            {% if getCity().showMenuUpload %}
             <a class="nav-item nav-link" href="{{ path('photo_upload') }}">
                 Hochladen
             </a>
+            {% endif %}
 
             {% if is_granted('ROLE_ADMIN') %}
             <a class="nav-item nav-link" href="{{ path('sonata_admin_dashboard') }}">

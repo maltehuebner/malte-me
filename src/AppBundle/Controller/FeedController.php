@@ -18,14 +18,14 @@ class FeedController extends AbstractController
 {
     public function indexAction(Request $request): Response
     {
-        $feed = $this->buildFeed();
+        $feed = $this->buildFeed($request);
 
         return new Response($feed);
     }
 
-    protected function buildFeed(): Feed
+    protected function buildFeed(Request $request): Feed
     {
-        $photos = $this->getDoctrine()->getRepository('AppBundle:Photo')->findForFeed();
+        $photos = $this->getDoctrine()->getRepository('AppBundle:Photo')->findForFeed($this->getCity($request));
 
         $feed = new Feed();
 

@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Photo;
 use AppBundle\Form\Type\PhotoType;
 use AppBundle\PhotoUploader\PhotoUploader;
+use PHPExif\Reader\Reader;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -30,7 +31,7 @@ class UploadController extends AbstractController
             /** @var PhotoUploader $photoUploader */
             $photoUploader = $this->get('app.photo_uploader');
 
-            $photo = $photoUploader->handleUpload($photo, $user);
+            $photo = $photoUploader->handleUpload($photo, $user, $this->getCity());
 
             if ($photo) {
                 return $this->redirectToRoute(

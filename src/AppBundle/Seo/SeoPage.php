@@ -9,7 +9,7 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class SeoPage
 {
-    /** @var SeoPageInterface */
+    /** @var SeoPageInterface $sonataSeoPage */
     protected $sonataSeoPage;
 
     /** @var UploaderHelper $uploaderHelper */
@@ -30,6 +30,15 @@ class SeoPage
         $this->sonataSeoPage
             ->setTitle($title)
             ->addMeta('property', 'og:title', $title)
+        ;
+
+        return $this;
+    }
+
+    public function setSiteName(string $siteName): SeoPage
+    {
+        $this->sonataSeoPage
+            ->addMeta('property', 'og:og:site_name', $siteName)
         ;
 
         return $this;
@@ -65,6 +74,15 @@ class SeoPage
         $this->sonataSeoPage
             ->setLinkCanonical($link)
             ->addMeta('property', 'og:url', $link)
+        ;
+
+        return $this;
+    }
+
+    public function setKeywords(string $keywords): SeoPage
+    {
+        $this->sonataSeoPage
+            ->addMeta('name', 'keywords', $keywords)
         ;
 
         return $this;

@@ -2,28 +2,36 @@
 
 namespace AppBundle\EventListener;
 
+use AppBundle\Entity\City;
 use AppBundle\Entity\User;
+use AppBundle\Seo\SeoPage;
 use Doctrine\Bundle\DoctrineBundle\Registry;
-use FOS\UserBundle\Event\UserEvent;
-use FOS\UserBundle\FOSUserEvents;
-use HWI\Bundle\OAuthBundle\HWIOAuthEvents;
-use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
-use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
-use Symfony\Component\Security\Http\SecurityEvents;
 
 class RequestListener implements EventSubscriberInterface
 {
+    /** @var Registry $registry */
     protected $registry;
+
+    /** @var TokenStorage $tokenStorage */
     protected $tokenStorage;
 
-    public function __construct(Registry $registry, TokenStorage $tokenStorage)
+    /** @var SeoPage $seoPage */
+    protected $seoPage;
+
+    /** @var Session $session */
+    protected $session;
+
+    public function __construct(Registry $registry, TokenStorage $tokenStorage, SeoPage $seoPage, Session $session)
     {
         $this->registry = $registry;
         $this->tokenStorage = $tokenStorage;
+        $this->seoPage = $seoPage;
+        $this->session = $session;
     }
 
     public static function getSubscribedEvents(): array
@@ -33,10 +41,16 @@ class RequestListener implements EventSubscriberInterface
         ];
     }
 
-    public function onKernelRequest(Event $event): void
+    public function onKernelRequest(GetResponseEvent $event): void
     {
         if ($this->tokenStorage->getToken() && $this->tokenStorage->getToken()->getUser()) {
             $this->assignAnonymousPhotos();
+        }
+
+        $city = $this->detectCity($event);
+
+        if ($city) {
+            $this->initSeoPage($city);
         }
     }
 
@@ -48,12 +62,11 @@ class RequestListener implements EventSubscriberInterface
 
         $user = $this->tokenStorage->getToken()->getUser();
 
-        $session = new Session();
         $photoId = null;
         $photo = null;
 
-        if ($session->has('uploaded_photo_id')) {
-            $photoId = $session->get('uploaded_photo_id');
+        if ($this->session->has('uploaded_photo_id')) {
+            $photoId = $this->session->get('uploaded_photo_id');
         }
 
         if ($photoId) {
@@ -68,7 +81,41 @@ class RequestListener implements EventSubscriberInterface
 
             $this->registry->getManager()->flush();
 
-            $session->remove('uploaded_photo_id');
+            $this->session->remove('uploaded_photo_id');
+        }
+    }
+
+    protected function detectCity(GetResponseEvent $event): ?City
+    {
+        $hostname = $event->getRequest()->getHost();
+
+        $hostname = str_replace('www.', '', $hostname);
+        
+        /** @var City $city */
+        $city = $this->registry->getRepository(City::class)->findOneByHostname($hostname);
+
+        if ($city) {
+            $this->session->set('cityId', $city->getId());
+
+            return $city;
+        }
+
+        return null;
+    }
+
+    protected function initSeoPage(City $city): void
+    {
+        $this->seoPage
+            ->setTitle($city->getTitle())
+            ->setSiteName($city->getTitle())
+        ;
+
+        if ($city->getSeoDescription()) {
+            $this->seoPage->setDescription($city->getSeoDescription());
+        }
+
+        if ($city->getSeoKeywords()) {
+            $this->seoPage->setKeywords($city->getSeoKeywords());
         }
     }
 }

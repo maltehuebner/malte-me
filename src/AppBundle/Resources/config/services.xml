@@ -5,6 +5,8 @@
         http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <service id="app.twig_extension" class="AppBundle\Twig\AppExtension" public="false">
+            <argument type="service" id="doctrine" />
+            <argument type="service" id="session" />
             <argument type="service" id="app.markdown" />
             <argument type="service" id="app.seo_page" />
             <tag name="twig.extension" />
@@ -15,11 +17,14 @@
             <argument type="service" id="vich_uploader.templating.helper.uploader_helper" />
             <argument type="string">%kernel.root_dir%</argument>
             <argument type="service" id="mailer" />
+            <argument type="service" id="session" />
         </service>
 
         <service id="app.login_listener" class="AppBundle\EventListener\RequestListener" public="true">
             <argument type="service" id="doctrine" />
             <argument type="service" id="security.token_storage" />
+            <argument type="service" id="app.seo_page" />
+            <argument type="service" id="session" />
             <tag name="kernel.event_listener" event="kernel.request" />
         </service>
 

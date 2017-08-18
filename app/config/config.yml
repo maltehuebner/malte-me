@@ -140,7 +140,7 @@ hwi_oauth:
     # set then the user will be redirected to the original resource that they requested, or
     # the base address if no resource was requested.  This is similar to the behaviour of
     # [target_path_parameter for form login](http://symfony.com/doc/2.0/cookbook/security/form_login.html).
-    # target_path_parameter: _destination
+    target_path_parameter: oauth_target
 
     # an optional setting to use the HTTP REFERER header to be used in case no
     # previous URL was stored in the session (i.e. no resource was requested).

@@ -32,5 +32,3 @@ parameters:
 
     dropbox.client_id: ThisTokenIsNotSoSecretChangeIt
     dropbox.client_secret: ThisTokenIsNotSoSecretChangeIt
-
-    default_hostname: fahrradstadt.cm

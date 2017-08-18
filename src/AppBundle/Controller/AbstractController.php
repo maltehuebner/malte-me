@@ -47,9 +47,8 @@ class AbstractController extends Controller
         /** @var City $city */
         $city = $this->getDoctrine()->getRepository(City::class)->find($cityId);
 
-        if ($this->isDefaultHostname($request) && !$city) {
-            return null;
-        } elseif (!$city) {
+
+        if (!$city) {
             throw $this->createNotFoundException('City not found');
         }
 
@@ -59,13 +58,6 @@ class AbstractController extends Controller
     protected function getSeoPage(): SeoPage
     {
         return $this->get('app.seo_page');
-    }
-
-    protected function isDefaultHostname(Request $request): bool
-    {
-        $defaultHostname = $this->getParameter('default_hostname');
-
-        return $defaultHostname === $request->getHost();
     }
 
     protected function generateRouteForCity(City $city, string $route, array $routeParams = []): string

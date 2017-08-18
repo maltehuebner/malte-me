@@ -89,6 +89,8 @@ class RequestListener implements EventSubscriberInterface
     {
         $hostname = $event->getRequest()->getHost();
 
+        $hostname = str_replace('www.', '', $hostname);
+        
         /** @var City $city */
         $city = $this->registry->getRepository(City::class)->findOneByHostname($hostname);
 

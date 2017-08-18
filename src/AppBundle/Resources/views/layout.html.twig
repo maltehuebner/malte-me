@@ -1,54 +1,11 @@
-<!DOCTYPE html>
-<html {{ sonata_seo_html_attributes() }}>
-<head {{ sonata_seo_head_attributes() }}>
+{% extends 'AppBundle::frame.html.twig' %}
 
-    {% if block('title') %}
-        <title>{% block title %}{% endblock %} — Fahrradstadt.Hamburg</title>
-    {% else %}
-        {{ sonata_seo_title() }}
-    {% endif %}
+{% block body %}
+    {{ include('AppBundle:Includes:navigation.html.twig') }}
 
-    {{ sonata_seo_metadatas() }}
-    {{ sonata_seo_link_canonical() }}
-    {{ sonata_seo_lang_alternates() }}
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
+    {{ include('AppBundle:Includes:header.html.twig') }}
 
-    <link rel="stylesheet" href="{{ asset('bundles/app/css/fahrradstadt.css') }}" />
-    <link rel="stylesheet" href="{{ asset('bundles/app/css/jasny-bootstrap/jasny-bootstrap.css') }}" />
-    <link rel="alternate" type="application/rss+xml" title="RSS-Feed" href="/feed" />
-</head>
+    {% block content %}{% endblock %}
 
-<body>
-{{ include('AppBundle:Includes:navigation.html.twig') }}
-
-{{ include('AppBundle:Includes:header.html.twig') }}
-
-{% block content %}{% endblock %}
-
-{{ include('AppBundle:Includes:footer.html.twig') }}
-
-<script src="{{ asset('bundles/app/js/jquery/jquery-3.1.1.min.js') }}"></script>
-<script src="{{ asset('bundles/app/js/tether/tether.min.js') }}"></script>
-<script src="{{ asset('bundles/app/js/bootstrap/bootstrap.min.js') }}"></script>
-<script src="{{ asset('bundles/app/js/jasny-bootstrap/jasny-bootstrap.min.js') }}"></script>
-<script src="{{ asset('bundles/app/js/requirejs/require.js') }}"></script>
-<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
-<script src="{{ asset('bundles/app/js/Fahrradstadt.js') }}"></script>
-
-<script type="text/javascript">
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    });
-</script>
-
-{{ include('AppBundle:Includes:piwik.html.twig') }}
-
-{% block additionalFooterElements %}{% endblock %}
-
-</body>
-</html>
+    {{ include('AppBundle:Includes:footer.html.twig') }}
+{% endblock %}

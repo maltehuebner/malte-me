@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\City;
+use AppBundle\Entity\Favorite;
+use AppBundle\Entity\Photo;
 use AppBundle\Model\CityFrontpageModel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +16,7 @@ class DefaultController extends AbstractController
     {
         $paginator = $this->get('knp_paginator');
 
-        $query = $this->getDoctrine()->getRepository('AppBundle:Photo')->getFrontpageQuery($this->getCity());
+        $query = $this->getDoctrine()->getRepository(Photo::class)->getFrontpageQuery($this->getCity());
 
         $pagination = $paginator->paginate(
             $query,
@@ -38,7 +40,7 @@ class DefaultController extends AbstractController
             return $result;
         }
 
-        $userFavorites = $this->getDoctrine()->getRepository('AppBundle:Favorite')->findForUser($user);
+        $userFavorites = $this->getDoctrine()->getRepository(Favorite::class)->findForUser($user);
 
         foreach ($userFavorites as $favorite) {
             $result[$favorite->getPhoto()->getId()] = $favorite;

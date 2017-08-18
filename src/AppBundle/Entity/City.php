@@ -107,6 +107,11 @@ class City
     protected $callToActionText;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $piwikTrackingCode;
+
+    /**
      * @Vich\UploadableField(mapping="photo", fileNameProperty="imageName")
      */
     protected $imageFile;
@@ -391,6 +396,18 @@ class City
     public function getCallToActionText(): ?string
     {
         return $this->callToActionText;
+    }
+
+    public function setPiwikTrackingCode(string $piwikTrackingCode = null): City
+    {
+        $this->piwikTrackingCode = $piwikTrackingCode;
+
+        return $this;
+    }
+
+    public function getPiwikTrackingCode(): ?string
+    {
+        return $this->piwikTrackingCode;
     }
 
     public function __toString(): string

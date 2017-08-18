@@ -14,7 +14,7 @@ class AbstractController extends Controller
     protected function getCityByHostname(string $hostname): City
     {
         $hostname = str_replace('www.', '', $hostname);
-        
+
         $city = $this->getDoctrine()->getRepository(City::class)->findOneByHostname($hostname);
 
         if (!$city) {

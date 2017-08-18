@@ -34,6 +34,7 @@ class CityAdmin extends AbstractAdmin
             ->add('seoKeywords', TextType::class, ['required' => false])
             ->add('missionText', TextAreaType::class, ['required' => false])
             ->add('archiveIntroText', TextAreaType::class, ['required' => false])
+            ->add('piwikTrackingCode', TextAreaType::class, ['required' => false])
             ->end()
 
             ->with('Menu', ['class' => 'col-xs-6'])

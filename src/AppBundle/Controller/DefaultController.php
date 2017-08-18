@@ -16,7 +16,7 @@ class DefaultController extends AbstractController
     {
         $paginator = $this->get('knp_paginator');
 
-        $query = $this->getDoctrine()->getRepository(Photo::class)->getFrontpageQuery($this->getCity());
+        $query = $this->getDoctrine()->getRepository(Photo::class)->getFrontpageQuery($this->getCity($request));
 
         $pagination = $paginator->paginate(
             $query,

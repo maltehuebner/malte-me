@@ -10,23 +10,23 @@ use FOS\UserBundle\Model\UserInterface;
 
 class PhotoRepository extends EntityRepository
 {
-    public function findForFeed(int $limit = 25): array
+    public function findForFeed(City $city = null, int $limit = 25): array
     {
-        $query = $this->getFrontpageQuery();
+        $query = $this->getFrontpageQuery($city);
 
         $query->setMaxResults($limit);
 
         return $query->getResult();
     }
 
-    public function findForArchive(): array
+    public function findForArchive(City $city = null): array
     {
-        return $this->findForFrontpage();
+        return $this->findForFrontpage($city);
     }
 
-    public function findForFrontpage(): array
+    public function findForFrontpage(City $city = null): array
     {
-        $query = $this->getFrontpageQuery();
+        $query = $this->getFrontpageQuery($city);
 
         return $query->getResult();
     }

@@ -1,0 +1,11 @@
+{% extends 'AppBundle::frame.html.twig' %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            {% include 'AppBundle:Includes:photo.html.twig' with { 'photo': photo } %}
+        </div>
+    </div>
+</div>
+{% endblock %}

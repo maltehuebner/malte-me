@@ -12,6 +12,20 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class PhotoController extends AbstractController
 {
+    public function embedAction(Request $request, int $id): Response
+    {
+        /** @var Photo $photo */
+        $photo = $this->getDoctrine()->getRepository(Photo::class)->find($id);
+
+        if (!$photo) {
+            throw $this->createNotFoundException();
+        }
+
+        return $this->render('AppBundle:Photo:embed.html.twig', [
+            'photo' => $photo,
+        ]);
+    }
+
     public function viewAction(Request $request, UserInterface $user = null, string $slug): Response
     {
         /** @var Photo $photo */

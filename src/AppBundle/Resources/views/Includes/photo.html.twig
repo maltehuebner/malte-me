@@ -4,8 +4,14 @@
     {% set starred = false %}
 {% endif %}
 
+{% if embed is defined and embed == true %}
+{% set embed = true %}
+{% else %}
+{% set embed = false %}
+{% endif %}
+
 <div class="card photo{% if photo.location %} has-location{% endif %}{% if not photo.enabled %} card-outline-danger{% endif %}" data-photo-id="{{ photo.id }}" data-latitude="{{ photo.latitude }}" data-longitude="{{ photo.longitude }}" data-location="{{ photo.location }}">
-    <a href="{{ path('show_photo', { slug: photo.slug }) }}">
+    <a href="{{ path('show_photo', { slug: photo.slug }) }}"{% if embed %} target="_blank"{% endif %}>
         <img id="photo-{{ photo.id }}" class="img-fluid card-img-top" src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('standard') }}" alt="{{ photo.title }}" />
     </a>
 
@@ -59,12 +65,13 @@
                 {{ photo.dateTime|date('d.m.Y', 'Europe/Berlin') }} um {{ photo.dateTime|date('H:i', 'Europe/Berlin') }} Uhr
                 {% if photo.location %}
                 <address>
-                    <a href="{{ path('search') }}?query={{ photo.location }}">{{ photo.location }}</a>
+                    <a href="{{ path('search') }}?query={{ photo.location }}"{% if embed %} target="_blank"{% endif %}>{{ photo.location }}</a>
                 </address>
                 {% endif %}
             </small>
         </div>
 
+        {% if not embed %}
         <div class="float-right">
             {% if app.user and (app.user == photo.user or is_granted('ROLE_ADMIN')) %}
             <div class="dropdown dropup" style="display: inline;">
@@ -121,5 +128,6 @@
                 </a>
             </div>
         </div>
+        {% endif %}
     </div>
 </div>

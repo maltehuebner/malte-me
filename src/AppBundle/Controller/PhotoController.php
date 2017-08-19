@@ -47,11 +47,12 @@ class PhotoController extends AbstractController
             }
         }
 
-        $this->getSeoPage()
-            ->setTitle($photo->getTitle())
-            ->setDescription($photo->getDescription())
-            ->setPreviewPhoto($photo)
-        ;
+        if ($photo->getEnabled()) {
+            $this->getSeoPage()
+                ->setTitle($photo->getTitle())
+                ->setDescription($photo->getDescription())
+                ->setPreviewPhoto($photo);
+        }
 
         return $this->render('AppBundle:Photo:view.html.twig', [
             'photo' => $photo,

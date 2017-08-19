@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\City;
 use AppBundle\Entity\Photo;
 use AppBundle\PhotoUploader\PhotoUploader;
 use Kunnu\Dropbox\Dropbox;
@@ -52,6 +53,8 @@ class DropboxController extends AbstractController
 
     public function importAction(Request $request, UserInterface $user): Response
     {
+        $city = $this->getCity($request);
+
         $app = $this->getDropboxApp();
 
         $dropbox = new Dropbox($app);
@@ -65,7 +68,7 @@ class DropboxController extends AbstractController
 
         /** @var FileMetadata $fileMetadata */
         foreach ($items as $fileMetadata) {
-            $photo = $this->importFile($dropbox, $fileMetadata, $user);
+            $photo = $this->importFile($dropbox, $fileMetadata, $user, $city);
 
             $dropbox->delete($fileMetadata->getPathLower());
 
@@ -98,7 +101,7 @@ class DropboxController extends AbstractController
         return array_pop($filenameParts);
     }
 
-    protected function importFile(Dropbox $dropbox, FileMetadata $fileMetadata, UserInterface $user): Photo
+    protected function importFile(Dropbox $dropbox, FileMetadata $fileMetadata, UserInterface $user, City $city): Photo
     {
         $uploadPath = $this->getParameter('upload_destination.photo');
         $tmpFilename = '/tmp/fahrradstadt-dropbox-import';
@@ -121,7 +124,7 @@ class DropboxController extends AbstractController
             ->setEnabled(false)
         ;
 
-        $photo = $photoUploader->handleUpload($photo, $user);
+        $photo = $photoUploader->handleUpload($photo, $user, $city);
 
         return $photo;
     }

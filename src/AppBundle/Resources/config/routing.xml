@@ -54,7 +54,6 @@
 
     <route id="show_photo" path="/{slug}">
         <default key="_controller">AppBundle:Photo:view</default>
-        <requirement key="slug">(.*)-([0-9]*)</requirement>
     </route>
 
     <route id="embed_photo" path="/embed/{id}">

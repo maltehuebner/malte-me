@@ -12,7 +12,7 @@ class ArchiveController extends AbstractController
         $paginator  = $this->get('knp_paginator');
         $page = $request->query->getInt('page', 1);
 
-        $query = $this->getDoctrine()->getRepository('AppBundle:Photo')->getFrontpageQuery($this->getCity());
+        $query = $this->getDoctrine()->getRepository('AppBundle:Photo')->getFrontpageQuery($this->getCity($request));
 
         $pagination = $paginator->paginate(
             $query,

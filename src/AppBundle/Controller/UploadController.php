@@ -31,7 +31,7 @@ class UploadController extends AbstractController
             /** @var PhotoUploader $photoUploader */
             $photoUploader = $this->get('app.photo_uploader');
 
-            $photo = $photoUploader->handleUpload($photo, $user, $this->getCity());
+            $photo = $photoUploader->handleUpload($photo, $user, $this->getCity($request));
 
             if ($photo) {
                 return $this->redirectToRoute(

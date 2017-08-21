@@ -1,27 +1,5 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
-{% block additionalHeaderElements %}
-    <title>{{ photo.title }} &mdash; Fahrradstadt Hamburg</title>
-
-    <meta name="description" content="{{ photo.description[:155] }}" />
-
-    <meta property="fb:app_id" content="216780188685195" />
-    <meta property="og:title" content="{{ photo.title }} &mdash; Fahrradstadt Hamburg" />
-    <meta property="og:type" content="Website" />
-    <meta property="og:description" content="{{ photo.description[:155] }}" />
-    <meta property="og:url" content="{{ url('show_photo', { slug: photo.slug }) }}" />
-    <meta property="og:locale" content="de_DE" />
-    <meta property="og:site_name" content="fahrradstadt.hamburg" />
-    <meta property="og:image" content="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('preview') }}" />
-
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@calderacc">
-    <meta name="twitter:creator" content="@calderacc">
-    <meta name="twitter:title" content="{{ photo.title }} &mdash; Fahrradstadt Hamburg" />
-    <meta name="twitter:description" content="{{ photo.description[:155] }}" />
-    <meta name="twitter:image" content="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('preview') }}" />
-{% endblock %}
-
 {% block content %}
 <div class="container-fluid">
     {% if not photo.enabled %}

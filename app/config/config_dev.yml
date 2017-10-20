@@ -24,4 +24,4 @@ monolog:
         gelf:
             type: service
             id: monolog.gelf_handler
-            level: debug
+            level: error

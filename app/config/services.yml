@@ -47,4 +47,4 @@ services:
 
     monolog.gelf_handler:
         class: Monolog\Handler\GelfHandler
-        arguments: ['@gelf.publisher']
+        arguments: ['@gelf.publisher', 'error']

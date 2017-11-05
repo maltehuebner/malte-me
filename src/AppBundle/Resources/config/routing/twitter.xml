@@ -7,4 +7,8 @@
     <route id="twitter_post" path="/twitter/post">
         <default key="_controller">AppBundle:Twitter:post</default>
     </route>
+
+    <route id="twitter_authorize" path="/twitter/authorize">
+        <default key="_controller">AppBundle:Twitter:authorize</default>
+    </route>
 </routes>

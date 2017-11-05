@@ -135,6 +135,16 @@ class City
      */
     protected $photos;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $twitterToken;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $twitterSecret;
+
     public function __construct()
     {
         $this->photos = new ArrayCollection();
@@ -408,6 +418,30 @@ class City
     public function getPiwikTrackingCode(): ?string
     {
         return $this->piwikTrackingCode;
+    }
+
+    public function setTwitterToken(string $twitterToken = null): City
+    {
+        $this->twitterToken = $twitterToken;
+
+        return $this;
+    }
+
+    public function getTwitterToken(): ?string
+    {
+        return $this->twitterToken;
+    }
+
+    public function setTwitterSecret(string $twitterSecret = null): City
+    {
+        $this->twitterSecret = $twitterSecret;
+
+        return $this;
+    }
+
+    public function getTwitterSecret(): ?string
+    {
+        return $this->twitterSecret;
     }
 
     public function __toString(): string

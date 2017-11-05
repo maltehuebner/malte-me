@@ -44,7 +44,8 @@
         "friendsofsymfony/elastica-bundle": "3.2.*",
         "kunalvarma05/dropbox-php-sdk": "^0.2.0",
         "sonata-project/seo-bundle": "^2.2",
-        "mlehner/gelf-php": "^1.1"
+        "mlehner/gelf-php": "^1.1",
+        "jublonet/codebird-php": "^3.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

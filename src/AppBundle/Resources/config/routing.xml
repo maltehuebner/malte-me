@@ -5,6 +5,7 @@
         http://symfony.com/schema/routing/routing-1.0.xsd">
 
     <import resource="routing/dropbox.xml" />
+    <import resource="routing/twitter.xml" />
 
     <route id="feed" path="/feed">
         <default key="_controller">AppBundle:Feed:index</default>

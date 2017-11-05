@@ -12,12 +12,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class FacebookController extends Controller
 {
-    public function postAction(Request $request, UserInterface $user): Response
+    public function postAction(Request $request, UserInterface $user = null): Response
     {
         $fb = new Facebook([
-            'app_id' => '{app-id}',
-            'app_secret' => '{app-secret}',
-            'default_graph_version' => 'v2.2',
+            'app_id' => $this->getParameter('facebook.client_id'),
+            'app_secret' => $this->getParameter('facebook.client_secret'),
+            'default_graph_version' => 'v2.8',
         ]);
 
         $linkData = [
@@ -27,7 +27,7 @@ class FacebookController extends Controller
 
         try {
             // Returns a `Facebook\FacebookResponse` object
-            $response = $fb->post('/me/feed', $linkData, '{access-token}');
+            $response = $fb->post('/126480444583413/feed', $linkData, $this->getParameter('facebook.access_token'));
         } catch(FacebookResponseException $e) {
             echo 'Graph returned an error: ' . $e->getMessage();
             exit;

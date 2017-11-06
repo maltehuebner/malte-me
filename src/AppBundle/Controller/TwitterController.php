@@ -70,10 +70,31 @@ class TwitterController extends AbstractController
         return new Response('');
     }
 
+    public function tokenAction(Request $request): Response
+    {
+        $token = $this->getSession()->get('oauth_token');
+        $tokenSecret = $this->getSession()->get('oauth_token_secret');
+
+        $city = $this->getCity($request);
+
+        $city
+            ->setTwitterToken($token)
+            ->setTwitterSecret($tokenSecret)
+        ;
+
+        $this->getDoctrine()->getManager()->flush();
+
+        return new Response('Gespeichert');
+    }
     protected function getCodeBird(): Codebird
     {
         Codebird::setConsumerKey($this->getParameter('twitter.client_id'), $this->getParameter('twitter.client_secret'));
 
         return Codebird::getInstance();
+    }
+
+    protected function getSession(): Session
+    {
+        return $this->get('session');
     }
 }

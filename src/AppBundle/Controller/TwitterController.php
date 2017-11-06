@@ -14,8 +14,12 @@ class TwitterController extends AbstractController
 {
     public function postAction(Request $request): Response
     {
-        $cb = $this->getCodeBird();
+        $city = $this->getCity($request);
 
+        $cb = $this->getCodeBird();
+        $cb->setToken($city->getTwitterToken(), $city->getTwitterSecret());
+
+        var_dump($city->getTwitterToken(), $city->getTwitterSecret());
         $reply = $cb->statuses_update('status=Whohoo, I just Tweeted!');
 
         var_dump($reply);
@@ -24,8 +28,7 @@ class TwitterController extends AbstractController
 
     public function authorizeAction(Request $request): Response
     {
-        /** @var Session $session */
-        $session = $this->get('session');
+        $session = $this->getSession();
 
         $cb = $this->getCodeBird();
 
@@ -36,31 +39,29 @@ class TwitterController extends AbstractController
             'oauth_callback' => $callbackUrl,
         ]);
 
-        var_dump($reply);
-        if ($reply->oauth_callback_confirmed) {
-            $this->saveCityAccess($request, $reply);
+        $cb->setToken($reply->oauth_token, $reply->oauth_token_secret);
+        $session->set('oauth_token', $reply->oauth_token);
+        $session->set('oauth_token_secret', $reply->oauth_token_secret);
+        $session->set('oauth_verify', true);
 
-            return new Response('gespeichert');
-        } else {
-            return new RedirectResponse($cb->oauth_authorize);
-        }
+        return new RedirectResponse($cb->oauth_authorize());
     }
 
     public function tokenAction(Request $request): Response
     {
         $session = $this->getSession();
-        $cb = $this->getCodeBird();
 
-        if ($request->request->has('oauth_verifier') && $session->has('oauth_verify')) {
+        $cb = $this->getCodeBird();
+        $cb->setToken($session->get('oauth_token'), $session->get('oauth_token_secret'));
+
+        $verifier = $request->query->get('oauth_verifier');
+
+        if ($verifier && $session->has('oauth_verify')) {
             $session->remove('oauth_verify');
 
             $reply = $cb->oauth_accessToken([
-                'oauth_verifier' => $session->get('oauth_verifier')
+                'oauth_verifier' => $verifier
             ]);
-
-
-
-            var_dump($reply);
         }
 
         return new Response('Gespeichert');

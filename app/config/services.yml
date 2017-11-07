@@ -13,7 +13,7 @@ services:
 
     admin.city:
         class: AppBundle\Admin\CityAdmin
-        arguments: [~, AppBundle\Entity\City, ~]
+        arguments: [~, AppBundle\Entity\City, AppBundle:Admin/City]
         tags:
             - { name: sonata.admin, manager_type: orm, label: City }
 

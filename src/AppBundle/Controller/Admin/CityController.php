@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class CityController extends CRUDController
 {
@@ -28,9 +28,8 @@ class CityController extends CRUDController
 
         $cb = $this->getCodeBird();
 
-        $callbackUrl = $this->admin->generateObjectUrl('twitter_token', $city);
+        $callbackUrl = $this->admin->generateObjectUrl('twitter_token', $city, [], UrlGeneratorInterface::ABSOLUTE_URL);
 
-        // get the request token
         $reply = $cb->oauth_requestToken([
             'oauth_callback' => $callbackUrl,
         ]);
@@ -43,7 +42,7 @@ class CityController extends CRUDController
         return new RedirectResponse($cb->oauth_authorize());
     }
 
-    public function tokenAction(Request $request): Response
+    public function twitterTokenAction(Request $request): Response
     {
         $session = $this->getSession();
 
@@ -58,9 +57,13 @@ class CityController extends CRUDController
             $reply = $cb->oauth_accessToken([
                 'oauth_verifier' => $verifier
             ]);
+
+            $this->saveCityAccess($request, $reply);
         }
 
-        return new Response('Gespeichert');
+        $showUrl = $this->admin->generateObjectUrl('edit', $this->getCurrentCity($request));
+
+        return new RedirectResponse($showUrl);
     }
 
     protected function getCodeBird(): Codebird
@@ -77,7 +80,7 @@ class CityController extends CRUDController
 
     protected function saveCityAccess(Request $request, \stdClass $reply): City
     {
-        $city = $this->getCity($request);
+        $city = $this->getCurrentCity($request);
 
         $city
             ->setTwitterToken($reply->oauth_token)

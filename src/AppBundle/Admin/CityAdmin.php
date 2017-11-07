@@ -48,6 +48,11 @@ class CityAdmin extends AbstractAdmin
             ->add('callToActionTitle', TextType::class, ['required' => false])
             ->add('callToActionText', TextAreaType::class, ['required' => false])
             ->end()
+
+            ->with('twitter', ['class' => 'col-xs-6'])
+            ->add('twitterToken', TextType::class, ['required' => false])
+            ->add('twitterSecret', TextType::class, ['required' => false])
+            ->end()
         ;
     }
 

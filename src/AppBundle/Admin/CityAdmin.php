@@ -66,17 +66,20 @@ class CityAdmin extends AbstractAdmin
             ->addIdentifier('title')
             ->add('name')
             ->add('hostname')
-            ->add('_action', null, array(
+            ->add('_action', null, [
                 'actions' => [
                     'edit' => [],
                     'twitter' => [],
                 ]
-            ))
+            ])
         ;
     }
 
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->add('twitter', $this->getRouterIdParameter().'/twitter');
+        $collection
+            ->add('twitter', $this->getRouterIdParameter().'/twitter')
+            ->add('twitter_token', $this->getRouterIdParameter().'/twitter_token')
+        ;
     }
 }

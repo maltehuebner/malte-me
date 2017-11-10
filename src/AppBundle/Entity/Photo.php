@@ -136,6 +136,11 @@ class Photo
     protected $imageName;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    protected $permalink;
+
+    /**
      * @ORM\ManyToMany(targetEntity="City", mappedBy="photos")
      */
     protected $cities;
@@ -454,6 +459,18 @@ class Photo
         }
 
         return null;
+    }
+
+    public function setPermalink(string $permalink = null): Photo
+    {
+        $this->permalink = $permalink;
+
+        return $this;
+    }
+
+    public function getPermalink(): ?string
+    {
+        return $this->permalink;
     }
 
     public function addCity(City $city): Photo

@@ -2,7 +2,7 @@
 
 namespace AppBundle\PermalinkManager;
 
-use AppBundle\Entity\Incident;
+use AppBundle\Entity\Photo;
 use Curl\Curl;
 use stdClass;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
@@ -31,11 +31,11 @@ class SqibePermalinkManager
         $this->apiPassword = $apiPassword;
     }
 
-    public function createPermalink(Incident $incident): string
+    public function createPermalink(Photo $photo): string
     {
         $data = [
-            'url' => $this->generateUrl($incident),
-            'title' => $incident->getTitle(),
+            'url' => $this->generateUrl($photo),
+            'title' => $photo->getTitle(),
             'format'   => 'json',
             'action'   => 'shorturl'
         ];
@@ -47,15 +47,15 @@ class SqibePermalinkManager
         }
 
         $permalink = $response->shorturl;
-        $incident->setPermalink($permalink);
+        $photo->setPermalink($permalink);
 
         return $permalink;
     }
 
-    public function getUrl(Incident $incident): string
+    public function getUrl(Photo $photo): string
     {
         $data = [
-            'shorturl' => $this->getKeyword($incident),
+            'shorturl' => $this->getKeyword($photo),
             'format'   => 'json',
             'action'   => 'expand'
         ];
@@ -71,13 +71,13 @@ class SqibePermalinkManager
         return $longUrl;
     }
 
-    public function updatePermalink(Incident $incident): bool
+    public function updatePermalink(Photo $photo): bool
     {
-        $url = $this->generateUrl($incident);
+        $url = $this->generateUrl($photo);
 
         $data = [
             'url' => $url,
-            'shorturl' => $this->getKeyword($incident),
+            'shorturl' => $this->getKeyword($photo),
             'format'   => 'json',
             'action'   => 'update'
         ];
@@ -91,20 +91,20 @@ class SqibePermalinkManager
         return false;
     }
 
-    protected function getKeyword(Incident $incident): string
+    protected function getKeyword(Photo $photo): string
     {
-        $permalinkParts = explode('/', $incident->getPermalink());
+        $permalinkParts = explode('/', $photo->getPermalink());
         $keyword = array_pop($permalinkParts);
 
         return $keyword;
     }
 
-    protected function generateUrl(Incident $incident): string
+    protected function generateUrl(Photo $photo): string
     {
         $url = $this->router->generate(
-            'caldera_cycleways_incident_show',
+            'show_photo',
             [
-                'slug' => $incident->getSlug()
+                'slug' => $photo->getSlug()
             ],
             UrlGeneratorInterface::ABSOLUTE_URL
         );

@@ -25,4 +25,11 @@ class TwitterController extends AbstractController
         var_dump($reply);
         return new Response();
     }
+
+    protected function getCodeBird(): Codebird
+    {
+        Codebird::setConsumerKey($this->getParameter('twitter.client_id'), $this->getParameter('twitter.client_secret'));
+
+        return Codebird::getInstance();
+    }
 }

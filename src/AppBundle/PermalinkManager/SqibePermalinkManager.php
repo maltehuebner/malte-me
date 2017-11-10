@@ -114,7 +114,7 @@ class SqibePermalinkManager
         return $url;
     }
 
-    protected function postCurl(array $data): stdClass
+    protected function postCurl(array $data): string
     {
         $loginArray = [
             'username' => $this->apiUsername,

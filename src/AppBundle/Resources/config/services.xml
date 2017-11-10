@@ -35,5 +35,12 @@
             <argument type="service" id="vich_uploader.templating.helper.uploader_helper" />
             <argument type="service" id="liip_imagine.cache.manager" />
         </service>
+
+        <service id="app.permalink_manager" class="AppBundle\PermalinkManager\SqibePermalinkManager">
+            <argument type="service" id="router" />
+            <argument type="string">%sqibe.api_url%</argument>
+            <argument type="string">%sqibe.api_username%</argument>
+            <argument type="string">%sqibe.api_password%</argument>
+        </service>
     </services>
 </container>

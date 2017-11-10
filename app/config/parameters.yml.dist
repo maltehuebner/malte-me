@@ -35,3 +35,7 @@ parameters:
 
     graylog.hostname: anagnina.caldera.cc
     graylog.port: 12201
+
+    sqibe.api_url: http://sqi.be/yourls-api.php
+    sqibe.api_username: username
+    sqibe.api_password: password

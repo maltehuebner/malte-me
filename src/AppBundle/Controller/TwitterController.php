@@ -31,8 +31,7 @@ class TwitterController extends AbstractController
 
         $reply = $cb->statuses_update($status);
 
-        var_dump($reply);
-        return new Response();
+        return new Response($reply);
     }
 
     protected function getCodeBird(): Codebird

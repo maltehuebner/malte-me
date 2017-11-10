@@ -4,7 +4,6 @@ namespace AppBundle\PermalinkManager;
 
 use AppBundle\Entity\Photo;
 use Curl\Curl;
-use stdClass;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -114,7 +113,7 @@ class SqibePermalinkManager
         return $url;
     }
 
-    protected function postCurl(array $data): string
+    protected function postCurl(array $data): \stdClass
     {
         $loginArray = [
             'username' => $this->apiUsername,

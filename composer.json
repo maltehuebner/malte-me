@@ -46,7 +46,7 @@
         "sonata-project/seo-bundle": "^2.2",
         "mlehner/gelf-php": "^1.1",
         "jublonet/codebird-php": "^3.1",
-        "curl/curl": "^1.8"
+        "php-curl-class/php-curl-class": "^8.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

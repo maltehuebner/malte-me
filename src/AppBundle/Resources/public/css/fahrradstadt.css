@@ -8363,6 +8363,9 @@ address a:hover {
   background-color: #efc828;
   border: 3px black solid; }
 
+.btn-primary {
+  color: #fff !important; }
+
 .btn-white {
   color: #fff;
   background-color: black;

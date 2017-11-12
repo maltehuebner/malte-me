@@ -46,6 +46,10 @@ nav.navbar {
   border: 3px black solid;
 }
 
+.btn-primary {
+  color: $white !important;
+}
+
 $btn-white-color: black !default;
 $btn-white-bg: white !default;
 $btn-white-border: white !default;

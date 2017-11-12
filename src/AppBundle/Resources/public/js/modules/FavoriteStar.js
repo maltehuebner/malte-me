@@ -1,4 +1,4 @@
-define([], function () {
+define(['jquery'], function ($) {
     FavoriteStar = function (context, options) {
         this._initEventListeners();
     };

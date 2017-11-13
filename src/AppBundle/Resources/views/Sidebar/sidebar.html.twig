@@ -1,0 +1,30 @@
+{% if getCity().imageName %}
+    <div class="row">
+        <div class="col-12">
+            <a href="{{ path('frontpage') }}">
+                <img class="mx-auto d-block" src="{{ vich_uploader_asset(getCity(), 'imageFile')|imagine_filter('logo') }}" alt="{{ getCity().title }}" />
+            </a>
+        </div>
+    </div>
+{% endif %}
+
+<div class="card">
+    <img class="card-img-top" src="..." alt="Card image cap">
+    <div class="card-body text-center">
+        <h4 class="card-title">
+            Fahrradstadt Hamburg
+        </h4>
+        <p class="card-text">
+            Radfahren kann auch Spaß machen!
+        </p>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Cras justo odio</li>
+        <li class="list-group-item">Dapibus ac facilisis in</li>
+        <li class="list-group-item">Vestibulum at eros</li>
+    </ul>
+    <div class="card-body">
+        <a href="#" class="card-link">Card link</a>
+        <a href="#" class="card-link">Another link</a>
+    </div>
+</div>

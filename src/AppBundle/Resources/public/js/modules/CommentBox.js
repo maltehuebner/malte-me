@@ -1,4 +1,4 @@
-define([], function () {
+define(['jquery'], function ($) {
     CommentBox = function (context, options) {
         $('#comment-modal').on('show.bs.modal', function (event) {
             var $button = $(event.relatedTarget);

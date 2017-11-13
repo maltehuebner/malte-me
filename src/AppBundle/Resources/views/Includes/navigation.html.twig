@@ -1,4 +1,4 @@
-<nav class="navbar fixed-top navbar-toggleable-sm navbar-light bg-faded">
+{#<nav class="navbar fixed-top navbar-toggleable-sm navbar-light bg-faded">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -6,36 +6,107 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav container">
             {% if getCity().showMenuMission %}
-            <a class="nav-item nav-link" href="{{ path('mission') }}">
-                Mission
-            </a>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('mission') }}">
+                    Mission
+                </a>
+            </li>
             {% endif %}
 
-            <a class="nav-item nav-link" href="{{ path('archive') }}">
-                Archiv
-            </a>
+            <li class="nav-item">
+                <a class="nav-item nav-link" href="{{ path('archive') }}">
+                    Archiv
+                </a>
+            </li>
 
             {% if getCity().showMenuUpload %}
-            <a class="nav-item nav-link" href="{{ path('photo_upload') }}">
-                Hochladen
-            </a>
+            <li class="nav-item">
+                <a class="nav-item nav-link" href="{{ path('photo_upload') }}">
+                    Hochladen
+                </a>
+            </li>
             {% endif %}
 
             {% if is_granted('ROLE_ADMIN') %}
-            <a class="nav-item nav-link" href="{{ path('sonata_admin_dashboard') }}">
-                Admin
-            </a>
+            <li class="nav-item">
+                <a class="nav-item nav-link" href="{{ path('sonata_admin_dashboard') }}">
+                    Admin
+                </a>
+            </li>
             {% endif %}
 
             {% if app.user %}
-            <a class="nav-item nav-link" href="{{ path('fos_user_security_logout') }}">
-                Logout
-            </a>
+            <li class="nav-item">
+                <a class="nav-item nav-link" href="{{ path('fos_user_security_logout') }}">
+                    Logout
+                </a>
+            </li>
             {% else %}
-            <a class="nav-item nav-link" href="{{ path('fos_user_security_login') }}">
-                Login
-            </a>
+            <li class="nav-item">
+                <a class="nav-item nav-link" href="{{ path('fos_user_security_login') }}">
+                    Login
+                </a>
+            </li>
             {% endif %}
+        </div>
+    </div>
+</nav>#}
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                {% if getCity().showMenuMission %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('mission') }}">
+                            Mission
+                        </a>
+                    </li>
+                {% endif %}
+
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="{{ path('archive') }}">
+                        Archiv
+                    </a>
+                </li>
+
+                {% if getCity().showMenuUpload %}
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="{{ path('photo_upload') }}">
+                            Hochladen
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="{{ path('sonata_admin_dashboard') }}">
+                            Admin
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% if app.user %}
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="{{ path('fos_user_security_logout') }}">
+                            Logout
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="{{ path('fos_user_security_login') }}">
+                            Login
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
         </div>
     </div>
 </nav>

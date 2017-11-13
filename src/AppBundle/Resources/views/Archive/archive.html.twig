@@ -20,7 +20,7 @@
                     <a href="{{ path('show_photo', { slug: photo.slug }) }}">
                         <img class="card-img-top img-fluid" src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('preview') }}" alt="{{ photo.title }}" />
                     </a>
-                    <div class="card-block">
+                    <div class="card-body">
                         <a href="{{ path('show_photo', { slug: photo.slug }) }}">
                             <h4 class="card-title">
                                 {{ photo.title }}

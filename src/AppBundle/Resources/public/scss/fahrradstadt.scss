@@ -1,3 +1,5 @@
+$primary: rgb(239,200,40);
+
 @import "leaflet/leaflet.css";
 @import "extramarkers/extramarkers.min.css";
 @import "bootstrap/bootstrap";
@@ -40,8 +42,12 @@ nav.navbar {
 }
 
 .interaction {
-  background-color: $brand-primary;
+  background-color: $primary;
   border: 3px black solid;
+}
+
+.btn-primary {
+  color: $white !important;
 }
 
 $btn-white-color: black !default;

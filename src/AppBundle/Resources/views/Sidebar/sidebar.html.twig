@@ -24,7 +24,18 @@
         <li class="list-group-item">Vestibulum at eros</li>
     </ul>
     <div class="card-body">
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
+        <h5>
+            Neuste Kommentare
+        </h5>
+
+        <ul>
+            {% for comment in commentList %}
+            <li>
+                <a href="{{ path('show_photo', { slug: comment.photo.slug }) }}#comments">
+                    {{ comment.user.username }} bei {{ comment.photo.title }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
     </div>
 </div>

@@ -5,13 +5,10 @@
         http://symfony.com/schema/routing/routing-1.0.xsd">
 
     <import resource="routing/dropbox.xml" />
+    <import resource="routing/photo.xml" />
 
     <route id="feed" path="/feed">
         <default key="_controller">AppBundle:Feed:index</default>
-    </route>
-
-    <route id="photo_upload" path="/upload">
-        <default key="_controller">AppBundle:Upload:upload</default>
     </route>
 
     <route id="mission" path="/mission">
@@ -30,35 +27,9 @@
         <default key="_controller">AppBundle:Invitation:invitation</default>
     </route>
 
-    <route id="favorite_photo" path="/{photoId}/favorite">
-        <default key="_controller">AppBundle:Favorite:favorite</default>
-    </route>
-
-    <route id="edit_photo" path="/{photoId}/edit">
-        <default key="_controller">AppBundle:Photo:edit</default>
-    </route>
-
-    <route id="locate_photo" path="/{photoId}/locate">
-        <default key="_controller">AppBundle:Photo:locate</default>
-        <option key="expose">true</option>
-    </route>
-
-    <route id="rotate_photo" path="/{photoId}/rotate">
-        <default key="_controller">AppBundle:PhotoManagement:rotate</default>
-    </route>
-
     <route id="photo_add_comment" path="/photo/{photoId}/addcomment">
         <default key="_controller">AppBundle:Comment:add</default>
         <option key="expose">true</option>
-    </route>
-
-    <route id="show_photo" path="/{slug}">
-        <default key="_controller">AppBundle:Photo:view</default>
-    </route>
-
-    <route id="embed_photo" path="/embed/{id}">
-        <default key="_controller">AppBundle:Photo:embed</default>
-        <requirement key="id">([0-9]+)</requirement>
     </route>
 
     <route id="frontpage" path="/">

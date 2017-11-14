@@ -37,6 +37,7 @@ class CommentRepository extends EntityRepository
             ->orderBy('c.dateTime', 'DESC')
             ->setParameter('enabled', true)
             ->setParameter('city', $city)
+            ->setMaxResults($max)
         ;
 
         $query = $qb->getQuery();

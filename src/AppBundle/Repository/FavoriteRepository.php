@@ -49,10 +49,8 @@ class FavoriteRepository extends EntityRepository
         $qb
             ->join('c.photo', 'p')
             ->join('p.cities', 'cs')
-            ->where($qb->expr()->eq('c.enabled', ':enabled'))
-            ->andWhere($qb->expr()->in('cs', ':city'))
-            ->orderBy('c.dateTime', 'DESC')
-            ->setParameter('enabled', true)
+            ->where($qb->expr()->in('cs', ':city'))
+            ->orderBy('c.createdAt', 'DESC')
             ->setParameter('city', $city)
             ->setMaxResults($max)
         ;

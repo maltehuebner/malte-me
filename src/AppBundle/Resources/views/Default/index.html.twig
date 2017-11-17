@@ -1,9 +1,9 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
 {% block content %}
-<div class="container-fluid">
+<div class="container">
     <div class="row">
-        <div class="col-12 col-md-8 col-xl-6 offset-xl-1">
+        <div class="col-12 col-md-8 col-xl-9">
             {% for photo in pagination %}
             {% if loop.index0 == 2 and not app.user %}
                 <div class="row mb-3">
@@ -21,7 +21,7 @@
             {% endfor %}
         </div>
 
-        <div class="col-12 col-md-4 col-lg-4 col-xl-4">
+        <div class="col-12 col-md-4 col-xl-3">
             {{ render(controller('AppBundle:Sidebar:sidebar')) }}
         </div>
     </div>

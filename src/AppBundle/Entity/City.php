@@ -36,6 +36,11 @@ class City
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
+     */
+    protected $slogan;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
      * @Assert\NotBlank()
      */
     protected $slug;
@@ -177,6 +182,18 @@ class City
     public function setSlug(string $slug): City
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getSlogan(): ?string
+    {
+        return $this->slogan;
+    }
+
+    public function setSlogan(string $slogan = null): City
+    {
+        $this->slogan = $slogan;
 
         return $this;
     }

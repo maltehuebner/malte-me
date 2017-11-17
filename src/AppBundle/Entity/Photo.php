@@ -299,7 +299,7 @@ class Photo
         return $this->description;
     }
 
-    public function setDescription(string $description): Photo
+    public function setDescription(string $description = null): Photo
     {
         $this->description = $description;
 

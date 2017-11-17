@@ -32,3 +32,6 @@ parameters:
 
     dropbox.client_id: ThisTokenIsNotSoSecretChangeIt
     dropbox.client_secret: ThisTokenIsNotSoSecretChangeIt
+
+    graylog.hostname: anagnina.caldera.cc
+    graylog.port: 12201

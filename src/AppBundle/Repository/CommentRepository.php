@@ -2,9 +2,8 @@
 
 namespace AppBundle\Repository;
 
-use AppBundle\Entity\Favorite;
+use AppBundle\Entity\City;
 use AppBundle\Entity\Photo;
-use AppBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
 
 class CommentRepository extends EntityRepository
@@ -19,6 +18,26 @@ class CommentRepository extends EntityRepository
             ->orderBy('c.dateTime', 'ASC')
             ->setParameter('photo', $photo)
             ->setParameter('enabled', true)
+        ;
+
+        $query = $qb->getQuery();
+
+        return $query->getResult();
+    }
+
+    public function findLatest(City $city, int $max = 10): array
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        $qb
+            ->join('c.photo', 'p')
+            ->join('p.cities', 'cs')
+            ->where($qb->expr()->eq('c.enabled', ':enabled'))
+            ->andWhere($qb->expr()->in('cs', ':city'))
+            ->orderBy('c.dateTime', 'DESC')
+            ->setParameter('enabled', true)
+            ->setParameter('city', $city)
+            ->setMaxResults($max)
         ;
 
         $query = $qb->getQuery();

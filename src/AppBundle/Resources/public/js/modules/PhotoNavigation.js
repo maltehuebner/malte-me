@@ -1,4 +1,4 @@
-define([], function () {
+define(['jquery'], function ($) {
     PhotoNavigation = function (context, options) {
         this._initEventListeners(context);
     };

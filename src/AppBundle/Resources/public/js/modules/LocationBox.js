@@ -1,4 +1,4 @@
-define(['leaflet', 'leaflet-extramarkers'], function () {
+define(['jquery', 'leaflet', 'leaflet-extramarkers'], function ($) {
     LocationBox = function (context, options) {
         this._initModalEventListener(context);
     };

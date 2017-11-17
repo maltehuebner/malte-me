@@ -1,6 +1,7 @@
 var Fahrradstadt = Fahrradstadt || {};
 
 Fahrradstadt.loadModule = function(name, context, options, callback) {
+    console.debug(name);
     require([name], function(Module) {
         var module = new Module(context, options);
 
@@ -18,12 +19,16 @@ require.config({
         'leaflet': '/bundles/app/js/leaflet/leaflet',
         'leaflet-extramarkers': '/bundles/app/js/extramarkers/extramarkers.min',
         "popper": "/bundles/app/js/popper/popper.min",
-        "bootstrap4": "/bundles/app/js/bootstrap/bootstrap.min"
+        "bootstrap4": "/bundles/app/js/bootstrap/bootstrap.min",
+        "jasny-bootstrap": "/bundles/app/js/jasny-bootstrap/jasny-bootstrap.min"
     },
     shim: {
         'popper': {
             deps: ['jquery'],
             exports: 'Popper'
+        },
+        'jasny-bootstrap': {
+            deps: ['jquery']
         },
         'leaflet-extramarkers': {
             deps: ['leaflet'],

@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-12 col-md-8 col-xl-9">
+        <div class="col-12 col-md-8">
             {% if not photo.enabled %}
             <div class="row">
                 <div class="col-12">
@@ -74,7 +74,7 @@
 
         </div>
 
-        <div class="col-12 col-md-4 col-xl-3">
+        <div class="col-12 col-md-4">
             {{ render(controller('AppBundle:Sidebar:sidebar')) }}
         </div>
     </div>

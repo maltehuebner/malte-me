@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\City;
 use AppBundle\Entity\Favorite;
 use AppBundle\Entity\Photo;
 use AppBundle\Entity\User;
@@ -34,6 +35,24 @@ class FavoriteRepository extends EntityRepository
             ->join('f.photo', 'p')
             ->where($qb->expr()->eq('f.user', ':user'))
             ->setParameter('user', $user)
+        ;
+
+        $query = $qb->getQuery();
+
+        return $query->getResult();
+    }
+
+    public function findLatest(City $city, int $max = 10): array
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        $qb
+            ->join('c.photo', 'p')
+            ->join('p.cities', 'cs')
+            ->where($qb->expr()->in('cs', ':city'))
+            ->orderBy('c.createdAt', 'DESC')
+            ->setParameter('city', $city)
+            ->setMaxResults($max)
         ;
 
         $query = $qb->getQuery();

@@ -22,6 +22,7 @@ class CityAdmin extends AbstractAdmin
             ->with('Stadt', ['class' => 'col-xs-6'])
             ->add('name', TextType::class)
             ->add('title', TextType::class)
+            ->add('slogan', TextType::class)
             ->add('hostname', TextType::class)
             ->end()
 

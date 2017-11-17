@@ -9,15 +9,21 @@
 {% endif %}
 
 <div class="card">
+    {% if getCity().title or getCity().slogan %}
     <div class="card-body text-center">
         <h4 class="card-title">
-            Fahrradstadt Hamburg
+            {{ getCity().title }}
         </h4>
-        <p class="card-text">
-            Radfahren kann auch Spaß machen!
-        </p>
-    </div>
 
+        {% if getCity().slogan %}
+        <p class="card-text">
+            {{ getCity().slogan }}
+        </p>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    {% if commentList|length > 0 %}
     <div class="card-body">
         <h5>
             Neuste Kommentare
@@ -33,7 +39,9 @@
             {% endfor %}
         </ul>
     </div>
+    {% endif %}
 
+    {% if favouriteList|length > 0 %}
     <div class="card-body">
         <h5>
             Neuste Sternchen
@@ -49,4 +57,5 @@
             {% endfor %}
         </ul>
     </div>
+    {% endif %}
 </div>

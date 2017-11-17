@@ -14,13 +14,13 @@ nav.navbar {
   opacity: 0.95;
 }
 
-.photo {
-  img.img-profile {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-  }
+img.img-profile {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
 
+.photo {
   &.has-location {
     img.img-profile {
       width: 36px;

@@ -14,7 +14,7 @@
             <div class="card-header">
                 Social Media
             </div>
-            <div class="card-block text-center">
+            <div class="card-body text-center">
                 <p>
                     Du kannst dich über eines dieser sozialen Netzwerke einloggen. Es geht ganz schnell und dauert keine fünf Sekunden.
                 </p>
@@ -41,7 +41,7 @@
             <div class="card-header">
                 E-Mail-Adresse
             </div>
-            <div class="card-block">
+            <div class="card-body">
                 <form action="{{ path("fos_user_security_check") }}" method="post">
                     {% if csrf_token %}
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />

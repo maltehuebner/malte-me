@@ -18,7 +18,7 @@ class Version20171117175856 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE city ADD slogan VARCHAR(255) NOT NULL, DROP twitter_token, DROP twitter_secret');
+        $this->addSql('ALTER TABLE city ADD slogan VARCHAR(255) NOT NULL');
     }
 
     /**
@@ -29,6 +29,6 @@ class Version20171117175856 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE city ADD twitter_token VARCHAR(255) DEFAULT NULL COLLATE utf8_unicode_ci, ADD twitter_secret VARCHAR(255) DEFAULT NULL COLLATE utf8_unicode_ci, DROP slogan');
+        $this->addSql('ALTER TABLE city DROP slogan');
     }
 }

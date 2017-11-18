@@ -8,8 +8,8 @@
     </div>
 {% endif %}
 
-<div class="card">
-    {% if getCity().title or getCity().slogan %}
+{% if getCity().title or getCity().slogan %}
+<div class="card mt-2">
     <div class="card-body text-center">
         <h4 class="card-title">
             {{ getCity().title }}
@@ -21,9 +21,11 @@
         </p>
         {% endif %}
     </div>
-    {% endif %}
+</div>
+{% endif %}
 
-    {% if not app.user %}
+{% if not app.user %}
+<div class="card mt-2">
     <div class="card-body">
         <h4 class="card-title text-center">
             Login
@@ -57,9 +59,11 @@
             </small>
         </p>
     </div>
-    {% endif %}
+</div>
+{% endif %}
 
-    {% if commentList|length > 0 %}
+{% if commentList|length > 0 %}
+<div class="card mt-2">
     <div class="card-body">
         <h5 class="card-title text-center">
             Neuste Kommentare
@@ -75,9 +79,11 @@
             {% endfor %}
         </ul>
     </div>
-    {% endif %}
+</div>
+{% endif %}
 
-    {% if favouriteList|length > 0 %}
+{% if favouriteList|length > 0 %}
+<div class="card mt-2">
     <div class="card-body">
         <h5 class="card-title text-center">
             Neuste Sternchen
@@ -93,5 +99,5 @@
             {% endfor %}
         </ul>
     </div>
-    {% endif %}
 </div>
+{% endif %}

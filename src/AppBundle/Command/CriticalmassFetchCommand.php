@@ -18,24 +18,26 @@ class CriticalmassFetchCommand extends ContainerAwareCommand
             ->setName('fahrradstadt:criticalmass:fetch')
             ->setDescription('Fetch ew critical mass ride data')
             ->addArgument(
-                'trackId',
-                InputArgument::OPTIONAL,
-                'Id of the Track to optimize'
+                'citySlug',
+                InputArgument::REQUIRED,
+                'Slug of the city to fetch'
             )
-            ->addOption('all');
+        ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $criticalmass = $this->fetchCriticalmassData();
+        $citySlug = $input->getArgument('citySlug');
+
+        $criticalmass = $this->fetchCriticalmassData($citySlug);
         $this->cacheCriticalmassData($criticalmass);
     }
 
-    protected function fetchCriticalmassData(): CriticalmassModel
+    protected function fetchCriticalmassData(string $citySlug): CriticalmassModel
     {
         $curl = new Curl();
 
-        $curl->get('https://criticalmass.in/api/hamburg/current');
+        $curl->get(sprintf('https://criticalmass.in/api/%s/current', $citySlug));
 
         $criticalmass = new CriticalmassModel(new \DateTime(sprintf('@%s', $curl->response->dateTime)), $curl->response->location);
 

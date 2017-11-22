@@ -3,13 +3,13 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://symfony.com/schema/routing
         http://symfony.com/schema/routing/routing-1.0.xsd">
-
-    <import resource="routing/dropbox.xml" />
-    <import resource="routing/photo.xml" />
-
+    
     <route id="feed" path="/feed">
         <default key="_controller">AppBundle:Feed:index</default>
     </route>
+
+    <import resource="routing/dropbox.xml" />
+    <import resource="routing/photo.xml" />
 
     <route id="mission" path="/mission">
         <default key="_controller">AppBundle:Static:mission</default>

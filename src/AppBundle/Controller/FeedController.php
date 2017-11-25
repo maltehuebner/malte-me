@@ -92,18 +92,24 @@ class FeedController extends AbstractController
     {
         $item = new Item();
 
-        $parsedDescription = $this->parseDescription($photo->getDescription());
-
         $item
             ->title($photo->getTitle())
-            ->description($parsedDescription)
-            ->contentEncoded($parsedDescription)
             ->url($this->generateUrl('show_photo', ['slug' => $photo->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL))
             ->author($photo->getUser()->getDisplayname())
             ->pubDate($photo->getDisplayDateTime()->format('U'))
             ->preferCdata(true)
             ->enclosure($this->getImageUrl($photo), 0, 'image/jpeg')
         ;
+
+        if ($photo->getDescription()) {
+            $parsedDescription = $this->parseDescription($photo->getDescription());
+
+            $item
+                ->description($parsedDescription)
+                ->contentEncoded($parsedDescription)
+            ;
+        }
+
 
         return $item;
     }

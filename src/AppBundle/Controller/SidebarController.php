@@ -28,6 +28,12 @@ class SidebarController extends AbstractController
 
     protected function getCriticalmass(Request $request): ?CriticalmassModel
     {
+        $city = $this->getCity($request);
+
+        if (!$city->getCriticalmassCitySlug()) {
+            return null;
+        }
+
         $redisConnection = RedisAdapter::createConnection('redis://localhost');
 
         $cache = new RedisAdapter(
@@ -36,7 +42,7 @@ class SidebarController extends AbstractController
             $defaultLifetime = 0
         );
 
-        $cacheItem = $cache->getItem(sprintf('criticalmass-%s', 'hamburg'));
+        $cacheItem = $cache->getItem(sprintf('criticalmass-%s', $city->getCriticalmassCitySlug()));
 
         return $cacheItem->get();
     }

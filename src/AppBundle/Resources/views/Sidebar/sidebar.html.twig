@@ -102,11 +102,11 @@
 </div>
 {% endif %}
 
-{% if criticalmass is defined %}
+{% if getCity().criticalmassTitle and getCity().criticalmassCitySlug and criticalmass is defined %}
 <div id="criticalmass-card" class="card mt-2">
     <div class="card-body">
         <h5 class="card-title text-center">
-            Critical Mass Hamburg
+            {{ getCity().criticalmassTitle }}
         </h5>
 
         <p>

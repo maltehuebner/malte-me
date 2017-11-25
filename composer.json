@@ -47,7 +47,8 @@
         "mlehner/gelf-php": "^1.1",
         "php-curl-class/php-curl-class": "^8.0",
         "predis/predis": "^1.1",
-        "zendframework/zend-feed": "^2.8"
+        "zendframework/zend-feed": "^2.8",
+        "zendframework/zend-http": "^2.7"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

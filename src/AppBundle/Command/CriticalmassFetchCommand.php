@@ -2,6 +2,7 @@
 
 namespace AppBundle\Command;
 
+use AppBundle\Entity\City;
 use AppBundle\Model\CriticalmassModel;
 use Curl\Curl;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -16,25 +17,34 @@ class CriticalmassFetchCommand extends ContainerAwareCommand
     {
         $this
             ->setName('fahrradstadt:criticalmass:fetch')
-            ->setDescription('Fetch ew critical mass ride data')
-            ->addArgument(
-                'citySlug',
-                InputArgument::REQUIRED,
-                'Slug of the city to fetch'
-            )
+            ->setDescription('Fetch new critical mass ride data')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $citySlug = $input->getArgument('citySlug');
+        $cities = $this->findCitiesWithCriticalmass();
 
-        $criticalmass = $this->fetchCriticalmassData($citySlug);
-        $this->cacheCriticalmassData($criticalmass);
+        /** @var City $city */
+        foreach ($cities as $city) {
+            $criticalmass = $this->fetchCriticalmassData($city);
+            $this->cacheCriticalmassData($criticalmass);
+        }
     }
 
-    protected function fetchCriticalmassData(string $citySlug): CriticalmassModel
+    protected function findCitiesWithCriticalmass(): array
     {
+        $doctrine = $this->getContainer()->get('doctrine');
+
+        $cities = $doctrine->getRepository(City::class)->findCitiesWithCriticalmass();
+
+        return $cities;
+    }
+
+    protected function fetchCriticalmassData(City $city): CriticalmassModel
+    {
+        $citySlug = $city->getCriticalmassCitySlug();
+        
         $curl = new Curl();
 
         $curl->get(sprintf('https://criticalmass.in/api/%s/current', $citySlug));

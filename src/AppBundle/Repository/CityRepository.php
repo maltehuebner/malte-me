@@ -22,4 +22,18 @@ class CityRepository extends EntityRepository
 
         return $query->getResult();
     }
+
+    public function findCitiesWithCriticalmass(): array
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        $qb
+            ->where($qb->expr()->isNotNull('c.criticalmassCitySlug'))
+            ->andWhere($qb->expr()->isNotNull('c.criticalmassTitle'))
+        ;
+
+        $query = $qb->getQuery();
+
+        return $query->getResult();
+    }
 }

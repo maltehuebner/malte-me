@@ -38,11 +38,21 @@ class CalendarFetchCommand extends ContainerAwareCommand
 
     protected function createCalendarEntryModel(EntryInterface $entry): CalendarEntryModel
     {
+        $title = $this->getTitle($entry);
         $dateTime = $this->getDateTime($entry);
 
-        $model = new CalendarEntryModel($dateTime, $entry->getPermalink(), $entry->getTitle(), $entry->getContent());
+        $model = new CalendarEntryModel($dateTime, $entry->getPermalink(), $title, $entry->getContent());
 
         return $model;
+    }
+
+    protected function getTitle(EntryInterface $entry): string
+    {
+        $pattern = '/^(.*) \((.*)\)$/';
+
+        preg_match($pattern, $entry->getTitle(), $matches);
+
+        return $matches[1];
     }
 
     protected function getDateTime(EntryInterface $entry): \DateTime

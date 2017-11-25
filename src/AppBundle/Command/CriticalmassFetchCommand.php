@@ -39,7 +39,7 @@ class CriticalmassFetchCommand extends ContainerAwareCommand
 
         $curl->get(sprintf('https://criticalmass.in/api/%s/current', $citySlug));
 
-        $criticalmass = new CriticalmassModel(new \DateTime(sprintf('@%s', $curl->response->dateTime)), $curl->response->location);
+        $criticalmass = new CriticalmassModel($citySlug, new \DateTime(sprintf('@%s', $curl->response->dateTime)), $curl->response->location);
 
         return $criticalmass;
     }
@@ -54,7 +54,7 @@ class CriticalmassFetchCommand extends ContainerAwareCommand
             $defaultLifetime = 0
         );
 
-        $cacheItem = $cache->getItem('criticalmass-view_storage');
+        $cacheItem = $cache->getItem(sprintf('criticalmass-%s', $criticalmass->getCitySlug()));
 
         $cacheItem->set($criticalmass);
 

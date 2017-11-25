@@ -48,6 +48,11 @@ class CityAdmin extends AbstractAdmin
             ->add('callToActionTitle', TextType::class, ['required' => false])
             ->add('callToActionText', TextAreaType::class, ['required' => false])
             ->end()
+
+            ->with('Critical Mass', ['class' => 'col-xs-6'])
+            ->add('criticalmassTitle', TextType::class, ['required' => false])
+            ->add('criticalmassCitySlug', TextType::class, ['required' => false])
+            ->end()
         ;
     }
 

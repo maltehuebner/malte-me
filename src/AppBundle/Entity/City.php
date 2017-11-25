@@ -112,6 +112,16 @@ class City
     protected $callToActionText;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $criticalmassTitle;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $criticalmassCitySlug;
+
+    /**
      * @ORM\Column(type="text", nullable=true)
      */
     protected $piwikTrackingCode;
@@ -425,6 +435,28 @@ class City
     public function getPiwikTrackingCode(): ?string
     {
         return $this->piwikTrackingCode;
+    }
+
+    public function setCriticalmassTitle(string $criticalmassTitle = null): City
+    {
+        $this->criticalmassTitle = $criticalmassTitle;
+
+        return $this;
+    }
+
+    public function getCriticalmassTitle(): ?string
+    {
+        return $this->criticalmassTitle;
+    }
+
+    public function setCriticalmassCitySlug(string $criticalmassCitySlug)
+    {
+        $this->criticalmassCitySlug = $criticalmassCitySlug;
+    }
+
+    public function getCriticalmassCitySlug(): ?string
+    {
+        return $this->criticalmassCitySlug;
     }
 
     public function __toString(): string

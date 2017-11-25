@@ -129,7 +129,7 @@
 
 {% if calendarEntryList is defined %}
 <div class="card mt-2">
-    <div class="card-body">
+    <div class="card-body text-center">
         <h4 class="card-title">
             Kalender
         </h4>
@@ -140,11 +140,10 @@
 
     <ul class="list-group list-group-flush">
         {% for calendarEntry in calendarEntryList %}
-        <a class="list-group-item list-group-item-action flex-column align-items-start">
+        <a href="{{ calendarEntry.permalink }}" class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">{{ calendarEntry.title }}</h5>
+                <h6 class="mb-1">{{ calendarEntry.title }}</h6>
             </div>
-            <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
             <small>{{ calendarEntry.dateTime|date('d.m.Y H:i', 'Europe/Berlin') }} Uhr</small>
         </a>
         {% endfor %}

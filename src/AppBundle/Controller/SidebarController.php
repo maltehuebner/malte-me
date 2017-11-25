@@ -23,6 +23,7 @@ class SidebarController extends AbstractController
             'commentList' => $commentList,
             'favouriteList' => $favouriteList,
             'criticalmass' => $criticalmass,
+            'calendarEntryList' => $this->getCalendar(),
         ]);
     }
 
@@ -45,5 +46,22 @@ class SidebarController extends AbstractController
         $cacheItem = $cache->getItem(sprintf('criticalmass-%s', $city->getCriticalmassCitySlug()));
 
         return $cacheItem->get();
+    }
+
+    protected function getCalendar(): ?array
+    {
+        $redisConnection = RedisAdapter::createConnection('redis://localhost');
+
+        $cache = new RedisAdapter(
+            $redisConnection,
+            $namespace = '',
+            $defaultLifetime = 0
+        );
+
+        $cacheItem = $cache->getItem('calendar-entry-list');
+
+        $entryList = $cacheItem->get();
+
+        return $entryList;
     }
 }

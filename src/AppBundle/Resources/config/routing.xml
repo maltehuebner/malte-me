@@ -8,9 +8,6 @@
         <default key="_controller">AppBundle:Feed:index</default>
     </route>
 
-    <import resource="routing/dropbox.xml" />
-    <import resource="routing/photo.xml" />
-
     <route id="mission" path="/mission">
         <default key="_controller">AppBundle:Static:mission</default>
     </route>
@@ -26,6 +23,9 @@
     <route id="invitation" path="/invitation/{code}">
         <default key="_controller">AppBundle:Invitation:invitation</default>
     </route>
+
+    <import resource="routing/dropbox.xml" />
+    <import resource="routing/photo.xml" />
 
     <route id="photo_add_comment" path="/photo/{photoId}/addcomment">
         <default key="_controller">AppBundle:Comment:add</default>

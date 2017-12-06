@@ -1,12 +1,19 @@
 <?php
 
-namespace AppBundle\Model;
+namespace AppBundle\Widget\CriticalmassWidget;
 
-class CalendarEntryModel
+class CalendarEventModel
 {
+    /** @var \DateTime $dateTime */
     protected $dateTime;
+
+    /** @var string $title */
     protected $title;
+
+    /** @var string $description */
     protected $description;
+
+    /** @var string $permalink */
     protected $permalink;
 
     public function __construct(\DateTime $dateTime, string $permalink, string $title, string $description)

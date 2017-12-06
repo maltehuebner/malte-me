@@ -7,5 +7,7 @@
         <defaults autowire="true" autoconfigure="true" public="true" />
         <service id="AppBundle\Widget\CriticalmassWidget\CriticalmassWidgetFactory" />
         <service id="AppBundle\Widget\CriticalmassWidget\CriticalmassWidget" />
+        <service id="AppBundle\Widget\CriticalmassWidget\CriticalmassWidgetFactory" />
+        <service id="AppBundle\Widget\CriticalmassWidget\CriticalmassWidget" />
     </services>
 </container>

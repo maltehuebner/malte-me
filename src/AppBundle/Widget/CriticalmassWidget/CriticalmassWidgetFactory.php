@@ -5,7 +5,7 @@ namespace AppBundle\Widget\CriticalmassWidget;
 use AppBundle\Entity\City;
 use AppBundle\Widget\AbstractWidgetFactory;
 use AppBundle\Widget\WidgetFactoryInterface;
-use Buzz\Client\Curl;
+use Curl\Curl;
 
 class CriticalmassWidgetFactory extends AbstractWidgetFactory
 {

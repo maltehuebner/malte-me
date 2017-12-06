@@ -1,8 +1,27 @@
 <?php
 
-namespace AppBundle\Widget;
+namespace AppBundle\Widget\CriticalmassWidget;
 
-class CriticalmassWidget implements WidgetInterface
+use AppBundle\Entity\City;
+use AppBundle\Widget\AbstractWidget;
+use AppBundle\Widget\WidgetDataInterface;
+
+class CriticalmassWidget extends AbstractWidget
 {
+    /** @var City $city */
+    protected $city;
 
+    public function setCity(City $city): CriticalmassWidget
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function render(): WidgetDataInterface
+    {
+        $identifier = sprintf('criticalmass-%s', $this->city->getCriticalmassCitySlug());
+
+        return $this->retrieveData($identifier);
+    }
 }

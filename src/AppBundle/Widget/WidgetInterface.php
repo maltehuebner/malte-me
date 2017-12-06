@@ -4,5 +4,5 @@ namespace AppBundle\Widget;
 
 interface WidgetInterface
 {
-    public function render(): WidgetInterface;
+    public function render(): WidgetDataInterface;
 }

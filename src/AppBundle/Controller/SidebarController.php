@@ -5,7 +5,8 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Comment;
 use AppBundle\Entity\Favorite;
 use AppBundle\Entity\Photo;
-use AppBundle\Model\CriticalmassModel;
+use AppBundle\Widget\CriticalmassWidget\CriticalmassModel;
+use AppBundle\Widget\CriticalmassWidget\CriticalmassWidget;
 use Symfony\Component\Cache\Adapter\RedisAdapter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,17 +36,9 @@ class SidebarController extends AbstractController
             return null;
         }
 
-        $redisConnection = RedisAdapter::createConnection('redis://localhost');
+        $widget = $this->get(CriticalmassWidget::class);
 
-        $cache = new RedisAdapter(
-            $redisConnection,
-            $namespace = '',
-            $defaultLifetime = 0
-        );
-
-        $cacheItem = $cache->getItem(sprintf('criticalmass-%s', $city->getCriticalmassCitySlug()));
-
-        return $cacheItem->get();
+        return $widget->setCity($city)->render();
     }
 
     protected function getCalendar(): ?array

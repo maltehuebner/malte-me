@@ -1,8 +1,7 @@
 <?php
 
-namespace AppBundle\Widget\CriticalmassWidget;
+namespace AppBundle\Widget\CalendarWidget;
 
-use AppBundle\Entity\City;
 use AppBundle\Widget\AbstractWidgetFactory;
 use AppBundle\Widget\WidgetFactoryInterface;
 use Zend\Feed\Reader\Entry\EntryInterface;
@@ -24,6 +23,8 @@ class CalendarWidgetFactory extends AbstractWidgetFactory
         }
 
         $this->cacheData($calendar);
+
+        return $this;
     }
 
     protected function createCalendarEntryModel(EntryInterface $entry): CalendarEventModel
@@ -47,10 +48,12 @@ class CalendarWidgetFactory extends AbstractWidgetFactory
 
     protected function getDateTime(EntryInterface $entry): \DateTime
     {
+        var_dump($entry->getTitle());
         $pattern = '/\((.*) (\d{1,2})\. ([A-Z][a-z]+) ([0-9]{4}), ([0-9]{1,2}):([0-9]{2,2}) - ([0-9]{1,2}):([0-9]{2,2})\)$/';
 
         preg_match($pattern, $entry->getTitle(), $matches);
 
+        var_dump($matches);
         $timeString = sprintf('%d-%d-%d %d:%d', $matches[4], $this->getMonthNumber($matches[3]), $matches[2], $matches[5], $matches[6]);
 
         $dateTime = new \DateTime($timeString);

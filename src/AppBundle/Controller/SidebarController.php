@@ -5,9 +5,9 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Comment;
 use AppBundle\Entity\Favorite;
 use AppBundle\Entity\Photo;
-use AppBundle\Widget\CriticalmassWidget\CriticalmassModel;
+use AppBundle\Widget\CalendarWidget\CalendarWidget;
 use AppBundle\Widget\CriticalmassWidget\CriticalmassWidget;
-use Symfony\Component\Cache\Adapter\RedisAdapter;
+use AppBundle\Widget\WidgetDataInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -18,17 +18,16 @@ class SidebarController extends AbstractController
     {
         $commentList = $this->getDoctrine()->getRepository(Comment::class)->findLatest($this->getCity($request), 10);
         $favouriteList = $this->getDoctrine()->getRepository(Favorite::class)->findLatest($this->getCity($request), 10);
-        $criticalmass = $this->getCriticalmass($request);
 
         return $this->render('AppBundle:Sidebar:sidebar.html.twig', [
             'commentList' => $commentList,
             'favouriteList' => $favouriteList,
-            'criticalmass' => $criticalmass,
-            'calendarEntryList' => $this->getCalendar(),
+            'criticalmass' => $this->getCriticalmass($request),
+            'calendar' => $this->getCalendar(),
         ]);
     }
 
-    protected function getCriticalmass(Request $request): ?CriticalmassModel
+    protected function getCriticalmass(Request $request): ?WidgetDataInterface
     {
         $city = $this->getCity($request);
 
@@ -36,25 +35,16 @@ class SidebarController extends AbstractController
             return null;
         }
 
+        /** @var CriticalmassWidget $widget */
         $widget = $this->get(CriticalmassWidget::class);
 
         return $widget->setCity($city)->render();
     }
 
-    protected function getCalendar(): ?array
+    protected function getCalendar(): ?WidgetDataInterface
     {
-        $redisConnection = RedisAdapter::createConnection('redis://localhost');
-
-        $cache = new RedisAdapter(
-            $redisConnection,
-            $namespace = '',
-            $defaultLifetime = 0
-        );
-
-        $cacheItem = $cache->getItem('calendar-entry-list');
-
-        $entryList = $cacheItem->get();
-
-        return $entryList;
+        /** @var CalendarWidget $widget */
+        $widget = $this->get(CalendarWidget::class);
+        return $widget->render();
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Widget\CriticalmassWidget;
+namespace AppBundle\Widget\CalendarWidget;
 
 class CalendarEventModel
 {

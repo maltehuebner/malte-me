@@ -2,7 +2,7 @@
 
 namespace AppBundle\Command;
 
-use AppBundle\Widget\CriticalmassWidget\CalendarWidgetFactory;
+use AppBundle\Widget\CalendarWidget\CalendarWidgetFactory;
 use AppBundle\Widget\CriticalmassWidget\CriticalmassWidgetFactory;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
@@ -25,7 +25,7 @@ class WidgetCommand extends ContainerAwareCommand
         $criticalmassWidgetFactory->prepare();
 
         /** @var CalendarWidgetFactory $calendarWidgetFactory */
-        $calendarWidgetFactory = $this->getContainer()->get(CriticalmassWidgetFactory::class);
+        $calendarWidgetFactory = $this->getContainer()->get(CalendarWidgetFactory::class);
         $calendarWidgetFactory->prepare();
     }
 

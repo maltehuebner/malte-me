@@ -4,7 +4,10 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services
         http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <defaults autowire="true" autoconfigure="true" public="true" />
+        <defaults autowire="true" autoconfigure="true" public="true">
+            <bind key="$openweathermapApiKey">%openweathermap.api_key%</bind>
+        </defaults>
+
         <service id="AppBundle\Widget\CriticalmassWidget\CriticalmassWidgetFactory">
             <tag name="widget.factory" />
         </service>
@@ -19,6 +22,11 @@
             <tag name="widget.factory" />
         </service>
         <service id="AppBundle\Widget\LuftWidget\LuftWidget" />
+
+        <service id="AppBundle\Widget\WeatherWidget\WeatherWidgetFactory">
+            <tag name="widget.factory" />
+        </service>
+        <service id="AppBundle\Widget\WeatherWidget\WeatherWidget" />
 
         <service id="AppBundle\Widget\WidgetPreparer" />
     </services>

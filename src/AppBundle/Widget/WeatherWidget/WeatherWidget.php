@@ -1,17 +1,17 @@
 <?php
 
-namespace AppBundle\Widget\LuftWidget;
+namespace AppBundle\Widget\WeatherWidget;
 
 use AppBundle\Entity\City;
 use AppBundle\Widget\AbstractWidget;
 use AppBundle\Widget\WidgetDataInterface;
 
-class LuftWidget extends AbstractWidget
+class WeatherWidget extends AbstractWidget
 {
     /** @var City $city */
     protected $city;
 
-    public function setCity(City $city): LuftWidget
+    public function setCity(City $city): WeatherWidget
     {
         $this->city = $city;
 
@@ -20,7 +20,7 @@ class LuftWidget extends AbstractWidget
 
     public function render(): WidgetDataInterface
     {
-        $identifier = sprintf('luft-%s', $this->city->getSlug());
+        $identifier = sprintf('weather-%s', $this->city->getSlug());
 
         return $this->retrieveData($identifier);
     }

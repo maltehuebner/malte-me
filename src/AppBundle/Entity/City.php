@@ -150,6 +150,16 @@ class City
      */
     protected $photos;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    protected $latitude;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    protected $longitude;
+
     public function __construct()
     {
         $this->photos = new ArrayCollection();
@@ -457,6 +467,30 @@ class City
     public function getCriticalmassCitySlug(): ?string
     {
         return $this->criticalmassCitySlug;
+    }
+
+    public function setLatitude(float $latitude = null): City
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getLatitude(): ?float
+    {
+        return $this->latitude;
+    }
+
+    public function setLongitude(float $longitude = null): City
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    public function getLongitude(): ?float
+    {
+        return $this->longitude;
     }
 
     public function __toString(): string

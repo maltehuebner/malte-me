@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Widget\LuftWidget;
+namespace AppBundle\Widget\WeatherWidget;
 
 use AppBundle\Entity\City;
 use AppBundle\Widget\AbstractWidgetFactory;
@@ -43,7 +43,7 @@ class WeatherWidgetFactory extends AbstractWidgetFactory
 
     }
 
-    protected function createLuftModel(City $city, array $luftData): LuftModel
+    protected function createWeatherModel(City $city, array $luftData): LuftModel
     {
         $luftModel = new LuftModel();
         $luftModel->setCity($city);

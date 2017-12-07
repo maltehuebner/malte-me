@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Widget\LuftWidget;
+namespace AppBundle\Widget\WeatherWidget;
 
 use AppBundle\Entity\City;
 use AppBundle\Widget\AbstractWidget;

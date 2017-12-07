@@ -20,6 +20,11 @@
         </service>
         <service id="AppBundle\Widget\LuftWidget\LuftWidget" />
 
+        <service id="AppBundle\Widget\WeatherWidget\WeatherWidgetFactory">
+            <tag name="widget.factory" />
+        </service>
+        <service id="AppBundle\Widget\WeatherWidget\WeatherWidget" />
+
         <service id="AppBundle\Widget\WidgetPreparer" />
     </services>
 </container>

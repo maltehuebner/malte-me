@@ -10,6 +10,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Vich\UploaderBundle\Form\Type\VichFileType;
@@ -52,6 +53,11 @@ class CityAdmin extends AbstractAdmin
             ->with('Critical Mass', ['class' => 'col-xs-6'])
             ->add('criticalmassTitle', TextType::class, ['required' => false])
             ->add('criticalmassCitySlug', TextType::class, ['required' => false])
+            ->end()
+
+            ->with('Coord', ['class' => 'col-xs-6'])
+            ->add('latitude', NumberType::class, ['required' => false])
+            ->add('longitude', NumberType::class, ['required' => false])
             ->end()
         ;
     }

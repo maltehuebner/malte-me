@@ -10,7 +10,7 @@ class LuftWidget extends AbstractWidget
 {
     public function render(): WidgetDataInterface
     {
-        $identifier = 'calendar';
+        $identifier = 'luft';
 
         return $this->retrieveData($identifier);
     }

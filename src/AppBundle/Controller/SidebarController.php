@@ -7,6 +7,7 @@ use AppBundle\Entity\Favorite;
 use AppBundle\Entity\Photo;
 use AppBundle\Widget\CalendarWidget\CalendarWidget;
 use AppBundle\Widget\CriticalmassWidget\CriticalmassWidget;
+use AppBundle\Widget\LuftWidget\LuftWidget;
 use AppBundle\Widget\WidgetDataInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,6 +25,7 @@ class SidebarController extends AbstractController
             'favouriteList' => $favouriteList,
             'criticalmass' => $this->getCriticalmass($request),
             'calendar' => $this->getCalendar(),
+            'luft' => $this->getLuft()
         ]);
     }
 
@@ -45,6 +47,13 @@ class SidebarController extends AbstractController
     {
         /** @var CalendarWidget $widget */
         $widget = $this->get(CalendarWidget::class);
+        return $widget->render();
+    }
+
+    protected function getLuft(): ?WidgetDataInterface
+    {
+        /** @var LuftWidget $widget */
+        $widget = $this->get(LuftWidget::class);
         return $widget->render();
     }
 }

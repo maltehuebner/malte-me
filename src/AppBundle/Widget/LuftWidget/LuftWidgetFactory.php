@@ -17,7 +17,7 @@ class LuftWidgetFactory extends AbstractWidgetFactory
         $luftModel = $this->createLuftModel($luftData);
 
         $this->cacheData($luftModel);
-        
+
         return $this;
     }
 
@@ -37,7 +37,7 @@ class LuftWidgetFactory extends AbstractWidgetFactory
         foreach ($luftData as $data) {
             $dateTime = new \DateTime(sprintf('@%d', $data->data->date_time));
 
-            $luftModel->addData(new LuftDataModel($dateTime, $data->pollutant->name, $data->pollutant->unit_plain, $data->data->value, $data->pollution_level));
+            $luftModel->addData(new LuftDataModel($dateTime, $data->pollutant->name, $data->pollutant->unit_plain, $data->pollution_level, $data->data->value));
         }
 
         return $luftModel;

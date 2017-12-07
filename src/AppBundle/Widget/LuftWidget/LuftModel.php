@@ -15,7 +15,7 @@ class LuftModel implements WidgetDataInterface
         return $this;
     }
 
-    public function getEventList(): array
+    public function getDataList(): array
     {
         return $this->dataList;
     }

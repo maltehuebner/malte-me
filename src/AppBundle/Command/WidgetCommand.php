@@ -4,6 +4,7 @@ namespace AppBundle\Command;
 
 use AppBundle\Widget\CalendarWidget\CalendarWidgetFactory;
 use AppBundle\Widget\CriticalmassWidget\CriticalmassWidgetFactory;
+use AppBundle\Widget\WidgetPreparer;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -20,13 +21,8 @@ class WidgetCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        /** @var CriticalmassWidgetFactory $criticalmassWidgetFactory */
-        $criticalmassWidgetFactory = $this->getContainer()->get(CriticalmassWidgetFactory::class);
-        $criticalmassWidgetFactory->prepare();
-
-        /** @var CalendarWidgetFactory $calendarWidgetFactory */
-        $calendarWidgetFactory = $this->getContainer()->get(CalendarWidgetFactory::class);
-        $calendarWidgetFactory->prepare();
+        /** @var WidgetPreparer $widgetPreparer */
+        $widgetPreparer = $this->getContainer()->get(WidgetPreparer::class);
+        $widgetPreparer->prepare();
     }
-
 }

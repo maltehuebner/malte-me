@@ -5,9 +5,16 @@
         http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <defaults autowire="true" autoconfigure="true" public="true" />
-        <service id="AppBundle\Widget\CriticalmassWidget\CriticalmassWidgetFactory" />
+        <service id="AppBundle\Widget\CriticalmassWidget\CriticalmassWidgetFactory">
+            <tag name="widget.factory" />
+        </service>
         <service id="AppBundle\Widget\CriticalmassWidget\CriticalmassWidget" />
-        <service id="AppBundle\Widget\CalendarWidget\CalendarWidgetFactory" />
+
+        <service id="AppBundle\Widget\CalendarWidget\CalendarWidgetFactory">
+            <tag name="widget.factory" />
+        </service>
         <service id="AppBundle\Widget\CalendarWidget\CalendarWidget" />
+
+        <service id="AppBundle\Widget\WidgetPreparer" />
     </services>
 </container>

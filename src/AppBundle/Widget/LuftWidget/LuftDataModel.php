@@ -10,6 +10,12 @@ class LuftDataModel
     /** @var string $pollutant */
     protected $pollutant;
 
+    /** @var string $stationCode */
+    protected $stationCode;
+
+    /** @var string $stationName */
+    protected $stationName;
+
     /** @var string $unit */
     protected $unit;
 
@@ -19,9 +25,11 @@ class LuftDataModel
     /** @var float $value */
     protected $value;
 
-    public function __construct(\DateTime $dateTime, string $pollutant, string $unit, int $level, float $value)
+    public function __construct(\DateTime $dateTime, string $stationCode, string $stationName, string $pollutant, string $unit, int $level, float $value)
     {
         $this->dateTime = $dateTime;
+        $this->stationCode = $stationCode;
+        $this->stationName = $stationName;
         $this->pollutant = $pollutant;
         $this->unit = $unit;
         $this->level = $level;
@@ -31,6 +39,16 @@ class LuftDataModel
     public function getDateTime(): \DateTime
     {
         return $this->dateTime;
+    }
+
+    public function getStationCode(): string
+    {
+        return $this->stationCode;
+    }
+
+    public function getStationName(): string
+    {
+        return $this->stationName;
     }
 
     public function getPollutant(): string

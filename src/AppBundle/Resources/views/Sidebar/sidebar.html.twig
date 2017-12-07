@@ -182,6 +182,8 @@
 
                 <a href="#" class="list-group-item list-group-item-action {{ levelClass }}">
                     {{ data.pollutant }}: {{ data.value }} {{ data.unit }}
+                    <br />
+                    <span class="text-muted">{{ data.stationName }}</span>
                 </a>
             {% endfor %}
         </div>

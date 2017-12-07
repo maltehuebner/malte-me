@@ -37,7 +37,15 @@ class LuftWidgetFactory extends AbstractWidgetFactory
         foreach ($luftData as $data) {
             $dateTime = new \DateTime(sprintf('@%d', $data->data->date_time));
 
-            $luftModel->addData(new LuftDataModel($dateTime, $data->pollutant->name, $data->pollutant->unit_plain, $data->pollution_level, $data->data->value));
+            $luftModel->addData(new LuftDataModel(
+                $dateTime,
+                $data->station->station_code,
+                $data->station->title,
+                $data->pollutant->name,
+                $data->pollutant->unit_plain,
+                $data->pollution_level,
+                $data->data->value
+            ));
         }
 
         return $luftModel;

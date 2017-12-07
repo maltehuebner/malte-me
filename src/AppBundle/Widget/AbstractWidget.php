@@ -20,7 +20,7 @@ abstract class AbstractWidget implements WidgetInterface
         $this->twigEnginge = $twigEngine;
     }
 
-    protected function retrieveData(string $slug): WidgetDataInterface
+    protected function retrieveData(string $slug): ?WidgetDataInterface
     {
         $redisConnection = RedisAdapter::createConnection('redis://localhost');
 

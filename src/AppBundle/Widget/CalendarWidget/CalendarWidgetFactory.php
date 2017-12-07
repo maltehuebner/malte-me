@@ -19,7 +19,9 @@ class CalendarWidgetFactory extends AbstractWidgetFactory
         foreach ($feed as $entry) {
             $eventModel = $this->createCalendarEntryModel($entry);
 
-            $calendar->addEvent($eventModel);
+            if ($eventModel) {
+                $calendar->addEvent($eventModel);
+            }
         }
 
         $this->cacheData($calendar);
@@ -27,10 +29,14 @@ class CalendarWidgetFactory extends AbstractWidgetFactory
         return $this;
     }
 
-    protected function createCalendarEntryModel(EntryInterface $entry): CalendarEventModel
+    protected function createCalendarEntryModel(EntryInterface $entry): ?CalendarEventModel
     {
         $title = $this->getTitle($entry);
         $dateTime = $this->getDateTime($entry);
+
+        if (!$dateTime) {
+            return null;
+        }
 
         $model = new CalendarEventModel($dateTime, $entry->getPermalink(), $title, $entry->getContent());
 
@@ -46,14 +52,16 @@ class CalendarWidgetFactory extends AbstractWidgetFactory
         return $matches[1];
     }
 
-    protected function getDateTime(EntryInterface $entry): \DateTime
+    protected function getDateTime(EntryInterface $entry): ?\DateTime
     {
-        var_dump($entry->getTitle());
         $pattern = '/\((.*) (\d{1,2})\. ([A-Z][a-z]+) ([0-9]{4}), ([0-9]{1,2}):([0-9]{2,2}) - ([0-9]{1,2}):([0-9]{2,2})\)$/';
 
         preg_match($pattern, $entry->getTitle(), $matches);
 
-        var_dump($matches);
+        if (9 !== count($matches)) {
+            return null;
+        }
+
         $timeString = sprintf('%d-%d-%d %d:%d', $matches[4], $this->getMonthNumber($matches[3]), $matches[2], $matches[5], $matches[6]);
 
         $dateTime = new \DateTime($timeString);

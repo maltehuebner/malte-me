@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <defaults autowire="true" autoconfigure="true" public="true">
+            <bind key="$openweathermapApiKey">%openweathermap.api_key%</bind>
+        </defaults>
+
+        <service id="AppBundle\Widget\CriticalmassWidget\CriticalmassWidgetFactory">
+            <tag name="widget.factory" />
+        </service>
+        <service id="AppBundle\Widget\CriticalmassWidget\CriticalmassWidget" />
+
+        <service id="AppBundle\Widget\CalendarWidget\CalendarWidgetFactory">
+            <tag name="widget.factory" />
+        </service>
+        <service id="AppBundle\Widget\CalendarWidget\CalendarWidget" />
+
+        <service id="AppBundle\Widget\LuftWidget\LuftWidgetFactory">
+            <tag name="widget.factory" />
+        </service>
+        <service id="AppBundle\Widget\LuftWidget\LuftWidget" />
+
+        <service id="AppBundle\Widget\WeatherWidget\WeatherWidgetFactory">
+            <tag name="widget.factory" />
+        </service>
+        <service id="AppBundle\Widget\WeatherWidget\WeatherWidget" />
+
+        <service id="AppBundle\Widget\WidgetPreparer" />
+    </services>
+</container>

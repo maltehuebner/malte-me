@@ -1,8 +1,10 @@
 <?php
 
-namespace AppBundle\Model;
+namespace AppBundle\Widget\CriticalmassWidget;
 
-class CriticalmassModel
+use AppBundle\Widget\WidgetDataInterface;
+
+class CriticalmassModel implements WidgetDataInterface
 {
     /** @var string $citySlug */
     protected $citySlug;
@@ -33,5 +35,10 @@ class CriticalmassModel
     public function getLocation(): ?string
     {
         return $this->location;
+    }
+
+    public function getIdentifier(): string
+    {
+        return sprintf('criticalmass-%s', $this->citySlug);
     }
 }

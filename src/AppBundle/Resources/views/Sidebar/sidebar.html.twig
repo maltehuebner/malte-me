@@ -127,26 +127,106 @@
 </div>
 {% endif %}
 
-{% if calendarEntryList is defined %}
-<div class="card mt-2">
-    <div class="card-body text-center">
-        <h4 class="card-title">
-            Kalender
-        </h4>
-        <p class="card-text">
-            Radverkehrstermine der nächsten Wochen
-        </p>
-    </div>
+{% if calendar is defined %}
+    <div class="card mt-2">
+        <div class="card-body text-center">
+            <h4 class="card-title">
+                Kalender
+            </h4>
+            <p class="card-text">
+                Radverkehrstermine der nächsten Wochen
+            </p>
+        </div>
 
-    <ul class="list-group list-group-flush">
-        {% for calendarEntry in calendarEntryList %}
-        <a href="{{ calendarEntry.permalink }}" class="list-group-item list-group-item-action flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-between">
-                <h6 class="mb-1">{{ calendarEntry.title }}</h6>
-            </div>
-            <small>{{ calendarEntry.dateTime|date('d.m.Y H:i', 'Europe/Berlin') }} Uhr</small>
-        </a>
-        {% endfor %}
-    </ul>
-</div>
+        <ul class="list-group list-group-flush">
+            {% for calendarEntry in calendar.eventList %}
+                <a href="{{ calendarEntry.permalink }}" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h6 class="mb-1">{{ calendarEntry.title }}</h6>
+                    </div>
+                    <small>{{ calendarEntry.dateTime|date('d.m.Y H:i', 'Europe/Berlin') }} Uhr</small>
+                </a>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+{% if luft is defined %}
+    <div class="card mt-2">
+        <div class="card-body text-center">
+            <h4 class="card-title">
+                Luft in {{ getCity().name }}
+            </h4>
+
+            <p class="card-text">
+                Aktuelle Schadstoffwerte aus Hamburg
+            </p>
+        </div>
+
+        <div class="list-group list-group-flush">
+            {% for data in luft.dataList %}
+                {% if data.level == 1 %}
+                    {% set levelClass = 'list-group-item-success' %}
+                {% endif %}
+
+                {% if data.level == 2 %}
+                    {% set levelClass = 'list-group-item-warning' %}
+                {% endif %}
+
+                {% if data.level == 3 %}
+                    {% set levelClass = 'list-group-item-danger' %}
+                {% endif %}
+
+                {% if data.level == 4 %}
+                    {% set levelClass = 'list-group-item-dark' %}
+                {% endif %}
+
+                <a href="https://luft.jetzt/{{ data.stationCode }}" class="list-group-item list-group-item-action {{ levelClass }}">
+                    {{ data.pollutant }}: {{ data.value }} {{ data.unit }}
+                    <br />
+                    <span class="text-muted">{{ data.stationName }}</span>
+                </a>
+            {% endfor %}
+        </div>
+
+        <div class="card-body text-center">
+
+            <p class="card-text">
+                <small>
+                    Daten gemessen vom Umweltbundesamt, aufbereitet von <a href="https://luft.jetzt/">Luft<sup>jetzt</sup></a>
+                </small>
+            </p>
+        </div>
+    </div>
+{% endif %}
+
+
+{% if weather is defined %}
+    <div class="card mt-2">
+        <div class="card-body text-center">
+            <h4 class="card-title">
+                Wetter
+            </h4>
+
+            <p class="card-text">
+                Heute ist ein guter Tag zum Radfahren
+            </p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                {{ weather.weather }}
+            </li>
+
+            <li class="list-group-item">
+                Temperatur: {{ weather.temperaturMin }} bis {{ weather.temperaturMax }} Grad Celsius
+            </li>
+        </ul>
+        <div class="card-body text-center">
+            <p class="card-text">
+                <small>
+                    Wetterdaten von <a href="http://http://openweathermap.org/">OpenWeatherMap</a>
+                </small>
+            </p>
+        </div>
+    </div>
 {% endif %}

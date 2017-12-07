@@ -2,11 +2,23 @@
 
 namespace AppBundle\Widget\LuftWidget;
 
+use AppBundle\Entity\City;
 use AppBundle\Widget\WidgetDataInterface;
 
 class LuftModel implements WidgetDataInterface
 {
+    /** @var array $dataList */
     protected $dataList = [];
+
+    /** @var City $city */
+    protected $city;
+
+    public function setCity(City $city): LuftModel
+    {
+        $this->city = $city;
+
+        return $this;
+    }
 
     public function addData(LuftDataModel $luftData): LuftModel
     {
@@ -22,6 +34,6 @@ class LuftModel implements WidgetDataInterface
 
     public function getIdentifier(): string
     {
-        return 'luft';
+        return sprintf('luft-%s', $this->city->getSlug());
     }
 }

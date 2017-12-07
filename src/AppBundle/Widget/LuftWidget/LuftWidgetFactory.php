@@ -2,37 +2,44 @@
 
 namespace AppBundle\Widget\LuftWidget;
 
+use AppBundle\Entity\City;
 use AppBundle\Widget\AbstractWidgetFactory;
 use AppBundle\Widget\WidgetFactoryInterface;
 use Curl\Curl;
-use Zend\Feed\Reader\Entry\EntryInterface;
-use Zend\Feed\Reader\Reader;
 
 class LuftWidgetFactory extends AbstractWidgetFactory
 {
     public function prepare(): WidgetFactoryInterface
     {
-        $luftData = $this->fetchLuft();
+        $cities = $this->doctrine->getRepository(City::class)->findAll();
 
-        $luftModel = $this->createLuftModel($luftData);
+        /** @var City $city */
+        foreach ($cities as $city) {
+            $luftData = $this->fetchLuft($city);
 
-        $this->cacheData($luftModel);
+            $luftModel = $this->createLuftModel($city, $luftData);
+
+            $this->cacheData($luftModel);
+        }
 
         return $this;
     }
 
-    protected function fetchLuft(): array
+    protected function fetchLuft(City $city): array
     {
         $curl = new Curl();
 
-        $curl->get('https://luft.jetzt/api/?latitude=53.6038583&longitude=9.9061903');
+        $apiUrl = sprintf('https://luft.jetzt/api/?latitude=%f&longitude=%f', $city->getLatitude(), $city->getLongitude());
+
+        $curl->get($apiUrl);
 
         return $curl->response;
     }
 
-    protected function createLuftModel(array $luftData): LuftModel
+    protected function createLuftModel(City $city, array $luftData): LuftModel
     {
         $luftModel = new LuftModel();
+        $luftModel->setCity($city);
 
         foreach ($luftData as $data) {
             $dateTime = new \DateTime(sprintf('@%d', $data->data->date_time));

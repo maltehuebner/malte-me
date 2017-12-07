@@ -6,62 +6,72 @@ use AppBundle\Entity\City;
 use AppBundle\Widget\AbstractWidgetFactory;
 use AppBundle\Widget\WidgetFactoryInterface;
 use Cmfcmf\OpenWeatherMap;
+use Cmfcmf\OpenWeatherMap\CurrentWeather;
+use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
 
 class WeatherWidgetFactory extends AbstractWidgetFactory
 {
+    protected $openweathermapApiKey;
+
+    public function __construct(Doctrine $doctrine, string $openweathermapApiKey)
+    {
+        $this->openweathermapApiKey = $openweathermapApiKey;
+
+        parent::__construct($doctrine);
+    }
+
     public function prepare(): WidgetFactoryInterface
     {
         $cities = $this->doctrine->getRepository(City::class)->findAll();
 
         /** @var City $city */
         foreach ($cities as $city) {
-            $luftData = $this->fetchWeather($city);
+            if (!$city->getLatitude() || !$city->getLongitude()) {
+                continue;
+            }
 
-            $luftModel = $this->createWeatherModel($city, $luftData);
-
-            $this->cacheData($luftModel);
+            $weather = $this->fetchWeather($city);
+            $weatherModel = $this->createWeatherModel($city, $weather);
+            $this->cacheData($weatherModel);
         }
 
         return $this;
     }
 
-    protected function fetchWeather(City $city): array
+    protected function fetchWeather(City $city): CurrentWeather
     {
         $lang = 'de';
         $units = 'metric';
 
         $latLng = [
             'lat' => $city->getLatitude(),
-            'lng' => $city->getLongitude(),
+            'lon' => $city->getLongitude(),
         ];
 
-        $owm = new OpenWeatherMap('');
+        $weather = $this->getOpenWeatherMap()->getWeather($latLng, $units, $lang);
 
-        $weather = $owm->getWeather($latLng, $units, $lang);
-
-        var_dump($weather);
-
+        return $weather;
     }
 
-    protected function createWeatherModel(City $city, array $luftData): LuftModel
+    protected function createWeatherModel(City $city, CurrentWeather $currentWeather): WeatherModel
     {
-        $luftModel = new LuftModel();
-        $luftModel->setCity($city);
+        $weatherModel = new WeatherModel();
 
-        foreach ($luftData as $data) {
-            $dateTime = new \DateTime(sprintf('@%d', $data->data->date_time));
+        $weatherModel
+            ->setCity($city)
+            ->setTemperaturMin($currentWeather->temperature->min->getValue())
+            ->setTemperaturMin($currentWeather->temperature->max->getValue())
+            ->setClounds($currentWeather->clouds->getValue())
+            ->setWindDirection($currentWeather->wind->direction->getValue())
+            ->setWindSpeed($currentWeather->wind->speed->getValue())
+            ->setWeather($currentWeather->weather->description)
+        ;
 
-            $luftModel->addData(new LuftDataModel(
-                $dateTime,
-                $data->station->station_code,
-                $data->station->title,
-                $data->pollutant->name,
-                $data->pollutant->unit_plain,
-                $data->pollution_level,
-                $data->data->value
-            ));
-        }
+        return $weatherModel;
+    }
 
-        return $luftModel;
+    protected function getOpenWeatherMap(): OpenWeatherMap
+    {
+        return new OpenWeatherMap($this->openweathermapApiKey);
     }
 }

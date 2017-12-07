@@ -35,3 +35,5 @@ parameters:
 
     graylog.hostname: anagnina.caldera.cc
     graylog.port: 12201
+
+    openweathermap.api_key: ThisTokenIsNotSoSecretChangeIt

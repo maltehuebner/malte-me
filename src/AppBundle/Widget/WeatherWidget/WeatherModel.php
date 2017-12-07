@@ -7,33 +7,108 @@ use AppBundle\Widget\WidgetDataInterface;
 
 class WeatherModel implements WidgetDataInterface
 {
-    /** @var array $dataList */
-    protected $dataList = [];
-
     /** @var City $city */
     protected $city;
 
-    public function setCity(City $city): LuftModel
+    /** @var float $temperaturMin */
+    protected $temperaturMin;
+
+    /** @var float $temperaturMax*/
+    protected $temperaturMax;
+
+    /** @var float */
+    protected $windSpeed;
+
+    /** @var string */
+    protected $windDirection;
+
+    /** @var string */
+    protected $clounds;
+
+    /** @var string */
+    protected $weather;
+
+    public function setCity(City $city): WeatherModel
     {
         $this->city = $city;
 
         return $this;
     }
 
-    public function addData(LuftDataModel $luftData): LuftModel
+    public function getIdentifier(): string
     {
-        $this->dataList[] = $luftData;
+        return sprintf('weather-%s', $this->city->getSlug());
+    }
+
+    public function getTemperaturMin(): ?float
+    {
+        return $this->temperaturMin;
+    }
+
+    public function setTemperaturMin(float $temperaturMin = null): WeatherModel
+    {
+        $this->temperaturMin = $temperaturMin;
 
         return $this;
     }
 
-    public function getDataList(): array
+    public function getTemperaturMax(): ?float
     {
-        return $this->dataList;
+        return $this->temperaturMax;
     }
 
-    public function getIdentifier(): string
+    public function setTemperaturMax(float $temperaturMax = null): WeatherModel
     {
-        return sprintf('luft-%s', $this->city->getSlug());
+        $this->temperaturMax = $temperaturMax;
+
+        return $this;
+    }
+
+    public function getWindSpeed(): ?float
+    {
+        return $this->windSpeed;
+    }
+
+    public function setWindSpeed(float $windSpeed = null): WeatherModel
+    {
+        $this->windSpeed = $windSpeed;
+
+        return $this;
+    }
+
+    public function getWindDirection(): ?string
+    {
+        return $this->windDirection;
+    }
+
+    public function setWindDirection(string $windDirection = null): WeatherModel
+    {
+        $this->windDirection = $windDirection;
+
+        return $this;
+    }
+
+    public function getClounds(): ?string
+    {
+        return $this->clounds;
+    }
+
+     public function setClounds(string $clounds = null): WeatherModel
+    {
+        $this->clounds = $clounds;
+
+        return $this;
+    }
+
+    public function getWeather(): ?string
+    {
+        return $this->weather;
+    }
+
+     public function setWeather(string $weather = null): WeatherModel
+    {
+        $this->weather = $weather;
+
+        return $this;
     }
 }

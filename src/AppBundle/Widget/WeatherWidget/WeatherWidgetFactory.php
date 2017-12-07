@@ -60,7 +60,7 @@ class WeatherWidgetFactory extends AbstractWidgetFactory
         $weatherModel
             ->setCity($city)
             ->setTemperaturMin($currentWeather->temperature->min->getValue())
-            ->setTemperaturMin($currentWeather->temperature->max->getValue())
+            ->setTemperaturMax($currentWeather->temperature->max->getValue())
             ->setClounds($currentWeather->clouds->getValue())
             ->setWindDirection($currentWeather->wind->direction->getValue())
             ->setWindSpeed($currentWeather->wind->speed->getValue())

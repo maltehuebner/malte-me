@@ -199,3 +199,34 @@
         </div>
     </div>
 {% endif %}
+
+
+{% if weather is defined %}
+    <div class="card mt-2">
+        <div class="card-body text-center">
+            <h4 class="card-title">
+                Wetter
+            </h4>
+
+            <p class="card-text">
+                Heute ist ein guter Tag zum Radfahren
+            </p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                {{ weather.weather }}
+            </li>
+
+            <li class="list-group-item">
+                Temperatur: {{ weather.temperaturMin }} bis {{ weather.temperaturMax }} Grad Celsius
+            </li>
+        </ul>
+        <div class="card-body text-center">
+            <p class="card-text">
+                <small>
+                    Wetterdaten von <a href="http://http://openweathermap.org/">OpenWeatherMap</a>
+                </small>
+            </p>
+        </div>
+    </div>
+{% endif %}

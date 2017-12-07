@@ -6,22 +6,22 @@ use AppBundle\Widget\WidgetDataInterface;
 
 class LuftModel implements WidgetDataInterface
 {
-    protected $eventList = [];
+    protected $dataList = [];
 
-    public function addEvent(LuftDataModel $eventModel): LuftModel
+    public function addData(LuftDataModel $luftData): LuftModel
     {
-        $this->eventList[] = $eventModel;
+        $this->dataList[] = $luftData;
 
         return $this;
     }
 
     public function getEventList(): array
     {
-        return $this->eventList;
+        return $this->dataList;
     }
 
     public function getIdentifier(): string
     {
-        return 'calendar';
+        return 'luft';
     }
 }

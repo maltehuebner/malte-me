@@ -7,21 +7,25 @@ class LuftDataModel
     /** @var \DateTime $dateTime */
     protected $dateTime;
 
-    /** @var string $title */
-    protected $title;
+    /** @var string $pollutant */
+    protected $pollutant;
 
-    /** @var string $description */
-    protected $description;
+    /** @var string $unit */
+    protected $unit;
 
-    /** @var string $permalink */
-    protected $permalink;
+    /** @var int $level */
+    protected $level;
 
-    public function __construct(\DateTime $dateTime, string $permalink, string $title, string $description)
+    /** @var float $value */
+    protected $value;
+
+    public function __construct(\DateTime $dateTime, string $pollutant, string $unit, int $level, float $value)
     {
         $this->dateTime = $dateTime;
-        $this->permalink = $permalink;
-        $this->title = $title;
-        $this->description = $description;
+        $this->pollutant = $pollutant;
+        $this->unit = $unit;
+        $this->level = $level;
+        $this->value = $value;
     }
 
     public function getDateTime(): \DateTime
@@ -29,18 +33,23 @@ class LuftDataModel
         return $this->dateTime;
     }
 
-    public function getTitle(): string
+    public function getPollutant(): string
     {
-        return $this->title;
+        return $this->pollutant;
     }
 
-    public function getDescription(): string
+    public function getUnit(): string
     {
-        return $this->description;
+        return $this->unit;
     }
 
-    public function getPermalink(): string
+    public function getLevel(): int
     {
-        return $this->permalink;
+        return $this->level;
+    }
+
+    public function getValue(): string
+    {
+        return $this->value;
     }
 }

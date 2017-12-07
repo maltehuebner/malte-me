@@ -155,11 +155,8 @@
     <div class="card mt-2">
         <div class="card-body text-center">
             <h4 class="card-title">
-                Luft
+                Luft in {{ getCity().name }}
             </h4>
-            <p class="card-text">
-                Luftmesswerte aus Hamburg
-            </p>
         </div>
 
         <div class="list-group list-group-flush">
@@ -180,12 +177,21 @@
                     {% set levelClass = 'list-group-item-dark' %}
                 {% endif %}
 
-                <a href="#" class="list-group-item list-group-item-action {{ levelClass }}">
+                <a href="https://luft.jetzt/{{ data.stationCode }}" class="list-group-item list-group-item-action {{ levelClass }}">
                     {{ data.pollutant }}: {{ data.value }} {{ data.unit }}
                     <br />
                     <span class="text-muted">{{ data.stationName }}</span>
                 </a>
             {% endfor %}
+        </div>
+
+        <div class="card-body text-center">
+
+            <p class="card-text">
+                <small>
+                    Daten gemessen vom Umweltbundesamt, aufbereitet von <a href="https://luft.jetzt/">Luft<sup>jetzt</sup></a>
+                </small>
+            </p>
         </div>
     </div>
 {% endif %}

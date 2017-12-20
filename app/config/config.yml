@@ -94,6 +94,10 @@ liip_imagine:
             quality: 50
             filters:
                 thumbnail: { size: [1024, 1024], mode: inset }
+        thumb:
+            quality: 30
+            filters:
+                thumbnail: { size: [640, 640], mode: inset }
         logo:
             quality: 85
             filters:

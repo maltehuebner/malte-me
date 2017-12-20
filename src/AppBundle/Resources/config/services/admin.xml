@@ -16,11 +16,6 @@
             <argument />
             <argument>AppBundle\Entity\Photo</argument>
             <argument />
-            <call method="setTemplates">
-                <argument type="collection">
-                    <argument key="outer_list_rows_mosaic">SonataAdminBundle:CRUD:list_outer_rows_mosaic.html.twig</argument>
-                </argument>
-            </call>
         </service>
 
         <service id="app.admin.user" class="AppBundle\Admin\UserAdmin">

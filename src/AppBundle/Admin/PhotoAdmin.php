@@ -3,11 +3,15 @@
 namespace AppBundle\Admin;
 
 use AppBundle\Entity\City;
+use AppBundle\Entity\Photo;
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
+use Sonata\CoreBundle\Model\Metadata;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -114,5 +118,28 @@ class PhotoAdmin extends AbstractAdmin
             ->add('displayDateTime')
             ->add('enabled')
         ;
+    }
+
+    /**
+     * @param Photo $photo
+     * @return Metadata
+     */
+    public function getObjectMetadata($photo): Metadata
+    {
+        $filename = sprintf('%s/%s', $this->getContainer()->getParameter('photos.uri_prefix'), $photo->getImageName());
+
+        $imageUrl = $this->getLiipImagineCacheManager()->getBrowserPath($filename, 'thumb');
+
+        return new Metadata($photo->getTitle(), $photo->getDescription(), $imageUrl);
+    }
+
+    protected function getLiipImagineCacheManager(): CacheManager
+    {
+        return $this->getContainer()->get('liip_imagine.cache.manager');
+    }
+
+    protected function getContainer(): ContainerInterface
+    {
+        return $this->getConfigurationPool()->getContainer();
     }
 }

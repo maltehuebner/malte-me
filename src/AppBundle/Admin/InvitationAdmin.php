@@ -55,6 +55,8 @@ class InvitationAdmin extends AbstractAdmin
 
     protected function configureListFields(ListMapper $listMapper)
     {
+        unset($this->listModes['mosaic']);
+
         $listMapper
             ->addIdentifier('code')
             ->add('topic')

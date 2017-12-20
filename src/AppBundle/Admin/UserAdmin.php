@@ -52,6 +52,8 @@ class UserAdmin extends AbstractAdmin
 
     protected function configureListFields(ListMapper $listMapper)
     {
+        unset($this->listModes['mosaic']);
+
         $listMapper
             ->addIdentifier('username')
             ->add('createdAt')

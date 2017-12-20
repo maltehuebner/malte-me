@@ -5,6 +5,7 @@
         http://symfony.com/schema/dic/services/services-1.0.xsd">
     <imports>
         <import resource="./services/widget.xml"/>
+        <import resource="./services/admin.xml"/>
     </imports>
 
     <services>

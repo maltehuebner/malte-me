@@ -11,36 +11,6 @@ services:
         class: AppBundle\UserProvider\FOSUBUserProvider
         arguments: ['@fos_user.user_manager', {facebook: facebookId, strava: stravaId, twitter: twitterId}]
 
-    admin.city:
-        class: AppBundle\Admin\CityAdmin
-        arguments: [~, AppBundle\Entity\City, ~]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: City }
-
-    admin.photo:
-        class: AppBundle\Admin\PhotoAdmin
-        arguments: [~, AppBundle\Entity\Photo, ~]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: Photo }
-
-    admin.user:
-        class: AppBundle\Admin\UserAdmin
-        arguments: [~, AppBundle\Entity\User, ~]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: User }
-
-    admin.comment:
-        class: AppBundle\Admin\CommentAdmin
-        arguments: [~, AppBundle\Entity\Comment, ~]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: Comment }
-
-    admin.invitation:
-        class: AppBundle\Admin\InvitationAdmin
-        arguments: [~, AppBundle\Entity\Invitation, ~]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: Invitation }
-
     gelf.publisher:
         class: Gelf\MessagePublisher
         arguments: ['%graylog.hostname%', '%graylog.port%']

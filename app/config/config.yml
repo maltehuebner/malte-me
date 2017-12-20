@@ -75,7 +75,7 @@ vich_uploader:
     db_driver: orm
     mappings:
         photo:
-            uri_prefix:         /photos
+            uri_prefix:         %photos.uri_prefix%
             upload_destination: %upload_destination.photo%
             namer:              vich_uploader.namer_uniqid
 

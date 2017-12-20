@@ -11,6 +11,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\CoreBundle\Model\Metadata;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -125,7 +126,7 @@ class PhotoAdmin extends AbstractAdmin
      */
     public function getObjectMetadata($photo): Metadata
     {
-        $filename = sprintf('/photos/%s', $photo->getImageName());
+        $filename = sprintf('%s/%s', $this->getContainer()->getParameter('photos.uri_prefix'), $photo->getImageName());
 
         $imageUrl = $this->getLiipImagineCacheManager()->getBrowserPath($filename, 'thumb');
 
@@ -134,6 +135,11 @@ class PhotoAdmin extends AbstractAdmin
 
     protected function getLiipImagineCacheManager(): CacheManager
     {
-        return $this->getConfigurationPool()->getContainer()->get('liip_imagine.cache.manager');
+        return $this->getContainer()->get('liip_imagine.cache.manager');
+    }
+
+    protected function getContainer(): ContainerInterface
+    {
+        return $this->getConfigurationPool()->getContainer();
     }
 }

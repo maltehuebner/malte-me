@@ -151,10 +151,9 @@ class PhotoManagementController extends AbstractController
         $imagineCache->remove($filename);
 
         $imagineController = $this->get('liip_imagine.controller');
-        $imagineController->filterAction(new Request(), $filename, 'gallery_photo_thumb');
-        $imagineController->filterAction(new Request(), $filename, 'gallery_photo_standard');
-        $imagineController->filterAction(new Request(), $filename, 'gallery_photo_large');
-        $imagineController->filterAction(new Request(), $filename, 'city_image_wide');
+        $imagineController->filterAction(new Request(), $filename, 'standard');
+        $imagineController->filterAction(new Request(), $filename, 'preview');
+        $imagineController->filterAction(new Request(), $filename, 'thumb');
     }
 
     protected function clearImageCache(Photo $photo): void

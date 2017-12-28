@@ -136,6 +136,11 @@ class Photo
     protected $imageName;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $backupName;
+
+    /**
      * @ORM\ManyToMany(targetEntity="City", mappedBy="photos")
      */
     protected $cities;
@@ -480,5 +485,17 @@ class Photo
         $this->cities->removeElement($city);
 
         return $this;
+    }
+
+    public function setBackupName(string $backupName): Photo
+    {
+        $this->backupName = $backupName;
+
+        return $this;
+    }
+
+    public function getBackupName(): string
+    {
+        return $this->backupName;
     }
 }

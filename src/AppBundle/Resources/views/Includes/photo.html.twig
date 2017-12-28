@@ -73,7 +73,7 @@
 
         {% if not embed %}
         <div class="float-right">
-            {% if true or app.user and (app.user == photo.user or is_granted('ROLE_ADMIN')) %}
+            {% if app.user and (app.user == photo.user or is_granted('ROLE_ADMIN')) %}
             <div class="dropdown" style="display: inline;">
                 <button class="btn btn-outline-secondary btn-sm dropup" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-wrench" aria-hidden="true"></i>

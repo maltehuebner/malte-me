@@ -21,6 +21,7 @@ require.config({
         'popper': '/bundles/app/js/popper/popper.min',
         'bootstrap4': '/bundles/app/js/bootstrap/bootstrap.min',
         'jasny-bootstrap': '/bundles/app/js/jasny-bootstrap/jasny-bootstrap.min',
+        'jquery-areaselect': '/bundles/app/js/jquery/jquery.areaselect.min',
         'dateformat': '/bundles/app/js/dateformat/dateformat'
     },
     shim: {

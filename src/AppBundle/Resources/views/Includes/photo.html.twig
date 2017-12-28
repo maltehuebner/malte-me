@@ -88,6 +88,10 @@
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                         Text bearbeiten
                     </a>
+                    <a class="dropdown-item" href="{{ path('censor_photo', { photoId: photo.id }) }}">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                        Zensieren
+                    </a>
                     <span class="dropdown-item" data-toggle="modal" data-target="#location-modal">
                         <i class="fa fa-map-pin" aria-hidden="true"></i>
                         Ort festlegen

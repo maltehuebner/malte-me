@@ -1,0 +1,48 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}Foto{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>
+                Foto zensieren
+            </h1>
+
+            <p class="lead">
+                Markiere mit der Maus auf dem Foto jene Bereiche, die du unkenntlich machen möchtest.
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <img id="photo" class="img-responsive" src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('preview') }}" />
+        </div>
+    </div>
+
+    <div class="row margin-top-medium">
+        <div class="col-md-12">
+            <div class="btn-group pull-right" role="group">
+                <a href="javascript:window.location=document.referrer;" class="btn btn-default">
+                    Abbrechen
+                </a>
+                <button id="save" class="btn btn-primary">
+                    Speichern
+                </button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block additionalFooterElements %}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/jquery/selectarea.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/jquery/selectarea.ie8.css') }}" />
+    <script type="text/javascript">
+        Fahrradstadt.loadModule('PhotoCensor', null, null, function (censor) {
+            censor.setPhotoId({{ photo.id }});
+            censor.init();
+        });
+    </script>
+{% endblock %}

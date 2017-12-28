@@ -16,6 +16,11 @@
         <default key="_controller">AppBundle:Photo:edit</default>
     </route>
 
+    <route id="censor_photo" path="/{photoId}/censor">
+        <default key="_controller">AppBundle:PhotoManagement:censor</default>
+        <option key="expose">true</option>
+    </route>
+
     <route id="locate_photo" path="/{photoId}/locate">
         <default key="_controller">AppBundle:Photo:locate</default>
         <option key="expose">true</option>

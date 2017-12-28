@@ -494,7 +494,7 @@ class Photo
         return $this;
     }
 
-    public function getBackupName(): string
+    public function getBackupName(): ?string
     {
         return $this->backupName;
     }

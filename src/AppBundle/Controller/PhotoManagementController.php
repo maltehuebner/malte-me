@@ -63,8 +63,7 @@ class PhotoManagementController extends AbstractController
     public function censorGetAction(Request $request, UserInterface $user, Photo $photo): Response
     {
         return $this->render(
-            'AppBundle:PhotoManagement:censor.html.twig',
-            [
+            'AppBundle:Photo:censor.html.twig', [
                 'photo' => $photo,
             ]
         );

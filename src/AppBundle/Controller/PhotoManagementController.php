@@ -3,6 +3,11 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Photo;
+use Imagine\Image\Box;
+use Imagine\Image\BoxInterface;
+use Imagine\Image\ImageInterface;
+use Imagine\Image\Point;
+use Imagine\Image\PointInterface;
 use Imagine\Imagick\Image;
 use Imagine\Imagick\Imagine;
 use Symfony\Component\HttpFoundation\Request;

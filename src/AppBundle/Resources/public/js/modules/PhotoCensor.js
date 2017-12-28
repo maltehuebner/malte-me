@@ -24,7 +24,7 @@ define(['jquery-areaselect'], function () {
             $.post(url + '?width=' + photoWidth,
                 JSON.stringify(areaData)
             ).done(function(data) {
-               // window.location=document.referrer;
+                window.location=document.referrer;
             });
         });
     };

@@ -1,7 +1,6 @@
 var Fahrradstadt = Fahrradstadt || {};
 
 Fahrradstadt.loadModule = function(name, context, options, callback) {
-    console.error(name);
     require([name], function(Module) {
         var module = new Module(context, options);
 

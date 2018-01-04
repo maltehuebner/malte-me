@@ -1,7 +1,7 @@
 var Fahrradstadt = Fahrradstadt || {};
 
 Fahrradstadt.loadModule = function(name, context, options, callback) {
-    console.debug(name);
+    console.error(name);
     require([name], function(Module) {
         var module = new Module(context, options);
 
@@ -39,10 +39,3 @@ require.config({
     }
 });
 
-define('initBootstrap', ['popper'], function(popper) {
-    // set popper as required by Bootstrap
-    window.Popper = popper;
-    require(['bootstrap4'], function(bootstrap) {
-        // do nothing - just let Bootstrap initialise itself
-    });
-});

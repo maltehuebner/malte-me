@@ -11,7 +11,7 @@ class CalendarWidgetFactory extends AbstractWidgetFactory
 {
     public function prepare(): WidgetFactoryInterface
     {
-        $feed = Reader::import('https://www.radverkehrsforum.de/calendar/index.php/CalendarFeed/');
+        $feed = Reader::import('https://radverkehrsforum.de/calendar/calendar-feed/');
 
         $calendar = new CalendarModel();
 

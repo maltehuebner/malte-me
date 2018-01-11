@@ -168,7 +168,7 @@ fos_elastica:
             finder:
             types:
                 photo:
-                    mappings:
+                    properties:
                         id: ~
                         title: ~
                         description: ~

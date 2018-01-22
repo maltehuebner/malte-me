@@ -1,0 +1,24 @@
+{% if getCity().criticalmassTitle and getCity().criticalmassCitySlug and criticalmass is defined %}
+    <div id="criticalmass-card" class="card mt-2">
+        <div class="card-body">
+            <h5 class="card-title text-center">
+                {{ getCity().criticalmassTitle }}
+            </h5>
+
+            <p>
+                Die nächste Tour ist am <strong>{{ criticalmass.dateTime|date('d.m.Y') }}</strong>:
+            </p>
+            <p>
+                Treffpunkt: {{ criticalmass.location }}
+                <br />
+                Uhrzeit: {{ criticalmass.dateTime|date('H:i', 'Europe/Berlin') }} Uhr
+            </p>
+
+            <p class="text-center">
+                <a class="btn btn-primary" href="https://criticalmass.in/{{ criticalmass.citySlug }}/{{ criticalmass.dateTime|date('Y-m-d') }}">
+                    mehr erfahren
+                </a>
+            </p>
+        </div>
+    </div>
+{% endif %}

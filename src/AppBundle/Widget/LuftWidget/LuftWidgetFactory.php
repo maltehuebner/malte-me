@@ -15,11 +15,13 @@ class LuftWidgetFactory extends AbstractWidgetFactory
 
         /** @var City $city */
         foreach ($cities as $city) {
-            $luftData = $this->fetchLuft($city);
+            if ($city->getLatitude() && $city->getLongitude()) {
+                $luftData = $this->fetchLuft($city);
 
-            $luftModel = $this->createLuftModel($city, $luftData);
+                $luftModel = $this->createLuftModel($city, $luftData);
 
-            $this->cacheData($luftModel);
+                $this->cacheData($luftModel);
+            }
         }
 
         return $this;

@@ -11,7 +11,7 @@ class CalendarWidgetFactory extends AbstractWidgetFactory
 {
     public function prepare(): WidgetFactoryInterface
     {
-        $feed = Reader::import('https://www.radverkehrsforum.de/calendar/index.php/CalendarFeed/');
+        $feed = Reader::import('https://radverkehrsforum.de/calendar/calendar-feed/');
 
         $calendar = new CalendarModel();
 
@@ -64,7 +64,7 @@ class CalendarWidgetFactory extends AbstractWidgetFactory
 
         $timeString = sprintf('%d-%d-%d %d:%d', $matches[4], $this->getMonthNumber($matches[3]), $matches[2], $matches[5], $matches[6]);
 
-        $dateTime = new \DateTime($timeString);
+        $dateTime = new \DateTime($timeString, new \DateTimeZone('Europe/Berlin'));
 
         return $dateTime;
     }

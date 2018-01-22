@@ -103,7 +103,7 @@ class PhotoManagementController extends AbstractController
     {
         $blurImage = $image->copy();
 
-        $pixelateDimension = $dimension->scale(0.05);
+        $pixelateDimension = $dimension->scale(0.025);
 
         $blurImage
             ->crop($topLeftPoint, $dimension)

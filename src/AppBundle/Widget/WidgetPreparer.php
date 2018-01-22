@@ -2,13 +2,21 @@
 
 namespace AppBundle\Widget;
 
+use Psr\Log\LoggerInterface;
+
 class WidgetPreparer
 {
+    /** @var array $widgetList */
     protected $widgetList = [];
 
-    public function addWidgetFactory(WidgetFactoryInterface $widgetFactory): WidgetPreparer
+    /** @var LoggerInterface $logger */
+    protected $logger;
+
+    public function addWidgetFactory(WidgetFactoryInterface $widgetFactory, LoggerInterface $logger): WidgetPreparer
     {
         $this->widgetList[] = $widgetFactory;
+
+        $this->logger = $logger;
 
         return $this;
     }
@@ -17,7 +25,11 @@ class WidgetPreparer
     {
         /** @var WidgetFactoryInterface $widgetFactory */
         foreach ($this->widgetList as $widgetFactory) {
-            $widgetFactory->prepare();
+            try {
+                $widgetFactory->prepare();
+            } catch (\Exception $exception) {
+                $this->logger->critical($exception->getMessage());
+            }
         }
 
         return $this;

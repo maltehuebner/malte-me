@@ -218,7 +218,12 @@
             </li>
 
             <li class="list-group-item">
-                Temperatur: {{ weather.temperaturMin }} bis {{ weather.temperaturMax }} Grad Celsius
+                Temperatur:
+                {% if weather.temperaturMin == weather.temperaturMax %}
+                    {{ weather.temperaturMin }} °C
+                {% else %}
+                    {{ weather.temperaturMin }} bis {{ weather.temperaturMax }} °C
+                {% endif %}
             </li>
         </ul>
         <div class="card-body text-center">

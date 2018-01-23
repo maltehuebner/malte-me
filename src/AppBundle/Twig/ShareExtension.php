@@ -3,6 +3,7 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Entity\City;
+use AppBundle\Entity\Photo;
 use AppBundle\Markdown\FahrradstadtMarkdown;
 use AppBundle\Seo\SeoPage;
 use AppBundle\Share\SocialSharer;
@@ -14,6 +15,7 @@ class ShareExtension extends \Twig_Extension
 {
     /** @var SocialSharer $sharer */
     protected $sharer;
+
     public function __construct(SocialSharer $sharer)
     {
         $this->sharer = $sharer;
@@ -22,13 +24,15 @@ class ShareExtension extends \Twig_Extension
     public function getFunctions(): array
     {
         return [
-            new \Twig_Function('share', [$this, 'share']),
+            new \Twig_Function('shareUrl', [$this, 'shareUrl']),
+            new \Twig_Function('shareLink', [$this, 'shareLink']),
+            new \Twig_Function('shareButton', [$this, 'shareButton']),
         ];
     }
 
-    public function share()
+    public function shareUrl(Photo $photo, string $network): string
     {
-        echo "FOO";
+        return $this->sharer->createUrlForPhoto($photo, $network);
     }
 
     public function getName(): string

@@ -35,6 +35,20 @@ class ShareExtension extends \Twig_Extension
         return $this->sharer->createUrlForPhoto($photo, $network);
     }
 
+    public function shareLink(Photo $photo, string $network, string $caption, array $class = []): string
+    {
+        $link = '<a href="%" class="%s">%s</a>';
+
+        $class = array_merge($class, ['share']);
+
+        return sprintf($link, $this->shareUrl($photo, $network), implode(' ', $class), $caption);
+    }
+
+    public function shareButton(Photo $photo, string $network, string $caption, array $class = []): string
+    {
+        return $this->shareLink($photo, $network, $caption, $class);
+    }
+
     public function getName(): string
     {
         return 'share_extension';

@@ -3,6 +3,7 @@
 namespace AppBundle\Share\Network;
 
 use AppBundle\Entity\Photo;
+use Symfony\Bundle\FrameworkBundle\Routing\Router;
 
 abstract class AbstractShareNetwork implements ShareNetworkInterface
 {
@@ -12,9 +13,13 @@ abstract class AbstractShareNetwork implements ShareNetworkInterface
 
     protected $backgroundColor;
 
-    public function __construct()
-    {
+    protected $textColor;
 
+    protected $router;
+
+    public function __construct(Router $router)
+    {
+        $this->router = $router;
     }
 
     public function getIdentifier(): string
@@ -30,6 +35,6 @@ abstract class AbstractShareNetwork implements ShareNetworkInterface
 
     public function createUrlForPhoto(Photo $photo): string
     {
-        return 'https://www.facebook.com/sharer.php?u=https%3A%2F%2Fradverkehrsforum.de%2Fforum%2Fthread%2F1249-btw-2017-sondierungsergebnisse%2F&t=BTW%202017%3A%20Sondierungsergebnisse%20-%20Radverkehrsforum%20https%3A%2F%2Fradverkehrsforum.de%2Fforum%2Fthread%2F1249-btw-2017-sondierungsergebnisse%2F';
+        return '';
     }
 }

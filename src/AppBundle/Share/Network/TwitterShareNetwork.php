@@ -16,8 +16,8 @@ class TwitterShareNetwork extends AbstractShareNetwork
 
     public function createUrlForPhoto(Photo $photo): string
     {
-        $twitterShareUrl = 'https://twitter.com/intent/tweet?text=%s&url=%s';
+        $twitterShareUrl = 'https://twitter.com/share?url=%s&text=%s';
 
-        return sprintf($twitterShareUrl, urlencode($photo->getTitle()), urlencode($this->getPhotoUrl($photo)));
+        return sprintf($twitterShareUrl, urlencode($this->getPhotoUrl($photo)), urlencode($photo->getTitle()));
     }
 }

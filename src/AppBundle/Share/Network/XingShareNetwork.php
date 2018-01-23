@@ -16,7 +16,7 @@ class XingShareNetwork extends AbstractShareNetwork
 
     public function createUrlForPhoto(Photo $photo): string
     {
-        $xingShareUrl = 'https://www.xing.com/spi/shares/new?&url=%s';
+        $xingShareUrl = 'https://www.xing.com/social_plugins/share?&url=%s';
 
         return sprintf($xingShareUrl, urlencode($this->getPhotoUrl($photo)));
     }

@@ -5,6 +5,8 @@
         http://symfony.com/schema/dic/services/services-1.0.xsd">
     <imports>
         <import resource="./services/admin.xml"/>
+        <import resource="./services/share.xml"/>
+        <import resource="./services/share_network.xml"/>
         <import resource="./services/twig.xml"/>
         <import resource="./services/widget.xml"/>
     </imports>

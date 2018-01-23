@@ -2,6 +2,7 @@
 
 namespace AppBundle;
 
+use AppBundle\DependencyInjection\Compiler\ShareNetworkPass;
 use AppBundle\DependencyInjection\Compiler\WidgetPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -13,5 +14,6 @@ class AppBundle extends Bundle
         parent::build($container);
 
         $container->addCompilerPass(new WidgetPass());
+        $container->addCompilerPass(new ShareNetworkPass());
     }
 }

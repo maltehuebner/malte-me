@@ -106,15 +106,8 @@
                 </button>
 
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="{{ shareUrl(photo, 'twitter') }}">
-                        <i class="fa fa-twitter" aria-hidden="true"></i>
-                        twitter
-                    </a>
-
-                    <a class="dropdown-item" href="{{ shareUrl(photo, 'facebook') }}">
-                        <i class="fa fa-facebook" aria-hidden="true"></i>
-                        facebook
-                    </a>
+                    {{ shareButton(photo, 'twitter', ['dropdown-item']) }}
+                    {{ shareButton(photo, 'facebook', ['dropdown-item']) }}
                 </div>
             </div>
 

@@ -6,6 +6,14 @@ use AppBundle\Entity\Photo;
 
 class FacebookShareNetwork extends AbstractShareNetwork
 {
+    protected $name = 'facebook';
+
+    protected $icon = 'facebook';
+
+    protected $backgroundColor = 'rgb(59, 90, 153)';
+
+    protected $textColor = 'white';
+
     public function createUrlForPhoto(Photo $photo): string
     {
         $facebookShareUrl = 'https://www.facebook.com/sharer.php?u=%s&t=%s';

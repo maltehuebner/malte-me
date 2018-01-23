@@ -25,8 +25,8 @@ class ShareExtension extends \Twig_Extension
     {
         return [
             new \Twig_Function('shareUrl', [$this, 'shareUrl']),
-            new \Twig_Function('shareLink', [$this, 'shareLink']),
-            new \Twig_Function('shareButton', [$this, 'shareButton']),
+            new \Twig_Function('shareLink', [$this, 'shareLink'], ['is_safe' => ['html']]),
+            new \Twig_Function('shareButton', [$this, 'shareButton'], ['is_safe' => ['html']]),
         ];
     }
 
@@ -44,9 +44,20 @@ class ShareExtension extends \Twig_Extension
         return sprintf($link, $this->shareUrl($photo, $network), implode(' ', $class), $caption);
     }
 
-    public function shareButton(Photo $photo, string $network, string $caption, array $class = []): string
+    public function shareButton(Photo $photo, string $network, array $class = []): string
     {
-        return $this->shareLink($photo, $network, $caption, $class);
+        $shareNetwork = $this->sharer->getNetwork($network);
+
+        $class = array_merge($class, ['share', 'btn', 'btn-primary']);
+
+        $style = [
+            'background-color: '.$shareNetwork->getBackgroundColor().';',
+            'color: '.$shareNetwork->getTextColor().';',
+        ];
+
+        $link = '<a href="%s" class="%s" style="%s"><i class="fa %s" aria-hidden="true"></i> %s</a>';
+
+        return sprintf($link, $this->shareUrl($photo, $network), implode(' ', $class), implode(' ', $style), $shareNetwork->getIcon(), $shareNetwork->getName());
     }
 
     public function getName(): string

@@ -10,7 +10,7 @@ abstract class AbstractShareNetwork implements ShareNetworkInterface
 {
     protected $name;
 
-    protected $faIcon;
+    protected $icon;
 
     protected $backgroundColor;
 
@@ -44,5 +44,25 @@ abstract class AbstractShareNetwork implements ShareNetworkInterface
     public function createUrlForPhoto(Photo $photo): string
     {
         return '';
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getIcon(): string
+    {
+        return $this->icon;
+    }
+
+    public function getBackgroundColor(): string
+    {
+        return $this->backgroundColor;
+    }
+
+    public function getTextColor(): string
+    {
+        return $this->textColor;
     }
 }

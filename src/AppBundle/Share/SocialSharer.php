@@ -20,4 +20,13 @@ class SocialSharer
     {
         return $this->shareNetworkList[$network]->createUrlForPhoto($photo);
     }
+
+    public function getNetwork(string $identifier): ShareNetworkInterface
+    {
+        if (array_key_exists($identifier, $this->shareNetworkList)) {
+            return $this->shareNetworkList[$identifier];
+        }
+
+        throw new \Exception();
+    }
 }

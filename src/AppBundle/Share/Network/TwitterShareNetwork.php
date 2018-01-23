@@ -8,7 +8,7 @@ class TwitterShareNetwork extends AbstractShareNetwork
 {
     protected $name = 'twitter';
 
-    protected $icon = 'twitter';
+    protected $icon = 'fa-twitter';
 
     protected $backgroundColor = 'rgb(85, 172, 238)';
 

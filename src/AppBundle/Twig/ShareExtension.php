@@ -48,7 +48,7 @@ class ShareExtension extends \Twig_Extension
     {
         $shareNetwork = $this->sharer->getNetwork($network);
 
-        $class = array_merge($class, ['share', 'btn', 'btn-primary']);
+        $class = array_merge($class, ['share', 'btn']);
 
         $style = [
             'background-color: '.$shareNetwork->getBackgroundColor().';',

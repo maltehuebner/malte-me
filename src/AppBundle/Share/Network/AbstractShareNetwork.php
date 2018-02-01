@@ -2,11 +2,8 @@
 
 namespace AppBundle\Share\Network;
 
-use AppBundle\Share\Annotation\Route;
-use AppBundle\Share\Annotation\RouteParameter;
+use AppBundle\Share\Metadata\Metadata;
 use AppBundle\Share\ShareableInterface\Shareable;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Routing\RouterInterface;
 
 abstract class AbstractShareNetwork implements ShareNetworkInterface
@@ -19,14 +16,11 @@ abstract class AbstractShareNetwork implements ShareNetworkInterface
 
     protected $textColor;
 
-    protected $router;
+    protected $metadata;
 
-    protected $annotationReader;
-
-    public function __construct(Router $router, AnnotationReader $annotationReader)
+    public function __construct(Metadata $metadata)
     {
-        $this->router = $router;
-        $this->annotationReader = $annotationReader;
+        $this->metadata = $metadata;
     }
 
     public function getIdentifier(): string
@@ -42,7 +36,7 @@ abstract class AbstractShareNetwork implements ShareNetworkInterface
 
     protected function getShareUrl(Shareable $shareable): string
     {
-        $shareableUrl = $this->router->generate($this->getRouteName($shareable), $this->getRouteParameter($shareable), RouterInterface::ABSOLUTE_URL);
+        $shareableUrl = $this->metadata->getShareUrl($shareable);
 
         return str_replace('http://', 'https://', $shareableUrl);
     }
@@ -70,39 +64,5 @@ abstract class AbstractShareNetwork implements ShareNetworkInterface
     public function getTextColor(): string
     {
         return $this->textColor;
-    }
-
-    protected function getRouteName(Shareable $shareable): string
-    {
-        $reflectionClass = new \ReflectionClass($shareable);
-        $routeAnnotation = $this->annotationReader->getClassAnnotation($reflectionClass, Route::class);
-
-        return $routeAnnotation->getRoute();
-    }
-
-    protected function getRouteParameter(Shareable $shareable): array
-    {
-        $parameter = [];
-
-        $reflectionClass = new \ReflectionClass($shareable);
-        $properties = $reflectionClass->getProperties();
-
-        foreach ($properties as $key => $property) {
-            $parameterAnnotation = $this->annotationReader->getPropertyAnnotation($property, RouteParameter::class);
-
-            if ($parameterAnnotation) {
-                $getMethodName = sprintf('get%s', ucfirst($property->getName()));
-
-                if (!$reflectionClass->hasMethod($getMethodName)) {
-                    continue;
-                }
-
-                $value = $shareable->$getMethodName();
-
-                $parameter[$parameterAnnotation->getName()] = $value;
-            }
-        }
-
-        return $parameter;
     }
 }

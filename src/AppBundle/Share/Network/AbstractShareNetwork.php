@@ -3,6 +3,8 @@
 namespace AppBundle\Share\Network;
 
 use AppBundle\Entity\Photo;
+use AppBundle\Share\Annotation\Shareable;
+use Doctrine\Common\Annotations\AnnotationReader;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -18,9 +20,12 @@ abstract class AbstractShareNetwork implements ShareNetworkInterface
 
     protected $router;
 
-    public function __construct(Router $router)
+    protected $annotationReader;
+
+    public function __construct(Router $router, AnnotationReader $annotationReader)
     {
         $this->router = $router;
+        $this->annotationReader = $annotationReader;
     }
 
     public function getIdentifier(): string
@@ -36,7 +41,10 @@ abstract class AbstractShareNetwork implements ShareNetworkInterface
 
     protected function getPhotoUrl(Photo $photo): string
     {
-        $photoUrl = $this->router->generate('show_photo', ['slug' => $photo->getSlug()], RouterInterface::ABSOLUTE_URL);
+        $reflectionClass = new \ReflectionClass($photo);
+        $annotation = $this->annotationReader->getClassAnnotation($reflectionClass, Shareable::class);
+
+        $photoUrl = $this->router->generate($annotation->getRoute(), ['slug' => $photo->getSlug()], RouterInterface::ABSOLUTE_URL);
 
         return str_replace('http://', 'https://', $photoUrl);
     }

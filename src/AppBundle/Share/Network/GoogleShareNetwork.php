@@ -21,4 +21,3 @@ class GoogleShareNetwork extends AbstractShareNetwork
         return sprintf($googleShareUrl, urlencode($this->getShareUrl($shareable)));
     }
 }
-

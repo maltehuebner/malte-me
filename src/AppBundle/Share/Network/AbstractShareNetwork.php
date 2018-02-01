@@ -4,18 +4,22 @@ namespace AppBundle\Share\Network;
 
 use AppBundle\Share\Metadata\Metadata;
 use AppBundle\Share\ShareableInterface\Shareable;
-use Symfony\Component\Routing\RouterInterface;
 
 abstract class AbstractShareNetwork implements ShareNetworkInterface
 {
+    /** @var string $name */
     protected $name;
 
+    /** @var string $icon */
     protected $icon;
 
+    /** @var string $backgroundColor */
     protected $backgroundColor;
 
+    /** @var string $textColor */
     protected $textColor;
 
+    /** @var Metadata $metadata */
     protected $metadata;
 
     public function __construct(Metadata $metadata)

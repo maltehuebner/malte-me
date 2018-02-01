@@ -106,15 +106,18 @@
                 </button>
 
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    {{ shareButton(photo, 'mail', ['dropdown-item']) }}
-                    {{ shareButton(photo, 'twitter', ['dropdown-item']) }}
-                    {{ shareButton(photo, 'facebook', ['dropdown-item']) }}
-                    {{ shareButton(photo, 'google', ['dropdown-item']) }}
-                    {{ shareButton(photo, 'xing', ['dropdown-item']) }}
-                    {{ shareButton(photo, 'linkedin', ['dropdown-item']) }}
-                    {{ shareButton(photo, 'whatsapp', ['dropdown-item']) }}
-                    {{ shareButton(photo, 'pinterest', ['dropdown-item']) }}
-                    {{ shareButton(photo, 'reddit', ['dropdown-item']) }}
+                    <h6 class="dropdown-header">
+                        Dieses Foto teilen per:
+                    </h6>
+                    {{ shareDropdownLink(photo, 'mail', ['dropdown-item']) }}
+                    {{ shareDropdownLink(photo, 'twitter', ['dropdown-item']) }}
+                    {{ shareDropdownLink(photo, 'facebook', ['dropdown-item']) }}
+                    {{ shareDropdownLink(photo, 'google', ['dropdown-item']) }}
+                    {{ shareDropdownLink(photo, 'xing', ['dropdown-item']) }}
+                    {{ shareDropdownLink(photo, 'linkedin', ['dropdown-item']) }}
+                    {{ shareDropdownLink(photo, 'whatsapp', ['dropdown-item']) }}
+                    {{ shareDropdownLink(photo, 'pinterest', ['dropdown-item']) }}
+                    {{ shareDropdownLink(photo, 'reddit', ['dropdown-item']) }}
                 </div>
             </div>
 

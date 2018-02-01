@@ -26,7 +26,7 @@ class ShareExtension extends \Twig_Extension
         return [
             new \Twig_Function('shareUrl', [$this, 'shareUrl']),
             new \Twig_Function('shareLink', [$this, 'shareLink'], ['is_safe' => ['html']]),
-            new \Twig_Function('shareButton', [$this, 'shareButton'], ['is_safe' => ['html']]),
+            new \Twig_Function('shareDropdownLink', [$this, 'shareDropdownLink'], ['is_safe' => ['html']]),
         ];
     }
 
@@ -44,11 +44,11 @@ class ShareExtension extends \Twig_Extension
         return sprintf($link, $this->shareUrl($photo, $network), implode(' ', $class), $caption);
     }
 
-    public function shareButton(Photo $photo, string $network, array $class = []): string
+    public function shareDropdownLink(Photo $photo, string $network, array $class = []): string
     {
         $shareNetwork = $this->sharer->getNetwork($network);
 
-        $class = array_merge($class, ['share', 'btn']);
+        $class = array_merge($class, ['share']);
 
         $style = [
             'background-color: '.$shareNetwork->getBackgroundColor().';',

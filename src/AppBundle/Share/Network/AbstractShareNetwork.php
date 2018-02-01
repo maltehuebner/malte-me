@@ -6,7 +6,6 @@ use AppBundle\Entity\Photo;
 use AppBundle\Share\Annotation\Route;
 use AppBundle\Share\Annotation\RouteParameter;
 use Doctrine\Common\Annotations\AnnotationReader;
-use Metadata\Driver\DriverChain;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -43,10 +42,7 @@ abstract class AbstractShareNetwork implements ShareNetworkInterface
 
     protected function getPhotoUrl(Photo $photo): string
     {
-        $reflectionClass = new \ReflectionClass($photo);
-        $routeAnnotation = $this->annotationReader->getClassAnnotation($reflectionClass, Route::class);
-
-        $photoUrl = $this->router->generate($routeAnnotation->getRoute(), $this->getRouteParameter($photo), RouterInterface::ABSOLUTE_URL);
+        $photoUrl = $this->router->generate($this->getRouteName($photo), $this->getRouteParameter($photo), RouterInterface::ABSOLUTE_URL);
 
         return str_replace('http://', 'https://', $photoUrl);
     }
@@ -74,6 +70,14 @@ abstract class AbstractShareNetwork implements ShareNetworkInterface
     public function getTextColor(): string
     {
         return $this->textColor;
+    }
+
+    protected function getRouteName(Photo $photo): string
+    {
+        $reflectionClass = new \ReflectionClass($photo);
+        $routeAnnotation = $this->annotationReader->getClassAnnotation($reflectionClass, Route::class);
+
+        return $routeAnnotation->getRoute();
     }
 
     protected function getRouteParameter(Photo $photo): array

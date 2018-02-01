@@ -7,20 +7,27 @@ use AppBundle\Share\Annotation\Route;
 use AppBundle\Share\Annotation\RouteParameter;
 use AppBundle\Share\Annotation\Title;
 use AppBundle\Share\ShareableInterface\Shareable;
+use Caldera\YourlsApiManager\YourlsApiManager;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Routing\RouterInterface;
 
 class Metadata
 {
+    /** @var Router $router */
     protected $router;
 
+    /** @var AnnotationReader $annotationReader */
     protected $annotationReader;
 
-    public function __construct(Router $router, AnnotationReader $annotationReader)
+    /** @var YourlsApiManager $yourlsApiManager */
+    protected $yourlsApiManager;
+
+    public function __construct(Router $router, AnnotationReader $annotationReader, YourlsApiManager $yourlsApiManager)
     {
         $this->router = $router;
         $this->annotationReader = $annotationReader;
+        $this->yourlsApiManager = $yourlsApiManager;
     }
 
     public function getShareUrl(Shareable $shareable): string

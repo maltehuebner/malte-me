@@ -9,6 +9,7 @@
         <import resource="./services/share_network.xml"/>
         <import resource="./services/twig.xml"/>
         <import resource="./services/widget.xml"/>
+        <import resource="./services/yourls.xml"/>
     </imports>
 
     <services>

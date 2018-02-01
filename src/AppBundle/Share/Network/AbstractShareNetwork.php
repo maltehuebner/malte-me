@@ -57,6 +57,7 @@ abstract class AbstractShareNetwork implements ShareNetworkInterface
 
     public function createShareUrl(Shareable $shareable): string
     {
+
         return '';
     }
 

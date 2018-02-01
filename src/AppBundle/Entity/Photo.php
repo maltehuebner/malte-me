@@ -71,6 +71,7 @@ class Photo implements Shareable
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Sharing\Title()
      */
     protected $title;
 

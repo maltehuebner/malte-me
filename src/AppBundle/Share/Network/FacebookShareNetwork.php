@@ -18,6 +18,6 @@ class FacebookShareNetwork extends AbstractShareNetwork
     {
         $facebookShareUrl = 'https://www.facebook.com/sharer.php?u=%s&t=%s';
 
-        return sprintf($facebookShareUrl, urlencode($this->getShareUrl($shareable)), urlencode($shareable->getTitle()));
+        return sprintf($facebookShareUrl, urlencode($this->getShareUrl($shareable)), urlencode($this->getShareTitle($shareable)));
     }
 }

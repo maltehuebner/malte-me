@@ -41,6 +41,11 @@ abstract class AbstractShareNetwork implements ShareNetworkInterface
         return str_replace('http://', 'https://', $shareableUrl);
     }
 
+    protected function getShareTitle(Shareable $shareable): ?string
+    {
+        return $this->metadata->getShareTitle($shareable);
+    }
+
     public function createShareUrl(Shareable $shareable): string
     {
         return '';

@@ -18,7 +18,7 @@ class WhatsappShareNetwork extends AbstractShareNetwork
     {
         $whatsappShareUrl = 'whatsapp://send?text=%s';
 
-        $text = sprintf('%s%20%s', $this->getShareUrl($shareable), $shareable->getTitle());
+        $text = sprintf('%s%20%s', $this->getShareUrl($shareable), $this->getShareTitle($shareable));
 
         return sprintf($whatsappShareUrl, $text);
     }

@@ -20,6 +20,6 @@ class MailShareNetwork extends AbstractShareNetwork
 
         $body = sprintf('%s: %s', $shareable->getDescription(), $this->getShareUrl($shareable));
 
-        return sprintf($mailShareUrl, urlencode($shareable->getTitle()), $body);
+        return sprintf($mailShareUrl, urlencode($this->getShareTitle($shareable)), $body);
     }
 }

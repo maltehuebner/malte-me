@@ -4,6 +4,7 @@ namespace AppBundle\Share\Metadata;
 
 use AppBundle\Share\Annotation\Route;
 use AppBundle\Share\Annotation\RouteParameter;
+use AppBundle\Share\Annotation\Title;
 use AppBundle\Share\ShareableInterface\Shareable;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
@@ -23,7 +24,11 @@ class Metadata
 
     public function getShareUrl(Shareable $shareable): string
     {
-        return $this->router->generate($this->getRouteName($shareable), $this->getRouteParameter($shareable), RouterInterface::ABSOLUTE_URL);
+        return $this->router->generate(
+            $this->getRouteName($shareable),
+            $this->getRouteParameter($shareable),
+            RouterInterface::ABSOLUTE_URL
+        );
     }
 
     protected function getRouteName(Shareable $shareable): string
@@ -58,5 +63,27 @@ class Metadata
         }
 
         return $parameter;
+    }
+
+    public function getShareTitle(Shareable $shareable): ?string
+    {
+        $reflectionClass = new \ReflectionClass($shareable);
+        $properties = $reflectionClass->getProperties();
+
+        foreach ($properties as $key => $property) {
+            $titleAnnotation = $this->annotationReader->getPropertyAnnotation($property, Title::class);
+
+            if ($titleAnnotation) {
+                $getMethodName = sprintf('get%s', ucfirst($property->getName()));
+
+                if (!$reflectionClass->hasMethod($getMethodName)) {
+                    continue;
+                }
+
+                return $shareable->$getMethodName();
+            }
+        }
+
+        return null;
     }
 }

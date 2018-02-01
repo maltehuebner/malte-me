@@ -18,6 +18,6 @@ class TwitterShareNetwork extends AbstractShareNetwork
     {
         $twitterShareUrl = 'https://twitter.com/share?url=%s&text=%s';
 
-        return sprintf($twitterShareUrl, urlencode($this->getShareUrl($shareable)), urlencode($shareable->getTitle()));
+        return sprintf($twitterShareUrl, urlencode($this->getShareUrl($shareable)), urlencode($this->getShareTitle($shareable)));
     }
 }

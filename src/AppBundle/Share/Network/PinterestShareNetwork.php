@@ -18,6 +18,6 @@ class PinterestShareNetwork extends AbstractShareNetwork
     {
         $pinterestShareUrl = 'https://www.pinterest.com/pin/create/link?url=%s&description=%s';
 
-        return sprintf($pinterestShareUrl, urlencode($this->getShareUrl($shareable)), urlencode($shareable->getTitle()));
+        return sprintf($pinterestShareUrl, urlencode($this->getShareUrl($shareable)), urlencode($this->getShareTitle($shareable)));
     }
 }

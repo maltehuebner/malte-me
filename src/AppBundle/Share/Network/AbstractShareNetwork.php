@@ -3,8 +3,10 @@
 namespace AppBundle\Share\Network;
 
 use AppBundle\Entity\Photo;
-use AppBundle\Share\Annotation\Shareable;
+use AppBundle\Share\Annotation\Route;
+use AppBundle\Share\Annotation\RouteParameter;
 use Doctrine\Common\Annotations\AnnotationReader;
+use Metadata\Driver\DriverChain;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -42,9 +44,9 @@ abstract class AbstractShareNetwork implements ShareNetworkInterface
     protected function getPhotoUrl(Photo $photo): string
     {
         $reflectionClass = new \ReflectionClass($photo);
-        $annotation = $this->annotationReader->getClassAnnotation($reflectionClass, Shareable::class);
+        $routeAnnotation = $this->annotationReader->getClassAnnotation($reflectionClass, Route::class);
 
-        $photoUrl = $this->router->generate($annotation->getRoute(), ['slug' => $photo->getSlug()], RouterInterface::ABSOLUTE_URL);
+        $photoUrl = $this->router->generate($routeAnnotation->getRoute(), $this->getRouteParameter($photo), RouterInterface::ABSOLUTE_URL);
 
         return str_replace('http://', 'https://', $photoUrl);
     }
@@ -72,5 +74,31 @@ abstract class AbstractShareNetwork implements ShareNetworkInterface
     public function getTextColor(): string
     {
         return $this->textColor;
+    }
+
+    protected function getRouteParameter(Photo $photo): array
+    {
+        $parameter = [];
+
+        $reflectionClass = new \ReflectionClass($photo);
+        $properties = $reflectionClass->getProperties();
+
+        foreach ($properties as $key => $property) {
+            $parameterAnnotation = $this->annotationReader->getPropertyAnnotation($property, RouteParameter::class);
+
+            if ($parameterAnnotation) {
+                $getMethodName = sprintf('get%s', ucfirst($property->getName()));
+
+                if (!$reflectionClass->hasMethod($getMethodName)) {
+                    continue;
+                }
+
+                $value = $photo->$getMethodName();
+
+                $parameter[$parameterAnnotation->getName()] = $value;
+            }
+        }
+
+        return $parameter;
     }
 }

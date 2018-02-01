@@ -2,13 +2,8 @@
 
 namespace AppBundle\Share\Annotation;
 
-/**
- * @Annotation
- */
-class Shareable
+abstract class AbstractAnnotation
 {
-    protected $route;
-
     public function __construct($options)
     {
         foreach ($options as $key => $value) {
@@ -18,10 +13,5 @@ class Shareable
 
             $this->$key = $value;
         }
-    }
-
-    public function getRoute(): ?string
-    {
-        return $this->route;
     }
 }

@@ -2,9 +2,9 @@
 
 namespace AppBundle\Share\Network;
 
-use AppBundle\Entity\Photo;
 use AppBundle\Share\Annotation\Route;
 use AppBundle\Share\Annotation\RouteParameter;
+use AppBundle\Share\ShareableInterface\Shareable;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Routing\RouterInterface;
@@ -40,14 +40,14 @@ abstract class AbstractShareNetwork implements ShareNetworkInterface
         return $identifier;
     }
 
-    protected function getPhotoUrl(Photo $photo): string
+    protected function getShareUrl(Shareable $shareable): string
     {
-        $photoUrl = $this->router->generate($this->getRouteName($photo), $this->getRouteParameter($photo), RouterInterface::ABSOLUTE_URL);
+        $shareableUrl = $this->router->generate($this->getRouteName($shareable), $this->getRouteParameter($shareable), RouterInterface::ABSOLUTE_URL);
 
-        return str_replace('http://', 'https://', $photoUrl);
+        return str_replace('http://', 'https://', $shareableUrl);
     }
 
-    public function createUrlForPhoto(Photo $photo): string
+    public function createShareUrl(Shareable $shareable): string
     {
         return '';
     }
@@ -72,19 +72,19 @@ abstract class AbstractShareNetwork implements ShareNetworkInterface
         return $this->textColor;
     }
 
-    protected function getRouteName(Photo $photo): string
+    protected function getRouteName(Shareable $shareable): string
     {
-        $reflectionClass = new \ReflectionClass($photo);
+        $reflectionClass = new \ReflectionClass($shareable);
         $routeAnnotation = $this->annotationReader->getClassAnnotation($reflectionClass, Route::class);
 
         return $routeAnnotation->getRoute();
     }
 
-    protected function getRouteParameter(Photo $photo): array
+    protected function getRouteParameter(Shareable $shareable): array
     {
         $parameter = [];
 
-        $reflectionClass = new \ReflectionClass($photo);
+        $reflectionClass = new \ReflectionClass($shareable);
         $properties = $reflectionClass->getProperties();
 
         foreach ($properties as $key => $property) {
@@ -97,7 +97,7 @@ abstract class AbstractShareNetwork implements ShareNetworkInterface
                     continue;
                 }
 
-                $value = $photo->$getMethodName();
+                $value = $shareable->$getMethodName();
 
                 $parameter[$parameterAnnotation->getName()] = $value;
             }

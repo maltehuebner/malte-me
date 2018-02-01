@@ -2,7 +2,7 @@
 
 namespace AppBundle\Share\Network;
 
-use AppBundle\Entity\Photo;
+use AppBundle\Share\ShareableInterface\Shareable;
 
 class GoogleShareNetwork extends AbstractShareNetwork
 {
@@ -14,11 +14,11 @@ class GoogleShareNetwork extends AbstractShareNetwork
 
     protected $textColor = 'white';
 
-    public function createUrlForPhoto(Photo $photo): string
+    public function createUrlForShareable(Shareable $shareable): string
     {
         $googleShareUrl = 'https://plus.google.com/share?url=%s';
 
-        return sprintf($googleShareUrl, urlencode($this->getPhotoUrl($photo)));
+        return sprintf($googleShareUrl, urlencode($this->getShareUrl($shareable)));
     }
 }
 

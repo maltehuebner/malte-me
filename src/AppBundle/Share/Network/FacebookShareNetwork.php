@@ -2,7 +2,7 @@
 
 namespace AppBundle\Share\Network;
 
-use AppBundle\Entity\Photo;
+use AppBundle\Share\ShareableInterface\Shareable;
 
 class FacebookShareNetwork extends AbstractShareNetwork
 {
@@ -14,10 +14,10 @@ class FacebookShareNetwork extends AbstractShareNetwork
 
     protected $textColor = 'white';
 
-    public function createUrlForPhoto(Photo $photo): string
+    public function createUrlForShareable(Shareable $shareable): string
     {
         $facebookShareUrl = 'https://www.facebook.com/sharer.php?u=%s&t=%s';
 
-        return sprintf($facebookShareUrl, urlencode($this->getPhotoUrl($photo)), urlencode($photo->getTitle()));
+        return sprintf($facebookShareUrl, urlencode($this->getShareUrl($shareable)), urlencode($shareable->getTitle()));
     }
 }

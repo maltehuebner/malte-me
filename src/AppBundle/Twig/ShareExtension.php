@@ -6,6 +6,7 @@ use AppBundle\Entity\City;
 use AppBundle\Entity\Photo;
 use AppBundle\Markdown\FahrradstadtMarkdown;
 use AppBundle\Seo\SeoPage;
+use AppBundle\Share\ShareableInterface\Shareable;
 use AppBundle\Share\SocialSharer;
 use cebe\markdown\Markdown;
 use Doctrine\Bundle\DoctrineBundle\Registry;
@@ -30,21 +31,21 @@ class ShareExtension extends \Twig_Extension
         ];
     }
 
-    public function shareUrl(Photo $photo, string $network): string
+    public function shareUrl(Shareable $shareable, string $network): string
     {
-        return $this->sharer->createUrlForPhoto($photo, $network);
+        return $this->sharer->createUrlForShareable($shareable, $network);
     }
 
-    public function shareLink(Photo $photo, string $network, string $caption, array $class = []): string
+    public function shareLink(Shareable $shareable, string $network, string $caption, array $class = []): string
     {
         $link = '<a href="%" class="%s">%s</a>';
 
         $class = array_merge($class, ['share']);
 
-        return sprintf($link, $this->shareUrl($photo, $network), implode(' ', $class), $caption);
+        return sprintf($link, $this->shareUrl($shareable, $network), implode(' ', $class), $caption);
     }
 
-    public function shareDropdownLink(Photo $photo, string $network, array $class = []): string
+    public function shareDropdownLink(Shareable $shareable, string $network, array $class = []): string
     {
         $shareNetwork = $this->sharer->getNetwork($network);
 
@@ -57,7 +58,7 @@ class ShareExtension extends \Twig_Extension
 
         $link = '<a href="%s" class="%s" style="%s"><i class="fa %s" aria-hidden="true"></i> %s</a>';
 
-        return sprintf($link, $this->shareUrl($photo, $network), implode(' ', $class), implode(' ', $style), $shareNetwork->getIcon(), $shareNetwork->getName());
+        return sprintf($link, $this->shareUrl($shareable, $network), implode(' ', $class), implode(' ', $style), $shareNetwork->getIcon(), $shareNetwork->getName());
     }
 
     public function getName(): string

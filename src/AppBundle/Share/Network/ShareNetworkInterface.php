@@ -2,12 +2,12 @@
 
 namespace AppBundle\Share\Network;
 
-use AppBundle\Entity\Photo;
+use AppBundle\Share\ShareableInterface\Shareable;
 
 interface ShareNetworkInterface
 {
     public function getIdentifier(): string;
-    public function createUrlForPhoto(Photo $photo): string;
+    public function createUrlForShareable(Shareable $shareable): string;
     public function getName(): string;
     public function getIcon(): string;
     public function getBackgroundColor(): string;

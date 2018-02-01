@@ -2,7 +2,7 @@
 
 namespace AppBundle\Share\Network;
 
-use AppBundle\Entity\Photo;
+use AppBundle\Share\ShareableInterface\Shareable;
 
 class TwitterShareNetwork extends AbstractShareNetwork
 {
@@ -14,10 +14,10 @@ class TwitterShareNetwork extends AbstractShareNetwork
 
     protected $textColor = 'white';
 
-    public function createUrlForPhoto(Photo $photo): string
+    public function createUrlForShareable(Shareable $shareable): string
     {
         $twitterShareUrl = 'https://twitter.com/share?url=%s&text=%s';
 
-        return sprintf($twitterShareUrl, urlencode($this->getPhotoUrl($photo)), urlencode($photo->getTitle()));
+        return sprintf($twitterShareUrl, urlencode($this->getShareUrl($shareable)), urlencode($shareable->getTitle()));
     }
 }

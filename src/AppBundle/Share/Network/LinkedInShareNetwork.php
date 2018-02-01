@@ -2,7 +2,7 @@
 
 namespace AppBundle\Share\Network;
 
-use AppBundle\Entity\Photo;
+use AppBundle\Share\ShareableInterface\Shareable;
 
 class LinkedInShareNetwork extends AbstractShareNetwork
 {
@@ -14,10 +14,10 @@ class LinkedInShareNetwork extends AbstractShareNetwork
 
     protected $textColor = 'white';
 
-    public function createUrlForPhoto(Photo $photo): string
+    public function createUrlForShareable(Shareable $shareable): string
     {
         $linkedinShareUrl = 'https://www.linkedin.com/cws/share?&url=%s';
 
-        return sprintf($linkedinShareUrl, urlencode($this->getPhotoUrl($photo)));
+        return sprintf($linkedinShareUrl, urlencode($this->getShareUrl($shareable)));
     }
 }

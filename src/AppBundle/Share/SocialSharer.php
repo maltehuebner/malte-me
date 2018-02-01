@@ -2,8 +2,8 @@
 
 namespace AppBundle\Share;
 
-use AppBundle\Entity\Photo;
 use AppBundle\Share\Network\ShareNetworkInterface;
+use AppBundle\Share\ShareableInterface\Shareable;
 
 class SocialSharer
 {
@@ -16,9 +16,9 @@ class SocialSharer
         return $this;
     }
 
-    public function createUrlForPhoto(Photo $photo, string $network): string
+    public function createUrlForShareable(Shareable $shareable, string $network): string
     {
-        return $this->shareNetworkList[$network]->createUrlForPhoto($photo);
+        return $this->shareNetworkList[$network]->createUrlForShareable($shareable);
     }
 
     public function getNetwork(string $identifier): ShareNetworkInterface

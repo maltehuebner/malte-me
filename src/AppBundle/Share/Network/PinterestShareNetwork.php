@@ -2,7 +2,7 @@
 
 namespace AppBundle\Share\Network;
 
-use AppBundle\Entity\Photo;
+use AppBundle\Share\ShareableInterface\Shareable;
 
 class PinterestShareNetwork extends AbstractShareNetwork
 {
@@ -14,10 +14,10 @@ class PinterestShareNetwork extends AbstractShareNetwork
 
     protected $textColor = 'white';
 
-    public function createUrlForPhoto(Photo $photo): string
+    public function createUrlForShareable(Shareable $shareable): string
     {
         $pinterestShareUrl = 'https://www.pinterest.com/pin/create/link?url=%s&description=%s';
 
-        return sprintf($pinterestShareUrl, urlencode($this->getPhotoUrl($photo)), urlencode($photo->getTitle()));
+        return sprintf($pinterestShareUrl, urlencode($this->getShareUrl($shareable)), urlencode($shareable->getTitle()));
     }
 }

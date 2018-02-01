@@ -2,7 +2,7 @@
 
 namespace AppBundle\Share\Network;
 
-use AppBundle\Entity\Photo;
+use AppBundle\Share\ShareableInterface\Shareable;
 
 class WhatsappShareNetwork extends AbstractShareNetwork
 {
@@ -14,11 +14,11 @@ class WhatsappShareNetwork extends AbstractShareNetwork
 
     protected $textColor = 'white';
 
-    public function createUrlForPhoto(Photo $photo): string
+    public function createUrlForShareable(Shareable $shareable): string
     {
         $whatsappShareUrl = 'whatsapp://send?text=%s';
 
-        $text = sprintf('%s%20%s', $this->getPhotoUrl($photo), $photo->getTitle());
+        $text = sprintf('%s%20%s', $this->getShareUrl($shareable), $shareable->getTitle());
 
         return sprintf($whatsappShareUrl, $text);
     }

@@ -2,7 +2,7 @@
 
 namespace AppBundle\Share\Network;
 
-use AppBundle\Entity\Photo;
+use AppBundle\Share\ShareableInterface\Shareable;
 
 class MailShareNetwork extends AbstractShareNetwork
 {
@@ -14,12 +14,12 @@ class MailShareNetwork extends AbstractShareNetwork
 
     protected $textColor = 'black';
 
-    public function createUrlForPhoto(Photo $photo): string
+    public function createUrlForShareable(Shareable $shareable): string
     {
         $mailShareUrl = 'mailto:?subject=%s&body=%s';
 
-        $body = sprintf('%s: %s', $photo->getDescription(), $this->getPhotoUrl($photo));
+        $body = sprintf('%s: %s', $shareable->getDescription(), $this->getShareUrl($shareable));
 
-        return sprintf($mailShareUrl, urlencode($photo->getTitle()), $body);
+        return sprintf($mailShareUrl, urlencode($shareable->getTitle()), $body);
     }
 }

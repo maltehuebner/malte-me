@@ -2,7 +2,7 @@
 
 namespace AppBundle\Share\Network;
 
-use AppBundle\Entity\Photo;
+use AppBundle\Share\ShareableInterface\Shareable;
 
 class XingShareNetwork extends AbstractShareNetwork
 {
@@ -14,10 +14,10 @@ class XingShareNetwork extends AbstractShareNetwork
 
     protected $textColor = 'white';
 
-    public function createUrlForPhoto(Photo $photo): string
+    public function createUrlForShareable(Shareable $shareable): string
     {
         $xingShareUrl = 'https://www.xing.com/social_plugins/share?&url=%s';
 
-        return sprintf($xingShareUrl, urlencode($this->getPhotoUrl($photo)));
+        return sprintf($xingShareUrl, urlencode($this->getShareUrl($shareable)));
     }
 }

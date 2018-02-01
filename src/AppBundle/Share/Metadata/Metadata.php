@@ -2,6 +2,7 @@
 
 namespace AppBundle\Share\Metadata;
 
+use AppBundle\Share\Annotation\Intro;
 use AppBundle\Share\Annotation\Route;
 use AppBundle\Share\Annotation\RouteParameter;
 use AppBundle\Share\Annotation\Title;
@@ -74,6 +75,28 @@ class Metadata
             $titleAnnotation = $this->annotationReader->getPropertyAnnotation($property, Title::class);
 
             if ($titleAnnotation) {
+                $getMethodName = sprintf('get%s', ucfirst($property->getName()));
+
+                if (!$reflectionClass->hasMethod($getMethodName)) {
+                    continue;
+                }
+
+                return $shareable->$getMethodName();
+            }
+        }
+
+        return null;
+    }
+
+    public function getShareIntro(Shareable $shareable): ?string
+    {
+        $reflectionClass = new \ReflectionClass($shareable);
+        $properties = $reflectionClass->getProperties();
+
+        foreach ($properties as $key => $property) {
+            $introAnnotation = $this->annotationReader->getPropertyAnnotation($property, Intro::class);
+
+            if ($introAnnotation) {
                 $getMethodName = sprintf('get%s', ucfirst($property->getName()));
 
                 if (!$reflectionClass->hasMethod($getMethodName)) {

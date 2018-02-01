@@ -18,7 +18,7 @@ class MailShareNetwork extends AbstractShareNetwork
     {
         $mailShareUrl = 'mailto:?subject=%s&body=%s';
 
-        $body = sprintf('%s: %s', $shareable->getDescription(), $this->getShareUrl($shareable));
+        $body = sprintf('%s: %s', $this->getShareIntro($shareable), $this->getShareUrl($shareable));
 
         return sprintf($mailShareUrl, urlencode($this->getShareTitle($shareable)), $body);
     }

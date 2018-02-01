@@ -151,6 +151,11 @@ class Photo implements Shareable
      */
     protected $cities;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    protected $permalinkKeyword;
+
     public function __construct()
     {
         $this->dateTime = new \DateTime();
@@ -503,5 +508,17 @@ class Photo implements Shareable
     public function getBackupName(): ?string
     {
         return $this->backupName;
+    }
+
+    public function setPermalinkKeyword(string $permalinkKeyword): Photo
+    {
+        $this->permalinkKeyword = $permalinkKeyword;
+
+        return $this;
+    }
+
+    public function getPermalinkKeyword(): ?string
+    {
+        return $this->permalinkKeyword;
     }
 }

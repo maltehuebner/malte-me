@@ -54,13 +54,7 @@ abstract class AbstractShareNetwork implements ShareNetworkInterface
     {
         return $this->metadata->getShareIntro($shareable);
     }
-
-    public function createShareUrl(Shareable $shareable): string
-    {
-
-        return '';
-    }
-
+    
     public function getName(): string
     {
         return $this->name;

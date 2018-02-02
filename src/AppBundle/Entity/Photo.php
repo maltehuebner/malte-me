@@ -153,8 +153,9 @@ class Photo implements Shareable
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Sharing\Shorturl()
      */
-    protected $permalinkKeyword;
+    protected $shorturl;
 
     public function __construct()
     {
@@ -510,15 +511,15 @@ class Photo implements Shareable
         return $this->backupName;
     }
 
-    public function setPermalinkKeyword(string $permalinkKeyword): Photo
+    public function setShorturl(string $shorturl): Photo
     {
-        $this->permalinkKeyword = $permalinkKeyword;
+        $this->shorturl = $shorturl;
 
         return $this;
     }
 
-    public function getPermalinkKeyword(): ?string
+    public function getShorturl(): ?string
     {
-        return $this->permalinkKeyword;
+        return $this->shorturl;
     }
 }

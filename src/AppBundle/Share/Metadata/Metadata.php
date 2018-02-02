@@ -5,9 +5,11 @@ namespace AppBundle\Share\Metadata;
 use AppBundle\Share\Annotation\Intro;
 use AppBundle\Share\Annotation\Route;
 use AppBundle\Share\Annotation\RouteParameter;
+use AppBundle\Share\Annotation\Shorturl;
 use AppBundle\Share\Annotation\Title;
 use AppBundle\Share\ShareableInterface\Shareable;
 use Caldera\YourlsApiManager\YourlsApiManager;
+use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Routing\RouterInterface;
@@ -23,20 +25,46 @@ class Metadata
     /** @var YourlsApiManager $yourlsApiManager */
     protected $yourlsApiManager;
 
-    public function __construct(Router $router, AnnotationReader $annotationReader, YourlsApiManager $yourlsApiManager)
+    /** @var Doctrine $doctrine */
+    protected $doctrine;
+
+    public function __construct(Router $router, AnnotationReader $annotationReader, YourlsApiManager $yourlsApiManager, Doctrine $doctrine)
     {
         $this->router = $router;
         $this->annotationReader = $annotationReader;
         $this->yourlsApiManager = $yourlsApiManager;
+        $this->doctrine = $doctrine;
     }
 
     public function getShareUrl(Shareable $shareable): string
+    {
+        $keyword = $this->checkShorturl($shareable);
+
+        return $keyword;
+    }
+
+    protected function generateShareUrl(Shareable $shareable): string
     {
         return $this->router->generate(
             $this->getRouteName($shareable),
             $this->getRouteParameter($shareable),
             RouterInterface::ABSOLUTE_URL
         );
+    }
+
+    protected function checkShorturl(Shareable $shareable): ?string
+    {
+        if ($permalinkKeyword = $this->getShorturl($shareable)) {
+            return $permalinkKeyword;
+        }
+
+        $shorturl = $this->yourlsApiManager->createShorturl($this->generateShareUrl($shareable), $this->getShareTitle($shareable));
+
+        $this->setShorturl($shareable, $shorturl);
+
+        $this->doctrine->getManager()->flush();
+
+        return $shorturl;
     }
 
     protected function getRouteName(Shareable $shareable): string
@@ -115,5 +143,37 @@ class Metadata
         }
 
         return null;
+    }
+
+    protected function getShorturlPropertyName(Shareable $shareable): ?string
+    {
+        $reflectionClass = new \ReflectionClass($shareable);
+        $properties = $reflectionClass->getProperties();
+
+        foreach ($properties as $key => $property) {
+            $permalinkKeywordAnnotation = $this->annotationReader->getPropertyAnnotation($property, Shorturl::class);
+
+            if ($permalinkKeywordAnnotation) {
+                return $property->getName();
+            }
+        }
+
+        return null;
+    }
+
+    public function getShorturl(Shareable $shareable): ?string
+    {
+        $permalinkPropertyName = $this->getShorturlPropertyName($shareable);
+        $getMethodName = sprintf('get%s', ucfirst($permalinkPropertyName));
+
+        return $shareable->$getMethodName();
+    }
+
+    public function setShorturl(Shareable $shareable, string $shorturl): ?string
+    {
+        $permalinkPropertyName = $this->getShorturlPropertyName($shareable);
+        $getMethodName = sprintf('set%s', ucfirst($permalinkPropertyName));
+
+        return $shareable->$getMethodName($shorturl);
     }
 }

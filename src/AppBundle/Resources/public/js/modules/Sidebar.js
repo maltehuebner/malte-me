@@ -9,15 +9,17 @@ define(['jquery'], function ($) {
 
     Sidebar.prototype.openSidebar = function(e) {
         $sidebar = $('#sidebar');
-        $body = $('body');
+        $container = $('#floating-sidebar-container');
         $sidebarParent = $('#sidebar-container');
 
         if ($sidebar.hasClass('floating-sidebar')) {
             $sidebar.detach().appendTo($sidebarParent);
             $sidebar.removeClass('floating-sidebar');
+            $container.hide();
         } else {
-            $sidebar.detach().appendTo($body);
+            $sidebar.detach().appendTo($container);
             $sidebar.addClass('floating-sidebar');
+            $container.show();
         }
     };
 

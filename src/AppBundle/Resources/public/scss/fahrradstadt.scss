@@ -61,18 +61,33 @@ $btn-white-border: white !default;
 #sidebar-button {
   width: 60px;
   height: 60px;
-  background: $primary;
-  border: 5px black solid;
+  background: #efc828;
+  border: 2px black solid;
   border-radius: 50%;
   text-align: center;
-  top: 80vh;
-  left: 80vw;
+  bottom: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
   position: fixed;
+  padding: 10px;
+  font-size: 24px;
+  color: white;
+  box-shadow: 0 0 10px 10px rgba(216, 216, 216, 0.5);
+  z-index: 5000;
+  cursor: pointer;
 }
 
-#sidebar.floating-sidebar {
-  position: absolute;
-  top: 10vh;
-  left: 10vw;
-  right: 10vw;
+#floating-sidebar-container {
+  display: none;
+  background: rgba(64, 64, 64, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 5vh 10vw 5vh 10vw;
+  z-index: 4999;
+  overflow-y: auto;
 }

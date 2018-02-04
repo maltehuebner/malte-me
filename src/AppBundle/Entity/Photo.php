@@ -152,7 +152,7 @@ class Photo implements Shareable
     protected $cities;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Sharing\Shorturl()
      */
     protected $shorturl;

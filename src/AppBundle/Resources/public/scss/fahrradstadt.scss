@@ -57,3 +57,15 @@ $btn-white-border: white !default;
 .btn-white {
   @include button-variant($btn-white-color, $btn-white-bg, $btn-white-border);
 }
+
+#sidebar-button {
+  width: 60px;
+  height: 60px;
+  background: $primary;
+  border: 5px black solid;
+  border-radius: 50%;
+  text-align: center;
+  top: 80vh;
+  left: 80vw;
+  position: fixed;
+}

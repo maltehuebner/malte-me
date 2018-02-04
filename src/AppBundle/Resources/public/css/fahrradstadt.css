@@ -8388,3 +8388,14 @@ address a:hover {
     background-color: black;
     border-color: #dfdfdf;
     box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5); }
+
+#sidebar-button {
+  width: 60px;
+  height: 60px;
+  background: #efc828;
+  border: 5px black solid;
+  border-radius: 50%;
+  text-align: center;
+  top: 80vh;
+  left: 80vw;
+  position: fixed; }

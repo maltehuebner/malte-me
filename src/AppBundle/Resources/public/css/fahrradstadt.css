@@ -8388,3 +8388,44 @@ address a:hover {
     background-color: black;
     border-color: #dfdfdf;
     box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5); }
+
+#sidebar-button {
+  width: 60px;
+  height: 60px;
+  border: 2px black solid;
+  border-radius: 50%;
+  text-align: center;
+  bottom: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  position: fixed;
+  padding: 10px;
+  font-size: 24px;
+  color: white;
+  box-shadow: inset 0 0 25px 0 white, 0 0 10px 10px rgba(216, 216, 216, 0.5);
+  text-shadow: 0 0 3px black;
+  z-index: 5000;
+  cursor: pointer;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ff0004+0,ffffff+100 */
+  background: #efc828;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #efc828 0%, #cda925 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #efc828 0%, #cda925 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #efc828 0%, #cda925 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */ }
+
+#floating-sidebar-container {
+  display: none;
+  background: rgba(64, 64, 64, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 5vh 10vw 5vh 10vw;
+  z-index: 4999;
+  overflow-y: auto; }

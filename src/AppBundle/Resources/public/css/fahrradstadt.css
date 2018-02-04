@@ -8392,7 +8392,6 @@ address a:hover {
 #sidebar-button {
   width: 60px;
   height: 60px;
-  background: #efc828;
   border: 2px black solid;
   border-radius: 50%;
   text-align: center;
@@ -8405,9 +8404,19 @@ address a:hover {
   padding: 10px;
   font-size: 24px;
   color: white;
-  box-shadow: 0 0 10px 10px rgba(216, 216, 216, 0.5);
+  box-shadow: inset 0 0 25px 0 white, 0 0 10px 10px rgba(216, 216, 216, 0.5);
+  text-shadow: 0 0 3px black;
   z-index: 5000;
-  cursor: pointer; }
+  cursor: pointer;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ff0004+0,ffffff+100 */
+  background: #efc828;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #efc828 0%, #cda925 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #efc828 0%, #cda925 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #efc828 0%, #cda925 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */ }
 
 #floating-sidebar-container {
   display: none;

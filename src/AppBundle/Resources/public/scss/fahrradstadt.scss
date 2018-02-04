@@ -69,3 +69,10 @@ $btn-white-border: white !default;
   left: 80vw;
   position: fixed;
 }
+
+#sidebar.floating-sidebar {
+  position: absolute;
+  top: 10vh;
+  left: 10vw;
+  right: 10vw;
+}

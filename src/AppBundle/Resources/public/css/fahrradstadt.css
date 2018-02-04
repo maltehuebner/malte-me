@@ -8399,3 +8399,9 @@ address a:hover {
   top: 80vh;
   left: 80vw;
   position: fixed; }
+
+#sidebar.floating-sidebar {
+  position: absolute;
+  top: 10vh;
+  left: 10vw;
+  right: 10vw; }

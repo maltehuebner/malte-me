@@ -4,19 +4,15 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services
         http://symfony.com/schema/dic/services/services-1.0.xsd">
     <imports>
-        <import resource="./services/widget.xml"/>
         <import resource="./services/admin.xml"/>
+        <import resource="./services/share.xml"/>
+        <import resource="./services/share_network.xml"/>
+        <import resource="./services/twig.xml"/>
+        <import resource="./services/widget.xml"/>
+        <import resource="./services/yourls.xml"/>
     </imports>
 
     <services>
-        <service id="app.twig_extension" class="AppBundle\Twig\AppExtension" public="false">
-            <argument type="service" id="doctrine" />
-            <argument type="service" id="session" />
-            <argument type="service" id="app.markdown" />
-            <argument type="service" id="app.seo_page" />
-            <tag name="twig.extension" />
-        </service>
-
         <service id="app.photo_uploader" class="AppBundle\PhotoUploader\PhotoUploader" public="true">
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument type="service" id="vich_uploader.templating.helper.uploader_helper" />

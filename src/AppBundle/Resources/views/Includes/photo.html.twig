@@ -100,6 +100,27 @@
             </div>
             {% endif %}
 
+            <div class="dropdown" style="display: inline;">
+                <button class="btn btn-outline-secondary btn-sm dropup" href="#" id="share-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-share-square-o" aria-hidden="true"></i>
+                </button>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <h6 class="dropdown-header">
+                        Dieses Foto teilen per:
+                    </h6>
+                    {{ shareDropdownLink(photo, 'mail', ['dropdown-item']) }}
+                    {{ shareDropdownLink(photo, 'twitter', ['dropdown-item']) }}
+                    {{ shareDropdownLink(photo, 'facebook', ['dropdown-item']) }}
+                    {{ shareDropdownLink(photo, 'google', ['dropdown-item']) }}
+                    {{ shareDropdownLink(photo, 'xing', ['dropdown-item']) }}
+                    {{ shareDropdownLink(photo, 'linkedin', ['dropdown-item']) }}
+                    {{ shareDropdownLink(photo, 'whatsapp', ['dropdown-item']) }}
+                    {{ shareDropdownLink(photo, 'pinterest', ['dropdown-item']) }}
+                    {{ shareDropdownLink(photo, 'reddit', ['dropdown-item']) }}
+                </div>
+            </div>
+
             {% if is_granted('ROLE_USER') %}
             <a href="{{ path('favorite_photo', { photoId: photo.id }) }}" class="favorite-star btn btn-outline-secondary btn-sm">
             {% else %}

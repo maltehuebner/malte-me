@@ -39,3 +39,7 @@ parameters:
     openweathermap.api_key: ThisTokenIsNotSoSecretChangeIt
 
     photos.uri_prefix: /photos
+
+    yourls.api_url: 'http://sqi.be/yourls-api.php'
+    yourls.api_username: username
+    yourls.api_password: password

@@ -14,6 +14,8 @@ class TwitterShareNetwork extends AbstractShareNetwork
 
     protected $textColor = 'white';
 
+    protected $openSharewindow = true;
+
     public function createUrlForShareable(Shareable $shareable): string
     {
         $twitterShareUrl = 'https://twitter.com/share?url=%s&text=%s';

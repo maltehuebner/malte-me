@@ -14,6 +14,8 @@ class LinkedInShareNetwork extends AbstractShareNetwork
 
     protected $textColor = 'white';
 
+    protected $openSharewindow = true;
+
     public function createUrlForShareable(Shareable $shareable): string
     {
         $linkedinShareUrl = 'https://www.linkedin.com/cws/share?&url=%s';

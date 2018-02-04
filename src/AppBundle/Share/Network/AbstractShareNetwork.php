@@ -22,6 +22,9 @@ abstract class AbstractShareNetwork implements ShareNetworkInterface
     /** @var Metadata $metadata */
     protected $metadata;
 
+    /** @var bool $openSharewindow */
+    protected $openSharewindow;
+
     public function __construct(Metadata $metadata)
     {
         $this->metadata = $metadata;
@@ -73,5 +76,10 @@ abstract class AbstractShareNetwork implements ShareNetworkInterface
     public function getTextColor(): string
     {
         return $this->textColor;
+    }
+
+    public function openShareWindow(): bool
+    {
+        return $this->openSharewindow;
     }
 }

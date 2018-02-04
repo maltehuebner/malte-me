@@ -12,4 +12,5 @@ interface ShareNetworkInterface
     public function getIcon(): string;
     public function getBackgroundColor(): string;
     public function getTextColor(): string;
+    public function openShareWindow(): bool;
 }

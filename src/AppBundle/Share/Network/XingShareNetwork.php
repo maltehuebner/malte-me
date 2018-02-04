@@ -14,6 +14,8 @@ class XingShareNetwork extends AbstractShareNetwork
 
     protected $textColor = 'white';
 
+    protected $openSharewindow = true;
+
     public function createUrlForShareable(Shareable $shareable): string
     {
         $xingShareUrl = 'https://www.xing.com/social_plugins/share?&url=%s';

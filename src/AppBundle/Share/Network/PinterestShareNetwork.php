@@ -14,6 +14,8 @@ class PinterestShareNetwork extends AbstractShareNetwork
 
     protected $textColor = 'white';
 
+    protected $openSharewindow = true;
+
     public function createUrlForShareable(Shareable $shareable): string
     {
         $pinterestShareUrl = 'https://www.pinterest.com/pin/create/link?url=%s&description=%s';

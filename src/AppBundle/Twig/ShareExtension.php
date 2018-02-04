@@ -38,6 +38,12 @@ class ShareExtension extends \Twig_Extension
 
     public function shareLink(Shareable $shareable, string $network, string $caption, array $class = []): string
     {
+        $shareNetwork = $this->sharer->getNetwork($network);
+
+        if ($shareNetwork->openShareWindow()) {
+            $class[] = 'open-share-window';
+        }
+
         $link = '<a href="%" class="%s">%s</a>';
 
         $class = array_merge($class, ['share']);
@@ -48,6 +54,10 @@ class ShareExtension extends \Twig_Extension
     public function shareDropdownLink(Shareable $shareable, string $network, array $class = []): string
     {
         $shareNetwork = $this->sharer->getNetwork($network);
+
+        if ($shareNetwork->openShareWindow()) {
+            $class = array_merge($class, ['open-share-window']);
+        }
 
         $class = array_merge($class, ['share']);
 

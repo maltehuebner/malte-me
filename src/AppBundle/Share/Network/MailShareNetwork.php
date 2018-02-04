@@ -14,6 +14,8 @@ class MailShareNetwork extends AbstractShareNetwork
 
     protected $textColor = 'black';
 
+    protected $openSharewindow = false;
+
     public function createUrlForShareable(Shareable $shareable): string
     {
         $mailShareUrl = 'mailto:?subject=%s&body=%s';

@@ -14,6 +14,8 @@ class GoogleShareNetwork extends AbstractShareNetwork
 
     protected $textColor = 'white';
 
+    protected $openSharewindow = true;
+
     public function createUrlForShareable(Shareable $shareable): string
     {
         $googleShareUrl = 'https://plus.google.com/share?url=%s';

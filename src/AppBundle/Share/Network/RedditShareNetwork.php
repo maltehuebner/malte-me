@@ -14,6 +14,8 @@ class RedditShareNetwork extends AbstractShareNetwork
 
     protected $textColor = 'white';
 
+    protected $openSharewindow = true;
+
     public function createUrlForShareable(Shareable $shareable): string
     {
         $redditShareUrl = 'https://ssl.reddit.com/submit?url=%s';

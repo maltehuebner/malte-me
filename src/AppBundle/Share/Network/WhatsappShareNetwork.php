@@ -14,6 +14,8 @@ class WhatsappShareNetwork extends AbstractShareNetwork
 
     protected $textColor = 'white';
 
+    protected $openSharewindow = false;
+
     public function createUrlForShareable(Shareable $shareable): string
     {
         $whatsappShareUrl = 'whatsapp://send?text=%s';

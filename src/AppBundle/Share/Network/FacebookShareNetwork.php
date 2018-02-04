@@ -14,6 +14,8 @@ class FacebookShareNetwork extends AbstractShareNetwork
 
     protected $textColor = 'white';
 
+    protected $openSharewindow = true;
+
     public function createUrlForShareable(Shareable $shareable): string
     {
         $facebookShareUrl = 'https://www.facebook.com/sharer.php?u=%s&t=%s';

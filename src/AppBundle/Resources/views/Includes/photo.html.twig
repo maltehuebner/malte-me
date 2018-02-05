@@ -100,6 +100,7 @@
             </div>
             {% endif %}
 
+            {% if photo.title and photo.enabled %}
             <div class="dropdown" style="display: inline;">
                 <button class="btn btn-outline-secondary btn-sm dropup" href="#" id="share-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-share-square-o" aria-hidden="true"></i>
@@ -120,6 +121,7 @@
                     {{ shareDropdownLink(photo, 'reddit', ['dropdown-item']) }}
                 </div>
             </div>
+            {% endif %}
 
             {% if is_granted('ROLE_USER') %}
             <a href="{{ path('favorite_photo', { photoId: photo.id }) }}" class="favorite-star btn btn-outline-secondary btn-sm">

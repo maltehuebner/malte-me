@@ -87,6 +87,29 @@ define(['jquery', 'leaflet', 'leaflet-extramarkers'], function ($) {
 
         $('#photo-latitude-input').val(latLng.lat);
         $('#photo-longitude-input').val(latLng.lng);
+
+        this._getAddress(latLng);
+    };
+
+    LocationBox.prototype._getAddress = function(latLng) {
+        var url = 'https://nominatim.openstreetmap.org/reverse?format=json&lat=' + latLng.lat + '&lon=' + latLng.lng + '&zoom=18&addressdetails=1';
+
+        $.get({
+            url: url,
+            success: function(result) {
+                var locationName;
+
+                if (result.address && result.address.road) {
+                    locationName = result.address.road;
+                } else if (result.display_name) {
+                    locationName = result.display_name;
+                }
+
+                if (locationName) {
+                    $('#photo-location-input').val(locationName);
+                }
+            }
+        });
     };
 
     return LocationBox;

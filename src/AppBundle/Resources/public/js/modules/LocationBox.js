@@ -2,11 +2,14 @@ define(['jquery', 'leaflet', 'leaflet-extramarkers'], function ($) {
     LocationBox = function (context, options) {
         this._initModalEventListener(context);
         this._initFormEventListener();
+
+        this._options = options;
     };
 
     LocationBox.prototype._standardCenter = [53.550757, 9.993010];
     LocationBox.prototype._map = null;
     LocationBox.prototype._marker = null;
+    LocationBox.prototype._options = {};
 
     LocationBox.prototype._initFormEventListener = function() {
         $('#photo-location-input').change(this._getLocation.bind(this));
@@ -118,14 +121,29 @@ define(['jquery', 'leaflet', 'leaflet-extramarkers'], function ($) {
     };
 
     LocationBox.prototype._getLocation = function() {
-        var query = $('#photo-location-input').val();
-        var url = 'https://nominatim.openstreetmap.org/search?q=' + query + '&format=json';
+        var city = '';
+
+        if (this._options && this._options.city) {
+            city = this._options.city;
+        }
+
+        var street = $('#photo-location-input').val();
+        var url = 'https://nominatim.openstreetmap.org/search?street=' + street + '&city=' + city + '&format=json';
 
         $.get({
             url: url,
             context: this,
             success: function(result) {
+                if (!result) {
+                    return;
+                }
+
                 var place = result.pop();
+
+                if (!place) {
+                    return;
+                }
+                
                 var latLng = [place.lat, place.lon];
 
                 this._marker.setLatLng(latLng);

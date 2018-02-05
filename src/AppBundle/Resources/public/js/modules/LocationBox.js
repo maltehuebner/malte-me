@@ -1,11 +1,16 @@
 define(['jquery', 'leaflet', 'leaflet-extramarkers'], function ($) {
     LocationBox = function (context, options) {
         this._initModalEventListener(context);
+        this._initFormEventListener();
     };
 
     LocationBox.prototype._standardCenter = [53.550757, 9.993010];
     LocationBox.prototype._map = null;
     LocationBox.prototype._marker = null;
+
+    LocationBox.prototype._initFormEventListener = function() {
+        $('#photo-location-input').change(this._getLocation.bind(this));
+    };
 
     LocationBox.prototype._initModalEventListener = function(context) {
         var that = this;
@@ -110,6 +115,23 @@ define(['jquery', 'leaflet', 'leaflet-extramarkers'], function ($) {
                 }
             }
         });
+    };
+
+    LocationBox.prototype._getLocation = function() {
+        var query = $('#photo-location-input').val();
+        var url = 'https://nominatim.openstreetmap.org/search?q=' + query + '&format=json';
+
+        $.get({
+            url: url,
+            context: this,
+            success: function(result) {
+                var place = result.pop();
+                var latLng = [place.lat, place.lon];
+
+                this._marker.setLatLng(latLng);
+                this._map.setView(latLng);
+            }
+        })
     };
 
     return LocationBox;

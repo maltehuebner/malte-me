@@ -40,7 +40,7 @@
 
 {% block additionalFooterElements %}
     <script type="text/javascript">
-        Fahrradstadt.loadModule('LocationBox', '#location-modal');
+        Fahrradstadt.loadModule('LocationBox', '#location-modal', { city: '{{ getCity().name }}'} );
         Fahrradstadt.loadModule('CommentBox');
         Fahrradstadt.loadModule('FavoriteStar');
         Fahrradstadt.loadModule('Share');

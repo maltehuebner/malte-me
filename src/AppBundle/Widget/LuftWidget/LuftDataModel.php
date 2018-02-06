@@ -66,7 +66,7 @@ class LuftDataModel
         return $this->level;
     }
 
-    public function getValue(): string
+    public function getValue(): float
     {
         return $this->value;
     }

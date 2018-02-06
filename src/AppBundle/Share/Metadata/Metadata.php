@@ -70,6 +70,8 @@ class Metadata
     protected function getRouteName(Shareable $shareable): string
     {
         $reflectionClass = new \ReflectionClass($shareable);
+
+        /** @var Route $routeAnnotation */
         $routeAnnotation = $this->annotationReader->getClassAnnotation($reflectionClass, Route::class);
 
         return $routeAnnotation->getRoute();

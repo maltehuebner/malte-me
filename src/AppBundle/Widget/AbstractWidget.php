@@ -2,7 +2,7 @@
 
 namespace AppBundle\Widget;
 
-use Symfony\Bundle\TwigBundle\TwigEngine;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Cache\Adapter\RedisAdapter;
 use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
 
@@ -11,10 +11,10 @@ abstract class AbstractWidget implements WidgetInterface
     /** @var Doctrine $doctrine */
     protected $doctrine;
 
-    /** @var TwigEngine $twigEngine */
+    /** @var EngineInterface $twigEngine */
     protected $twigEngine;
 
-    public function __construct(Doctrine $doctrine, TwigEngine $twigEngine)
+    public function __construct(Doctrine $doctrine, EngineInterface $twigEngine)
     {
         $this->doctrine = $doctrine;
         $this->twigEnginge = $twigEngine;

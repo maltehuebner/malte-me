@@ -4,6 +4,7 @@ namespace AppBundle\Share\Annotation;
 
 /**
  * @Annotation
+ * @Target({"CLASS"})
  */
 class Route extends AbstractAnnotation
 {

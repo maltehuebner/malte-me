@@ -4,6 +4,7 @@ namespace AppBundle\Share\Annotation;
 
 /**
  * @Annotation
+ * @Target({"PROPERTY"})
  */
 class RouteParameter extends AbstractAnnotation
 {

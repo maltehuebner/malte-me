@@ -22,12 +22,12 @@
 
                 <div class="row">
                     <div class="col-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
+                        <div class="card">
+                            <div class="card-header">
                                 Dein Benutzername
                             </div>
-                            <div class="panel-body form-group form-group{% if form_errors(usernameForm.username) %} has-error has-feedback{% endif %}">
-                                <p>
+                            <div class="card-body form-group form-group{% if form_errors(usernameForm.username) %} has-error has-feedback{% endif %}">
+                                <p class="card-text">
                                     Dein Benutzername wird öffentlich angezeigt &mdash; außerdem brauchst du ihn zum Einloggen, wenn du dich nicht über ein soziales Netzwerk anmeldest.
                                 </p>
 
@@ -42,7 +42,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row mt-3">
                     <div class="col-12 text-center">
                         <div class="btn-group" role="group">
                             <a href="{{ path('profile_management_index') }}" class="btn btn-secondary">
@@ -64,5 +64,5 @@
             </div>
         </div>
     </div>
-    
+
 {% endblock %}

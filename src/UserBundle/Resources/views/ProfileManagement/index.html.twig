@@ -1,0 +1,51 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-8">
+                <div class="row">
+                    <div class="col-12">
+                        <h2>
+                            Hej!
+                        </h2>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-header">
+                                Benutzername
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                <a href="#" class="btn btn-primary">
+                                    Benutzername ändern
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-header">
+                                Kennwort
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                <a href="#" class="btn btn-primary">
+                                    Kennwort ändern
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4" id="sidebar-container">
+                {{ render(controller('AppBundle:Sidebar:sidebar')) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

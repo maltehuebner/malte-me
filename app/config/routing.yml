@@ -7,6 +7,12 @@ _sonata_admin:
     type: sonata_admin
     prefix: /admin
 
+user:
+    resource: "@UserBundle/Resources/config/routing.xml"
+
+app:
+    resource: "@AppBundle/Resources/config/routing.xml"
+
 facebook_login:
     path: /login/check-facebook
 
@@ -37,5 +43,4 @@ _liip_imagine:
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
-app:
-    resource: "@AppBundle/Resources/config/routing.xml"
+

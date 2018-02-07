@@ -3,8 +3,12 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://symfony.com/schema/routing
         http://symfony.com/schema/routing/routing-1.0.xsd">
-    
+
     <route id="profile_management_index" path="/profile">
         <default key="_controller">UserBundle:ProfileManagement:index</default>
+    </route>
+
+    <route id="profile_management_username" path="/profile/username">
+        <default key="_controller">UserBundle:ProfileManagement:editUsername</default>
     </route>
 </routes>

@@ -2,6 +2,7 @@
 
 namespace UserBundle\Controller;
 
+use Criticalmass\Bundle\UserBundle\Form\Type\UserEmailType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use FOS\UserBundle\Model\UserManagerInterface;
@@ -10,8 +11,7 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Criticalmass\Bundle\UserBundle\Form\Type\UserEmailType;
-use Criticalmass\Bundle\UserBundle\Form\Type\UsernameType;
+use UserBundle\Form\Type\UsernameType;
 
 class ProfileManagementController extends Controller
 {
@@ -33,7 +33,7 @@ class ProfileManagementController extends Controller
             $user,
             [
                 'action' => $this->generateUrl(
-                    'criticalmass_user_usermanagement_editusername'
+                    'profile_management_username'
                 )
             ]
         );

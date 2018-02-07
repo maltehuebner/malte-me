@@ -11,4 +11,8 @@
     <route id="profile_management_username" path="/profile/username">
         <default key="_controller">UserBundle:ProfileManagement:editUsername</default>
     </route>
+
+    <route id="profile_management_password" path="/profile/email">
+        <default key="_controller">UserBundle:ProfileManagement:editEmail</default>
+    </route>
 </routes>

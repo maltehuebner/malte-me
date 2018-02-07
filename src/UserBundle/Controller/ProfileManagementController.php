@@ -2,7 +2,6 @@
 
 namespace UserBundle\Controller;
 
-use Criticalmass\Bundle\UserBundle\Form\Type\UserEmailType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use FOS\UserBundle\Model\UserManagerInterface;
@@ -11,6 +10,7 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
+use UserBundle\Form\Type\UserEmailType;
 use UserBundle\Form\Type\UsernameType;
 
 class ProfileManagementController extends Controller
@@ -77,7 +77,7 @@ class ProfileManagementController extends Controller
             $user,
             [
                 'action' => $this->generateUrl(
-                    'criticalmass_user_usermanagement_editemail'
+                    'profile_management_index'
                 )
             ]
         );
@@ -94,7 +94,7 @@ class ProfileManagementController extends Controller
 
                     $this->addFlash('success', 'Deine neue E-Mail-Adresse wurde gespeichert. Du kannst dich ab jetzt mit ' . $user->getEmail() . ' einloggen.');
 
-                    return $this->redirectToRoute('criticalmass_user_usermanagement');
+                    return $this->redirectToRoute('profile_management_index');
                 } catch (UniqueConstraintViolationException $exception) {
                     $error = new FormError('Diese E-Mail-Adresse ist bereits registriert worden.');
 

@@ -217,4 +217,9 @@ class User extends BaseUser
     {
         return $this->createdAt;
     }
+
+    public function isOauthAccount(): bool
+    {
+        return ($this->twitterId || $this->facebookId || $this->stravaId);
+    }
 }

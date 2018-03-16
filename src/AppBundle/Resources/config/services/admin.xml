@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="app.admin.city" class="AppBundle\Admin\CityAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Fahrradstadt" label="City" />
+            <argument />
+            <argument>AppBundle\Entity\City</argument>
+            <argument />
+        </service>
+
+        <service id="app.admin.photo" class="AppBundle\Admin\PhotoAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Fahrradstadt" label="Photo" />
+            <argument />
+            <argument>AppBundle\Entity\Photo</argument>
+            <argument />
+        </service>
+
+        <service id="app.admin.user" class="AppBundle\Admin\UserAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Fahrradstadt" label="User" />
+            <argument />
+            <argument>AppBundle\Entity\User</argument>
+            <argument />
+        </service>
+
+        <service id="app.admin.comment" class="AppBundle\Admin\CommentAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Fahrradstadt" label="Comment" />
+            <argument />
+            <argument>AppBundle\Entity\Comment</argument>
+            <argument />
+        </service>
+
+        <service id="app.admin.invitation" class="AppBundle\Admin\InvitationAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Fahrradstadt" label="Invitation" />
+            <argument />
+            <argument>AppBundle\Entity\Invitation</argument>
+            <argument />
+        </service>
+    </services>
+</container>

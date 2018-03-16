@@ -2,7 +2,6 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
-    - { resource: "@AppBundle/Resources/config/services.xml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -31,7 +30,9 @@ framework:
         save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"
     fragments:       ~
     http_method_override: true
-    assets: ~
+    assets:
+        version: '0.31'
+        version_format: '%%s?version=%%s'
     php_errors:
         log: true
 
@@ -74,7 +75,7 @@ vich_uploader:
     db_driver: orm
     mappings:
         photo:
-            uri_prefix:         /photos
+            uri_prefix:         %photos.uri_prefix%
             upload_destination: %upload_destination.photo%
             namer:              vich_uploader.namer_uniqid
 
@@ -93,6 +94,10 @@ liip_imagine:
             quality: 50
             filters:
                 thumbnail: { size: [1024, 1024], mode: inset }
+        thumb:
+            quality: 30
+            filters:
+                thumbnail: { size: [640, 640], mode: inset }
         logo:
             quality: 85
             filters:
@@ -163,7 +168,7 @@ fos_elastica:
             finder:
             types:
                 photo:
-                    mappings:
+                    properties:
                         id: ~
                         title: ~
                         description: ~

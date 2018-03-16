@@ -2,9 +2,11 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Share\ShareableInterface\Shareable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Share\Annotation as Sharing;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -13,8 +15,9 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PhotoRepository")
  * @ORM\Table(name="photo")
  * @Vich\Uploadable
+ * @Sharing\Route(route="show_photo")
  */
-class Photo
+class Photo implements Shareable
 {
     /**
      * @ORM\Id
@@ -62,16 +65,19 @@ class Photo
 
     /**
      * @ORM\Column(type="text", length=255, nullable=true)
+     * @Sharing\RouteParameter(name="slug")
      */
     protected $slug;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Sharing\Title()
      */
     protected $title;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Sharing\Intro()
      */
     protected $description;
 
@@ -136,9 +142,20 @@ class Photo
     protected $imageName;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $backupName;
+
+    /**
      * @ORM\ManyToMany(targetEntity="City", mappedBy="photos")
      */
     protected $cities;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Sharing\Shorturl()
+     */
+    protected $shorturl;
 
     public function __construct()
     {
@@ -480,5 +497,29 @@ class Photo
         $this->cities->removeElement($city);
 
         return $this;
+    }
+
+    public function setBackupName(string $backupName): Photo
+    {
+        $this->backupName = $backupName;
+
+        return $this;
+    }
+
+    public function getBackupName(): ?string
+    {
+        return $this->backupName;
+    }
+
+    public function setShorturl(string $shorturl): Photo
+    {
+        $this->shorturl = $shorturl;
+
+        return $this;
+    }
+
+    public function getShorturl(): ?string
+    {
+        return $this->shorturl;
     }
 }

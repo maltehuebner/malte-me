@@ -1,0 +1,114 @@
+<aside id="sidebar">
+    {% if getCity().imageName %}
+    <div class="row mb-3">
+        <div class="col-12">
+            <a href="{{ path('frontpage') }}">
+                <img class="mx-auto d-block" src="{{ vich_uploader_asset(getCity(), 'imageFile')|imagine_filter('logo') }}" alt="{{ getCity().title }}" />
+            </a>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if getCity().title or getCity().slogan %}
+    <div class="card mt-2">
+        <div class="card-body text-center">
+            <h4 class="card-title">
+                {{ getCity().title }}
+            </h4>
+
+            {% if getCity().slogan %}
+            <p class="card-text">
+                {{ getCity().slogan }}
+            </p>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if not app.user %}
+    <div class="card mt-2">
+        <div class="card-body">
+            <h4 class="card-title text-center">
+                Login
+            </h4>
+
+            <p class="card-text text-center">
+                Du kannst dich über eines dieser sozialen Netzwerke einloggen:
+            </p>
+
+            <div class="text-center">
+                <div class="btn-group" role="group">
+                    <a href="{{ hwi_oauth_login_url('strava') }}" class="btn btn-secondary" style="background-color: rgb(249, 77, 31); color: white;">
+                        Strava
+                    </a>
+
+                    <a href="{{ hwi_oauth_login_url('facebook') }}" class="btn btn-secondary" style="background-color: rgb(60, 90, 150); color: white;">
+                        facebook
+                    </a>
+
+                    <a href="{{ hwi_oauth_login_url('twitter') }}" class="btn btn-secondary" style="background-color: rgb(57, 201, 214); color: white;">
+                        twitter
+                    </a>
+                </div>
+            </div>
+
+            <p class="card-text text-center">
+                <small>
+                    <a href="{{ path('fos_user_security_login') }}">
+                        Stattdessen mit Benutzername und Kennwort einloggen?
+                    </a>
+                </small>
+            </p>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if commentList|length > 0 %}
+    <div class="card mt-2">
+        <div class="card-body">
+            <h5 class="card-title text-center">
+                Neuste Kommentare
+            </h5>
+
+            <ul>
+                {% for comment in commentList %}
+                    <li>
+                        <a href="{{ path('show_photo', { slug: comment.photo.slug }) }}#comments">
+                            {{ comment.user.username }} bei {{ comment.photo.title }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if favouriteList|length > 0 %}
+    <div class="card mt-2">
+        <div class="card-body">
+            <h5 class="card-title text-center">
+                Neuste Sternchen
+            </h5>
+
+            <ul>
+                {% for favourite in favouriteList %}
+                    <li>
+                        <a href="{{ path('show_photo', { slug: favourite.photo.slug }) }}#comments">
+                            {{ favourite.user.username }} bei {{ favourite.photo.title }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+
+    {% include 'AppBundle:Sidebar/Widget:criticalmass_widget.html.twig' %}
+    {% include 'AppBundle:Sidebar/Widget:luft_widget.html.twig' %}
+    {% include 'AppBundle:Sidebar/Widget:calendar_widget.html.twig' %}
+    {% include 'AppBundle:Sidebar/Widget:weather_widget.html.twig' %}
+</aside>
+
+<div id="sidebar-button" title="Sidebar öffnen" class="d-block d-md-none">
+    <i class="fa fa-bicycle"></i>
+</div>

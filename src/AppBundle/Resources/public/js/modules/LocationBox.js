@@ -1,11 +1,19 @@
-define(['leaflet', 'leaflet-extramarkers'], function () {
+define(['jquery', 'leaflet', 'leaflet-extramarkers'], function ($) {
     LocationBox = function (context, options) {
         this._initModalEventListener(context);
+        this._initFormEventListener();
+
+        this._options = options;
     };
 
     LocationBox.prototype._standardCenter = [53.550757, 9.993010];
     LocationBox.prototype._map = null;
     LocationBox.prototype._marker = null;
+    LocationBox.prototype._options = {};
+
+    LocationBox.prototype._initFormEventListener = function() {
+        $('#photo-location-input').change(this._getLocation.bind(this));
+    };
 
     LocationBox.prototype._initModalEventListener = function(context) {
         var that = this;
@@ -87,6 +95,61 @@ define(['leaflet', 'leaflet-extramarkers'], function () {
 
         $('#photo-latitude-input').val(latLng.lat);
         $('#photo-longitude-input').val(latLng.lng);
+
+        this._getAddress(latLng);
+    };
+
+    LocationBox.prototype._getAddress = function(latLng) {
+        var url = 'https://nominatim.openstreetmap.org/reverse?format=json&lat=' + latLng.lat + '&lon=' + latLng.lng + '&zoom=18&addressdetails=1';
+
+        $.get({
+            url: url,
+            success: function(result) {
+                var locationName;
+
+                if (result.address && result.address.road) {
+                    locationName = result.address.road;
+                } else if (result.display_name) {
+                    locationName = result.display_name;
+                }
+
+                if (locationName) {
+                    $('#photo-location-input').val(locationName);
+                }
+            }
+        });
+    };
+
+    LocationBox.prototype._getLocation = function() {
+        var city = '';
+
+        if (this._options && this._options.city) {
+            city = this._options.city;
+        }
+
+        var street = $('#photo-location-input').val();
+        var url = 'https://nominatim.openstreetmap.org/search?street=' + street + '&city=' + city + '&format=json';
+
+        $.get({
+            url: url,
+            context: this,
+            success: function(result) {
+                if (!result) {
+                    return;
+                }
+
+                var place = result.pop();
+
+                if (!place) {
+                    return;
+                }
+                
+                var latLng = [place.lat, place.lon];
+
+                this._marker.setLatLng(latLng);
+                this._map.setView(latLng);
+            }
+        })
     };
 
     return LocationBox;

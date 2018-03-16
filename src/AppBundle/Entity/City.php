@@ -36,6 +36,11 @@ class City
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
+     */
+    protected $slogan;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
      * @Assert\NotBlank()
      */
     protected $slug;
@@ -107,6 +112,16 @@ class City
     protected $callToActionText;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $criticalmassTitle;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $criticalmassCitySlug;
+
+    /**
      * @ORM\Column(type="text", nullable=true)
      */
     protected $piwikTrackingCode;
@@ -134,6 +149,16 @@ class City
      * )
      */
     protected $photos;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    protected $latitude;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    protected $longitude;
 
     public function __construct()
     {
@@ -177,6 +202,18 @@ class City
     public function setSlug(string $slug): City
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getSlogan(): ?string
+    {
+        return $this->slogan;
+    }
+
+    public function setSlogan(string $slogan = null): City
+    {
+        $this->slogan = $slogan;
 
         return $this;
     }
@@ -408,6 +445,52 @@ class City
     public function getPiwikTrackingCode(): ?string
     {
         return $this->piwikTrackingCode;
+    }
+
+    public function setCriticalmassTitle(string $criticalmassTitle = null): City
+    {
+        $this->criticalmassTitle = $criticalmassTitle;
+
+        return $this;
+    }
+
+    public function getCriticalmassTitle(): ?string
+    {
+        return $this->criticalmassTitle;
+    }
+
+    public function setCriticalmassCitySlug(string $criticalmassCitySlug)
+    {
+        $this->criticalmassCitySlug = $criticalmassCitySlug;
+    }
+
+    public function getCriticalmassCitySlug(): ?string
+    {
+        return $this->criticalmassCitySlug;
+    }
+
+    public function setLatitude(float $latitude = null): City
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getLatitude(): ?float
+    {
+        return $this->latitude;
+    }
+
+    public function setLongitude(float $longitude = null): City
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    public function getLongitude(): ?float
+    {
+        return $this->longitude;
     }
 
     public function __toString(): string

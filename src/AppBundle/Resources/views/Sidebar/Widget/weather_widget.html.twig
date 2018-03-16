@@ -1,0 +1,34 @@
+{% if weather is defined %}
+    <div class="card mt-2">
+        <div class="card-body text-center">
+            <h4 class="card-title">
+                Wetter
+            </h4>
+
+            <p class="card-text">
+                Heute ist ein guter Tag zum Radfahren
+            </p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                Witterung: {{ weather.weather }}
+            </li>
+
+            <li class="list-group-item">
+                Temperatur:
+                {% if weather.temperaturMin == weather.temperaturMax %}
+                    {{ weather.temperaturMin }} °C
+                {% else %}
+                    {{ weather.temperaturMin }} bis {{ weather.temperaturMax }} °C
+                {% endif %}
+            </li>
+        </ul>
+        <div class="card-body text-center">
+            <p class="card-text">
+                <small>
+                    Wetterdaten von <a href="http://openweathermap.org/">OpenWeatherMap</a>
+                </small>
+            </p>
+        </div>
+    </div>
+{% endif %}

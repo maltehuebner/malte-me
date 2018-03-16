@@ -16,7 +16,7 @@
     </a>
 
     {% if photo.highlighted or photo.sponsored or photo.affiliated or photo.source or photo.title or photo.description %}
-    <div class="card-block">
+    <div class="card-body">
         {% if photo.highlighted %}
             <span class="badge badge-info float-right" data-toggle="tooltip" data-placement="bottom" title="Dieses Foto wird eine Zeit lang hervorgehoben.">hervorgehoben</span>
         {% endif %}
@@ -74,7 +74,7 @@
         {% if not embed %}
         <div class="float-right">
             {% if app.user and (app.user == photo.user or is_granted('ROLE_ADMIN')) %}
-            <div class="dropdown dropup" style="display: inline;">
+            <div class="dropdown" style="display: inline;">
                 <button class="btn btn-outline-secondary btn-sm dropup" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-wrench" aria-hidden="true"></i>
                 </button>
@@ -88,10 +88,37 @@
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                         Text bearbeiten
                     </a>
+                    <a class="dropdown-item" href="{{ path('censor_photo', { photoId: photo.id }) }}">
+                        <i class="fa fa-paint-brush" aria-hidden="true"></i>
+                        Zensieren
+                    </a>
                     <span class="dropdown-item" data-toggle="modal" data-target="#location-modal">
                         <i class="fa fa-map-pin" aria-hidden="true"></i>
                         Ort festlegen
                     </span>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if photo.title and photo.enabled %}
+            <div class="dropdown" style="display: inline;">
+                <button class="btn btn-outline-secondary btn-sm dropup" href="#" id="share-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-share-square-o" aria-hidden="true"></i>
+                </button>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <h6 class="dropdown-header">
+                        Dieses Foto teilen per:
+                    </h6>
+                    {{ shareDropdownLink(photo, 'mail', ['dropdown-item']) }}
+                    {{ shareDropdownLink(photo, 'twitter', ['dropdown-item']) }}
+                    {{ shareDropdownLink(photo, 'facebook', ['dropdown-item']) }}
+                    {{ shareDropdownLink(photo, 'google', ['dropdown-item']) }}
+                    {{ shareDropdownLink(photo, 'xing', ['dropdown-item']) }}
+                    {{ shareDropdownLink(photo, 'linkedin', ['dropdown-item']) }}
+                    {{ shareDropdownLink(photo, 'whatsapp', ['dropdown-item']) }}
+                    {{ shareDropdownLink(photo, 'pinterest', ['dropdown-item']) }}
+                    {{ shareDropdownLink(photo, 'reddit', ['dropdown-item']) }}
                 </div>
             </div>
             {% endif %}

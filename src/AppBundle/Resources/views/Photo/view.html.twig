@@ -1,100 +1,84 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
-{% block additionalHeaderElements %}
-    <title>{{ photo.title }} &mdash; Fahrradstadt Hamburg</title>
-
-    <meta name="description" content="{{ photo.description[:155] }}" />
-
-    <meta property="fb:app_id" content="216780188685195" />
-    <meta property="og:title" content="{{ photo.title }} &mdash; Fahrradstadt Hamburg" />
-    <meta property="og:type" content="Website" />
-    <meta property="og:description" content="{{ photo.description[:155] }}" />
-    <meta property="og:url" content="{{ url('show_photo', { slug: photo.slug }) }}" />
-    <meta property="og:locale" content="de_DE" />
-    <meta property="og:site_name" content="fahrradstadt.hamburg" />
-    <meta property="og:image" content="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('preview') }}" />
-
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@calderacc">
-    <meta name="twitter:creator" content="@calderacc">
-    <meta name="twitter:title" content="{{ photo.title }} &mdash; Fahrradstadt Hamburg" />
-    <meta name="twitter:description" content="{{ photo.description[:155] }}" />
-    <meta name="twitter:image" content="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('preview') }}" />
-{% endblock %}
-
 {% block content %}
-<div class="container-fluid">
-    {% if not photo.enabled %}
+<div class="container">
     <div class="row">
-        <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-            <div class="alert alert-info" role="alert">
-                <strong>Einen Moment noch!</strong> Es sieht so aus, als hättest du zum ersten Mal ein Foto hochgeladen. Bitte warte ein Moment, bis dein Beitrag moderiert wurde.
-            </div>
-        </div>
-    </div>
-    {% endif %}
-
-    <div class="row">
-        <div class="col-12">
-            {% include 'AppBundle:Includes:photo.html.twig' with { 'photo': photo } %}
-        </div>
-    </div>
-
-    <div class="row mt-4">
-        <div class="col-12">
-            {% if previousPhoto %}
-            <a id="button-previous-photo" class="btn btn-primary float-left" href="{{ path('show_photo', { slug: previousPhoto.slug }) }}">
-                zurück
-            </a>
-            {% endif %}
-
-            {% if nextPhoto %}
-            <a id="button-next-photo" class="btn btn-primary float-right" href="{{ path('show_photo', { slug: nextPhoto.slug }) }}">
-                weiter
-            </a>
-            {% endif %}
-        </div>
-    </div>
-</div>
-
-{% if comments|length > 0 %}
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-12">
-            <a name="comments"></a>
-            <h4 class="text-center">
-                Kommentare zu diesem Eintrag
-            </h4>
-        </div>
-    </div>
-
-    {% for comment in comments %}
-    <div class="row mt-2">
-        <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2">
-            <div class="card">
-                <div class="card-block">
-                    {{ comment.message }}
+        <div class="col-12 col-md-8">
+            {% if not photo.enabled %}
+            <div class="row">
+                <div class="col-12">
+                    <div class="alert alert-info" role="alert">
+                        <strong>Einen Moment noch!</strong> Es sieht so aus, als hättest du zum ersten Mal ein Foto hochgeladen. Bitte warte ein Moment, bis dein Beitrag moderiert wurde.
+                    </div>
                 </div>
-                <div class="card-footer text-muted">
-                    {% if comment.user.profilePictureUrl %}
-                        <img src="{{ comment.user.profilePictureUrl }}" class="img-profile" />
+            </div>
+            {% endif %}
+
+            <div class="row">
+                <div class="col-12">
+                    {% include 'AppBundle:Includes:photo.html.twig' with { 'photo': photo } %}
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-12">
+                    {% if previousPhoto %}
+                    <a id="button-previous-photo" class="btn btn-primary float-left" href="{{ path('show_photo', { slug: previousPhoto.slug }) }}">
+                        zurück
+                    </a>
                     {% endif %}
 
-                    <small>
-                        <strong>
-                            {{ comment.user.displayname }}
-                        </strong>
-
-                        {{ comment.dateTime|date('d.m.Y', 'Europe/Berlin') }} um {{ comment.dateTime|date('H:i', 'Europe/Berlin') }} Uhr
-                    </small>
+                    {% if nextPhoto %}
+                    <a id="button-next-photo" class="btn btn-primary float-right" href="{{ path('show_photo', { slug: nextPhoto.slug }) }}">
+                        weiter
+                    </a>
+                    {% endif %}
                 </div>
             </div>
 
+            {% if comments|length > 0 %}
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <a name="comments"></a>
+                        <h4 class="text-center">
+                            Kommentare zu diesem Eintrag
+                        </h4>
+                    </div>
+                </div>
+
+                {% for comment in comments %}
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <div class="card comment">
+                                <div class="card-body">
+                                    {{ comment.message }}
+                                </div>
+                                <div class="card-footer text-muted">
+                                    {% if comment.user.profilePictureUrl %}
+                                        <img src="{{ comment.user.profilePictureUrl }}" class="img-profile" />
+                                    {% endif %}
+
+                                    <small>
+                                        <strong>
+                                            {{ comment.user.displayname }}
+                                        </strong>
+
+                                        {{ comment.dateTime|date('d.m.Y', 'Europe/Berlin') }} um {{ comment.dateTime|date('H:i', 'Europe/Berlin') }} Uhr
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+        </div>
+
+        <div class="col-12 col-md-4" id="sidebar-container">
+            {{ render(controller('AppBundle:Sidebar:sidebar')) }}
         </div>
     </div>
-    {% endfor %}
 </div>
-{% endif %}
 
 {{ include('AppBundle:Includes:commentModal.html.twig') }}
 {{ include('AppBundle:Includes:locationModal.html.twig') }}
@@ -103,9 +87,10 @@
 
 {% block additionalFooterElements %}
     <script type="text/javascript">
-        Fahrradstadt.loadModule('LocationBox', '#location-modal');
+        Fahrradstadt.loadModule('LocationBox', '#location-modal', { city: '{{ getCity().name }}'} );
         Fahrradstadt.loadModule('CommentBox');
         Fahrradstadt.loadModule('FavoriteStar');
+        Fahrradstadt.loadModule('Share');
         Fahrradstadt.loadModule('PhotoNavigation', '#photo-{{ photo.id }}');
     </script>
 {% endblock %}

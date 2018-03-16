@@ -19,26 +19,23 @@
 
     <link rel="stylesheet" href="{{ asset('bundles/app/css/fahrradstadt.css') }}" />
     <link rel="stylesheet" href="{{ asset('bundles/app/css/jasny-bootstrap/jasny-bootstrap.css') }}" />
-    <link rel="alternate" type="application/rss+xml" title="RSS-Feed" href="/feed" />
+    <link rel="alternate" type="application/rss+xml" title="RSS-Feed" href="{{ path('feed') }}" />
 </head>
 
 <body>
 {% block body %}{% endblock %}
 
-<script src="{{ asset('bundles/app/js/jquery/jquery-3.1.1.min.js') }}"></script>
-<script src="{{ asset('bundles/app/js/tether/tether.min.js') }}"></script>
-<script src="{{ asset('bundles/app/js/bootstrap/bootstrap.min.js') }}"></script>
-<script src="{{ asset('bundles/app/js/jasny-bootstrap/jasny-bootstrap.min.js') }}"></script>
+{#<script src="{{ asset('bundles/app/js/jasny-bootstrap/jasny-bootstrap.min.js') }}"></script>#}
 <script src="{{ asset('bundles/app/js/requirejs/require.js') }}"></script>
 <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
 <script src="{{ asset('bundles/app/js/Fahrradstadt.js') }}"></script>
 
-<script type="text/javascript">
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    });
+<script>
+    Fahrradstadt.loadModule('InitBootstrap');
+    Fahrradstadt.loadModule('Sidebar', '#sidebar-button');
 </script>
+
 
 {{ include('AppBundle:Includes:piwik.html.twig') }}
 

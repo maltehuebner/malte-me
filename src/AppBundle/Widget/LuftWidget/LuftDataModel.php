@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace AppBundle\Widget\LuftWidget;
 
@@ -66,7 +66,7 @@ class LuftDataModel
         return $this->level;
     }
 
-    public function getValue(): string
+    public function getValue(): float
     {
         return $this->value;
     }

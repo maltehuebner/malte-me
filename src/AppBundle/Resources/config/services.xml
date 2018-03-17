@@ -8,30 +8,4 @@
         <import resource="./services/twig.xml"/>
         <import resource="./services/yourls.xml"/>
     </imports>
-
-    <services>
-        <service id="app.photo_uploader" class="AppBundle\PhotoUploader\PhotoUploader" public="true">
-            <argument type="service" id="doctrine.orm.entity_manager" />
-            <argument type="service" id="vich_uploader.templating.helper.uploader_helper" />
-            <argument type="string">%kernel.root_dir%</argument>
-            <argument type="service" id="mailer" />
-            <argument type="service" id="session" />
-        </service>
-
-        <service id="app.login_listener" class="AppBundle\EventListener\RequestListener" public="true">
-            <argument type="service" id="doctrine" />
-            <argument type="service" id="security.token_storage" />
-            <argument type="service" id="app.seo_page" />
-            <argument type="service" id="session" />
-            <tag name="kernel.event_listener" event="kernel.request" />
-        </service>
-
-        <service id="app.markdown" class="AppBundle\Markdown\FahrradstadtMarkdown" />
-
-        <service id="app.seo_page" class="AppBundle\Seo\SeoPage">
-            <argument type="service" id="sonata.seo.page.default" />
-            <argument type="service" id="vich_uploader.templating.helper.uploader_helper" />
-            <argument type="service" id="liip_imagine.cache.manager" />
-        </service>
-    </services>
 </container>

@@ -57,7 +57,7 @@ class AbstractController extends Controller
 
     protected function getSeoPage(): SeoPage
     {
-        return $this->get('app.seo_page');
+        return $this->get(SeoPage::class);
     }
 
     protected function generateRouteForCity(City $city, string $route, array $routeParams = []): string

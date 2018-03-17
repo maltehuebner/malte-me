@@ -25,7 +25,10 @@ class LuftDataModel
     /** @var float $value */
     protected $value;
 
-    public function __construct(\DateTime $dateTime, string $stationCode, string $stationName, string $pollutant, string $unit, int $level, float $value)
+    /**
+     * @TODO Make optional parameters mandatory again, fix service definitions
+     */
+    public function __construct(\DateTime $dateTime = null, string $stationCode = null, string $stationName = null, string $pollutant = null, string $unit = null, int $level = null, float $value = null)
     {
         $this->dateTime = $dateTime;
         $this->stationCode = $stationCode;

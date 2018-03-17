@@ -2,14 +2,14 @@
 
 namespace AppBundle\Controller;
 
+use Knp\Component\Pager\Paginator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ArchiveController extends AbstractController
 {
-    public function archiveAction(Request $request): Response
+    public function archiveAction(Request $request, Paginator $paginator): Response
     {
-        $paginator  = $this->get('knp_paginator');
         $page = $request->query->getInt('page', 1);
 
         $query = $this->getDoctrine()->getRepository('AppBundle:Photo')->getFrontpageQuery($this->getCity($request));

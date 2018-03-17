@@ -43,15 +43,12 @@ class DropboxController extends AbstractController
 
         $authUrl = $authHelper->getAuthUrl($callbackUrl);
 
-        return $this->render(
-            'AppBundle:Dropbox:authorize.html.twig',
-            [
-                'authUrl' => $authUrl,
-            ]
-        );
+        return $this->render('AppBundle:Dropbox:authorize.html.twig', [
+            'authUrl' => $authUrl,
+        ]);
     }
 
-    public function importAction(Request $request, UserInterface $user): Response
+    public function importAction(Request $request, UserInterface $user, PhotoUploader $photoUploader): Response
     {
         $city = $this->getCity($request);
 
@@ -68,19 +65,16 @@ class DropboxController extends AbstractController
 
         /** @var FileMetadata $fileMetadata */
         foreach ($items as $fileMetadata) {
-            $photo = $this->importFile($dropbox, $fileMetadata, $user, $city);
+            $photo = $this->importFile($dropbox, $fileMetadata, $user, $city, $photoUploader);
 
             $dropbox->delete($fileMetadata->getPathLower());
 
             array_push($importedPhotoList, $photo);
         }
 
-        return $this->render(
-            'AppBundle:Dropbox:import.html.twig',
-            [
-                'importedPhotoList' => $importedPhotoList,
-            ]
-        );
+        return $this->render('AppBundle:Dropbox:import.html.twig', [
+            'importedPhotoList' => $importedPhotoList,
+        ]);
     }
 
     protected function getDropboxApp(): DropboxApp
@@ -101,7 +95,7 @@ class DropboxController extends AbstractController
         return array_pop($filenameParts);
     }
 
-    protected function importFile(Dropbox $dropbox, FileMetadata $fileMetadata, UserInterface $user, City $city): Photo
+    protected function importFile(Dropbox $dropbox, FileMetadata $fileMetadata, UserInterface $user, City $city, PhotoUploader $photoUploader): Photo
     {
         $uploadPath = $this->getParameter('upload_destination.photo');
         $tmpFilename = '/tmp/fahrradstadt-dropbox-import';
@@ -112,11 +106,7 @@ class DropboxController extends AbstractController
         $file = $dropbox->download($fileMetadata->getPathLower());
         file_put_contents($path, $file->getContents());
 
-        /** @var PhotoUploader $photoUploader */
-        $photoUploader = $this->get('app.photo_uploader');
-
         $photo = new Photo();
-
         $photo
             ->setUser($user)
             ->setImageName($filename)

@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class InvitationController extends AbstractController
 {
-    public function invitationAction(Request $request, UserInterface $user = null, string $code): Response
+    public function invitationAction(Request $request, UserInterface $user = null, PhotoUploader $photoUploader, string $code): Response
     {
         /** @var Invitation $invitation */
         $invitation = $this->getDoctrine()->getRepository('AppBundle:Invitation')->findOneByCode($code);
@@ -36,9 +36,6 @@ class InvitationController extends AbstractController
 
         if ($uploadForm->isSubmitted() && $uploadForm->isValid()) {
             $photo = $uploadForm->getData();
-
-            /** @var PhotoUploader $photoUploader */
-            $photoUploader = $this->get('app.photo_uploader');
 
             $photo = $photoUploader->handleUpload($photo, $user);
 

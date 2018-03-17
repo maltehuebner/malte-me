@@ -22,51 +22,48 @@ class SidebarController extends AbstractController
 {
     public function sidebarAction(Request $request, UserInterface $user = null, Photo $photo = null): Response
     {
-        $city = $this->getCity($request);
-
         $commentList = $this->getDoctrine()->getRepository(Comment::class)->findLatest($this->getCity($request), 10);
         $favouriteList = $this->getDoctrine()->getRepository(Favorite::class)->findLatest($this->getCity($request), 10);
 
         return $this->render('AppBundle:Sidebar:sidebar.html.twig', [
             'commentList' => $commentList,
             'favouriteList' => $favouriteList,
-            'criticalmass' => $this->getCriticalmass($city),
-            'calendar' => $this->getCalendar($city),
-            'luft' => $this->getLuft($city),
-            'weather' => $this->getWeather($city)
         ]);
     }
 
-    protected function getCriticalmass(City $city): ?CriticalmassModel
+    public function criticalmassWidgetAction(City $city, CriticalmassWidget $criticalmassWidget): ?Response
     {
         if (!$city->getCriticalmassCitySlug()) {
             return null;
         }
 
-        /** @var CriticalmassWidget $widget */
-        $widget = $this->get(CriticalmassWidget::class);
-
-        return $widget->setCity($city)->render();
+        return $this->render('AppBundle:Sidebar/Widget:criticalmass_widget.html.twig', [
+            'criticalmass' =>  $criticalmassWidget->setCity($city)->render(),
+        ]);
     }
 
-    protected function getCalendar(City $city): ?CalendarModel
+    public function calendarWidgetAction(CalendarWidget $calendarWidget): ?Response
     {
-        /** @var CalendarWidget $widget */
-        $widget = $this->get(CalendarWidget::class);
-        return $widget->render();
+        return $this->render('AppBundle:Sidebar/Widget:calendar_widget.html.twig', [
+            'calendar' => $calendarWidget->render(),
+        ]);
     }
 
-    protected function getLuft(City $city): ?LuftModel
+    public function luftWidgetAction(City $city, LuftWidget $luftWidget): ?Response
     {
-        /** @var LuftWidget $widget */
-        $widget = $this->get(LuftWidget::class);
-        return $widget->setCity($city)->render();
+        $luftWidget->setCity($city);
+
+        return $this->render('AppBundle:Sidebar/Widget:luft_widget.html.twig', [
+            'luft' => $luftWidget->render(),
+        ]);
     }
 
-    protected function getWeather(City $city): ?WeatherModel
+    public function weatherWidgetAction(City $city, WeatherWidget $weatherWidget): ?Response
     {
-        /** @var WeatherWidget $widget */
-        $widget = $this->get(WeatherWidget::class);
-        return $widget->setCity($city)->render();
+        $weatherWidget->setCity($city);
+        
+        return $this->render('AppBundle:Sidebar/Widget:weather_widget.html.twig', [
+            'weather' => $weatherWidget->render(),
+        ]);
     }
 }

@@ -15,7 +15,10 @@ class CriticalmassModel implements WidgetDataInterface
     /** @var string $location */
     protected $location;
 
-    public function __construct(string $citySlug, \DateTime $dateTime, string $location = null)
+    /**
+     * @TODO Make optional parameters mandatory again, fix service definitions
+     */
+    public function __construct(string $citySlug = null, \DateTime $dateTime = null, string $location = null)
     {
         $this->citySlug = $citySlug;
         $this->dateTime = $dateTime;

@@ -160,6 +160,16 @@ class City
      */
     protected $longitude;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $facebookPageId;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $facebookPageToken;
+
     public function __construct()
     {
         $this->photos = new ArrayCollection();
@@ -491,6 +501,30 @@ class City
     public function getLongitude(): ?float
     {
         return $this->longitude;
+    }
+
+    public function getFacebookPageId(): ?string
+    {
+        return $this->facebookPageId;
+    }
+
+    public function setFacebookPageId(string $facebookPageId): City
+    {
+        $this->facebookPageId = $facebookPageId;
+
+        return $this;
+    }
+
+    public function getFacebookPageToken(): ?string
+    {
+        return $this->facebookPageToken;
+    }
+
+    public function setFacebookPageToken(string $facebookPageToken): City
+    {
+        $this->facebookPageToken = $facebookPageToken;
+
+        return $this;
     }
 
     public function __toString(): string

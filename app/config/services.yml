@@ -9,7 +9,7 @@ services:
 
     AppBundle\:
         resource: '../../src/AppBundle/*'
-        exclude: '../../src/AppBundle/{Entity,Repository}'
+        exclude: '../../src/AppBundle/{Admin,Entity,Model,Repository}'
 
     AppBundle\Controller\:
         resource: '../../src/AppBundle/Controller'

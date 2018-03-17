@@ -9,6 +9,7 @@ use AppBundle\Model\CityFrontpageModel;
 use Knp\Component\Pager\Paginator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class DefaultController extends AbstractController
@@ -48,14 +49,14 @@ class DefaultController extends AbstractController
         return $result;
     }
 
-    public function cityListAction(): Response
+    public function cityListAction(RouterInterface $router): Response
     {
         $publicCities = $this->getDoctrine()->getRepository(City::class)->findPublicCities();
 
         $cityList = [];
 
         foreach ($publicCities as $publicCity) {
-            $frontpageUrl = $this->generateRouteForCity($publicCity, 'frontpage');
+            $frontpageUrl = $this->generateRouteForCity($router, $publicCity, 'frontpage');
 
             $cityList[] = new CityFrontpageModel($publicCity, $frontpageUrl);
         }

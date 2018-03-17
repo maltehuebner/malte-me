@@ -54,11 +54,9 @@ class AbstractController extends Controller
         return $city;
     }
 
-    protected function generateRouteForCity(City $city, string $route, array $routeParams = []): string
+    protected function generateRouteForCity(RouterInterface $router, City $city, string $route, array $routeParams = []): string
     {
-        /** @var RequestContext $context */
-        $context = $this->get('router')->getContext();
-
+        $context = $router->getContext();
         $context->setHost($city->getHostname());
 
         if ($this->container->getParameter('kernel.environment') === 'dev') {

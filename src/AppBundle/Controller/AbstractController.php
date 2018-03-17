@@ -3,7 +3,6 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\City;
-use AppBundle\Seo\SeoPage;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RequestContext;
@@ -37,12 +36,12 @@ class AbstractController extends Controller
 
     protected function getCity(Request $request = null): ?City
     {
-        if (!$request || !$this->get('session')->has('cityId')) {
+        if (!$request || !$request->getSession()->has('cityId')) {
             return null;
         }
 
         /** @var int $cityId */
-        $cityId = $this->get('session')->get('cityId');
+        $cityId = $request->getSession()->get('cityId');
 
         /** @var City $city */
         $city = $this->getDoctrine()->getRepository(City::class)->find($cityId);
@@ -53,11 +52,6 @@ class AbstractController extends Controller
         }
 
         return $city;
-    }
-
-    protected function getSeoPage(): SeoPage
-    {
-        return $this->get(SeoPage::class);
     }
 
     protected function generateRouteForCity(City $city, string $route, array $routeParams = []): string

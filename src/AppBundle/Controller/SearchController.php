@@ -2,18 +2,18 @@
 
 namespace AppBundle\Controller;
 
+use Knp\Component\Pager\Paginator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class SearchController extends AbstractController
 {
-    public function searchAction(Request $request): Response
+    public function searchAction(Request $request, Paginator $paginator): Response
     {
         $finder = $this->container->get('fos_elastica.finder.fahrradstadt.photo');
         $page = $request->query->getInt('page', 1);
         $query = $request->query->get('query');
 
-        $paginator = $this->get('knp_paginator');
         $results = $finder->createPaginatorAdapter($query);
 
         $pagination = $paginator->paginate(

@@ -33,7 +33,7 @@ class SidebarController extends AbstractController
             'criticalmass' => $this->getCriticalmass($city),
             'calendar' => $this->getCalendar($city),
             'luft' => $this->getLuft($city),
-            'weather' => $this->getWeather($city)
+            'weather' => $this->getWeather($city),
         ]);
     }
 

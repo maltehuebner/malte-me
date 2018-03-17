@@ -6,16 +6,15 @@ use AppBundle\Entity\City;
 use AppBundle\Entity\Favorite;
 use AppBundle\Entity\Photo;
 use AppBundle\Model\CityFrontpageModel;
+use Knp\Component\Pager\Paginator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class DefaultController extends AbstractController
 {
-    public function indexAction(Request $request, UserInterface $user = null): Response
+    public function indexAction(Request $request, UserInterface $user = null, Paginator $paginator): Response
     {
-        $paginator = $this->get('knp_paginator');
-
         $query = $this->getDoctrine()->getRepository(Photo::class)->getFrontpageQuery($this->getCity($request));
 
         $pagination = $paginator->paginate(

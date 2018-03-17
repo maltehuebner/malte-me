@@ -6,7 +6,6 @@
     <imports>
         <import resource="./services/admin.xml"/>
         <import resource="./services/twig.xml"/>
-        <import resource="./services/widget.xml"/>
         <import resource="./services/yourls.xml"/>
     </imports>
 

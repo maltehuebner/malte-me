@@ -6,6 +6,7 @@ use AppBundle\Entity\City;
 use AppBundle\Entity\Photo;
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Malenki\Slug;
 use PHPExif\Reader\Reader;
 use Symfony\Component\Form\Form;
@@ -21,7 +22,7 @@ class PhotoUploader
     protected $mailer;
     protected $session;
 
-    public function __construct(EntityManager $entityManager, UploaderHelper $uploaderHelper, string $kernelRootDir, \Swift_Mailer $mailer, Session $session)
+    public function __construct(EntityManagerInterface $entityManager, UploaderHelper $uploaderHelper, string $kernelRootDir, \Swift_Mailer $mailer, Session $session)
     {
         $this->entityManager = $entityManager;
         $this->uploaderHelper = $uploaderHelper;

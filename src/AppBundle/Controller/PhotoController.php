@@ -14,15 +14,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class PhotoController extends AbstractController
 {
-    public function embedAction(Request $request, int $id): Response
+    /**
+     * @ParamConverter("photo", class="AppBundle:Photo")
+     */
+    public function embedAction(Photo $photo): Response
     {
-        /** @var Photo $photo */
-        $photo = $this->getDoctrine()->getRepository(Photo::class)->find($id);
-
-        if (!$photo) {
-            throw $this->createNotFoundException();
-        }
-
         return $this->render('AppBundle:Photo:embed.html.twig', [
             'photo' => $photo,
         ]);

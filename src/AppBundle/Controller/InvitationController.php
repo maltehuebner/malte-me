@@ -41,11 +41,9 @@ class InvitationController extends AbstractController
 
             if ($photo && $user) {
                 return $this->redirectToRoute(
-                    'show_photo',
-                    [
-                        'slug' => $photo->getSlug()
-                    ]
-                );
+                    'show_photo', [
+                    'photoSlug' => $photo->getSlug()
+                ]);
             } elseif ($photo) {
                 return $this->anonymousLogin($photo);
             }

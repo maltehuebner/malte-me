@@ -5,12 +5,9 @@ namespace AppBundle\PhotoUploader;
 use AppBundle\Entity\City;
 use AppBundle\Entity\Photo;
 use AppBundle\Entity\User;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Malenki\Slug;
 use PHPExif\Reader\Reader;
-use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 

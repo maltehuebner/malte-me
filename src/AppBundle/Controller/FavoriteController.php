@@ -3,24 +3,20 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Favorite;
-use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Photo;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class FavoriteController extends AbstractController
 {
     /**
      * @Security("has_role('ROLE_USER')")
+     * @ParamConverter("photo", class="AppBundle:Photo")
      */
-    public function favoriteAction(Request $request, UserInterface $user, string $photoId): Response
+    public function favoriteAction(UserInterface $user, Photo $photo): Response
     {
-        $photo = $this->getDoctrine()->getRepository('AppBundle:Photo')->find($photoId);
-
-        if (!$photo) {
-            throw $this->createNotFoundException();
-        }
-
         $em = $this->getDoctrine()->getManager();
 
         $favorite = $this->getDoctrine()->getRepository('AppBundle:Favorite')->findForUserAndPhoto($user, $photo);
@@ -38,11 +34,8 @@ class FavoriteController extends AbstractController
 
         $em->flush();
 
-        return $this->redirectToRoute(
-            'show_photo',
-            [
-                'slug' => $photo->getSlug()
-            ]
-        );
+        return $this->redirectToRoute('show_photo', [
+            'photoSlug' => $photo->getSlug()
+        ]);
     }
 }

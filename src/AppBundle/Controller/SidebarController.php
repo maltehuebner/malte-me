@@ -6,24 +6,24 @@ use AppBundle\Entity\City;
 use AppBundle\Entity\Comment;
 use AppBundle\Entity\Favorite;
 use AppBundle\Entity\Photo;
-use AppBundle\Widget\CalendarWidget\CalendarModel;
 use AppBundle\Widget\CalendarWidget\CalendarWidget;
-use AppBundle\Widget\CriticalmassWidget\CriticalmassModel;
 use AppBundle\Widget\CriticalmassWidget\CriticalmassWidget;
-use AppBundle\Widget\LuftWidget\LuftModel;
 use AppBundle\Widget\LuftWidget\LuftWidget;
-use AppBundle\Widget\WeatherWidget\WeatherModel;
 use AppBundle\Widget\WeatherWidget\WeatherWidget;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class SidebarController extends AbstractController
 {
-    public function sidebarAction(Request $request, UserInterface $user = null, Photo $photo = null): Response
+    /**
+     * @ParamConverter("city", class="AppBundle:City")
+     */
+    public function sidebarAction(Request $request, UserInterface $user = null, Photo $photo = null, City $city): Response
     {
-        $commentList = $this->getDoctrine()->getRepository(Comment::class)->findLatest($this->getCity($request), 10);
-        $favouriteList = $this->getDoctrine()->getRepository(Favorite::class)->findLatest($this->getCity($request), 10);
+        $commentList = $this->getDoctrine()->getRepository(Comment::class)->findLatest($city, 10);
+        $favouriteList = $this->getDoctrine()->getRepository(Favorite::class)->findLatest($city, 10);
 
         return $this->render('AppBundle:Sidebar:sidebar.html.twig', [
             'commentList' => $commentList,

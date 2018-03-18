@@ -3,24 +3,21 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Comment;
+use AppBundle\Entity\Photo;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class CommentController extends AbstractController
 {
     /**
      * @Security("has_role('ROLE_USER')")
+     * @ParamConverter("photo", class="AppBundle:Photo")
      */
-    public function addAction(Request $request, UserInterface $user, int $photoId): Response
+    public function addAction(Request $request, UserInterface $user, Photo $photo): Response
     {
-        $photo = $this->getDoctrine()->getRepository('AppBundle:Photo')->find($photoId);
-
-        if (!$photo) {
-            throw $this->createNotFoundException();
-        }
-
         $message = $request->request->get('message');
 
         if (!$message) {
@@ -39,10 +36,8 @@ class CommentController extends AbstractController
         $em->persist($comment);
         $em->flush();
 
-        return $this->redirectToRoute(
-            'show_photo', [
-                'slug' => $photo->getSlug()
-            ]
-        );
+        return $this->redirectToRoute('show_photo', [
+            'photoSlug' => $photo->getSlug()
+        ]);
     }
 }

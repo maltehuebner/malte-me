@@ -19,3 +19,11 @@ services:
 
     AppBundle\UserProvider\FOSUBUserProvider:
         arguments: ['@fos_user.user_manager', {facebook: facebookId, strava: stravaId, twitter: twitterId}]
+
+    AppBundle\Request\ParamConverter\PhotoParamConverter:
+        tags:
+            - { name: request.param_converter, priority: 10, converter: photo_converter }
+
+    AppBundle\Request\ParamConverter\CityParamConverter:
+        tags:
+            - { name: request.param_converter, priority: 10, converter: city_converter }

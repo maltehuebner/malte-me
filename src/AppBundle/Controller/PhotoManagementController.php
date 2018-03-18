@@ -7,18 +7,15 @@ use AppBundle\Photo\PhotoManipulatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class PhotoManagementController extends AbstractController
 {
-    public function rotateAction(PhotoManipulatorInterface $photoManipulator, UserInterface $user, int $photoId): Response
+    /**
+     * @ParamConverter("photo", class="AppBundle:Photo")
+     */
+    public function rotateAction(PhotoManipulatorInterface $photoManipulator, UserInterface $user, Photo $photo): Response
     {
-        /** @var Photo $photo */
-        $photo = $this->getDoctrine()->getRepository('AppBundle:Photo')->find($photoId);
-
-        if (!$photo) {
-            throw $this->createNotFoundException();
-        }
-
         if ($photo->getUser() !== $user && !$user->hasRole('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException();
         }
@@ -33,15 +30,11 @@ class PhotoManagementController extends AbstractController
         ]);
     }
 
-    public function censorAction(Request $request, UserInterface $user, int $photoId, PhotoManipulatorInterface $photoManipulator): Response
+    /**
+     * @ParamConverter("photo", class="AppBundle:Photo")
+     */
+    public function censorAction(Request $request, UserInterface $user, Photo $photo, PhotoManipulatorInterface $photoManipulator): Response
     {
-        /** @var Photo $photo */
-        $photo = $this->getDoctrine()->getRepository('AppBundle:Photo')->find($photoId);
-
-        if (!$photo) {
-            throw $this->createNotFoundException();
-        }
-
         if ($photo->getUser() !== $user && !$user->hasRole('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException();
         }

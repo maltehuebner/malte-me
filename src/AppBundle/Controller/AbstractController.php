@@ -23,6 +23,9 @@ class AbstractController extends Controller
         return $city;
     }
 
+    /**
+     * @deprecated
+     */
     protected function getCityBySlug(string $citySlug): City
     {
         $city = $this->getDoctrine()->getRepository(City::class)->findOneBySlug($citySlug);
@@ -34,6 +37,9 @@ class AbstractController extends Controller
         return $city;
     }
 
+    /**
+     * @deprecated
+     */
     protected function getCity(Request $request = null): ?City
     {
         if (!$request || !$request->getSession()->has('cityId')) {

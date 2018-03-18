@@ -7,6 +7,7 @@ use AppBundle\Form\Type\PhotoEditType;
 use AppBundle\Form\Type\PhotoLocateType;
 use AppBundle\Seo\SeoPage;
 use Malenki\Slug;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -27,15 +28,11 @@ class PhotoController extends AbstractController
         ]);
     }
 
-    public function viewAction(SeoPage $seoPage, UserInterface $user = null, string $slug): Response
+    /**
+     * @ParamConverter("photo", class="AppBundle:Photo")
+     */
+    public function viewAction(SeoPage $seoPage, UserInterface $user = null, Photo $photo): Response
     {
-        /** @var Photo $photo */
-        $photo = $this->getDoctrine()->getRepository('AppBundle:Photo')->findOneBySlug($slug);
-
-        if (!$photo) {
-            throw $this->createNotFoundException();
-        }
-
         $comments = $this->getDoctrine()->getRepository('AppBundle:Comment')->findForPhoto($photo);
 
         $userFavorites = [];

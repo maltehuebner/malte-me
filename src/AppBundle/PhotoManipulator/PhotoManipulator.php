@@ -10,14 +10,14 @@ use Imagine\Image\PointInterface;
 
 class PhotoManipulator extends AbstractPhotoManipulator
 {
-    public function rotate(int $angle): PhotoManipulator
+    public function rotate(int $angle): PhotoManipulatorInterface
     {
         $this->image->rotate($angle);
 
         return $this;
     }
 
-    public function censor(array $areaDataList, int $displayWidth): PhotoManipulator
+    public function censor(array $areaDataList, int $displayWidth): PhotoManipulatorInterface
     {
         $factor = $this->image->getSize()->getWidth() / $displayWidth;
 

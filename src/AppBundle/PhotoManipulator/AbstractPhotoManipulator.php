@@ -14,7 +14,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
-abstract class AbstractPhotoManipulator
+abstract class AbstractPhotoManipulator implements PhotoManipulatorInterface
 {
     /** @var PhotoInterface $photo */
     protected $photo;
@@ -49,7 +49,7 @@ abstract class AbstractPhotoManipulator
         $this->imagineController = $imagineController;
     }
 
-    public function setPhoto(PhotoInterface $photo): AbstractPhotoManipulator
+    public function open(PhotoInterface $photo): PhotoManipulatorInterface
     {
         $this->photo = $photo;
 
@@ -72,14 +72,14 @@ abstract class AbstractPhotoManipulator
         return $filename;
     }
 
-    protected function saveManipulatedImage(ImageInterface $image, Photo $photo): string
+    public function save(): PhotoManipulatorInterface
     {
-        if (!$photo->getBackupName()) {
+        if (!$this->photo->getBackupName()) {
             $newFilename = uniqid().'.JPG';
 
-            $photo->setBackupName($photo->getImageName());
+            $this->photo->setBackupName($this->photo->getImageName());
 
-            $photo->setImageName($newFilename);
+            $this->photo->setImageName($newFilename);
 
             $this->registry->getManager()->flush();
         }
@@ -92,7 +92,7 @@ abstract class AbstractPhotoManipulator
         return $filename;
     }
 
-    public function createPhotoImage(): AbstractPhotoManipulator
+    protected function createPhotoImage(): AbstractPhotoManipulator
     {
         $imagine = new Imagine();
 

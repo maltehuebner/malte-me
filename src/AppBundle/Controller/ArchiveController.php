@@ -2,17 +2,23 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\City;
+use AppBundle\Entity\Photo;
 use Knp\Component\Pager\Paginator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class ArchiveController extends AbstractController
 {
-    public function archiveAction(Request $request, Paginator $paginator): Response
+    /**
+     * @ParamConverter("city", class="AppBundle:City")
+     */
+    public function archiveAction(Request $request, Paginator $paginator, City $city): Response
     {
         $page = $request->query->getInt('page', 1);
 
-        $query = $this->getDoctrine()->getRepository('AppBundle:Photo')->getFrontpageQuery($this->getCity($request));
+        $query = $this->getDoctrine()->getRepository(Photo::class)->getFrontpageQuery($city);
 
         $pagination = $paginator->paginate(
             $query,

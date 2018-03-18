@@ -94,8 +94,10 @@ class PhotoController extends AbstractController
             $photo = $editForm->getData();
 
             if ($photo->getImported()) {
+                $slug = new Slug($photo->getTitle().' '.$photo->getId());
+
                 $photo
-                    ->setSlug(new Slug($photo->getTitle().' '.$photo->getId()))
+                    ->setSlug($slug->render())
                     ->setEnabled(true)
                 ;
             }

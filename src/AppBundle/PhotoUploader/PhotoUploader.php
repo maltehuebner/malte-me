@@ -98,7 +98,9 @@ class PhotoUploader
 
     protected function createSlug(Photo $photo): string
     {
-        return new Slug($photo->getTitle().' '.$photo->getId());
+        $slug = new Slug($photo->getTitle().' '.$photo->getId());
+
+        return $slug->render();
     }
 
     protected function notifyModerator(): void

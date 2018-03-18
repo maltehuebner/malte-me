@@ -16,11 +16,11 @@
             <div class="card-columns">
                 {% for photo in pagination %}
                 <div class="photo card">
-                    <a href="{{ path('show_photo', { slug: photo.slug }) }}">
+                    <a href="{{ path('show_photo', { photoSlug: photo.slug }) }}">
                         <img class="card-img-top img-fluid" src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('preview') }}" alt="{{ photo.title }}" />
                     </a>
                     <div class="card-body">
-                        <a href="{{ path('show_photo', { slug: photo.slug }) }}">
+                        <a href="{{ path('show_photo', { photoSlug: photo.slug }) }}">
                             <h4 class="card-title">
                                 {{ photo.title }}
                             </h4>

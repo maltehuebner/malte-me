@@ -2,20 +2,23 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\City;
+use AppBundle\Seo\SeoPage;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class StaticController extends AbstractController
 {
-    public function missionAction(Request $request): Response
+    /**
+     * @ParamConverter("city", class="AppBundle:City")
+     */
+    public function missionAction(City $city, SeoPage $seoPage): Response
     {
-        $city = $this->getCity($request);
-
-        if (!$city || !$city->getShowMenuMission() || !$city->getMissionText()) {
+        if (!$city->getShowMenuMission() || !$city->getMissionText()) {
             throw $this->createNotFoundException();
         }
 
-        $this->getSeoPage()
+        $seoPage
             ->setTitle('Mission')
             ->setDescription('Hamburg wird Fahrradstadt und wir fahren schon mal los! Darum geht’s bei Fahrradstadt.Hamburg')
         ;

@@ -6,17 +6,21 @@ use AppBundle\Entity\City;
 use AppBundle\Entity\Favorite;
 use AppBundle\Entity\Photo;
 use AppBundle\Model\CityFrontpageModel;
+use Knp\Component\Pager\Paginator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class DefaultController extends AbstractController
 {
-    public function indexAction(Request $request, UserInterface $user = null): Response
+    /**
+     * @ParamConverter("city", class="AppBundle:City")
+     */
+    public function indexAction(Request $request, UserInterface $user = null, City $city, Paginator $paginator): Response
     {
-        $paginator = $this->get('knp_paginator');
-
-        $query = $this->getDoctrine()->getRepository(Photo::class)->getFrontpageQuery($this->getCity($request));
+        $query = $this->getDoctrine()->getRepository(Photo::class)->getFrontpageQuery($city);
 
         $pagination = $paginator->paginate(
             $query,
@@ -49,14 +53,14 @@ class DefaultController extends AbstractController
         return $result;
     }
 
-    public function cityListAction(): Response
+    public function cityListAction(RouterInterface $router): Response
     {
         $publicCities = $this->getDoctrine()->getRepository(City::class)->findPublicCities();
 
         $cityList = [];
 
         foreach ($publicCities as $publicCity) {
-            $frontpageUrl = $this->generateRouteForCity($publicCity, 'frontpage');
+            $frontpageUrl = $this->generateRouteForCity($router, $publicCity, 'frontpage');
 
             $cityList[] = new CityFrontpageModel($publicCity, $frontpageUrl);
         }

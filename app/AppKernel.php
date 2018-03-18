@@ -29,6 +29,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new FOS\ElasticaBundle\FOSElasticaBundle(),
+            new Http\HttplugBundle\HttplugBundle(),
             new AppBundle\AppBundle(),
             new UserBundle\UserBundle()
         ];

@@ -16,7 +16,10 @@ class CalendarEventModel
     /** @var string $permalink */
     protected $permalink;
 
-    public function __construct(\DateTime $dateTime, string $permalink, string $title, string $description)
+    /**
+     * @TODO Make optional parameters mandatory again, fix service definitions
+     */
+    public function __construct(\DateTime $dateTime = null, string $permalink = null, string $title = null, string $description = null)
     {
         $this->dateTime = $dateTime;
         $this->permalink = $permalink;

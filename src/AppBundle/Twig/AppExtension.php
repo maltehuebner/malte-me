@@ -26,7 +26,7 @@ class AppExtension extends \Twig_Extension
     /** @var SeoPage $seoPage */
     protected $seoPage;
 
-    public function __construct(Registry $doctrine, Session $session, Markdown $markdown, SeoPage $seoPage)
+    public function __construct(Registry $doctrine, Session $session, FahrradstadtMarkdown $markdown, SeoPage $seoPage)
     {
         $this->doctrine = $doctrine;
         $this->session = $session;

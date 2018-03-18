@@ -22,7 +22,7 @@ security:
                 use_forward:       false
                 failure_path:      /login
                 oauth_user_provider:
-                    service: user_provider
+                    service: AppBundle\UserProvider\FOSUBUserProvider
             pattern: ^/
             form_login:
                 provider: fos_userbundle

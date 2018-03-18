@@ -2,40 +2,21 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\City;
 use Facebook\Exceptions\FacebookResponseException;
 use Facebook\Exceptions\FacebookSDKException;
 use Facebook\Facebook;
-use Facebook\GraphNodes\GraphPage;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class FacebookController extends Controller
 {
-    public function selectAction(Request $request, UserInterface $user): Response
-    {
-        $fb = $this->getFacebook();
-
-        $response = $fb->get('/'.$user->getFacebookId().'/accounts', $user->getFacebookAccessToken());
-
-        $accounts = $response->getGraphEdge();
-
-        $iterator = $accounts->getIterator();
-
-        while ($iterator->current()) {
-            /** @var GraphPage $page */
-            $page = $iterator->current();
-
-            var_dump($page);
-
-            $iterator->next();
-        }
-
-        return new Response('');
-    }
-
-    public function postAction(Request $request, UserInterface $user = null): Response
+    /**
+     * @ParamConverter("city", class="AppBundle:City")
+     */
+    public function postAction(City $city, UserInterface $user): Response
     {
         $fb = $this->getFacebook();
 
@@ -45,8 +26,9 @@ class FacebookController extends Controller
         ];
 
         try {
-            // Returns a `Facebook\FacebookResponse` object
-            $response = $fb->post('/126480444583413/feed', $linkData, $this->getParameter('facebook.access_token'));
+            $endpoint = sprintf('/%d/feed', $city->getFacebookPageId());
+
+            $response = $fb->post($endpoint, $linkData, $city->getFacebookPageToken());
         } catch(FacebookResponseException $e) {
             echo 'Graph returned an error: ' . $e->getMessage();
             exit;

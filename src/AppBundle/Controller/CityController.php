@@ -98,7 +98,7 @@ class CityController extends CRUDController
         $fb = $this->getFacebook();
 
         $endpoint = sprintf('/%d?fields=access_token', $facebookPageId);
-        
+
         $response = $fb->get($endpoint, $user->getFacebookAccessToken());
 
         return $response->getGraphNode()->getField('access_token');

@@ -3,9 +3,11 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\City;
+use AppBundle\Entity\Photo;
 use Facebook\Exceptions\FacebookResponseException;
 use Facebook\Exceptions\FacebookSDKException;
 use Facebook\Facebook;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -15,31 +17,30 @@ class FacebookController extends Controller
 {
     /**
      * @ParamConverter("city", class="AppBundle:City")
+     * @ParamConverter("photo", class="AppBundle:Photo")
      */
-    public function postAction(City $city, UserInterface $user): Response
+    public function postAction(City $city, Photo $photo, UserInterface $user, LoggerInterface $logger): Response
     {
         $fb = $this->getFacebook();
 
         $linkData = [
-            'link' => 'http://www.example.com',
-            'message' => 'User provided message',
+            'link' => $photo->getShorturl(),
+            'message' => $photo->getDescription(),
         ];
 
         try {
             $endpoint = sprintf('/%d/feed', $city->getFacebookPageId());
 
             $response = $fb->post($endpoint, $linkData, $city->getFacebookPageToken());
-        } catch(FacebookResponseException $e) {
-            echo 'Graph returned an error: ' . $e->getMessage();
-            exit;
-        } catch(FacebookSDKException $e) {
-            echo 'Facebook SDK returned an error: ' . $e->getMessage();
-            exit;
+        } catch (FacebookResponseException $e) {
+            $logger->error($e->getMessage());
+        } catch (FacebookSDKException $e) {
+            $logger->error($e->getMessage());
         }
 
-        $graphNode = $response->getGraphNode();
-
-        return new Response('Posted with id: ' . $graphNode['id']);
+        return $this->redirectToRoute('show_photo', [
+            'photoSlug' => $photo->getSlug(),
+        ]);
     }
 
     protected function getFacebook(): Facebook

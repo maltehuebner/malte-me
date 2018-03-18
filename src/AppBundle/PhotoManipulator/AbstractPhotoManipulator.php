@@ -4,6 +4,7 @@ namespace AppBundle\PhotoManipulator;
 
 use AppBundle\Entity\Photo;
 use Imagine\Image\ImageInterface;
+use Imagine\Image\ImagineInterface;
 use Imagine\Imagick\Image;
 use Imagine\Imagick\Imagine;
 use Liip\ImagineBundle\Controller\ImagineController;
@@ -16,6 +17,12 @@ abstract class AbstractPhotoManipulator
 {
     /** @var Photo $photo */
     protected $photo;
+
+    /** @var ImageInterface $image */
+    protected $image;
+
+    /** @var ImagineInterface $imagine */
+    protected $imagine;
 
     /** @var RegistryInterface $registry */
     protected $registry;
@@ -44,6 +51,8 @@ abstract class AbstractPhotoManipulator
     public function setPhoto(Photo $photo): AbstractPhotoManipulator
     {
         $this->photo = $photo;
+
+        $this->createPhotoImage();
 
         return $this;
     }
@@ -82,13 +91,13 @@ abstract class AbstractPhotoManipulator
         return $filename;
     }
 
-    public function createPhotoImage(): Image
+    public function createPhotoImage(): AbstractPhotoManipulator
     {
         $imagine = new Imagine();
 
-        $image = $imagine->open($this->getImageFilename());
+        $this->image = $imagine->open($this->getImageFilename());
 
-        return $image;
+        return $this;
     }
 
     protected function recachePhoto(Photo $photo): AbstractPhotoManipulator

@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class DropboxController extends AbstractController
 {
@@ -48,10 +49,11 @@ class DropboxController extends AbstractController
         ]);
     }
 
-    public function importAction(Request $request, UserInterface $user, PhotoUploader $photoUploader): Response
+    /**
+     * @ParamConverter("city", class="AppBundle:City")
+     */
+    public function importAction(City $city, UserInterface $user, PhotoUploader $photoUploader): Response
     {
-        $city = $this->getCity($request);
-
         $app = $this->getDropboxApp();
 
         $dropbox = new Dropbox($app);

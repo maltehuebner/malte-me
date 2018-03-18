@@ -11,12 +11,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class DefaultController extends AbstractController
 {
-    public function indexAction(Request $request, UserInterface $user = null, Paginator $paginator): Response
+    /**
+     * @ParamConverter("city", class="AppBundle:City")
+     */
+    public function indexAction(Request $request, UserInterface $user = null, City $city, Paginator $paginator): Response
     {
-        $query = $this->getDoctrine()->getRepository(Photo::class)->getFrontpageQuery($this->getCity($request));
+        $query = $this->getDoctrine()->getRepository(Photo::class)->getFrontpageQuery($city);
 
         $pagination = $paginator->paginate(
             $query,

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\City;
 use AppBundle\Entity\Photo;
 use cebe\markdown\Markdown;
 use Liip\ImagineBundle\Controller\ImagineController;
@@ -13,19 +14,23 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class FeedController extends AbstractController
 {
-    public function indexAction(Request $request): Response
+    /**
+     * @ParamConverter("city", class="AppBundle:City")
+     */
+    public function indexAction(City $city): Response
     {
-        $feed = $this->buildFeed($request);
+        $feed = $this->buildFeed($city);
 
         return new Response($feed);
     }
 
-    protected function buildFeed(Request $request): Feed
+    protected function buildFeed(City $city): Feed
     {
-        $photos = $this->getDoctrine()->getRepository('AppBundle:Photo')->findForFeed($this->getCity($request));
+        $photos = $this->getDoctrine()->getRepository(Photo::class)->findForFeed($city);
 
         $feed = new Feed();
 

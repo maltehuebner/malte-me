@@ -37,29 +37,6 @@ class AbstractController extends Controller
         return $city;
     }
 
-    /**
-     * @deprecated
-     */
-    protected function getCity(Request $request = null): ?City
-    {
-        if (!$request || !$request->getSession()->has('cityId')) {
-            return null;
-        }
-
-        /** @var int $cityId */
-        $cityId = $request->getSession()->get('cityId');
-
-        /** @var City $city */
-        $city = $this->getDoctrine()->getRepository(City::class)->find($cityId);
-
-
-        if (!$city) {
-            throw $this->createNotFoundException('City not found');
-        }
-
-        return $city;
-    }
-
     protected function generateRouteForCity(RouterInterface $router, City $city, string $route, array $routeParams = []): string
     {
         $context = $router->getContext();

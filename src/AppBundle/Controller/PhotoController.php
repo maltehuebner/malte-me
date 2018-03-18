@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Photo;
 use AppBundle\Form\Type\PhotoEditType;
 use AppBundle\Form\Type\PhotoLocateType;
+use AppBundle\Seo\SeoPage;
 use Malenki\Slug;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,7 +27,7 @@ class PhotoController extends AbstractController
         ]);
     }
 
-    public function viewAction(Request $request, UserInterface $user = null, string $slug): Response
+    public function viewAction(SeoPage $seoPage, UserInterface $user = null, string $slug): Response
     {
         /** @var Photo $photo */
         $photo = $this->getDoctrine()->getRepository('AppBundle:Photo')->findOneBySlug($slug);
@@ -48,16 +49,12 @@ class PhotoController extends AbstractController
         }
 
         if ($photo->getEnabled()) {
-            $this->getSeoPage()
+            $seoPage
                 ->setTitle($photo->getTitle())
-                ->setPreviewPhoto($photo)
-            ;
+                ->setPreviewPhoto($photo);
 
             if ($photo->getDescription()) {
-                $this
-                    ->getSeoPage()
-                    ->setDescription($photo->getDescription())
-                ;
+                $seoPage->setDescription($photo->getDescription());
             }
         }
 
@@ -94,8 +91,10 @@ class PhotoController extends AbstractController
             $photo = $editForm->getData();
 
             if ($photo->getImported()) {
+                $slug = new Slug($photo->getTitle().' '.$photo->getId());
+
                 $photo
-                    ->setSlug(new Slug($photo->getTitle().' '.$photo->getId()))
+                    ->setSlug($slug->render())
                     ->setEnabled(true)
                 ;
             }

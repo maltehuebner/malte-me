@@ -6,6 +6,7 @@ services:
         bind:
             $openweathermapApiKey: '%openweathermap.api_key%'
             $kernelRootDir: '%kernel.root_dir%'
+            $webDirectory: '%web_dir%'
 
     AppBundle\:
         resource: '../../src/AppBundle/*'

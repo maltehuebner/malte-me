@@ -4,39 +4,10 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\City;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouterInterface;
 
 class AbstractController extends Controller
 {
-    protected function getCityByHostname(string $hostname): City
-    {
-        $hostname = str_replace('www.', '', $hostname);
-
-        $city = $this->getDoctrine()->getRepository(City::class)->findOneByHostname($hostname);
-
-        if (!$city) {
-            throw $this->createNotFoundException(sprintf('Hostname %s not found', $hostname));
-        }
-
-        return $city;
-    }
-
-    /**
-     * @deprecated
-     */
-    protected function getCityBySlug(string $citySlug): City
-    {
-        $city = $this->getDoctrine()->getRepository(City::class)->findOneBySlug($citySlug);
-
-        if (!$city) {
-            throw $this->createNotFoundException(sprintf('City %s not found', $citySlug));
-        }
-
-        return $city;
-    }
-
     protected function generateRouteForCity(RouterInterface $router, City $city, string $route, array $routeParams = []): string
     {
         $context = $router->getContext();

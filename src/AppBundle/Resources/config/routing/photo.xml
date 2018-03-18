@@ -30,12 +30,12 @@
         <default key="_controller">AppBundle:PhotoManagement:rotate</default>
     </route>
 
-    <route id="show_photo" path="/{slug}">
+    <route id="show_photo" path="/{photoSlug}">
         <default key="_controller">AppBundle:Photo:view</default>
     </route>
 
-    <route id="embed_photo" path="/embed/{id}">
+    <route id="embed_photo" path="/embed/{photoId}">
         <default key="_controller">AppBundle:Photo:embed</default>
-        <requirement key="id">([0-9]+)</requirement>
+        <requirement key="photoId">([0-9]+)</requirement>
     </route>
 </routes>

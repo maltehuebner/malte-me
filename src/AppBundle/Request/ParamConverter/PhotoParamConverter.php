@@ -12,7 +12,7 @@ class PhotoParamConverter extends AbstractParamConverter
     {
         $photo = null;
 
-        $photoSlug = $request->get('slug');
+        $photoSlug = $request->get('photoSlug');
 
         if ($photoSlug) {
             $photo = $this->registry->getRepository(Photo::class)->findOneBySlug($photoSlug);

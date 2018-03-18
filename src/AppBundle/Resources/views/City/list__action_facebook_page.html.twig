@@ -1,0 +1,7 @@
+{#{% if admin.hasAccess('facebookPage', object) and admin.hasRoute('facebookPage') %}#}
+{% if admin.hasRoute('facebookPage') %}
+    <a href="{{ admin.generateObjectUrl('facebookPage', object) }}" class="btn btn-sm btn-default edit_link" title="">
+        <i class="fa fa-facebook" aria-hidden="true"></i>
+        Seite auswählen
+    </a>
+{% endif %}

@@ -96,6 +96,14 @@
                         <i class="fa fa-map-pin" aria-hidden="true"></i>
                         Ort festlegen
                     </span>
+                    {% if is_granted('shareFacebook', photo) %}
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ path('facebook_post', { photoId: photo.id }) }}">
+                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                        auf Facebook veröffentlichen
+                    </a>
+                    {% endif %}
+
                 </div>
             </div>
             {% endif %}

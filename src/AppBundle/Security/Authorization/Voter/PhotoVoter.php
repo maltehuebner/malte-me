@@ -47,4 +47,13 @@ class PhotoVoter extends AbstractVoter
 
         return self::ACCESS_ABSTAIN;
     }
+
+    protected function canShareFacebook(Photo $photo, User $user): int
+    {
+        if ($user->hasRole('ROLE_ADMIN')) {
+            return self::ACCESS_GRANTED;
+        }
+
+        return self::ACCESS_ABSTAIN;
+    }
 }

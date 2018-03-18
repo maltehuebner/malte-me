@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace AppBundle\PhotoManipulator;
+namespace AppBundle\Photo;
 
 use Imagine\Image\Box;
 use Imagine\Image\BoxInterface;

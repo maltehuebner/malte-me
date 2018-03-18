@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace AppBundle\PhotoManipulator\Storage;
+namespace AppBundle\Photo\Storage;
 
-use AppBundle\PhotoManipulator\Cache\PhotoCacheInterface;
+use AppBundle\Photo\Cache\PhotoCacheInterface;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 abstract class AbstractPhotoStorage implements PhotoStorageInterface

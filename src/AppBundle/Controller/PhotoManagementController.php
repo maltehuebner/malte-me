@@ -3,7 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Photo;
-use AppBundle\PhotoManipulator\PhotoManipulatorInterface;
+use AppBundle\Photo\PhotoManipulatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;

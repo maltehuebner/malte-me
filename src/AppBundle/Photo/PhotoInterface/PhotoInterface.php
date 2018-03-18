@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace AppBundle\PhotoManipulator\PhotoInterface;
+namespace AppBundle\Photo\PhotoInterface;
 
 interface PhotoInterface
 {

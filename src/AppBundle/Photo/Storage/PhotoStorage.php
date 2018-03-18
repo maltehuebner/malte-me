@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace AppBundle\PhotoManipulator\Storage;
+namespace AppBundle\Photo\Storage;
 
-use AppBundle\PhotoManipulator\PhotoInterface\PhotoInterface;
+use AppBundle\Photo\PhotoInterface\PhotoInterface;
 use Imagine\Image\ImageInterface;
 use Imagine\Imagick\Imagine;
 

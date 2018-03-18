@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace AppBundle\PhotoManipulator;
+namespace AppBundle\Photo;
 
-use AppBundle\PhotoManipulator\PhotoInterface\PhotoInterface;
-use AppBundle\PhotoManipulator\Storage\PhotoStorageInterface;
+use AppBundle\Photo\PhotoInterface\PhotoInterface;
+use AppBundle\Photo\Storage\PhotoStorageInterface;
 use Imagine\Image\ImageInterface;
 use Imagine\Image\ImagineInterface;
 use Symfony\Bridge\Doctrine\RegistryInterface;

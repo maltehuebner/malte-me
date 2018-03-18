@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace AppBundle\PhotoManipulator\Cache;
+namespace AppBundle\Photo\Cache;
 
-use AppBundle\PhotoManipulator\PhotoInterface\PhotoInterface;
+use AppBundle\Photo\PhotoInterface\PhotoInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class PhotoCache extends AbstractPhotoCache

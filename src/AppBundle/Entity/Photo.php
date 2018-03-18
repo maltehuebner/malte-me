@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\PhotoManipulator\PhotoInterface\PhotoInterface;
+use AppBundle\Photo\PhotoInterface\PhotoInterface;
 use AppBundle\Share\ShareableInterface\Shareable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

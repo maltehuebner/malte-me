@@ -12,7 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 class FavoriteController extends AbstractController
 {
     /**
-     * @Security("has_role('ROLE_USER')")
+     * @Security("is_granted('favorite', photo)")
      * @ParamConverter("photo", class="AppBundle:Photo")
      */
     public function favoriteAction(UserInterface $user, Photo $photo): Response

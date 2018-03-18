@@ -8,18 +8,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class PhotoManagementController extends AbstractController
 {
     /**
      * @ParamConverter("photo", class="AppBundle:Photo")
+     * @Security("is_granted('manipulate', photo)")
      */
     public function rotateAction(PhotoManipulatorInterface $photoManipulator, UserInterface $user, Photo $photo): Response
     {
-        if ($photo->getUser() !== $user && !$user->hasRole('ROLE_ADMIN')) {
-            throw $this->createAccessDeniedException();
-        }
-
         $photoManipulator
             ->open($photo)
             ->rotate(-90)
@@ -32,13 +30,10 @@ class PhotoManagementController extends AbstractController
 
     /**
      * @ParamConverter("photo", class="AppBundle:Photo")
+     * @Security("is_granted('manipulate', photo)")
      */
     public function censorAction(Request $request, UserInterface $user, Photo $photo, PhotoManipulatorInterface $photoManipulator): Response
     {
-        if ($photo->getUser() !== $user && !$user->hasRole('ROLE_ADMIN')) {
-            throw $this->createAccessDeniedException();
-        }
-
         if ($request->isMethod(Request::METHOD_POST)) {
             return $this->censorPostAction($request, $user, $photo, $photoManipulator);
         } else {
@@ -48,11 +43,9 @@ class PhotoManagementController extends AbstractController
 
     public function censorGetAction(Request $request, UserInterface $user, Photo $photo, PhotoManipulatorInterface $photoManipulator): Response
     {
-        return $this->render(
-            'AppBundle:Photo:censor.html.twig', [
-                'photo' => $photo,
-            ]
-        );
+        return $this->render('AppBundle:Photo:censor.html.twig', [
+            'photo' => $photo,
+        ]);
     }
 
     public function censorPostAction(Request $request, UserInterface $user, Photo $photo, PhotoManipulatorInterface $photoManipulator): Response

@@ -3,6 +3,7 @@
 namespace AppBundle\PhotoManipulator;
 
 use AppBundle\Entity\Photo;
+use AppBundle\PhotoManipulator\PhotoInterface\PhotoInterface;
 use Imagine\Image\ImageInterface;
 use Imagine\Image\ImagineInterface;
 use Imagine\Imagick\Image;
@@ -15,7 +16,7 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 abstract class AbstractPhotoManipulator
 {
-    /** @var Photo $photo */
+    /** @var PhotoInterface $photo */
     protected $photo;
 
     /** @var ImageInterface $image */
@@ -48,7 +49,7 @@ abstract class AbstractPhotoManipulator
         $this->imagineController = $imagineController;
     }
 
-    public function setPhoto(Photo $photo): AbstractPhotoManipulator
+    public function setPhoto(PhotoInterface $photo): AbstractPhotoManipulator
     {
         $this->photo = $photo;
 
@@ -57,7 +58,7 @@ abstract class AbstractPhotoManipulator
         return $this;
     }
 
-    public function getPhoto(): Photo
+    public function getPhoto(): PhotoInterface
     {
         return $this->photo;
     }

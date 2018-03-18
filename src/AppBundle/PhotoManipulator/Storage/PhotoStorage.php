@@ -2,30 +2,12 @@
 
 namespace AppBundle\PhotoManipulator\Storage;
 
-use AppBundle\PhotoManipulator\Cache\PhotoCache;
 use AppBundle\PhotoManipulator\PhotoInterface\PhotoInterface;
 use Imagine\Image\ImageInterface;
 use Imagine\Imagick\Imagine;
-use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
-class PhotoStorage
+class PhotoStorage extends AbstractPhotoStorage
 {
-    /** @var UploaderHelper $uploaderHelper */
-    protected $uploaderHelper;
-
-    /** @var PhotoCache $photoCache */
-    protected $photoCache;
-
-    /** @var string $webDirectory */
-    protected $webDirectory;
-
-    public function __construct(UploaderHelper $uploaderHelper, PhotoCache $photoCache, string $webDirectory)
-    {
-        $this->uploaderHelper = $uploaderHelper;
-        $this->webDirectory = $webDirectory;
-        $this->photoCache = $photoCache;
-    }
-
     public function open(PhotoInterface $photo): ImageInterface
     {
         $imagine = new Imagine();

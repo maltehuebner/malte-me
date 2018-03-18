@@ -3,30 +3,11 @@
 namespace AppBundle\PhotoManipulator\Cache;
 
 use AppBundle\PhotoManipulator\PhotoInterface\PhotoInterface;
-use Liip\ImagineBundle\Controller\ImagineController;
-use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Symfony\Component\HttpFoundation\Request;
-use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
-class PhotoCache
+class PhotoCache extends AbstractPhotoCache
 {
-    /** @var UploaderHelper $uploaderHelper */
-    protected $uploaderHelper;
-
-    /** @var CacheManager $cacheManager */
-    protected $cacheManager;
-
-    /** @var ImagineController $imagineController */
-    protected $imagineController;
-
-    public function __construct(UploaderHelper $uploaderHelper, CacheManager $cacheManager, ImagineController $imagineController, string $webDirectory)
-    {
-        $this->uploaderHelper = $uploaderHelper;
-        $this->cacheManager = $cacheManager;
-        $this->imagineController = $imagineController;
-    }
-
-    public function recachePhoto(PhotoInterface $photo): PhotoCache
+    public function recachePhoto(PhotoInterface $photo): PhotoCacheInterface
     {
         $this->clearImageCache($photo);
 
@@ -41,7 +22,7 @@ class PhotoCache
         return $this;
     }
 
-    public function clearImageCache(PhotoInterface $photo): PhotoCache
+    public function clearImageCache(PhotoInterface $photo): PhotoCacheInterface
     {
         $path = $this->uploaderHelper->asset($photo, 'imageFile');
 

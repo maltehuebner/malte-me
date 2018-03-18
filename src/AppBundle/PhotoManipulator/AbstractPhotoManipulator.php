@@ -2,18 +2,11 @@
 
 namespace AppBundle\PhotoManipulator;
 
-use AppBundle\Entity\Photo;
 use AppBundle\PhotoManipulator\PhotoInterface\PhotoInterface;
-use AppBundle\PhotoManipulator\Storage\PhotoStorage;
+use AppBundle\PhotoManipulator\Storage\PhotoStorageInterface;
 use Imagine\Image\ImageInterface;
 use Imagine\Image\ImagineInterface;
-use Imagine\Imagick\Image;
-use Imagine\Imagick\Imagine;
-use Liip\ImagineBundle\Controller\ImagineController;
-use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Symfony\Bridge\Doctrine\RegistryInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 abstract class AbstractPhotoManipulator implements PhotoManipulatorInterface
 {
@@ -29,10 +22,10 @@ abstract class AbstractPhotoManipulator implements PhotoManipulatorInterface
     /** @var RegistryInterface $registry */
     protected $registry;
 
-    /** @var PhotoStorage $photoStorage */
+    /** @var PhotoStorageInterface $photoStorage */
     protected $photoStorage;
 
-    public function __construct(RegistryInterface $registry, PhotoStorage $photoStorage)
+    public function __construct(RegistryInterface $registry, PhotoStorageInterface $photoStorage)
     {
         $this->registry = $registry;
         $this->photoStorage = $photoStorage;

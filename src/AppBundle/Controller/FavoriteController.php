@@ -34,11 +34,8 @@ class FavoriteController extends AbstractController
 
         $em->flush();
 
-        return $this->redirectToRoute(
-            'show_photo',
-            [
-                'slug' => $photo->getSlug()
-            ]
-        );
+        return $this->redirectToRoute('show_photo', [
+            'photoSlug' => $photo->getSlug()
+        ]);
     }
 }

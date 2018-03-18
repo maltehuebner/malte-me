@@ -33,7 +33,7 @@ class UploadController extends AbstractController
 
             if ($photo) {
                 return $this->redirectToRoute('show_photo', [
-                    'slug' => $photo->getSlug(),
+                    'photoSlug' => $photo->getSlug(),
                 ]);
             }
         }

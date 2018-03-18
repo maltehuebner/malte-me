@@ -99,7 +99,7 @@ class FeedController extends AbstractController
 
         $item
             ->title($photo->getTitle())
-            ->url($this->generateUrl('show_photo', ['slug' => $photo->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL))
+            ->url($this->generateUrl('show_photo', ['photoSlug' => $photo->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL))
             ->author($photo->getUser()->getDisplayname())
             ->pubDate($photo->getDisplayDateTime()->format('U'))
             ->preferCdata(true)

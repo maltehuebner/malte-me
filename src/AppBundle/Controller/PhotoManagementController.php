@@ -26,7 +26,7 @@ class PhotoManagementController extends AbstractController
             ->save();
 
         return $this->redirectToRoute('show_photo', [
-            'slug' => $photo->getSlug()
+            'photoSlug' => $photo->getSlug()
         ]);
     }
 

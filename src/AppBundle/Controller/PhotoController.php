@@ -90,7 +90,7 @@ class PhotoController extends AbstractController
 
             $em->flush();
 
-            return $this->redirectToRoute('show_photo', ['slug' => $photo->getSlug()]);
+            return $this->redirectToRoute('show_photo', ['photoSlug' => $photo->getSlug()]);
         }
 
         return $this->render('AppBundle:Photo:edit.html.twig', [
@@ -122,6 +122,6 @@ class PhotoController extends AbstractController
             $em->flush();
         }
 
-        return $this->redirectToRoute('show_photo', ['slug' => $photo->getSlug()]);
+        return $this->redirectToRoute('show_photo', ['photoSlug' => $photo->getSlug()]);
     }
 }

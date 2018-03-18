@@ -36,10 +36,8 @@ class CommentController extends AbstractController
         $em->persist($comment);
         $em->flush();
 
-        return $this->redirectToRoute(
-            'show_photo', [
-                'slug' => $photo->getSlug()
-            ]
-        );
+        return $this->redirectToRoute('show_photo', [
+            'photoSlug' => $photo->getSlug()
+        ]);
     }
 }

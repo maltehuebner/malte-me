@@ -388,7 +388,7 @@ class Photo implements Shareable, PhotoInterface
         return $this->imageFile;
     }
 
-    public function setImageName(string $imageName = null): Photo
+    public function setImageName(string $imageName = null): PhotoInterface
     {
         $this->imageName = $imageName;
 
@@ -500,7 +500,7 @@ class Photo implements Shareable, PhotoInterface
         return $this;
     }
 
-    public function setBackupName(string $backupName): Photo
+    public function setBackupName(string $backupName): PhotoInterface
     {
         $this->backupName = $backupName;
 

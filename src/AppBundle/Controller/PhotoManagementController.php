@@ -70,7 +70,7 @@ class PhotoManagementController extends AbstractController
             return new Response(null);
         }
 
-        $displayWidth = $request->query->get('width');
+        $displayWidth = $request->query->getInt('width');
 
         $newFilename = $photoManipulator
             ->open($photo)

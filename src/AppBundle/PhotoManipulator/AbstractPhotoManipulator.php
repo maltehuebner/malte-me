@@ -34,17 +34,17 @@ abstract class AbstractPhotoManipulator implements PhotoManipulatorInterface
     /** @var CacheManager $cacheManager */
     protected $cacheManager;
 
-    /** @var string $uploadDirectory */
-    protected $uploadDirectory;
+    /** @var string $webDirectory */
+    protected $webDirectory;
 
     /** @var ImagineController $imagineController */
     protected $imagineController;
 
-    public function __construct(RegistryInterface $registry, UploaderHelper $uploaderHelper, CacheManager $cacheManager, ImagineController $imagineController, string $uploadDirectory)
+    public function __construct(RegistryInterface $registry, UploaderHelper $uploaderHelper, CacheManager $cacheManager, ImagineController $imagineController, string $webDirectory)
     {
         $this->registry = $registry;
         $this->uploaderHelper = $uploaderHelper;
-        $this->uploadDirectory = $uploadDirectory;
+        $this->webDirectory = $webDirectory;
         $this->cacheManager = $cacheManager;
         $this->imagineController = $imagineController;
     }
@@ -67,12 +67,12 @@ abstract class AbstractPhotoManipulator implements PhotoManipulatorInterface
     {
         $path = $this->uploaderHelper->asset($this->photo, 'imageFile');
 
-        $filename = sprintf('%s%s', $this->uploadDirectory, $path);
+        $filename = sprintf('%s%s', $this->webDirectory, $path);
 
         return $filename;
     }
 
-    public function save(): PhotoManipulatorInterface
+    public function save(): string
     {
         if (!$this->photo->getBackupName()) {
             $newFilename = uniqid().'.JPG';
@@ -85,9 +85,9 @@ abstract class AbstractPhotoManipulator implements PhotoManipulatorInterface
         }
 
         $filename = $this->getImageFilename();
-        $image->save($filename);
+        $this->image->save($filename);
 
-        $this->recachePhoto($photo);
+        $this->recachePhoto();
 
         return $filename;
     }
@@ -101,11 +101,11 @@ abstract class AbstractPhotoManipulator implements PhotoManipulatorInterface
         return $this;
     }
 
-    protected function recachePhoto(Photo $photo): AbstractPhotoManipulator
+    protected function recachePhoto(): AbstractPhotoManipulator
     {
-        $filename = $this->uploaderHelper->asset($photo, 'imageFile');
+        $this->clearImageCache();
 
-        $this->cacheManager->remove($filename);
+        $filename = $this->uploaderHelper->asset($this->photo, 'imageFile');
 
         $this->imagineController->filterAction(new Request(), $filename, 'standard');
         $this->imagineController->filterAction(new Request(), $filename, 'preview');
@@ -114,7 +114,7 @@ abstract class AbstractPhotoManipulator implements PhotoManipulatorInterface
         return $this;
     }
 
-    protected function clearImageCache(Photo $photo): AbstractPhotoManipulator
+    protected function clearImageCache(): AbstractPhotoManipulator
     {
         $path = $this->uploaderHelper->asset($this->photo, 'imageFile');
 

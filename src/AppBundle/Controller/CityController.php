@@ -36,7 +36,9 @@ class CityController extends CRUDController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var City $city */
             $city = $form->getData();
+            $city->setFacebookPageToken($this->getFacebookPageSecretToken($city->getFacebookPageId(), $user));
 
             $entityManager->flush();
         }
@@ -69,7 +71,9 @@ class CityController extends CRUDController
     {
         $fb = $this->getFacebook();
 
-        $response = $fb->get('/'.$user->getFacebookId().'/accounts', $user->getFacebookAccessToken());
+        $endpoint = sprintf('/%d/accounts', $user->getFacebookId());
+
+        $response = $fb->get($endpoint, $user->getFacebookAccessToken());
 
         $accounts = $response->getGraphEdge();
 
@@ -87,6 +91,17 @@ class CityController extends CRUDController
         }
 
         return $pageList;
+    }
+
+    protected function getFacebookPageSecretToken(string $facebookPageId, UserInterface $user): string
+    {
+        $fb = $this->getFacebook();
+
+        $endpoint = sprintf('/%d?fields=access_token', $facebookPageId);
+        
+        $response = $fb->get($endpoint, $user->getFacebookAccessToken());
+
+        return $response->getGraphNode()->getField('access_token');
     }
 
     protected function getFacebook(): Facebook

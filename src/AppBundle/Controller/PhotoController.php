@@ -8,6 +8,7 @@ use AppBundle\Form\Type\PhotoLocateType;
 use AppBundle\Seo\SeoPage;
 use Malenki\Slug;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -26,6 +27,7 @@ class PhotoController extends AbstractController
 
     /**
      * @ParamConverter("photo", class="AppBundle:Photo")
+     * @Security("is_granted('view', photo)")
      */
     public function viewAction(SeoPage $seoPage, UserInterface $user = null, Photo $photo): Response
     {
@@ -62,13 +64,10 @@ class PhotoController extends AbstractController
 
     /**
      * @ParamConverter("photo", class="AppBundle:Photo")
+     * @Security("is_granted('edit', photo)")
      */
     public function editAction(Request $request, UserInterface $user, Photo $photo): Response
     {
-        if ($photo->getUser() !== $user && !$user->hasRole('ROLE_ADMIN')) {
-            throw $this->createAccessDeniedException();
-        }
-
         $editForm = $this->createForm(PhotoEditType::class, $photo);
 
         $editForm->handleRequest($request);
@@ -101,17 +100,13 @@ class PhotoController extends AbstractController
 
     /**
      * @ParamConverter("photo", class="AppBundle:Photo")
+     * @Security("is_granted('edit', photo)")
      */
     public function locateAction(Request $request, UserInterface $user, Photo $photo): Response
     {
-        if ($photo->getUser() !== $user && !$user->hasRole('ROLE_ADMIN')) {
-            throw $this->createAccessDeniedException();
-        }
-
         $editForm = $this->createForm(PhotoLocateType::class, $photo);
 
         $editForm->handleRequest($request);
-
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();

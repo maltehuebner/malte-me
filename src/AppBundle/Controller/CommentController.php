@@ -13,8 +13,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 class CommentController extends AbstractController
 {
     /**
-     * @Security("has_role('ROLE_USER')")
      * @ParamConverter("photo", class="AppBundle:Photo")
+     * @Security("is_granted('comment', photo)")
      */
     public function addAction(Request $request, UserInterface $user, Photo $photo): Response
     {

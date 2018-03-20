@@ -1,5 +1,21 @@
 {% extends '@SonataAdmin/standard_layout.html.twig' %}
 
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
 {% block sonata_admin_content %}
-    {{ form(form) }}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>
+                    Facebook-Seite für Veröffentlichungen auswählen
+                </h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                {{ form(form) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

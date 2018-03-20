@@ -7,6 +7,7 @@
     <import resource="routing/dropbox.xml" />
     <import resource="routing/facebook.xml" />
     <import resource="routing/photo.xml" />
+    <import resource="routing/photo_share.xml" />
 
     <route id="feed" path="/feed">
         <default key="_controller">AppBundle:Feed:index</default>

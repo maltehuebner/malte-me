@@ -82,12 +82,14 @@
 
 {{ include('AppBundle:Includes:commentModal.html.twig') }}
 {{ include('AppBundle:Includes:locationModal.html.twig') }}
+{{ include('AppBundle:Includes:photo_share_modal.html.twig') }}
 
 {% endblock %}
 
 {% block additionalFooterElements %}
     <script type="text/javascript">
         Fahrradstadt.loadModule('LocationBox', '#location-modal', { city: '{{ getCity().name }}'} );
+        Fahrradstadt.loadModule('PhotoShareBox', '#photo-share-modal', { city: '{{ getCity().name }}'} );
         Fahrradstadt.loadModule('CommentBox');
         Fahrradstadt.loadModule('FavoriteStar');
         Fahrradstadt.loadModule('Share');

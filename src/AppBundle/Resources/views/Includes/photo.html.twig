@@ -98,7 +98,7 @@
                     </span>
                     {% if is_granted('shareFacebook', photo) %}
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ path('facebook_post', { photoId: photo.id }) }}">
+                    <a class="dropdown-item" data-toggle="modal" data-target="#photo-share-modal" data-network="facebook">
                         <i class="fa fa-facebook" aria-hidden="true"></i>
                         auf Facebook veröffentlichen
                     </a>

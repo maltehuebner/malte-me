@@ -13,14 +13,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
-class FacebookController extends Controller
+class PhotoShareController extends Controller
 {
     /**
      * @ParamConverter("city", class="AppBundle:City")
      * @ParamConverter("photo", class="AppBundle:Photo")
      */
-    public function postAction(City $city, Photo $photo, UserInterface $user, LoggerInterface $logger): Response
+    public function facebookAction(City $city, Photo $photo, UserInterface $user, LoggerInterface $logger): Response
     {
+        echo 'WEGWFWEG';die;
         $fb = $this->getFacebook();
 
         $linkData = [

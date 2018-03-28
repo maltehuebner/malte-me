@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -79,6 +80,18 @@ class CityAdmin extends AbstractAdmin
             ->addIdentifier('title')
             ->add('name')
             ->add('hostname')
+            ->add('_action', null, [
+                'actions' => [
+                    'facebookPage' => [
+                        'template' => '@App/City/list__action_facebook_page.html.twig'
+                    ]
+                ]
+            ])
         ;
+    }
+
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection->add('facebookPage', $this->getRouterIdParameter().'/facebook-page');
     }
 }

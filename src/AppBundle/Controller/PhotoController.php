@@ -5,36 +5,32 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Photo;
 use AppBundle\Form\Type\PhotoEditType;
 use AppBundle\Form\Type\PhotoLocateType;
+use AppBundle\Seo\SeoPage;
 use Malenki\Slug;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class PhotoController extends AbstractController
 {
-    public function embedAction(Request $request, int $id): Response
+    /**
+     * @ParamConverter("photo", class="AppBundle:Photo")
+     */
+    public function embedAction(Photo $photo): Response
     {
-        /** @var Photo $photo */
-        $photo = $this->getDoctrine()->getRepository(Photo::class)->find($id);
-
-        if (!$photo) {
-            throw $this->createNotFoundException();
-        }
-
         return $this->render('AppBundle:Photo:embed.html.twig', [
             'photo' => $photo,
         ]);
     }
 
-    public function viewAction(Request $request, UserInterface $user = null, string $slug): Response
+    /**
+     * @ParamConverter("photo", class="AppBundle:Photo")
+     * @Security("is_granted('view', photo)")
+     */
+    public function viewAction(SeoPage $seoPage, UserInterface $user = null, Photo $photo): Response
     {
-        /** @var Photo $photo */
-        $photo = $this->getDoctrine()->getRepository('AppBundle:Photo')->findOneBySlug($slug);
-
-        if (!$photo) {
-            throw $this->createNotFoundException();
-        }
-
         $comments = $this->getDoctrine()->getRepository('AppBundle:Comment')->findForPhoto($photo);
 
         $userFavorites = [];
@@ -48,16 +44,12 @@ class PhotoController extends AbstractController
         }
 
         if ($photo->getEnabled()) {
-            $this->getSeoPage()
+            $seoPage
                 ->setTitle($photo->getTitle())
-                ->setPreviewPhoto($photo)
-            ;
+                ->setPreviewPhoto($photo);
 
             if ($photo->getDescription()) {
-                $this
-                    ->getSeoPage()
-                    ->setDescription($photo->getDescription())
-                ;
+                $seoPage->setDescription($photo->getDescription());
             }
         }
 
@@ -70,19 +62,12 @@ class PhotoController extends AbstractController
         ]);
     }
 
-    public function editAction(Request $request, UserInterface $user, int $photoId): Response
+    /**
+     * @ParamConverter("photo", class="AppBundle:Photo")
+     * @Security("is_granted('edit', photo)")
+     */
+    public function editAction(Request $request, UserInterface $user, Photo $photo): Response
     {
-        /** @var Photo $photo */
-        $photo = $this->getDoctrine()->getRepository('AppBundle:Photo')->find($photoId);
-
-        if (!$photo) {
-            throw $this->createNotFoundException();
-        }
-
-        if ($photo->getUser() !== $user && !$user->hasRole('ROLE_ADMIN')) {
-            throw $this->createAccessDeniedException();
-        }
-
         $editForm = $this->createForm(PhotoEditType::class, $photo);
 
         $editForm->handleRequest($request);
@@ -94,15 +79,17 @@ class PhotoController extends AbstractController
             $photo = $editForm->getData();
 
             if ($photo->getImported()) {
+                $slug = new Slug($photo->getTitle().' '.$photo->getId());
+
                 $photo
-                    ->setSlug(new Slug($photo->getTitle().' '.$photo->getId()))
+                    ->setSlug($slug->render())
                     ->setEnabled(true)
                 ;
             }
 
             $em->flush();
 
-            return $this->redirectToRoute('show_photo', ['slug' => $photo->getSlug()]);
+            return $this->redirectToRoute('show_photo', ['photoSlug' => $photo->getSlug()]);
         }
 
         return $this->render('AppBundle:Photo:edit.html.twig', [
@@ -111,23 +98,15 @@ class PhotoController extends AbstractController
         ]);
     }
 
-    public function locateAction(Request $request, UserInterface $user, int $photoId): Response
+    /**
+     * @ParamConverter("photo", class="AppBundle:Photo")
+     * @Security("is_granted('edit', photo)")
+     */
+    public function locateAction(Request $request, UserInterface $user, Photo $photo): Response
     {
-        /** @var Photo $photo */
-        $photo = $this->getDoctrine()->getRepository('AppBundle:Photo')->find($photoId);
-
-        if (!$photo) {
-            throw $this->createNotFoundException();
-        }
-
-        if ($photo->getUser() !== $user && !$user->hasRole('ROLE_ADMIN')) {
-            throw $this->createAccessDeniedException();
-        }
-
         $editForm = $this->createForm(PhotoLocateType::class, $photo);
 
         $editForm->handleRequest($request);
-
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -138,6 +117,6 @@ class PhotoController extends AbstractController
             $em->flush();
         }
 
-        return $this->redirectToRoute('show_photo', ['slug' => $photo->getSlug()]);
+        return $this->redirectToRoute('show_photo', ['photoSlug' => $photo->getSlug()]);
     }
 }

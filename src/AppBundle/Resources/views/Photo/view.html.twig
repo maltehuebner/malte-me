@@ -23,13 +23,13 @@
             <div class="row mt-4">
                 <div class="col-12">
                     {% if previousPhoto %}
-                    <a id="button-previous-photo" class="btn btn-primary float-left" href="{{ path('show_photo', { slug: previousPhoto.slug }) }}">
+                    <a id="button-previous-photo" class="btn btn-primary float-left" href="{{ path('show_photo', { photoSlug: previousPhoto.slug }) }}">
                         zurück
                     </a>
                     {% endif %}
 
                     {% if nextPhoto %}
-                    <a id="button-next-photo" class="btn btn-primary float-right" href="{{ path('show_photo', { slug: nextPhoto.slug }) }}">
+                    <a id="button-next-photo" class="btn btn-primary float-right" href="{{ path('show_photo', { photoSlug: nextPhoto.slug }) }}">
                         weiter
                     </a>
                     {% endif %}
@@ -82,12 +82,14 @@
 
 {{ include('AppBundle:Includes:commentModal.html.twig') }}
 {{ include('AppBundle:Includes:locationModal.html.twig') }}
+{{ include('AppBundle:Includes:photo_share_modal.html.twig') }}
 
 {% endblock %}
 
 {% block additionalFooterElements %}
     <script type="text/javascript">
         Fahrradstadt.loadModule('LocationBox', '#location-modal', { city: '{{ getCity().name }}'} );
+        Fahrradstadt.loadModule('PhotoShareBox', '#photo-share-modal', { city: '{{ getCity().name }}'} );
         Fahrradstadt.loadModule('CommentBox');
         Fahrradstadt.loadModule('FavoriteStar');
         Fahrradstadt.loadModule('Share');

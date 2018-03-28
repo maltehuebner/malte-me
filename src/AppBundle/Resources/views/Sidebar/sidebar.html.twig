@@ -73,7 +73,7 @@
             <ul>
                 {% for comment in commentList %}
                     <li>
-                        <a href="{{ path('show_photo', { slug: comment.photo.slug }) }}#comments">
+                        <a href="{{ path('show_photo', { photoSlug: comment.photo.slug }) }}#comments">
                             {{ comment.user.username }} bei {{ comment.photo.title }}
                         </a>
                     </li>
@@ -93,7 +93,7 @@
             <ul>
                 {% for favourite in favouriteList %}
                     <li>
-                        <a href="{{ path('show_photo', { slug: favourite.photo.slug }) }}#comments">
+                        <a href="{{ path('show_photo', { photoSlug: favourite.photo.slug }) }}#comments">
                             {{ favourite.user.username }} bei {{ favourite.photo.title }}
                         </a>
                     </li>
@@ -103,10 +103,10 @@
     </div>
     {% endif %}
 
-    {% include 'AppBundle:Sidebar/Widget:criticalmass_widget.html.twig' %}
-    {% include 'AppBundle:Sidebar/Widget:luft_widget.html.twig' %}
-    {% include 'AppBundle:Sidebar/Widget:calendar_widget.html.twig' %}
-    {% include 'AppBundle:Sidebar/Widget:weather_widget.html.twig' %}
+    {{ render(controller('AppBundle\\Controller\\SidebarController::criticalmassWidgetAction', {city: getCity()})) }}
+    {{ render(controller('AppBundle\\Controller\\SidebarController::calendarWidgetAction')) }}
+    {{ render(controller('AppBundle\\Controller\\SidebarController::luftWidgetAction', {city: getCity()})) }}
+    {{ render(controller('AppBundle\\Controller\\SidebarController::weatherWidgetAction', {city: getCity()})) }}
 </aside>
 
 <div id="sidebar-button" title="Sidebar öffnen" class="d-block d-md-none">

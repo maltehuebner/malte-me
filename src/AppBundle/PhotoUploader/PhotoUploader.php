@@ -5,11 +5,9 @@ namespace AppBundle\PhotoUploader;
 use AppBundle\Entity\City;
 use AppBundle\Entity\Photo;
 use AppBundle\Entity\User;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Malenki\Slug;
 use PHPExif\Reader\Reader;
-use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
@@ -21,7 +19,7 @@ class PhotoUploader
     protected $mailer;
     protected $session;
 
-    public function __construct(EntityManager $entityManager, UploaderHelper $uploaderHelper, string $kernelRootDir, \Swift_Mailer $mailer, Session $session)
+    public function __construct(EntityManagerInterface $entityManager, UploaderHelper $uploaderHelper, string $kernelRootDir, \Swift_Mailer $mailer, Session $session)
     {
         $this->entityManager = $entityManager;
         $this->uploaderHelper = $uploaderHelper;
@@ -97,7 +95,9 @@ class PhotoUploader
 
     protected function createSlug(Photo $photo): string
     {
-        return new Slug($photo->getTitle().' '.$photo->getId());
+        $slug = new Slug($photo->getTitle().' '.$photo->getId());
+
+        return $slug->render();
     }
 
     protected function notifyModerator(): void

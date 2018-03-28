@@ -11,7 +11,7 @@
 {% endif %}
 
 <div class="card photo{% if photo.location %} has-location{% endif %}{% if not photo.enabled %} card-outline-danger{% endif %}" data-photo-id="{{ photo.id }}" data-latitude="{{ photo.latitude }}" data-longitude="{{ photo.longitude }}" data-location="{{ photo.location }}">
-    <a href="{{ path('show_photo', { slug: photo.slug }) }}"{% if embed %} target="_blank"{% endif %}>
+    <a href="{{ path('show_photo', { photoSlug: photo.slug }) }}"{% if embed %} target="_blank"{% endif %}>
         <img id="photo-{{ photo.id }}" class="img-fluid card-img-top" src="{{ vich_uploader_asset(photo, 'imageFile')|imagine_filter('standard') }}" alt="{{ photo.title }}" />
     </a>
 
@@ -36,7 +36,7 @@
         {% endif %}
 
         {% if photo.title %}
-        <a href="{{ path('show_photo', { slug: photo.slug }) }}"{% if embed %} target="_blank"{% endif %}>
+        <a href="{{ path('show_photo', { photoSlug: photo.slug }) }}"{% if embed %} target="_blank"{% endif %}>
             <h4 class="card-title">
                 {{ photo.title }}
             </h4>
@@ -96,6 +96,14 @@
                         <i class="fa fa-map-pin" aria-hidden="true"></i>
                         Ort festlegen
                     </span>
+                    {% if is_granted('shareFacebook', photo) %}
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" data-toggle="modal" data-target="#photo-share-modal" data-network="facebook">
+                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                        auf Facebook veröffentlichen
+                    </a>
+                    {% endif %}
+
                 </div>
             </div>
             {% endif %}
@@ -141,7 +149,7 @@
             </a>
 
             <div class="btn-group btn-group-sm">
-                <a href="{{ path('show_photo', { slug: photo.slug }) }}#comments" class="btn btn-outline-secondary">
+                <a href="{{ path('show_photo', { photoSlug: photo.slug }) }}#comments" class="btn btn-outline-secondary">
                     <i class="fa fa-comment" aria-hidden="true"></i>
                     {{ photo.comments|length }}
                 </a>

@@ -4,6 +4,7 @@ namespace AppBundle\Command;
 
 use AppBundle\BikeMeter\DataFetcher;
 use AppBundle\BikeMeter\DataParser;
+use AppBundle\BikeMeter\DataPersister;
 use AppBundle\Entity\BikeMeter;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Component\Console\Command\Command;
@@ -18,14 +19,17 @@ class BikeMeterCommand extends Command
     /** @var DataParser $dataParser */
     protected $dataParser;
 
+    /** @var DataPersister $dataPersister */
+    protected $dataPersister;
+
     /** @var Registry $registry */
     protected $registry;
 
-    public function __construct(?string $name = null, DataFetcher $dataFetcher, DataParser $dataParser, Registry $registry)
+    public function __construct(?string $name = null, DataFetcher $dataFetcher, DataParser $dataParser, DataPersister $dataPersister, Registry $registry)
     {
         $this->dataFetcher = $dataFetcher;
-
         $this->dataParser = $dataParser;
+        $this->dataPersister = $dataPersister;
 
         $this->registry = $registry;
 
@@ -52,12 +56,6 @@ class BikeMeterCommand extends Command
             ->parse()
             ->getDataList();
 
-        $em = $this->registry->getManager();
-
-        foreach ($list as $item) {
-            $em->persist($item);
-        }
-
-        $em->flush();
+        $this->dataPersister->setBikeMeter($bikeMeter)->setDataList($list)->save();
     }
 }

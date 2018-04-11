@@ -28,4 +28,23 @@ class BikeMeterDataRepository extends EntityRepository
 
         return intval($query->getSingleScalarResult());
     }
+
+    public function findBetween(BikeMeter $bikeMeter, \DateTime $beginDateTime, \DateTime $endDateTime): array
+    {
+        $qb = $this->createQueryBuilder('bmd');
+
+        $qb
+            ->where($qb->expr()->gte('bmd.dateTime', ':beginDateTime'))
+            ->setParameter('beginDateTime', $beginDateTime)
+            ->andWhere($qb->expr()->lte('bmd.dateTime', ':endDateTime'))
+            ->setParameter('endDateTime', $endDateTime)
+            ->andWhere($qb->expr()->eq('bmd.meter', ':meter'))
+            ->setParameter('meter', $bikeMeter);
+
+        $query = $qb->getQuery();
+
+        return $query->getResult();
+    }
+
+
 }

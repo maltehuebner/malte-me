@@ -2,6 +2,7 @@
 
 namespace AppBundle\BikeMeter;
 
+use AppBundle\Entity\BikeMeter;
 use AppBundle\Entity\BikeMeterData;
 use SimpleXMLElement;
 
@@ -12,6 +13,31 @@ class DataParser
 
     /** @var array $dataList */
     protected $dataList = [];
+
+    /** @var BikeMeter $bikeMeter */
+    protected $bikeMeter;
+
+    /** @var \DateTimeZone $timezone */
+    protected $timezone;
+
+    public function __construct()
+    {
+
+    }
+
+    public function setBikeMeter(BikeMeter $bikeMeter): DataParser
+    {
+        $this->bikeMeter = $bikeMeter;
+
+        return $this;
+    }
+
+    public function setTimezone(\DateTimeZone $timezone): DataParser
+    {
+        $this->timezone = $timezone;
+
+        return $this;
+    }
 
     public function setXmlRootElement(SimpleXMLElement $element): DataParser
     {
@@ -43,10 +69,11 @@ class DataParser
             list($date, $time, $value) = explode(',', $data);
 
             $dateTimeSpec = sprintf('%s %s', $date, $time);
-            $dateTime = new \DateTime($dateTimeSpec);
+            $dateTime = new \DateTime($dateTimeSpec, $this->timezone);
 
             $data = new BikeMeterData();
             $data
+                ->setMeter($this->bikeMeter)
                 ->setDateTime($dateTime)
                 ->setValue(intval($value));
 

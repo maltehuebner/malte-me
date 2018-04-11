@@ -13,6 +13,6 @@ class BikeMeterDataModel implements WidgetDataInterface
 
     public function getIdentifier(): string
     {
-        return 'calendar';
+        return 'bike_meter';
     }
 }

@@ -70,7 +70,7 @@ class SidebarController extends AbstractController
 
     public function bikeMeterWidgetAction(BikeMeterWidget $bikeMeterWidget): ?Response
     {
-        return $this->render('AppBundle:Sidebar/Widget:weather_widget.html.twig', [
+        return $this->render('AppBundle:Sidebar/Widget:bikemeter_widget.html.twig', [
             'bikeMeter' => $bikeMeterWidget->render(),
         ]);
     }

@@ -37,6 +37,11 @@ class BikeMeterCommand extends Command
     {
         $this->dataFetcher->fetch();
 
-        $this->dataParser->setXmlRootElement($this->dataFetcher->getXmlRootElement());
+        $list = $this->dataParser
+            ->setXmlRootElement($this->dataFetcher->getXmlRootElement())
+            ->parse()
+            ->getDataList();
+
+        var_dump($list);
     }
 }

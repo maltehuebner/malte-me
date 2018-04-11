@@ -23,7 +23,7 @@ class WeatherModel implements WidgetDataInterface
     protected $windDirection;
 
     /** @var string */
-    protected $clounds;
+    protected $clouds;
 
     /** @var string */
     protected $weather;
@@ -88,14 +88,14 @@ class WeatherModel implements WidgetDataInterface
         return $this;
     }
 
-    public function getClounds(): ?string
+    public function getClouds(): ?string
     {
-        return $this->clounds;
+        return $this->clouds;
     }
 
-     public function setClounds(string $clounds = null): WeatherModel
+     public function setClouds(string $clouds = null): WeatherModel
     {
-        $this->clounds = $clounds;
+        $this->clouds = $clouds;
 
         return $this;
     }

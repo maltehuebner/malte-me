@@ -5,12 +5,33 @@
                 Fahrrad-O-Meter
             </h4>
             <p class="card-text">
-                Aktuelle Daten von der Gurlittinsel
-            </p>
-
-            <p class="h5">
-                {{ bikeMeter.value|number_format(0, ',', '.') }}
+                Verkehrsdaten von der Gurlittinsel
             </p>
         </div>
+
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <p>
+                        Heute:
+                    </p>
+                    <p class="h5">
+                        {{ bikeMeter.todaySum|number_format(0, ',', '.') }}
+                    </p>
+                </div>
+            </li>
+
+            <li class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <p>
+                        Gestern:
+                    </p>
+
+                    <p class="h5">
+                        {{ bikeMeter.yesterDaySum|number_format(0, ',', '.') }}
+                    </p>
+                </div>
+            </li>
+        </ul>
     </div>
 {% endif %}

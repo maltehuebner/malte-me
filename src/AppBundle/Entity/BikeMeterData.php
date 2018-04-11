@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="bike_meter_data")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\BikeMeterDataRepository")
  */
 class BikeMeterData
 {

@@ -19,11 +19,11 @@ class WeatherModel implements WidgetDataInterface
     /** @var float */
     protected $windSpeed;
 
-    /** @var string */
+    /** @var float */
     protected $windDirection;
 
-    /** @var string */
-    protected $clounds;
+    /** @var float */
+    protected $clouds;
 
     /** @var string */
     protected $weather;
@@ -76,26 +76,26 @@ class WeatherModel implements WidgetDataInterface
         return $this;
     }
 
-    public function getWindDirection(): ?string
+    public function getWindDirection(): ?float
     {
         return $this->windDirection;
     }
 
-    public function setWindDirection(string $windDirection = null): WeatherModel
+    public function setWindDirection(float $windDirection = null): WeatherModel
     {
         $this->windDirection = $windDirection;
 
         return $this;
     }
 
-    public function getClounds(): ?string
+    public function getClouds(): ?float
     {
-        return $this->clounds;
+        return $this->clouds;
     }
 
-     public function setClounds(string $clounds = null): WeatherModel
+     public function setClouds(float $clouds = null): WeatherModel
     {
-        $this->clounds = $clounds;
+        $this->clouds = $clouds;
 
         return $this;
     }

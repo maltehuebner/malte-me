@@ -6,6 +6,7 @@ use AppBundle\Entity\City;
 use AppBundle\Entity\Comment;
 use AppBundle\Entity\Favorite;
 use AppBundle\Entity\Photo;
+use AppBundle\Widget\BikeMeterWidget\BikeMeterWidget;
 use AppBundle\Widget\CalendarWidget\CalendarWidget;
 use AppBundle\Widget\CriticalmassWidget\CriticalmassWidget;
 use AppBundle\Widget\LuftWidget\LuftWidget;
@@ -61,9 +62,16 @@ class SidebarController extends AbstractController
     public function weatherWidgetAction(City $city, WeatherWidget $weatherWidget): ?Response
     {
         $weatherWidget->setCity($city);
-        
+
         return $this->render('AppBundle:Sidebar/Widget:weather_widget.html.twig', [
             'weather' => $weatherWidget->render(),
+        ]);
+    }
+
+    public function bikeMeterWidgetAction(BikeMeterWidget $bikeMeterWidget): ?Response
+    {
+        return $this->render('AppBundle:Sidebar/Widget:bikemeter_widget.html.twig', [
+            'bikeMeter' => $bikeMeterWidget->render(),
         ]);
     }
 }

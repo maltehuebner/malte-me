@@ -107,6 +107,7 @@
     {{ render(controller('AppBundle\\Controller\\SidebarController::calendarWidgetAction')) }}
     {{ render(controller('AppBundle\\Controller\\SidebarController::luftWidgetAction', {city: getCity()})) }}
     {{ render(controller('AppBundle\\Controller\\SidebarController::weatherWidgetAction', {city: getCity()})) }}
+    {{ render(controller('AppBundle\\Controller\\SidebarController::bikeMeterWidgetAction')) }}
 </aside>
 
 <div id="sidebar-button" title="Sidebar öffnen" class="d-block d-md-none">

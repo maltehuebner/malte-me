@@ -1,0 +1,57 @@
+{% if bikeMeter is defined %}
+    <div class="card mt-2">
+        <div class="card-body text-center">
+            <h4 class="card-title">
+                Fahrrad-O-Meter
+            </h4>
+            <p class="card-text">
+                Verkehrsdaten von der Gurlittinsel
+            </p>
+        </div>
+
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <p>
+                        Gestern:
+                    </p>
+                    <p class="h5">
+                        {{ bikeMeter.yesterdaySum|number_format(0, ',', '.') }}
+                    </p>
+                </div>
+            </li>
+
+            <li class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <p>
+                        Vorgestern:
+                    </p>
+
+                    <p class="h5">
+                        {{ bikeMeter.daybeforeyesterdaySum|number_format(0, ',', '.') }}
+                    </p>
+                </div>
+            </li>
+
+            <li class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <p>
+                        seit 10. April 2018:
+                    </p>
+
+                    <p class="h5">
+                        {{ bikeMeter.sum|number_format(0, ',', '.') }}
+                    </p>
+                </div>
+            </li>
+        </ul>
+
+        <div class="card-body text-center">
+            <small>
+                Daten lizensiert unter <a href="https://www.govdata.de/dl-de/by-2-0">dl-de-by-2.0</a>
+                <br />
+                Quelle: Freie und Hansestadt Hamburg, Behörde für Wirtschaft, Verkehr und Innovation
+            </small>
+        </div>
+    </div>
+{% endif %}

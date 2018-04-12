@@ -26,6 +26,8 @@ class BikeMeterWidgetFactory extends AbstractWidgetFactory
         $daybeforeyesterday = $today->sub(new \DateInterval('P1D'));
         $model->setDaybeforeyesterdaySum($repository->sumForDay($bikeMeter, $daybeforeyesterday));
 
+        $model->setSum($repository->sum($bikeMeter));
+
         $this->cacheData($model);
 
         return $this;

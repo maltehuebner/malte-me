@@ -29,6 +29,20 @@ class BikeMeterDataRepository extends EntityRepository
         return intval($query->getSingleScalarResult());
     }
 
+    public function sum(BikeMeter $bikeMeter): int
+    {
+        $qb = $this->createQueryBuilder('bmd');
+
+        $qb
+            ->select('SUM(bmd.value) AS bikeMeterValue')
+            ->where($qb->expr()->eq('bmd.meter', ':meter'))
+            ->setParameter('meter', $bikeMeter);
+
+        $query = $qb->getQuery();
+
+        return intval($query->getSingleScalarResult());
+    }
+
     public function findBetween(BikeMeter $bikeMeter, \DateTime $beginDateTime, \DateTime $endDateTime): array
     {
         $qb = $this->createQueryBuilder('bmd');

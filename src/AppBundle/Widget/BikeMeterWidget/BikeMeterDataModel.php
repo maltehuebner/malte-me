@@ -6,6 +6,9 @@ use AppBundle\Widget\WidgetDataInterface;
 
 class BikeMeterDataModel implements WidgetDataInterface
 {
+    /** @var int $sum */
+    protected $sum = 0;
+
     /** @var int $todaySum */
     protected $todaySum = 0;
 
@@ -14,6 +17,18 @@ class BikeMeterDataModel implements WidgetDataInterface
 
     /** @var int $daybeforeyesterdaySum */
     protected $daybeforeyesterdaySum = 0;
+
+    public function setSum(int $sum): BikeMeterDataModel
+    {
+        $this->sum = $sum;
+
+        return $this;
+    }
+
+    public function getSum(): int
+    {
+        return $this->sum;
+    }
 
     public function setTodaySum(int $todaySum): BikeMeterDataModel
     {

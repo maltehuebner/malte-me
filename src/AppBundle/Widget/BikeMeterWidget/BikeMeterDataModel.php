@@ -12,6 +12,9 @@ class BikeMeterDataModel implements WidgetDataInterface
     /** @var int $yesterdaySum */
     protected $yesterdaySum = 0;
 
+    /** @var int $daybeforeyesterdaySum */
+    protected $daybeforeyesterdaySum = 0;
+
     public function setTodaySum(int $todaySum): BikeMeterDataModel
     {
         $this->todaySum = $todaySum;
@@ -34,6 +37,18 @@ class BikeMeterDataModel implements WidgetDataInterface
     public function getYesterdaySum(): int
     {
         return $this->yesterdaySum;
+    }
+
+    public function setDaybeforeyesterdaySum(int $daybeforeyesterdaySum): BikeMeterDataModel
+    {
+        $this->daybeforeyesterdaySum = $daybeforeyesterdaySum;
+
+        return $this;
+    }
+
+    public function getDaybeforeyesterdaySum(): int
+    {
+        return $this->daybeforeyesterdaySum;
     }
 
     public function getIdentifier(): string

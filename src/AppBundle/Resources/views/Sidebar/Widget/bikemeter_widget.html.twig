@@ -13,10 +13,10 @@
             <li class="list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-between">
                     <p>
-                        Heute:
+                        Gestern:
                     </p>
                     <p class="h5">
-                        {{ bikeMeter.todaySum|number_format(0, ',', '.') }}
+                        {{ bikeMeter.yesterdaySum|number_format(0, ',', '.') }}
                     </p>
                 </div>
             </li>
@@ -24,11 +24,11 @@
             <li class="list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-between">
                     <p>
-                        Gestern:
+                        Vorgestern:
                     </p>
 
                     <p class="h5">
-                        {{ bikeMeter.yesterDaySum|number_format(0, ',', '.') }}
+                        {{ bikeMeter.daybeforeyesterdaySum|number_format(0, ',', '.') }}
                     </p>
                 </div>
             </li>

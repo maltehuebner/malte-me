@@ -24,7 +24,7 @@ class DataFetcher
     {
         $this->curl->get(self::DATA_SOURCE_URL);
 
-        $this->xmlRootElement = $this->curl->response;
+        $this->xmlRootElement = new SimpleXMLElement($this->curl->response);
 
         return $this;
     }

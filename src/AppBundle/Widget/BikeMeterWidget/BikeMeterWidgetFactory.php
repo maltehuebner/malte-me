@@ -18,13 +18,13 @@ class BikeMeterWidgetFactory extends AbstractWidgetFactory
         $model = new BikeMeterDataModel();
 
         $today = new \DateTime('now', new \DateTimeZone('Europe/Berlin'));
-        $model->setTodaySum($repository->countForDay($bikeMeter, $today));
+        $model->setTodaySum($repository->sumForDay($bikeMeter, $today));
 
         $yesterday = $today->sub(new \DateInterval('P1D'));
-        $model->setYesterdaySum($repository->countForDay($bikeMeter, $yesterday));
+        $model->setYesterdaySum($repository->sumForDay($bikeMeter, $yesterday));
 
         $daybeforeyesterday = $today->sub(new \DateInterval('P1D'));
-        $model->setDaybeforeyesterdaySum($repository->countForDay($bikeMeter, $daybeforeyesterday));
+        $model->setDaybeforeyesterdaySum($repository->sumForDay($bikeMeter, $daybeforeyesterday));
 
         $this->cacheData($model);
 

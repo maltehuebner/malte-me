@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityRepository;
 
 class BikeMeterDataRepository extends EntityRepository
 {
-    public function countForDay(BikeMeter $bikeMeter, \DateTime $dateTime): int
+    public function sumForDay(BikeMeter $bikeMeter, \DateTime $dateTime): int
     {
         $beginDateTime = DateTimeUtil::getDayStartDateTime($dateTime);
         $endDateTime = DateTimeUtil::getDayEndDateTime($dateTime);

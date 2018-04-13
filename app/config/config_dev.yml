@@ -21,7 +21,7 @@ monolog:
         console:
             type:   console
             channels: [!event, !doctrine]
-        gelf:
-            type: service
-            id: monolog.gelf_handler
-            level: error
+#        gelf:
+#            type: service
+#            id: monolog.gelf_handler
+#            level: error

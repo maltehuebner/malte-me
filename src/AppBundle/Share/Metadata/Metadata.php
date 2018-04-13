@@ -169,11 +169,11 @@ class Metadata
         return $shareable->$getMethodName();
     }
 
-    public function setShorturl(Shareable $shareable, string $shorturl): ?string
+    public function setShorturl(Shareable $shareable, string $shorturl): Shareable
     {
         $permalinkPropertyName = $this->getShorturlPropertyName($shareable);
-        $getMethodName = sprintf('set%s', ucfirst($permalinkPropertyName));
+        $setMethodName = sprintf('set%s', ucfirst($permalinkPropertyName));
 
-        return $shareable->$getMethodName($shorturl);
+        return $shareable->$setMethodName($shorturl);
     }
 }

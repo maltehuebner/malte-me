@@ -17,7 +17,7 @@ abstract class AbstractVoter extends Voter
         if ($this->isUserMandatory($canMethodName) && !$user instanceof User) {
             return false;
         } elseif (!$this->isUserMandatory($canMethodName) && !$user instanceof User) {
-            return true;
+            return $this->$canMethodName($subject, null, $user);
         } else {
             return $this->$canMethodName($subject, $user);
         }

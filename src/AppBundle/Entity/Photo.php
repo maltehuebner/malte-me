@@ -66,7 +66,7 @@ class Photo implements Shareable, PhotoInterface
 
     /**
      * @ORM\Column(type="text", length=255, nullable=true)
-     * @Sharing\RouteParameter(name="slug")
+     * @Sharing\RouteParameter(name="photoSlug")
      */
     protected $slug;
 

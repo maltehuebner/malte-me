@@ -7,7 +7,7 @@ use AppBundle\Entity\User;
 
 class PhotoVoter extends AbstractVoter
 {
-    protected function canView(Photo $photo, User $user): bool
+    protected function canView(Photo $photo, User $user = null, string $username = null): bool
     {
         return true;
     }

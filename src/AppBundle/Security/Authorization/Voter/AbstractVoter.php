@@ -12,13 +12,15 @@ abstract class AbstractVoter extends Voter
     {
         $user = $token->getUser();
 
-        if (!$user instanceof User) {
-            return false;
-        }
-
         $canMethodName = $this->getCanMethodName($attribute);
 
-        return $this->$canMethodName($subject, $user);
+        if ($this->isUserMandatory($canMethodName) && !$user instanceof User) {
+            return false;
+        } elseif (!$this->isUserMandatory($canMethodName) && !$user instanceof User) {
+            return $this->$canMethodName($subject, null, $user);
+        } else {
+            return $this->$canMethodName($subject, $user);
+        }
     }
 
     protected function supports($attribute, $subject): bool
@@ -69,5 +71,23 @@ abstract class AbstractVoter extends Voter
     protected function getCanMethodName(string $attribute): string
     {
         return sprintf('can%s', ucfirst(strtolower($attribute)));
+    }
+
+    protected function isUserMandatory(string $methodName): bool
+    {
+        $reflection = new \ReflectionMethod($this, $methodName);
+        $parameters = $reflection->getParameters();
+
+        if (count($parameters) <= 2) {
+            return true;
+        }
+
+        $userParameter = $parameters[1];
+
+        if ($userParameter->getClass()->getName() === User::class) {
+            return !$userParameter->allowsNull();
+        }
+
+        throw new \InvalidArgumentException('There must be a User accepting parameter');
     }
 }

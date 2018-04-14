@@ -78,10 +78,14 @@ abstract class AbstractVoter extends Voter
         $reflection = new \ReflectionMethod($this, $methodName);
         $parameters = $reflection->getParameters();
 
-        foreach ($parameters as $parameter) {
-            if ($parameter->getClass()->getName() === User::class) {
-                return !$parameter->allowsNull();
-            }
+        if (count($parameters) <= 2) {
+            return true;
+        }
+
+        $userParameter = $parameters[1];
+
+        if ($userParameter->getClass()->getName() === User::class) {
+            return !$userParameter->allowsNull();
         }
 
         throw new \InvalidArgumentException('There must be a User accepting parameter');

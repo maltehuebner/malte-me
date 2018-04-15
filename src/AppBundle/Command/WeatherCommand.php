@@ -2,6 +2,7 @@
 
 namespace AppBundle\Command;
 
+use AppBundle\Entity\City;
 use AppBundle\Weather\Retriever\WeatherRetriever;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Component\Console\Command\Command;
@@ -18,7 +19,7 @@ class WeatherCommand extends Command
 
     public function __construct(?string $name = null, WeatherRetriever $weatherRetriever, Registry $registry)
     {
-        $this->dataFetcher = $weatherRetriever;
+        $this->weatherRetriever = $weatherRetriever;
 
         $this->registry = $registry;
 
@@ -34,5 +35,17 @@ class WeatherCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
+        $cityList = $this->registry->getRepository(City::class)->findAll();
+
+        /** @var City $city */
+        foreach ($cityList as $city) {
+            if ($city->getLatitude() && $city->getLongitude()) {
+                $weather = $this->weatherRetriever->setCity($city)->fetch()->getWeatherData();
+
+                $this->registry->getManager()->persist($weather);
+            }
+        }
+
+        $this->registry->getManager()->flush();
     }
 }

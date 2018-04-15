@@ -36,7 +36,7 @@ class WeatherRetriever
         return $this;
     }
 
-    protected function fetch(): WeatherRetriever
+    public function fetch(): WeatherRetriever
     {
         $currentWeather = $this->retrieveWeather();
         $this->weatherData = $this->createWeatherData($currentWeather);
@@ -75,7 +75,8 @@ class WeatherRetriever
             ->setClouds($currentWeather->clouds->getValue())
             ->setWindDirection($currentWeather->wind->direction->getValue())
             ->setWindSpeed($currentWeather->wind->speed->getValue())
-            ->setWeather($currentWeather->weather->description);
+            ->setWeather($currentWeather->weather->description)
+            ->setDateTime($currentWeather->lastUpdate);
 
         return $weatherData;
     }

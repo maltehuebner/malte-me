@@ -56,7 +56,7 @@ class WeatherData
     protected $clouds;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="string")
      * @var string $weather
      */
     protected $weather;

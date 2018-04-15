@@ -2,13 +2,14 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Widget\WeatherWidget\WeatherModel;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="weather_data")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\WeatherDataRepository")
  */
-class WeatherData
+class WeatherData extends WeatherModel
 {
     /**
      * @ORM\Id

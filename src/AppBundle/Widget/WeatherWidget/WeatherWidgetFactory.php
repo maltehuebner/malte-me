@@ -21,7 +21,9 @@ class WeatherWidgetFactory extends AbstractWidgetFactory
 
             $weatherData = $this->doctrine->getRepository(WeatherData::class)->findForCityDay($city);
 
-            $this->cacheData($weatherData);
+            if ($weatherData) {
+                $this->cacheData($weatherData);
+            }
         }
 
         return $this;

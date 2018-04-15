@@ -65,7 +65,7 @@ define(['jquery', 'leaflet', 'leaflet-extramarkers'], function ($) {
         this._map = L.map('location-map').setView(center, 13);
 
         L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            attribution: 'Wikimedia maps beta | Map data &copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
         }).addTo(this._map);
     };
 

@@ -2,11 +2,16 @@
 
 namespace AppBundle\Widget\WeatherWidget;
 
-use AppBundle\Entity\WeatherData;
+use AppBundle\Entity\City;
 use AppBundle\Widget\WidgetDataInterface;
 
-class WeatherModel extends WeatherData implements WidgetDataInterface
+class WeatherModel implements WidgetDataInterface
 {
+    /**
+     * @var City $city
+     */
+    protected $city;
+
     public function getIdentifier(): string
     {
         return sprintf('weather-%s', $this->city->getSlug());

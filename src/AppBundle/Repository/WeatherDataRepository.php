@@ -14,7 +14,7 @@ class WeatherDataRepository extends EntityRepository
         if (!$dateTime) {
             $dateTime = new \DateTime();
         }
-        
+
         $beginDateTime = DateTimeUtil::getDayStartDateTime($dateTime);
         $endDateTime = DateTimeUtil::getDayEndDateTime($dateTime);
 
@@ -27,7 +27,8 @@ class WeatherDataRepository extends EntityRepository
             ->setParameter('endDateTime', $endDateTime)
             ->andWhere($qb->expr()->eq('wd.city', ':city'))
             ->setParameter('city', $city)
-            ->orderBy('wd.dateTime', 'DESC')
+            ->addOrderBy('wd.dateTime', 'DESC')
+            ->addOrderBy('wd.createdAt', 'DESC')
             ->setMaxResults(1);
 
         $query = $qb->getQuery();

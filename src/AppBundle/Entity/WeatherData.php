@@ -57,6 +57,12 @@ class WeatherData extends WeatherModel
     protected $clouds;
 
     /**
+     * @ORM\Column(type="float")
+     * @var float $rain
+     */
+    protected $rain;
+
+    /**
      * @ORM\Column(type="string")
      * @var string $weather
      */
@@ -142,6 +148,18 @@ class WeatherData extends WeatherModel
     public function setTemperaturMax(float $temperaturMax = null): WeatherData
     {
         $this->temperaturMax = $temperaturMax;
+
+        return $this;
+    }
+
+    public function getRain(): ?float
+    {
+        return $this->rain;
+    }
+
+    public function setRain(float $rain): WeatherData
+    {
+        $this->rain = $rain;
 
         return $this;
     }

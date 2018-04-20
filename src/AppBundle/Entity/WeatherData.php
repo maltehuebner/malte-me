@@ -28,15 +28,15 @@ class WeatherData extends WeatherModel
 
     /**
      * @ORM\Column(type="float")
-     * @var float $temperaturMin
+     * @var float $temperaturMine
      */
-    protected $temperaturMin;
+    protected $temperatureMin;
 
     /**
      * @ORM\Column(type="float")
-     * @var float $temperaturMax
+     * @var float $temperatureMax
      */
-    protected $temperaturMax;
+    protected $temperatureMax;
 
     /**
      * @ORM\Column(type="float")
@@ -128,26 +128,26 @@ class WeatherData extends WeatherModel
         return $this;
     }
 
-    public function getTemperaturMin(): ?float
+    public function getTemperatureMin(): ?float
     {
-        return $this->temperaturMin;
+        return $this->temperatureMin;
     }
 
-    public function setTemperaturMin(float $temperaturMin = null): WeatherData
+    public function setTemperatureMin(float $temperatureMin = null): WeatherData
     {
-        $this->temperaturMin = $temperaturMin;
+        $this->temperatureMin = $temperatureMin;
 
         return $this;
     }
 
-    public function getTemperaturMax(): ?float
+    public function getTemperatureMax(): ?float
     {
-        return $this->temperaturMax;
+        return $this->temperatureMax;
     }
 
-    public function setTemperaturMax(float $temperaturMax = null): WeatherData
+    public function setTemperatureMax(float $temperatureMax = null): WeatherData
     {
-        $this->temperaturMax = $temperaturMax;
+        $this->temperatureMax = $temperatureMax;
 
         return $this;
     }

@@ -15,7 +15,7 @@ class Version20180420192313 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE weather_data ADD rain DOUBLE PRECISION NOT NULL');
+        $this->addSql('ALTER TABLE weather_data ADD rain DOUBLE PRECISION DEFAULT NULL');
     }
 
     public function down(Schema $schema)

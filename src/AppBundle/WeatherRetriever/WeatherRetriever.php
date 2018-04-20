@@ -75,6 +75,7 @@ class WeatherRetriever
             ->setClouds($currentWeather->clouds->getValue())
             ->setWindDirection($currentWeather->wind->direction->getValue())
             ->setWindSpeed($currentWeather->wind->speed->getValue())
+            ->setRain($currentWeather->precipitation->getValue())
             ->setWeather($currentWeather->weather->description);
 
         return $weatherData;

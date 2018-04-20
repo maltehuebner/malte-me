@@ -57,7 +57,7 @@ class WeatherData extends WeatherModel
     protected $clouds;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true)
      * @var float $rain
      */
     protected $rain;

@@ -20,6 +20,10 @@
         <default key="_controller">AppBundle:Archive:archive</default>
     </route>
 
+    <route id="statistic" path="/statistic">
+        <default key="_controller">AppBundle:Statistic:index</default>
+    </route>
+
     <route id="invitation" path="/invitation/{code}">
         <default key="_controller">AppBundle:Invitation:invitation</default>
     </route>

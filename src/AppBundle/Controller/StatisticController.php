@@ -14,9 +14,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class StatisticController extends Controller
 {
-    public function bikeMeterAction(Request $request, Registry $registry): Response
+    public function indexAction(Request $request, Registry $registry): Response
     {
-
+        return $this->render('AppBundle:Statistic:index.html.twig');
     }
 
     protected function buildStats(BikeMeter $bikeMeter, Registry $registry, \DateTime $fromDateTime, \DateTime $untilDateTime): array

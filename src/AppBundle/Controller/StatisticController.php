@@ -66,7 +66,7 @@ class StatisticController extends Controller
 
             $statisticModel = new StatisticModel();
             $statisticModel
-                ->setDate($date)
+                ->setDate(clone $date)
                 ->setRain($rain)
                 ->setMaxTemperature($temperatureMax)
                 ->setMinTemperature($temperatureMin)

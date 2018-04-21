@@ -45,7 +45,8 @@
                     {% for stat in statList %}
                         <tr>
                             <td>
-                                {{ stat.date|date('d.m.Y') }}
+                                {{ stat.date|format_date(null, 'de', 'Europe/Berlin', constant('IntlDateFormatter::FULL')) }}
+
                             </td>
 
                             <td>
@@ -61,7 +62,7 @@
                             </td>
 
                             <td>
-                                {{ stat.sum }}
+                                {{ stat.sum|number_format(0, ',', '.') }}
                             </td>
                         </tr>
                     {% endfor %}

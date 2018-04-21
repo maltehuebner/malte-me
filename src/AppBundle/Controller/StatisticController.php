@@ -17,8 +17,9 @@ class StatisticController extends Controller
     public function indexAction(Request $request, Registry $registry): Response
     {
         $fromDateTime = new \DateTime();
-        $fromDateTime->sub(new \DateInterval('P1W'));
+        $fromDateTime->sub(new \DateInterval('P8D'));
         $untilDateTime = new \DateTime();
+        $untilDateTime->sub(new \DateInterval('P1D'));
 
         $bikeMeter = $registry->getRepository(BikeMeter::class)->find(1);
 

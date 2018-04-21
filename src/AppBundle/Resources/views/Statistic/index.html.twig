@@ -9,5 +9,61 @@
             </h1>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Datum
+                        </th>
+
+                        <th>
+                            Tiefsttemperatur
+                        </th>
+
+                        <th>
+                            Höchsttemperatur
+                        </th>
+
+                        <th>
+                            Niederschlag
+                        </th>
+
+                        <th>
+                            Zähler
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for stat in statList %}
+                        <tr>
+                            <td>
+                                {{ stat.date|date('d.m.Y') }}
+                            </td>
+
+                            <td>
+                                {{ stat.minTemperature }} °C
+                            </td>
+
+                            <td>
+                                {{ stat.maxTemperature }} °C
+                            </td>
+
+                            <td>
+                                {{ stat.rain }} mm
+                            </td>
+
+                            <td>
+                                {{ stat.sum }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 {% endblock %}

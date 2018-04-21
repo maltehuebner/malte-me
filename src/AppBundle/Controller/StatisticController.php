@@ -41,6 +41,12 @@ class StatisticController extends Controller
 
             $weatherDataList = $registry->getRepository(WeatherData::class)->findForCityDate($bikeMeter->getCity(), $date);
 
+            if (0 === count($weatherDataList)) {
+                $date->add($day);
+
+                continue;
+            }
+
             $temperatureMin = null;
             $temperatureMax = null;
             $rain = 0.0;
@@ -60,6 +66,7 @@ class StatisticController extends Controller
 
             $statisticModel = new StatisticModel();
             $statisticModel
+                ->setDate($date)
                 ->setRain($rain)
                 ->setMaxTemperature($temperatureMax)
                 ->setMinTemperature($temperatureMin)

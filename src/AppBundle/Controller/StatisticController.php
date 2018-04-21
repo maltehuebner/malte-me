@@ -32,18 +32,18 @@ class StatisticController extends Controller
 
     protected function buildStats(BikeMeter $bikeMeter, Registry $registry, \DateTime $fromDateTime, \DateTime $untilDateTime): array
     {
-        $date = clone $fromDateTime;
+        $date = clone $untilDateTime;
         $day = new \DateInterval('P1D');
 
         $statList = [];
 
-        while ($date <= $untilDateTime) {
+        while ($date >= $fromDateTime) {
             $cyclistSum = $registry->getRepository(BikeMeterData::class)->sumForDay($bikeMeter, $date);
 
             $weatherDataList = $registry->getRepository(WeatherData::class)->findForCityDate($bikeMeter->getCity(), $date);
 
             if (0 === count($weatherDataList)) {
-                $date->add($day);
+                $date->sub($day);
 
                 continue;
             }
@@ -75,7 +75,7 @@ class StatisticController extends Controller
 
             $statList[$date->format('U')] = $statisticModel;
 
-            $date->add($day);
+            $date->sub($day);
         }
 
         return $statList;

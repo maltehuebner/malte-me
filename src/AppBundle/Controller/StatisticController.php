@@ -16,7 +16,17 @@ class StatisticController extends Controller
 {
     public function indexAction(Request $request, Registry $registry): Response
     {
-        return $this->render('AppBundle:Statistic:index.html.twig');
+        $fromDateTime = new \DateTime();
+        $fromDateTime->sub(new \DateInterval('P1W'));
+        $untilDateTime = new \DateTime();
+
+        $bikeMeter = $registry->getRepository(BikeMeter::class)->find(1);
+
+        $statList = $this->buildStats($bikeMeter, $registry, $fromDateTime, $untilDateTime);
+
+        return $this->render('AppBundle:Statistic:index.html.twig', [
+            'statList' => $statList,
+        ]);
     }
 
     protected function buildStats(BikeMeter $bikeMeter, Registry $registry, \DateTime $fromDateTime, \DateTime $untilDateTime): array
@@ -29,7 +39,8 @@ class StatisticController extends Controller
         while ($date <= $untilDateTime) {
             $cyclistSum = $registry->getRepository(BikeMeterData::class)->sumForDay($bikeMeter, $date);
 
-            $weatherDataList = $registry->getRepository(WeatherData::class)->find();
+            $weatherDataList = $registry->getRepository(WeatherData::class)->findForCityDate($bikeMeter->getCity(), $date);
+
             $temperatureMin = null;
             $temperatureMax = null;
             $rain = 0.0;

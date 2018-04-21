@@ -30,6 +30,7 @@ class AppKernel extends Kernel
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new FOS\ElasticaBundle\FOSElasticaBundle(),
             new Http\HttplugBundle\HttplugBundle(),
+            new Sonata\IntlBundle\SonataIntlBundle(),
             new AppBundle\AppBundle(),
             new UserBundle\UserBundle()
         ];

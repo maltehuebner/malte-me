@@ -35,4 +35,26 @@ class WeatherDataRepository extends EntityRepository
 
         return $query->getOneOrNullResult();
     }
+
+    public function findForCityDate(City $city, \DateTime $dateTime): array
+    {
+        $beginDateTime = DateTimeUtil::getDayStartDateTime($dateTime);
+        $endDateTime = DateTimeUtil::getDayEndDateTime($dateTime);
+
+        $qb = $this->createQueryBuilder('wd');
+
+        $qb
+            ->where($qb->expr()->gte('wd.dateTime', ':beginDateTime'))
+            ->setParameter('beginDateTime', $beginDateTime)
+            ->andWhere($qb->expr()->lte('wd.dateTime', ':endDateTime'))
+            ->setParameter('endDateTime', $endDateTime)
+            ->andWhere($qb->expr()->eq('wd.city', ':city'))
+            ->setParameter('city', $city)
+            ->addOrderBy('wd.dateTime', 'DESC')
+            ->addOrderBy('wd.createdAt', 'DESC');
+
+        $query = $qb->getQuery();
+
+        return $query->getResult();
+    }
 }

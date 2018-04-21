@@ -45,7 +45,7 @@ class BikeMeter
         return $this;
     }
 
-    public function getCity(): string
+    public function getCity(): City
     {
         return $this->city;
     }

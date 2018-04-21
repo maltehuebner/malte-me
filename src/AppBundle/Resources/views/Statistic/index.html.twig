@@ -1,0 +1,84 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1>
+                Statistiken
+            </h1>
+
+            <p class="lead">
+                War das schon die Fahrradstadt oder lag’s am Wetter? Hier kannst du das hanseatische Wetter mit den Daten des Fahrradzählers an der Gurlittinsel vergleichen.
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Datum
+                        </th>
+
+                        <th>
+                            Tiefsttemperatur
+                        </th>
+
+                        <th>
+                            Höchsttemperatur
+                        </th>
+
+                        <th>
+                            Niederschlag
+                        </th>
+
+                        <th>
+                            Zähler
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for stat in statList %}
+                        <tr>
+                            <td>
+                                {{ stat.date|format_date(null, 'de', 'Europe/Berlin', constant('IntlDateFormatter::FULL')) }}
+
+                            </td>
+
+                            <td>
+                                {{ stat.minTemperature }} °C
+                            </td>
+
+                            <td>
+                                {{ stat.maxTemperature }} °C
+                            </td>
+
+                            <td>
+                                {{ stat.rain }} mm
+                            </td>
+
+                            <td>
+                                {{ stat.sum|number_format(0, ',', '.') }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-12 text-center">
+            <p>
+                Daten des Fahrradzählers lizensiert unter <a href="https://www.govdata.de/dl-de/by-2-0">dl-de-by-2.0</a>. Quelle: Freie und Hansestadt Hamburg, Behörde für Wirtschaft, Verkehr und Innovation
+                <br />
+                Wetterdaten von <a href="http://openweathermap.org/">OpenWeatherMap</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

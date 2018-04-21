@@ -70,12 +70,13 @@ class WeatherRetriever
 
         $weatherData
             ->setCity($this->city)
-            ->setTemperaturMin($currentWeather->temperature->min->getValue())
-            ->setTemperaturMax($currentWeather->temperature->max->getValue())
+            ->setTemperatureMin($currentWeather->temperature->min->getValue())
+            ->setTemperatureMax($currentWeather->temperature->max->getValue())
             ->setClouds($currentWeather->clouds->getValue())
             ->setWindDirection($currentWeather->wind->direction->getValue())
             ->setWindSpeed($currentWeather->wind->speed->getValue())
             ->setWeather($currentWeather->weather->description)
+            ->setRain($currentWeather->precipitation->getValue())
             ->setDateTime($currentWeather->lastUpdate);
 
         return $weatherData;
